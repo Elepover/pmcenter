@@ -41,14 +41,16 @@ namespace pmcenter {
             while (true) {
                 int SweepCount = 0;
                 List<BanObj> RemoveList = new List<BanObj>();
-                for (int i = 0; i <= Vars.CurrentConf.Banned.Count; i++) {
-                    if (Vars.CurrentConf.Banned[i].BanUntil < DateTime.UtcNow) {
-                        RemoveList.Add(Vars.CurrentConf.Banned[i]);
-                        SweepCount += 1;
+                if (Vars.CurrentConf.Banned.Count > 0) {
+                    for (int i = 0; i <= Vars.CurrentConf.Banned.Count; i++) {
+                        if (Vars.CurrentConf.Banned[i].BanUntil < DateTime.UtcNow) {
+                            RemoveList.Add(Vars.CurrentConf.Banned[i]);
+                            SweepCount += 1;
+                        }
                     }
-                }
-                foreach (BanObj Banned in RemoveList) {
-                    Vars.CurrentConf.Banned.Remove(Banned);
+                    foreach (BanObj Banned in RemoveList) {
+                        Vars.CurrentConf.Banned.Remove(Banned);
+                    }
                 }
                 if (SweepCount != 0) {
                     Log(SweepCount + " banned users have been pardoned.", "SWEEPER");
