@@ -32,6 +32,14 @@ namespace pmcenter {
             public long UID;
             public DateTime BanUntil; // MUST BE UTC TIME.
         }
+        public class RateData {
+            public RateData() {
+                UID = -1;
+                MessageCount = 0;
+            }
+            public long UID;
+            public int MessageCount;
+        }
         /*
          * FUNCTIONS & METHODS. DO NOT PUT ANY CLASSES HERE.
          */

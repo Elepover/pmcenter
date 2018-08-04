@@ -58,11 +58,65 @@ namespace pmcenter {
                 Thread.Sleep(5000);
             }
         }
+        public static void ThrRateLimiter() {
+            Log("Started!", "RATELIMIT");
+            while (true) {
+                foreach (RateData Data in Vars.RateLimits) {
+                    if (Data.MessageCount > 60) {
+                        BanUser(Data.UID);
+                        Log("Banning user: " + Data.UID, "RATELIMIT");
+                    }
+                    Data.MessageCount = 0;
+                }
+                Thread.Sleep(60000);
+            }
+        }
         public static bool IsBanned(long UID) {
             foreach (BanObj Banned in Vars.CurrentConf.Banned) {
                 if (Banned.UID == UID) { return true; }
             }
             return false;
+        }
+        public static void BanUser(long UID) {
+            if (IsBanned(UID) != true) {
+                BanObj Banned = new BanObj();
+                Banned.UID = UID;
+                Vars.CurrentConf.Banned.Add(Banned);
+            }
+        }
+        public static void UnbanUser(long UID) {
+            if (IsBanned(UID)) {
+                Vars.CurrentConf.Banned.Remove(GetBanObjByID(UID));
+            } 
+        }
+        public static BanObj GetBanObjByID(long UID) {
+            foreach (BanObj Banned in Vars.CurrentConf.Banned) {
+                if (Banned.UID == UID) { return Banned; }
+            }
+            return null;
+        }
+        public static bool IsRateDataTracking(long UID) {
+            foreach (RateData Data in Vars.RateLimits) {
+                if (Data.UID == UID) { return true; }
+            }
+            return false;
+        }
+        public static int GetRateDataIDByID(long UID) {
+            foreach (RateData Data in Vars.RateLimits) {
+                if (Data.UID == UID) { return Vars.RateLimits.IndexOf(Data); }
+            }
+            return -1;
+        }
+        public static void AddRateLimit(long UID) {
+            if (IsRateDataTracking(UID)) {
+                int DataID = GetRateDataIDByID(UID);
+                Vars.RateLimits[DataID].MessageCount += 1;
+            } else {
+                RateData Data = new RateData();
+                Data.UID = UID;
+                Data.MessageCount = 1;
+                Vars.RateLimits.Add(Data);
+            }
         }
     }
 }

@@ -27,7 +27,12 @@ namespace pmcenter {
                 BannedSweepper = new Thread(() => ThrBannedSweeper());
                 BannedSweepper.Start();
                 while (BannedSweepper.IsAlive != true) {
-                    Thread.Sleep(100);
+                    Thread.Sleep(500);
+                }
+                RateLimiter = new Thread(() => ThrRateLimiter());
+                RateLimiter.Start();
+                while (RateLimiter.IsAlive != true) {
+                    Thread.Sleep(500);
                 }
 
                 Log("==> Initializing module - BOT");
