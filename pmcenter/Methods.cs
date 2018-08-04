@@ -62,7 +62,7 @@ namespace pmcenter {
             Log("Started!", "RATELIMIT");
             while (true) {
                 foreach (RateData Data in Vars.RateLimits) {
-                    if (Data.MessageCount > 60) {
+                    if (Data.MessageCount > 60 && Vars.CurrentConf.AutoBan) {
                         BanUser(Data.UID);
                         Log("Banning user: " + Data.UID, "RATELIMIT");
                     }
