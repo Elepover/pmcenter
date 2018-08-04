@@ -29,6 +29,7 @@ namespace pmcenter {
                 while (BannedSweepper.IsAlive != true) {
                     Thread.Sleep(500);
                 }
+                Log("Starting RateLimiter...");
                 RateLimiter = new Thread(() => ThrRateLimiter());
                 RateLimiter.Start();
                 while (RateLimiter.IsAlive != true) {

@@ -20,5 +20,6 @@ namespace pmcenter {
         public static Telegram.Bot.Types.User Owner;
         public static TelegramBotClient Bot;
         public static Thread BannedSweepper;
+        public static Thread RateLimiter;
     }
 }
