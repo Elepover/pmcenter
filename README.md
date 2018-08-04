@@ -10,7 +10,9 @@ A telegram bot helping you to process private messages.
 - Git (optional, not needed if you uses the binaries)
 
 For officially supported operating systems, see https://see.wtf/XxTlf
+
 For NOT officially supported operating systems, see https://see.wtf/sIjUZ
+
 For Arch Linux, there's an official package.
 
 ## Build `pmcenter` Yourself
