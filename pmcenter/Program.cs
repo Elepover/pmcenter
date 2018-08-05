@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using static pmcenter.Methods;
 using static pmcenter.Vars;
 using static pmcenter.Conf;
+using static pmcenter.Lang;
 using Telegram.Bot;
 
 namespace pmcenter {
@@ -18,17 +19,14 @@ namespace pmcenter {
         }
         public static async Task MainAsync(string[] args) {
             try {
-                Log("==> Initializing module - CONF");
+                Log("==> Initializing module - CONF"); // BY DEFAULT CONF & LANG ARE NULL! PROCEED BEFORE DOING ANYTHING.
                 InitConf();
                 await ReadConf();
-                
+                InitLang();
+                await ReadLang();
+
+
                 Log("==> Initializing module - THREADS");
-                Log("Starting BannedSweeper...");
-                BannedSweepper = new Thread(() => ThrBannedSweeper());
-                BannedSweepper.Start();
-                while (BannedSweepper.IsAlive != true) {
-                    Thread.Sleep(500);
-                }
                 Log("Starting RateLimiter...");
                 RateLimiter = new Thread(() => ThrRateLimiter());
                 RateLimiter.Start();

@@ -36,28 +36,6 @@ namespace pmcenter {
             Console.WriteLine(Output);
             Console.ForegroundColor = ConsoleColor.White;
         }
-        public static void ThrBannedSweeper() {
-            Log("Started!", "SWEEPPER");
-            while (true) {
-                int SweepCount = 0;
-                List<BanObj> RemoveList = new List<BanObj>();
-                if (Vars.CurrentConf.Banned.Count > 0) {
-                    for (int i = 0; i <= Vars.CurrentConf.Banned.Count; i++) {
-                        if (Vars.CurrentConf.Banned[i].BanUntil < DateTime.UtcNow) {
-                            RemoveList.Add(Vars.CurrentConf.Banned[i]);
-                            SweepCount += 1;
-                        }
-                    }
-                    foreach (BanObj Banned in RemoveList) {
-                        Vars.CurrentConf.Banned.Remove(Banned);
-                    }
-                }
-                if (SweepCount != 0) {
-                    Log(SweepCount + " banned users have been pardoned.", "SWEEPER");
-                }
-                Thread.Sleep(5000);
-            }
-        }
         public static void ThrRateLimiter() {
             Log("Started!", "RATELIMIT");
             while (true) {

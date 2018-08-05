@@ -14,13 +14,11 @@ namespace pmcenter {
             public ConfObj() {
                 APIKey = "";
                 OwnerUID = -1;
-                StartMessage = "📨 *Hi!* To send anything to my owner, just send it here." + Environment.NewLine + "⚠ To be informed: I'll *automatically* ban flooding users.";
                 AutoBan = false;
                 Banned = new List<BanObj>();
             }
             public string APIKey;
             public long OwnerUID;
-            public string StartMessage;
             public bool AutoBan;
             public List<BanObj> Banned;
         }
@@ -54,7 +52,7 @@ namespace pmcenter {
             Writer.Close();
             if (IsInvalid) {
                 Log("We've detected an invalid configurations file and have reset it.", "CONF", LogLevel.WARN);
-                Log("Please reconfigure it and try to start ohmyblog again.", "CONF", LogLevel.WARN);
+                Log("Please reconfigure it and try to start pmcenter again.", "CONF", LogLevel.WARN);
                 Environment.Exit(1);
             }
             return true;
