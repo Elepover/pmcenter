@@ -24,7 +24,10 @@ namespace pmcenter {
                 await ReadConf();
                 InitLang();
                 await ReadLang();
-
+                if (RestartRequired) {
+                    Log("Received restart requirement from settings system. Exiting...", "CORE", LogLevel.ERROR);
+                    Environment.Exit(1);
+                }
 
                 Log("==> Initializing module - THREADS");
                 Log("Starting RateLimiter...");

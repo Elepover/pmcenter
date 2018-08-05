@@ -39,7 +39,7 @@ namespace pmcenter {
             if (IsInvalid) {
                 Log("We've detected an invalid language file and have reset it.", "LANG", LogLevel.WARN);
                 Log("Please reconfigure it and try to start pmcenter again.", "LANG", LogLevel.WARN);
-                Environment.Exit(1);
+                Vars.RestartRequired = true;
             }
             return true;
         }

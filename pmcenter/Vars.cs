@@ -14,6 +14,7 @@ namespace pmcenter {
         public readonly static string ConfFile = Path.Combine(AppDirectory, "pmcenter.json");
         public readonly static string LangFile = Path.Combine(AppDirectory, "pmcenter_locale.json");
 
+        public static bool RestartRequired = false;
         public static Stopwatch StartSW = new Stopwatch();
         public static List<Conf.RateData> RateLimits = new List<Conf.RateData>();
         public static Conf.ConfObj CurrentConf;

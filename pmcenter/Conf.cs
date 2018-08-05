@@ -53,7 +53,7 @@ namespace pmcenter {
             if (IsInvalid) {
                 Log("We've detected an invalid configurations file and have reset it.", "CONF", LogLevel.WARN);
                 Log("Please reconfigure it and try to start pmcenter again.", "CONF", LogLevel.WARN);
-                Environment.Exit(1);
+                Vars.RestartRequired = true;
             }
             return true;
         }
