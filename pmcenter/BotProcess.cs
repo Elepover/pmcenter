@@ -38,7 +38,7 @@ namespace pmcenter {
                             } // not a recogized command.
                         }
                         // Is replying, replying to forwarded message AND not command.
-                        await Vars.Bot.SendTextMessageAsync(e.Update.Message.ReplyToMessage.ForwardFrom.Id, e.Update.Message.Text, ParseMode.Markdown, false, false);
+                        await Vars.Bot.ForwardMessageAsync(e.Update.Message.ReplyToMessage.ForwardFrom.Id, e.Update.Message.Chat.Id, e.Update.Message.MessageId, false);
                         // Process locale.
                         string ReplyToMessage = Vars.CurrentLang.Message_ReplySuccessful;
                         ReplyToMessage = ReplyToMessage.Replace("$1", "[" + e.Update.Message.ReplyToMessage.ForwardFrom.FirstName + " (@" + e.Update.Message.ReplyToMessage.ForwardFrom.Username + ")](tg://user?id=" + e.Update.Message.ReplyToMessage.ForwardFrom.Id + ")");
