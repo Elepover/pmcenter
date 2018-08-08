@@ -1,0 +1,23 @@
+# pmcenter systemd service template.
+# READ THIS BEFORE TAKING ANY ACTION
+# EDIT before applying to your system.
+
+# if you want to start the bot automatically after system reboot, use this command:
+# systemctl enable pmcenter.service
+
+# if you don't know where to put systemd services, google: "systemd service location + your linux distribution"
+
+[Unit]
+Description=pmcenter Bot Daemon
+After=network-online.target
+Wants=network.target
+[Service]
+Type=simple
+# Example: WorkingDirectory=/home/pmcenter
+WorkingDirectory={directory that's containing pmcenter.dll}
+# Example: ExecStart=/usr/bin/dotnet /home/pmcenter/pmcenter.dll
+ExecStart=/usr/bin/dotnet {pmcenter.dll's location}
+KillMode=process
+Restart=always
+[Install]
+WantedBy=multi-user.target
