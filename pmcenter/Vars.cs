@@ -14,7 +14,7 @@ using Telegram.Bot;
 
 namespace pmcenter {
     public class Vars {
-        public readonly static Version AppVer = new Version("1.1.20.80");
+        public readonly static Version AppVer = new Version("1.1.21.81");
         public readonly static string AppExecutable = Assembly.GetExecutingAssembly().Location;
         public readonly static string AppDirectory = (new FileInfo(AppExecutable)).DirectoryName;
         public readonly static string ConfFile = Path.Combine(AppDirectory, "pmcenter.json");

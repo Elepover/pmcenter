@@ -42,20 +42,6 @@ namespace pmcenter {
                                 UnbanUser(e.Update.Message.ReplyToMessage.ForwardFrom.Id);
                                 await Vars.Bot.SendTextMessageAsync(e.Update.Message.From.Id, Vars.CurrentLang.Message_UserPardoned, ParseMode.Markdown, false, false, e.Update.Message.MessageId);
                                 return;
-                            } else if (e.Update.Message.Text.ToLower() == "/ping") {
-                                await Vars.Bot.SendTextMessageAsync(e.Update.Message.From.Id, Vars.CurrentLang.Message_UserPardoned, ParseMode.Markdown, false, false, e.Update.Message.MessageId);
-                                return;
-                            } else if (e.Update.Message.Text.ToLower() == "/emerg") {
-                                Environment.Exit(2);
-                            } else if (e.Update.Message.Text.ToLower() == "/switchfw") {
-                                bool IsPausedNow = Conf.SwitchPaused();
-                                if (IsPausedNow) {
-                                    await Vars.Bot.SendTextMessageAsync(e.Update.Message.From.Id, Vars.CurrentLang.Message_ServicePaused, ParseMode.Markdown, false, false, e.Update.Message.MessageId);
-                                    return;
-                                } else {
-                                    await Vars.Bot.SendTextMessageAsync(e.Update.Message.From.Id, Vars.CurrentLang.Message_ServiceResumed, ParseMode.Markdown, false, false, e.Update.Message.MessageId);
-                                    return;
-                                }
                             } // not a recogized command.
                         }
                         // Is replying, replying to forwarded message AND not command.
@@ -81,8 +67,21 @@ namespace pmcenter {
                         } else if (e.Update.Message.Text.ToLower() == "/help") {
                             await Vars.Bot.SendTextMessageAsync(Vars.CurrentConf.OwnerUID, Vars.CurrentLang.Message_Help, ParseMode.Markdown, false, false, e.Update.Message.MessageId);
                             return;
-                        }
-                        // not a command.
+                        } else if (e.Update.Message.Text.ToLower() == "/ping") {
+                            await Vars.Bot.SendTextMessageAsync(e.Update.Message.From.Id, Vars.CurrentLang.Message_PingReply, ParseMode.Markdown, false, false, e.Update.Message.MessageId);
+                            return;
+                        } else if (e.Update.Message.Text.ToLower() == "/emerg") {
+                            Environment.Exit(2);
+                        } else if (e.Update.Message.Text.ToLower() == "/switchfw") {
+                            bool IsPausedNow = Conf.SwitchPaused();
+                            if (IsPausedNow) {
+                                await Vars.Bot.SendTextMessageAsync(e.Update.Message.From.Id, Vars.CurrentLang.Message_ServicePaused, ParseMode.Markdown, false, false, e.Update.Message.MessageId);
+                                return;
+                            } else {
+                                await Vars.Bot.SendTextMessageAsync(e.Update.Message.From.Id, Vars.CurrentLang.Message_ServiceResumed, ParseMode.Markdown, false, false, e.Update.Message.MessageId);
+                                return;
+                            }
+                        } // not a command.
                     }
                     await Vars.Bot.SendTextMessageAsync(e.Update.Message.From.Id, Vars.CurrentLang.Message_CommandNotReplying, ParseMode.Markdown, false, false, e.Update.Message.MessageId);
                     return;
