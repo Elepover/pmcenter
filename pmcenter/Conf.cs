@@ -33,10 +33,8 @@ namespace pmcenter {
         public class BanObj {
             public BanObj() {
                 UID = -1;
-                BanUntil = DateTime.Now + new TimeSpan(0, 30, 0);
             }
             public long UID;
-            public DateTime BanUntil; // MUST BE UTC TIME.
         }
         public class RateData {
             public RateData() {
