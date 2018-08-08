@@ -57,6 +57,7 @@ During the first run, `pmcenter` will automatically generate the `pmcenter.json`
 | `APIKey` | `String` | Your Telegram bot's API key |
 | `OwnerID` | `Long` | The owner's Telegram user ID |
 | `AutoBan` | `Boolean` | Decides whether the flood-banning feature is enabled or not |
+| `ForwardingPaused` | `Boolean` | Decides whether the message forwarding is enabled or not |
 
 #### `pmcenter` Locales / Translations
 

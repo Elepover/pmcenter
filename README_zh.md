@@ -57,6 +57,7 @@ dotnet pmcenter.dll
 | `APIKey` | `String` | 你的 Telegram 机器人 API 密钥 |
 | `OwnerID` | `Long` | 使用者的 Telegram ID |
 | `AutoBan` | `Boolean` | 是否自动封禁刷屏用户 |
+| `ForwardingPaused` | `Boolean` | 是否启用消息转发 |
 
 #### `pmcenter` 翻译文件
 
