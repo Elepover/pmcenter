@@ -2,20 +2,22 @@
 
 A telegram bot helping you to process private messages.
 
-# Setting Up Your Own `pmcenter`
+## Setting Up Your Own `pmcenter`
 
-## Prerequirements
+Setting up `pmcenter` is not as hard as imagined. The following content will guide you through the installation process.
+
+### Prerequisites
 
 - Microsoft .NET Core (Runtime / SDK)
 - Git (optional, not needed if you uses the binaries)
 
-For officially supported operating systems, see https://see.wtf/XxTlf
+For officially supported operating systems, see [here](https://see.wtf/XxTlf).
 
-For NOT officially supported operating systems, see https://see.wtf/sIjUZ
+For NOT officially supported operating systems, see [here](https://see.wtf/sIjUZ).
 
 For Arch Linux, there's an official package.
 
-## Build `pmcenter` Yourself
+### Build `pmcenter` Yourself
 
 Run this script to clone, build and initiate your own `pmcenter`:
 
@@ -32,7 +34,7 @@ dotnet pmcenter.dll
 
 The compiled binaries will be put in the `pmcenter/build` folder in your working directory.
 
-## Use Pre-compiled Binaries
+### Use Pre-compiled Binaries
 
 Run this script to download and initiate your own `pmcenter`:
 
@@ -44,11 +46,11 @@ unzip pmcenter.zip
 dotnet pmcenter.dll
 ```
 
-## Configuring
+### Configuring
 
 During the first run, `pmcenter` will automatically generate the `pmcenter.json` and `pmcenter_locale.json` file for you. Change the settings to set up.
 
-### `pmcenter` Settings
+#### `pmcenter` Settings
 
 | Key | Type | Description |
 | :---- | :----- | ----:|
@@ -56,7 +58,7 @@ During the first run, `pmcenter` will automatically generate the `pmcenter.json`
 | `OwnerID` | `Long` | The owner's Telegram user ID |
 | `AutoBan` | `Boolean` | Decides whether the flood-banning feature is enabled or not |
 
-### `pmcenter` Locales / Translations
+#### `pmcenter` Locales / Translations
 
 | Key | Appears When |
 | :---- | ----: |
@@ -74,13 +76,13 @@ During the first run, `pmcenter` will automatically generate the `pmcenter.json`
 | `Message_UserServicePaused` | When a user sends a message to bot while the forwarding is **paused**. |
 | `Message_BotStarted` | When the bot is started successfully. |
 
-#### Note
+##### Note
 
 - The `$1` variable in the `Message_ReplySuccessful` and `Message_BotStarted` key could be safely deleted, if you like.
 - **Emojis** are supported, and were used by default.
 - Currently the response of the `/info` command is unchangeable.
 
-## Start
+### Start
 
 After all these, you can start your own `pmcenter` safely by using this command:
 
@@ -88,7 +90,7 @@ After all these, you can start your own `pmcenter` safely by using this command:
 
 You can write a `systemd service` to keep it running, even after the host machine's rebooting.
 
-## Commands
+### Commands
 
 | Command | Available to | Description |
 | :---- | :---- | ----: |

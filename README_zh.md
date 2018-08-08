@@ -2,20 +2,22 @@
 
 一个帮你处理私人聊天消息的 Telegram 机器人。
 
-# 搭建你自己的 `pmcenter` 机器人
+## 搭建你自己的 `pmcenter` 机器人
 
-## 环境要求
+搭建 `pmcenter` 并非想象中的如此艰难，以下教程将指导你完成搭建工作。
+
+### 环境要求
 
 - Microsoft .NET Core (运行时 / SDK)
 - Git (可选，若下载 CI 编译二进制文件则不需要)
 
-对于微软官方支持系统，请看 https://see.wtf/XxTlf
+对于微软官方支持系统，请看[此处](https://see.wtf/XxTlf)；
 
-对于非微软官方支持系统，请看 https://see.wtf/sIjUZ
+对于非微软官方支持系统，请看[此处](https://see.wtf/sIjUZ)；
 
 Arch Linux 可直接安装 `dotnet-runtime` 包。
 
-## 自行编译 `pmcenter`
+### 自行编译 `pmcenter`
 
 运行此脚本来 clone, 编译及运行 `pmcenter`:
 
@@ -32,7 +34,7 @@ dotnet pmcenter.dll
 
 编译好的二进制文件将放在您当前目录中的 `pmcenter/build` 文件夹里。
 
-## 使用 CI 预编译二进制文件
+### 使用 CI 预编译二进制文件
 
 运行此脚本来下载和运行 `pmcenter`:
 
@@ -44,11 +46,11 @@ unzip pmcenter.zip
 dotnet pmcenter.dll
 ```
 
-## 配置
+### 配置
 
 首次启动，`pmcenter` 将自动生成 `pmcenter.json` 和 `pmcenter_locale.json` 文件，修改文件来修改配置。
 
-### `pmcenter` 设置
+#### `pmcenter` 设置
 
 | 项目 | 类型 | 描述 |
 | :---- | :----- | ----:|
@@ -56,7 +58,7 @@ dotnet pmcenter.dll
 | `OwnerID` | `Long` | 使用者的 Telegram ID |
 | `AutoBan` | `Boolean` | 是否自动封禁刷屏用户 |
 
-### `pmcenter` 翻译文件
+#### `pmcenter` 翻译文件
 
 | 项目 | 出现于 |
 | :---- | ----: |
@@ -74,13 +76,13 @@ dotnet pmcenter.dll
 | `Message_UserServicePaused` | 当用户向机器人发送消息而转发已暂停时 |
 | `Message_BotStarted` | 当机器人启动成功时 |
 
-#### 注意事项
+##### 注意事项
 
 - `Message_ReplySuccessful` 及 `Message_BotStarted` 项中的 `$1` 可安全删除。
 - 支持 **Emojis** 且默认启用。
 - 目前 `/info` 命令的回复尚且无法更改。
 
-## 启动
+### 启动
 
 完成上述操作后，可以使用以下命令安全启动 `pmcenter`:
 
@@ -88,7 +90,7 @@ dotnet pmcenter.dll
 
 您也可以编写一个 `systemd 服务` 来保证其在主机重启后仍能保持运行。
 
-## 命令
+### 命令
 
 | 命令 | 可用于 | 描述 |
 | :---- | :---- | ----: |
