@@ -72,8 +72,6 @@ namespace pmcenter {
                         } else if (e.Update.Message.Text.ToLower() == "/ping") {
                             await Vars.Bot.SendTextMessageAsync(e.Update.Message.From.Id, Vars.CurrentLang.Message_PingReply, ParseMode.Markdown, false, false, e.Update.Message.MessageId);
                             return;
-                        } else if (e.Update.Message.Text.ToLower() == "/emerg") {
-                            Environment.Exit(2);
                         } else if (e.Update.Message.Text.ToLower() == "/switchfw") {
                             bool IsPausedNow = Conf.SwitchPaused();
                             await Conf.SaveConf(false, true);

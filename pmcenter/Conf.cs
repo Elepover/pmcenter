@@ -87,7 +87,7 @@ namespace pmcenter {
                     await SaveConf(true); // Then the app will exit, do nothing.
                 }
             }
-            Log("Integrity test PASSED!", "CONF");
+            Log("Integrity test finished!", "CONF");
         }
         /// <summary>
         /// Switch 'forwarding' status, returning current status.

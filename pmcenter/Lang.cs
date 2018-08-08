@@ -80,7 +80,7 @@ namespace pmcenter {
                     await SaveLang(true); // Then the app will exit, do nothing.
                 }
             }
-            Log("Integrity test PASSED!", "LANG");
+            Log("Integrity test finished!", "LANG");
         }
     }
 }
