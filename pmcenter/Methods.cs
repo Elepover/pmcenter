@@ -42,12 +42,13 @@ namespace pmcenter {
             Console.WriteLine(Output);
             Console.ForegroundColor = ConsoleColor.White;
         }
-        public static void ThrRateLimiter() {
+        public static async void ThrRateLimiter() {
             Log("Started!", "RATELIMIT");
             while (true) {
                 foreach (RateData Data in Vars.RateLimits) {
                     if (Data.MessageCount > 60 && Vars.CurrentConf.AutoBan) {
                         BanUser(Data.UID);
+                        await Conf.SaveConf(false, true);
                         Log("Banning user: " + Data.UID, "RATELIMIT");
                     }
                     Data.MessageCount = 0;

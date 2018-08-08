@@ -36,10 +36,12 @@ namespace pmcenter {
                                 return;
                             } else if (e.Update.Message.Text.ToLower() == "/ban") {
                                 BanUser(e.Update.Message.ReplyToMessage.ForwardFrom.Id);
+                                await Conf.SaveConf(false, true);
                                 await Vars.Bot.SendTextMessageAsync(e.Update.Message.From.Id, Vars.CurrentLang.Message_UserBanned, ParseMode.Markdown, false, false, e.Update.Message.MessageId);
                                 return;
                             } else if (e.Update.Message.Text.ToLower() == "/pardon") {
                                 UnbanUser(e.Update.Message.ReplyToMessage.ForwardFrom.Id);
+                                await Conf.SaveConf(false, true);
                                 await Vars.Bot.SendTextMessageAsync(e.Update.Message.From.Id, Vars.CurrentLang.Message_UserPardoned, ParseMode.Markdown, false, false, e.Update.Message.MessageId);
                                 return;
                             } // not a recogized command.
@@ -74,6 +76,7 @@ namespace pmcenter {
                             Environment.Exit(2);
                         } else if (e.Update.Message.Text.ToLower() == "/switchfw") {
                             bool IsPausedNow = Conf.SwitchPaused();
+                            await Conf.SaveConf(false, true);
                             if (IsPausedNow) {
                                 await Vars.Bot.SendTextMessageAsync(e.Update.Message.From.Id, Vars.CurrentLang.Message_ServicePaused, ParseMode.Markdown, false, false, e.Update.Message.MessageId);
                                 return;
