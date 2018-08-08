@@ -68,10 +68,15 @@ During the first run, `pmcenter` will automatically generate the `pmcenter.json`
 | `Message_UserBanned` | When the owner `/ban`s a user. |
 | `Message_UserPardoned` | When the owner `/pardon`s a user. |
 | `Message_UserStartDefault` | When a user sends `/start` to the bot. |
+| `Message_PingReply` | When the owner sends `/ping` to the bot. |
+| `Message_ServicePaused` | When the owner sends `/switchfw` to the bot and message forwarding is **paused**. |
+| `Message_ServiceResumed` | When the owner sends `/switchfw` to the bot and message forwarding is **resumed**. |
+| `Message_UserServicePaused` | When a user sends a message to bot while the forwarding is **paused**. |
+| `Message_BotStarted` | When the bot is started successfully. |
 
 #### Note
 
-- The `$1` variable in the `Message_ReplySuccessful` key could be safely deleted, if you like.
+- The `$1` variable in the `Message_ReplySuccessful` and `Message_BotStarted` key could be safely deleted, if you like.
 - **Emojis** are supported, and were used by default.
 - Currently the response of the `/info` command is unchangeable.
 

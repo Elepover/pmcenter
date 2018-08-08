@@ -68,10 +68,15 @@ dotnet pmcenter.dll
 | `Message_UserBanned` | 当所有者 `/ban` 用户时 |
 | `Message_UserPardoned` | 当所有者 `/pardon` 用户时 |
 | `Message_UserStartDefault` | 当所有者向机器人发送 `/start` 命令时 |
+| `Message_PingReply` | 当所有者向机器人发送 `/ping` 命令时 |
+| `Message_ServicePaused` | 当所有者向机器人发送 `/switchfw` 命令且转发**已暂停**时 |
+| `Message_ServiceResumed` | 当所有者向机器人发送 `/switchfw` 命令且转发**已恢复**时 |
+| `Message_UserServicePaused` | 当用户向机器人发送消息而转发已暂停时 |
+| `Message_BotStarted` | 当机器人启动成功时 |
 
 #### 注意事项
 
-- `Message_ReplySuccessful` 项中的 `$1` 可安全删除。
+- `Message_ReplySuccessful` 及 `Message_BotStarted` 项中的 `$1` 可安全删除。
 - 支持 **Emojis** 且默认启用。
 - 目前 `/info` 命令的回复尚且无法更改。
 
