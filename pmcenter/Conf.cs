@@ -1,3 +1,9 @@
+/*
+// Conf.cs / pmcenter project / https://github.com/Elepover/pmcenter
+// Configuration system of pmcenter.
+// Copyright (C) 2018 Elepover. Licensed under the MIT License.
+*/
+
 using System;
 using System.IO;
 using System.Threading.Tasks;
@@ -16,11 +22,13 @@ namespace pmcenter {
                 OwnerUID = -1;
                 AutoBan = false;
                 Banned = new List<BanObj>();
+                ForwardingPaused = false;
             }
             public string APIKey;
             public long OwnerUID;
             public bool AutoBan;
             public List<BanObj> Banned;
+            public bool ForwardingPaused;
         }
         public class BanObj {
             public BanObj() {
@@ -79,6 +87,19 @@ namespace pmcenter {
                 }
             }
             Log("Integrity test PASSED!", "CONF");
+        }
+        /// <summary>
+        /// Switch 'forwarding' status, returning current status.
+        /// </summary>
+        /// <returns></returns>
+        public static bool SwitchPaused() {
+            if (Vars.CurrentConf.ForwardingPaused) {
+                Vars.CurrentConf.ForwardingPaused = false;
+                return false;
+            } else {
+                Vars.CurrentConf.ForwardingPaused = true;
+                return true;
+            }
         }
     }
 }

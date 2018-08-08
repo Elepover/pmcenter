@@ -1,3 +1,9 @@
+/*
+// Lang.cs / pmcenter project / https://github.com/Elepover/pmcenter
+// Language system of pmcenter.
+// Copyright (C) 2018 Elepover. Licensed under the MIT License.
+*/
+
 using System;
 using System.IO;
 using System.Threading.Tasks;
@@ -11,12 +17,17 @@ namespace pmcenter {
             public Language() {
                 Message_CommandNotReplying = "😶 Don't talk to me, spend time chatting with those who love you.";
                 Message_CommandNotReplyingValidMessage = "😐 Speaking to me makes no sense.";
-                Message_Help = "❓ `pmcenter` *Bot Help*\n/start - Display welcome message.\n/info - Display the message's info.\n/ban - Restrict the user from contacting you.\n/pardon - Pardon the user.\n/help - Display this message.";
+                Message_Help = "❓ `pmcenter` *Bot Help*\n/start - Display welcome message.\n/info - Display the message's info.\n/ban - Restrict the user from contacting you.\n/pardon - Pardon the user.\n/ping - Test if the bot is working.\n/switchfw - Pause/Resume message forwarding.\n/help - Display this message.\n\nThank you for using `pmcenter`!";
                 Message_OwnerStart = "😊 *Hi!* I'm your `pmcenter` bot, and I work just for you.\nThis message means that you've set up the bot successfully.\nTo reply to any forwarded messages, just directly reply to them here.\n\nThank you for using the `pmcenter` bot!";
                 Message_ReplySuccessful = "✅ Successfully replied to user $1!";
                 Message_UserBanned = "🚫 The user has been banned permanently.";
                 Message_UserPardoned = "✅ You've pardoned the user.";
                 Message_UserStartDefault = "📨 *Hi!* To send anything to my owner, just send it here.\n⚠ To be informed: I'll *automatically* ban flooding users.";
+                Message_PingReply = "📶 Pong!";
+                Message_ServicePaused = "📴 Message forwarding has been paused.";
+                Message_ServiceResumed = "📲 Messsage forwarding has been resumed.";
+                Message_UserServicePaused = "🚧 *Sorry...*\nYour messages won't be forwarded to my lord, currently.";
+                Message_BotStarted = "🚀 Bot has started successfully in `$1`!";
             }
             public string Message_OwnerStart {get; set;}
             public string Message_UserStartDefault {get; set;}
@@ -26,6 +37,11 @@ namespace pmcenter {
             public string Message_UserPardoned {get; set;}
             public string Message_CommandNotReplying {get; set;}
             public string Message_CommandNotReplyingValidMessage {get; set;}
+            public string Message_PingReply {get; set;}
+            public string Message_ServicePaused {get; set;}
+            public string Message_ServiceResumed {get; set;}
+            public string Message_UserServicePaused {get; set;}
+            public string Message_BotStarted {get; set;}
         }
         public static string KillIllegalChars(string Input) {
             return Input.Replace("/", "-").Replace("<", "-").Replace(">", "-").Replace(":", "-").Replace("\"", "-").Replace("/", "-").Replace("\\", "-").Replace("|", "-").Replace("?", "-").Replace("*", "-");

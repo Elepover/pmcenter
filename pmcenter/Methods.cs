@@ -1,3 +1,9 @@
+/*
+// Methods.cs / pmcenter project / https://github.com/Elepover/pmcenter
+// Home of complicated processes of pmcenter.
+// Copyright (C) 2018 Elepover. Licensed under the MIT License.
+*/
+
 using System;
 using System.Threading;
 using System.Threading.Tasks;
@@ -12,7 +18,7 @@ namespace pmcenter {
             ERROR = 2
         }
         public static void Log(string Text, string Module = "CORE", LogLevel Type = LogLevel.INFO) {
-            string Output = "[" + DateTime.UtcNow.ToShortDateString() + " " + DateTime.UtcNow.ToShortTimeString() + "][" + Module + "]";
+            string Output = "[" + Vars.StartSW.Elapsed.TotalMilliseconds + "ms][" + DateTime.UtcNow.ToShortDateString() + " " + DateTime.UtcNow.ToShortTimeString() + "][" + Module + "]";
             Console.BackgroundColor = ConsoleColor.Black;
             switch (Type) {
                 case LogLevel.INFO:

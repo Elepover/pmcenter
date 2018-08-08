@@ -1,3 +1,9 @@
+/*
+// BotProcess.cs / pmcenter project / https://github.com/Elepover/pmcenter
+// Main processing logic of pmcenter.
+// Copyright (C) 2018 Elepover. Licensed under the MIT License.
+*/
+
 using System;
 using System.Threading.Tasks;
 using Telegram.Bot.Types.Enums;
@@ -10,6 +16,7 @@ namespace pmcenter {
             if (e.Update.Type != UpdateType.Message) { return; }
             if (e.Update.Message.From.IsBot) { return; }
             if (e.Update.Message.Chat.Type != ChatType.Private) { return; }
+            
             string Username = e.Update.Message.From.Username;
             string FirstName = e.Update.Message.From.FirstName;
             long UID = e.Update.Message.From.Id;
@@ -24,7 +31,7 @@ namespace pmcenter {
                     if (e.Update.Message.ReplyToMessage.ForwardFrom != null) {
                         if (e.Update.Message.Type == MessageType.Text) {
                             if (e.Update.Message.Text.ToLower() == "/info") {
-                                string MessageInfo = "ℹ *Message Info*\n📩 *Sender*: [Here](tg://user?id=" + e.Update.Message.ReplyToMessage.ForwardFrom.Id + ")\n🔢 *User ID*: `" + e.Update.Message.ReplyToMessage.ForwardFrom.Id + "`\n🌐 *Language*: `" + e.Update.Message.ReplyToMessage.ForwardFrom.LanguageCode + "`\n⌚ *Forward Time*: `" + e.Update.Message.ReplyToMessage.ForwardDate.ToString() + "`";
+                                string MessageInfo = "ℹ *Message Info*\n📩 *Sender*: [Here](tg://user?id=" + e.Update.Message.ReplyToMessage.ForwardFrom.Id + ")\n🔢 *User ID*: `" + e.Update.Message.ReplyToMessage.ForwardFrom.Id + "`\n🌐 *Language*: `" + e.Update.Message.ReplyToMessage.ForwardFrom.LanguageCode + "`\n⌚ *Forward Time*: `" + e.Update.Message.ReplyToMessage.ForwardDate.ToString() + "`\n🆔 *Message ID*: `" + e.Update.Message.MessageId + "`\n💯 *Original Message ID*: `" + e.Update.Message.ForwardFromMessageId + "`";
                                 await Vars.Bot.SendTextMessageAsync(e.Update.Message.From.Id, MessageInfo, ParseMode.Markdown, false, false, e.Update.Message.MessageId);
                                 return;
                             } else if (e.Update.Message.Text.ToLower() == "/ban") {
@@ -35,6 +42,20 @@ namespace pmcenter {
                                 UnbanUser(e.Update.Message.ReplyToMessage.ForwardFrom.Id);
                                 await Vars.Bot.SendTextMessageAsync(e.Update.Message.From.Id, Vars.CurrentLang.Message_UserPardoned, ParseMode.Markdown, false, false, e.Update.Message.MessageId);
                                 return;
+                            } else if (e.Update.Message.Text.ToLower() == "/ping") {
+                                await Vars.Bot.SendTextMessageAsync(e.Update.Message.From.Id, Vars.CurrentLang.Message_UserPardoned, ParseMode.Markdown, false, false, e.Update.Message.MessageId);
+                                return;
+                            } else if (e.Update.Message.Text.ToLower() == "/emerg") {
+                                Environment.Exit(2);
+                            } else if (e.Update.Message.Text.ToLower() == "/switchfw") {
+                                bool IsPausedNow = Conf.SwitchPaused();
+                                if (IsPausedNow) {
+                                    await Vars.Bot.SendTextMessageAsync(e.Update.Message.From.Id, Vars.CurrentLang.Message_ServicePaused, ParseMode.Markdown, false, false, e.Update.Message.MessageId);
+                                    return;
+                                } else {
+                                    await Vars.Bot.SendTextMessageAsync(e.Update.Message.From.Id, Vars.CurrentLang.Message_ServiceResumed, ParseMode.Markdown, false, false, e.Update.Message.MessageId);
+                                    return;
+                                }
                             } // not a recogized command.
                         }
                         // Is replying, replying to forwarded message AND not command.
@@ -76,8 +97,13 @@ namespace pmcenter {
                     }
                 }
                 Log("Message from \"" + FirstName + "\" (@" + Username + " / " + UID + "), forwarding...", "BOT");
-                await Vars.Bot.ForwardMessageAsync(Vars.CurrentConf.OwnerUID, e.Update.Message.From.Id, e.Update.Message.MessageId, false);
-                AddRateLimit(e.Update.Message.From.Id);
+                if (Vars.CurrentConf.ForwardingPaused) {
+                    Log("Stopped: forwarding is currently paused.", "BOT", LogLevel.INFO);
+                    await Vars.Bot.SendTextMessageAsync(e.Update.Message.From.Id, Vars.CurrentLang.Message_UserServicePaused, ParseMode.Markdown, false, false, e.Update.Message.MessageId);
+                } else {
+                    await Vars.Bot.ForwardMessageAsync(Vars.CurrentConf.OwnerUID, e.Update.Message.From.Id, e.Update.Message.MessageId, false);
+                    AddRateLimit(e.Update.Message.From.Id);
+                }
                 return;
             }
         }

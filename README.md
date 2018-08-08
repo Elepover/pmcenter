@@ -92,3 +92,5 @@ You can write a `systemd service` to keep it running, even after the host machin
 | `/ban` | Owner | Restrict the message's sender from contacting you again. |
 | `/pardon` | Owner | Pardon the message's sender that you've banned before. |
 | `/help` | Owner | Display the help message. |
+| `/ping` | Owner | Test if the bot is working. |
+| `/switchfw` | Owner | Switch message forwarding status. |

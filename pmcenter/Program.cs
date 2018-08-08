@@ -1,4 +1,10 @@
-﻿using System;
+﻿/*
+// Program.cs / pmcenter project / https://github.com/Elepover/pmcenter
+// Main entry pmcenter.
+// Copyright (C) 2018 Elepover. Licensed under the MIT License.
+*/
+
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 using static pmcenter.Methods;
@@ -10,15 +16,18 @@ using Telegram.Bot;
 namespace pmcenter {
     public class Program {
         public static void Main(string[] args) {
-            Log("Starting PMCenter, version " + AppVer.ToString() + ".", "DELEGATOR");
             StartSW.Start();
+            Log("Starting pmcenter, version " + AppVer.ToString() + ".", "DELEGATOR");
             Task MainAsyncTask = MainAsync(args);
             MainAsyncTask.Wait();
-            Log("Main worker accidentally exited. Stopping...", "CORE", LogLevel.ERROR);
+            Log("Main worker accidentally exited. Stopping...", "DELEGATOR", LogLevel.ERROR);
             Environment.Exit(1);
         }
         public static async Task MainAsync(string[] args) {
             try {
+                Log("==> Running pre-start operations...");
+                // Nothing hahah.
+                Log("==> Running start operations...");
                 Log("==> Initializing module - CONF"); // BY DEFAULT CONF & LANG ARE NULL! PROCEED BEFORE DOING ANYTHING.
                 InitConf();
                 await ReadConf();
@@ -46,6 +55,9 @@ namespace pmcenter {
                 Log("Starting receiving...");
                 Bot.StartReceiving(new []{Telegram.Bot.Types.Enums.UpdateType.Message});
                 Log("==> Startup complete! (" + StartSW.Elapsed.TotalMilliseconds + "ms)");
+                Log("==> Running post-start operations...");
+                await Bot.SendTextMessageAsync(Vars.CurrentConf.OwnerUID, Vars.CurrentLang.Message_BotStarted.Replace("$1", StartSW.Elapsed.TotalMilliseconds + "ms"), Telegram.Bot.Types.Enums.ParseMode.Markdown, false, false);
+                Log("==> All complete!");
                 while (true) {
                     Thread.Sleep(60000);
                 }
