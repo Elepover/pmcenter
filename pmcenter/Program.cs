@@ -17,6 +17,7 @@ namespace pmcenter {
     public class Program {
         public static void Main(string[] args) {
             StartSW.Start();
+            Console.WriteLine(Vars.ASCII);
             Log("Starting pmcenter, version " + AppVer.ToString() + ".", "DELEGATOR");
             Task MainAsyncTask = MainAsync(args);
             MainAsyncTask.Wait();
@@ -42,9 +43,7 @@ namespace pmcenter {
                 Log("Starting RateLimiter...");
                 RateLimiter = new Thread(() => ThrRateLimiter());
                 RateLimiter.Start();
-                while (RateLimiter.IsAlive != true) {
-                    Thread.Sleep(500);
-                }
+                Thread.Sleep(500);
 
                 Log("==> Initializing module - BOT");
                 Log("Initializing bot instance...");

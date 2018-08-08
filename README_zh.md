@@ -26,7 +26,7 @@ git clone https://github.com/Elepover/pmcenter.git --depth=1
 cd pmcenter/pmcenter
 dotnet restore
 dotnet publish --configuration Release
-cp -R bin/Release/publish ../
+cp -R bin/Release/netcoreapp2.1/publish ../
 cd .. && mv publish build
 cd build
 dotnet pmcenter.dll

@@ -17,7 +17,9 @@ namespace pmcenter {
             WARN = 1,
             ERROR = 2
         }
-        public static void Log(string Text, string Module = "CORE", LogLevel Type = LogLevel.INFO) {
+        public static void Log(string Text,
+                               string Module = "CORE",
+                               LogLevel Type = LogLevel.INFO) {
             string Output = "[" + Vars.StartSW.Elapsed.TotalMilliseconds + "ms][" + DateTime.UtcNow.ToShortDateString() + " " + DateTime.UtcNow.ToShortTimeString() + "][" + Module + "]";
             Console.BackgroundColor = ConsoleColor.Black;
             switch (Type) {
