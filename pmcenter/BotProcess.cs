@@ -98,6 +98,7 @@ namespace pmcenter {
                             }
                         } else if (e.Update.Message.Text.ToLower() == "/saveconf") {
                             await Conf.SaveConf();
+                            await Lang.SaveLang();
                             await Vars.Bot.SendTextMessageAsync(e.Update.Message.From.Id, Vars.CurrentLang.Message_ConfigUpdated, ParseMode.Markdown, false, false, e.Update.Message.MessageId);
                             return;
                         } // not a command.
