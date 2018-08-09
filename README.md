@@ -92,3 +92,4 @@ You can write a `systemd service` to keep it running, even after the host machin
 | `/switchfw` | Owner | Switch message forwarding status. |
 | `/switchbw` | Owner | Switch keyword banning status. |
 | `/saveconf` | Owner | Manually save configurations and translations. Useful after upgrades. |
+| `/readconf` | Owner | Reload configurations without restarting bot. |

@@ -101,6 +101,11 @@ namespace pmcenter {
                             await Lang.SaveLang();
                             await Vars.Bot.SendTextMessageAsync(e.Update.Message.From.Id, Vars.CurrentLang.Message_ConfigUpdated, ParseMode.Markdown, false, false, e.Update.Message.MessageId);
                             return;
+                        } else if (e.Update.Message.Text.ToLower() == "/readconf") {
+                            await Conf.ReadConf();
+                            await Lang.ReadLang();
+                            await Vars.Bot.SendTextMessageAsync(e.Update.Message.From.Id, Vars.CurrentLang.Message_ConfigReloaded, ParseMode.Markdown, false, false, e.Update.Message.MessageId);
+                            return;
                         } // not a command.
                     }
                     await Vars.Bot.SendTextMessageAsync(e.Update.Message.From.Id, Vars.CurrentLang.Message_CommandNotReplying, ParseMode.Markdown, false, false, e.Update.Message.MessageId);
