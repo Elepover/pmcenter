@@ -19,6 +19,8 @@ For Arch Linux, there's an official package.
 
 ### Build `pmcenter` Yourself
 
+**You need to install .NET Core _SDK_ and _Runtime_ to finish this.**
+
 Run this script to clone, build and initiate your own `pmcenter`:
 
 ```bash
@@ -35,6 +37,8 @@ dotnet pmcenter.dll
 The compiled binaries will be put in the `pmcenter/build` folder in your working directory.
 
 ### Use Pre-compiled Binaries
+
+**Only .NET Core _Runtime_ is required in this step.**
 
 Run this script to download and initiate your own `pmcenter`:
 

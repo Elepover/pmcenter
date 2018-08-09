@@ -19,6 +19,8 @@ Arch Linux 可直接安装 `dotnet-runtime` 包。
 
 ### 自行编译 `pmcenter`
 
+**您需要安装 .NET Core _SDK_ 及 _Runtime_ 才能完成此步。**
+
 运行此脚本来 clone, 编译及运行 `pmcenter`:
 
 ```bash
@@ -35,6 +37,8 @@ dotnet pmcenter.dll
 编译好的二进制文件将放在您当前目录中的 `pmcenter/build` 文件夹里。
 
 ### 使用 CI 预编译二进制文件
+
+**本步骤中，仅需要 .NET Core _Runtime_ 即可。**
 
 运行此脚本来下载和运行 `pmcenter`:
 
