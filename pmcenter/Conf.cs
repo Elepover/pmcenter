@@ -20,15 +20,19 @@ namespace pmcenter {
             public ConfObj() {
                 APIKey = "";
                 OwnerUID = -1;
-                AutoBan = false;
+                AutoBan = true;
                 Banned = new List<BanObj>();
                 ForwardingPaused = false;
+                BannedKeywords = new List<string>();
+                KeywordBanning = true;
             }
             public string APIKey;
             public long OwnerUID;
             public bool AutoBan;
             public List<BanObj> Banned;
             public bool ForwardingPaused;
+            public List<string> BannedKeywords;
+            public bool KeywordBanning;
         }
         public class BanObj {
             public BanObj() {
@@ -99,6 +103,19 @@ namespace pmcenter {
                 return false;
             } else {
                 Vars.CurrentConf.ForwardingPaused = true;
+                return true;
+            }
+        }
+        /// <summary>
+        /// Switch 'blocking' status, returning current status.
+        /// </summary>
+        /// <returns></returns>
+        public static bool SwitchBlocking() {
+            if (Vars.CurrentConf.KeywordBanning) {
+                Vars.CurrentConf.KeywordBanning = false;
+                return false;
+            } else {
+                Vars.CurrentConf.KeywordBanning = true;
                 return true;
             }
         }

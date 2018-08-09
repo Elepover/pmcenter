@@ -54,34 +54,22 @@ During the first run, `pmcenter` will automatically generate the `pmcenter.json`
 
 | Key | Type | Description |
 | :---- | :----- | ----:|
-| `APIKey` | `String` | Your Telegram bot's API key |
-| `OwnerID` | `Long` | The owner's Telegram user ID |
-| `AutoBan` | `Boolean` | Decides whether the flood-banning feature is enabled or not |
-| `ForwardingPaused` | `Boolean` | Decides whether the message forwarding is enabled or not |
+| `APIKey` | `String` | Your Telegram bot's API key. |
+| `OwnerID` | `Long` | The owner's Telegram user ID. |
+| `AutoBan` | `Boolean` | Decides whether the flood-banning feature is enabled or not. |
+| `Banned` | `Array` | Storage of banned users. |
+| `ForwardingPaused` | `Boolean` | Decides whether the message forwarding is enabled or not. |
+| `BannedKeywords` | `Array` | Storage of banned keywords. |
+| `KeywordBanning` | `Boolean` | Decides whether the keyword banning feature is enabled or not. |
 
-#### `pmcenter` Locales / Translations
+Note: After upgrades, you can send `/saveconf` command to the bot to fix missing new settings.
 
-| Key | Appears When |
-| :---- | ----: |
-| `Message_CommandNotReplying` | When the owner is not replying to a message. |
-| `Message_CommandNotReplyingValidMessage` | When the owner is replying to a non-forwarded message. |
-| `Message_Help` | When the owner asks for `/help`. |
-| `Message_OwnerStart` | When the owner sends `/start` to the bot. |
-| `Message_ReplySuccessful` | When replying is successfully completed. |
-| `Message_UserBanned` | When the owner `/ban`s a user. |
-| `Message_UserPardoned` | When the owner `/pardon`s a user. |
-| `Message_UserStartDefault` | When a user sends `/start` to the bot. |
-| `Message_PingReply` | When the owner sends `/ping` to the bot. |
-| `Message_ServicePaused` | When the owner sends `/switchfw` to the bot and message forwarding is **paused**. |
-| `Message_ServiceResumed` | When the owner sends `/switchfw` to the bot and message forwarding is **resumed**. |
-| `Message_UserServicePaused` | When a user sends a message to bot while the forwarding is **paused**. |
-| `Message_BotStarted` | When the bot is started successfully. |
-
-##### Note
+##### Note About Translations
 
 - The `$1` variable in the `Message_ReplySuccessful` and `Message_BotStarted` key could be safely deleted, if you like.
 - **Emojis** are supported, and were used by default.
 - Currently the response of the `/info` command is unchangeable.
+- Familiar with another language? Pull requests are welcome!
 
 ### Start
 
@@ -102,3 +90,5 @@ You can write a `systemd service` to keep it running, even after the host machin
 | `/help` | Owner | Display the help message. |
 | `/ping` | Owner | Test if the bot is working. |
 | `/switchfw` | Owner | Switch message forwarding status. |
+| `/switchbw` | Owner | Switch keyword banning status. |
+| `/saveconf` | Owner | Manually save configurations and translations. Useful after upgrades. |

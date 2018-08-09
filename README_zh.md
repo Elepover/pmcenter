@@ -57,31 +57,19 @@ dotnet pmcenter.dll
 | `APIKey` | `String` | 你的 Telegram 机器人 API 密钥 |
 | `OwnerID` | `Long` | 使用者的 Telegram ID |
 | `AutoBan` | `Boolean` | 是否自动封禁刷屏用户 |
+| `Banned` | `Array` | 封禁用户存储 |
 | `ForwardingPaused` | `Boolean` | 是否启用消息转发 |
+| `BannedKeywords` | `Array` | 屏蔽的关键字存储 |
+| `KeywordBanning` | `Boolean` | 是否启用关键词屏蔽功能 |
 
-#### `pmcenter` 翻译文件
+提示：升级后，可向机器人发送 `/saveconf` 命令来自动补齐升级后缺少的新配置项。
 
-| 项目 | 出现于 |
-| :---- | ----: |
-| `Message_CommandNotReplying` | 当所有者未回复任何消息时 |
-| `Message_CommandNotReplyingValidMessage` | 当所有者回复非转发消息时 |
-| `Message_Help` | 当所有者发送 `/help` 命令时 |
-| `Message_OwnerStart` | 当用户向机器人发送 `/start` 命令时 |
-| `Message_ReplySuccessful` | 当消息回复成功时 |
-| `Message_UserBanned` | 当所有者 `/ban` 用户时 |
-| `Message_UserPardoned` | 当所有者 `/pardon` 用户时 |
-| `Message_UserStartDefault` | 当所有者向机器人发送 `/start` 命令时 |
-| `Message_PingReply` | 当所有者向机器人发送 `/ping` 命令时 |
-| `Message_ServicePaused` | 当所有者向机器人发送 `/switchfw` 命令且转发**已暂停**时 |
-| `Message_ServiceResumed` | 当所有者向机器人发送 `/switchfw` 命令且转发**已恢复**时 |
-| `Message_UserServicePaused` | 当用户向机器人发送消息而转发已暂停时 |
-| `Message_BotStarted` | 当机器人启动成功时 |
-
-##### 注意事项
+##### 翻译注意事项
 
 - `Message_ReplySuccessful` 及 `Message_BotStarted` 项中的 `$1` 可安全删除。
 - 支持 **Emojis** 且默认启用。
 - 目前 `/info` 命令的回复尚且无法更改。
+- 欢迎 Pull Requests.
 
 ### 启动
 
@@ -102,3 +90,5 @@ dotnet pmcenter.dll
 | `/help` | 所有者 | 显示帮助消息 |
 | `/ping` | 所有者 | 测试机器人工作状态 |
 | `/switchfw` | 所有者 | 启用/暂停消息转发 |
+| `/switchbw` | 所有者 | 启用/停用关键字屏蔽 |
+| `/saveconf` | 所有者 | 手动保存配置及翻译，可用于更新后补齐缺少的配置项 |

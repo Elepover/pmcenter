@@ -64,6 +64,13 @@ namespace pmcenter {
             }
             return false;
         }
+        public static bool IsKeywordBanned(string Sentence) {
+            if (Vars.CurrentConf.KeywordBanning != true) { return false; }
+            foreach (string Blocked in Vars.CurrentConf.BannedKeywords) {
+                if (Sentence.Contains(Blocked)) { return true; }
+            }
+            return false;
+        }
         public static void BanUser(long UID) {
             if (IsBanned(UID) != true) {
                 BanObj Banned = new BanObj();
