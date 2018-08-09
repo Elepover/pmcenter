@@ -45,7 +45,7 @@ namespace pmcenter {
             Console.ForegroundColor = ConsoleColor.White;
         }
         public static async void ThrRateLimiter() {
-            Log("Started!", "RATELIMIT");
+            Log(Vars.CurrentLang.CLI_ThreadStarted, "RATELIMIT");
             while (true) {
                 foreach (RateData Data in Vars.RateLimits) {
                     if (Data.MessageCount > 60 && Vars.CurrentConf.AutoBan) {
