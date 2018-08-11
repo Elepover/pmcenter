@@ -145,7 +145,11 @@ namespace pmcenter {
                                     WebClient Downloader = new WebClient();
                                     Downloader.DownloadFile(new Uri(Vars.UpdateArchiveURL), Path.Combine(Vars.AppDirectory, "pmcenter_update.zip"));
                                     Log("Download complete. Extracting...", "BOT");
-                                    ZipFile.ExtractToDirectory(Path.Combine(Vars.AppDirectory, "pmcenter_update.zip"), Vars.AppDirectory);
+                                    using (ZipArchive Zip = ZipFile.OpenRead(Path.Combine(Vars.AppDirectory, "pmcenter_update.zip"))) {
+                                        foreach (ZipArchiveEntry Entry in Zip.Entries) {
+                                            Entry.ExtractToFile(Path.Combine(Vars.AppDirectory, Entry.FullName), true);
+                                        }
+                                    }
                                     Log("Cleaning up temporary files...", "BOT");
                                     File.Delete(Path.Combine(Vars.AppDirectory, "pmcenter_update.zip"));
                                     Log("Trying to execute restart command...", "BOT");
