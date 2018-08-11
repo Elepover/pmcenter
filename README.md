@@ -65,6 +65,7 @@ During the first run, `pmcenter` will automatically generate the `pmcenter.json`
 | `ForwardingPaused` | `Boolean` | Decides whether the message forwarding is enabled or not. |
 | `BannedKeywords` | `Array` | Storage of banned keywords. |
 | `KeywordBanning` | `Boolean` | Decides whether the keyword banning feature is enabled or not. |
+| `RestartCommand` | `string` | Command to restart pmcenter. Used for auto-updates. |
 
 Note: After upgrades, you can send `/saveconf` command to the bot to fix missing new settings.
 
@@ -97,3 +98,6 @@ You can write a `systemd service` to keep it running, even after the host machin
 | `/switchbw` | Owner | Switch keyword banning status. |
 | `/saveconf` | Owner | Manually save configurations and translations. Useful after upgrades. |
 | `/readconf` | Owner | Reload configurations without restarting bot. |
+| `/uptime` | Owner | Get system uptime info. |
+| `/update` | Owner | Check for updates and update bot if available. |
+| `/chkupdate` | Owner | Only check for updates. |

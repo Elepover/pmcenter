@@ -7,6 +7,10 @@
 using System;
 using System.Threading.Tasks;
 using Telegram.Bot.Types.Enums;
+using System.Net;
+using System.IO;
+using System.IO.Compression;
+using System.Diagnostics;
 using Telegram.Bot.Args;
 using static pmcenter.Methods;
 
@@ -106,6 +110,63 @@ namespace pmcenter {
                             await Lang.ReadLang();
                             await Vars.Bot.SendTextMessageAsync(e.Update.Message.From.Id, Vars.CurrentLang.Message_ConfigReloaded, ParseMode.Markdown, false, false, e.Update.Message.MessageId);
                             return;
+                        } else if (e.Update.Message.Text.ToLower() == "/uptime") {
+                            string UptimeString = Vars.CurrentLang.Message_UptimeInfo;
+                            UptimeString = UptimeString.Replace("$1", (new TimeSpan(Environment.TickCount)).ToString()).Replace("$2", Vars.StartSW.Elapsed.ToString());
+                            await Vars.Bot.SendTextMessageAsync(e.Update.Message.From.Id, UptimeString, ParseMode.Markdown, false, false, e.Update.Message.MessageId);
+                            return;
+                        } else if (e.Update.Message.Text.ToLower() == "/chkupdate") {
+                            try {
+                                Conf.Update Latest = Conf.CheckForUpdates();
+                                if (Conf.IsNewerVersionAvailable(Latest)) {
+                                    string UpdateString = Vars.CurrentLang.Message_UpdateAvailable.Replace("$1", Latest.Latest).Replace("$2", Latest.Details);
+                                    await Vars.Bot.SendTextMessageAsync(e.Update.Message.From.Id, UpdateString, ParseMode.Markdown, false, false, e.Update.Message.MessageId);
+                                    return;
+                                } else {
+                                    await Vars.Bot.SendTextMessageAsync(e.Update.Message.From.Id, Vars.CurrentLang.Message_AlreadyUpToDate, ParseMode.Markdown, false, false, e.Update.Message.MessageId);
+                                    return;
+                                }
+                            } catch (Exception ex) {
+                                string ErrorString = Vars.CurrentLang.Message_AlreadyUpToDate.Replace("$1", ex.Message);
+                                await Vars.Bot.SendTextMessageAsync(e.Update.Message.From.Id, ErrorString, ParseMode.Markdown, false, false, e.Update.Message.MessageId);
+                                return;
+                            }
+                        } else if (e.Update.Message.Text.ToLower() == "/update") {
+                            // Copied code starting at L115
+                            try {
+                                Conf.Update Latest = Conf.CheckForUpdates();
+                                if (Conf.IsNewerVersionAvailable(Latest)) {
+                                    string UpdateString = Vars.CurrentLang.Message_UpdateAvailable.Replace("$1", Latest.Latest).Replace("$2", Latest.Details);
+                                    await Vars.Bot.SendTextMessageAsync(e.Update.Message.From.Id, UpdateString, ParseMode.Markdown, false, false, e.Update.Message.MessageId);
+                                    // where difference begins
+                                    await Vars.Bot.SendTextMessageAsync(e.Update.Message.From.Id, Vars.CurrentLang.Message_UpdateProcessing, ParseMode.Markdown, false, false, e.Update.Message.MessageId);
+                                    // download compiled package
+                                    Log("Starting update download...", "BOT");
+                                    WebClient Downloader = new WebClient();
+                                    Downloader.DownloadFileAsync(new Uri(Vars.UpdateArchiveURL), Path.Combine(Vars.AppDirectory, "pmcenter_update.zip"));
+                                    Log("Download complete. Extracting...", "BOT");
+                                    ZipFile.ExtractToDirectory(Path.Combine(Vars.AppDirectory, "pmcenter_update.zip"), Vars.AppDirectory);
+                                    Log("Cleaning up temporary files...", "BOT");
+                                    File.Delete(Path.Combine(Vars.AppDirectory, "pmcenter_update.zip"));
+                                    Log("Trying to execute restart command...", "BOT");
+                                    try {
+                                        Process.Start(Vars.CurrentConf.RestartCommand);
+                                        Log("Executed.", "BOT");
+                                        return;
+                                    } catch (Exception ex) {
+                                        Log("Failed to execute restart command: " + ex.ToString(), "BOT", LogLevel.ERROR);
+                                        return;
+                                    }
+                                    // end of difference
+                                } else {
+                                    await Vars.Bot.SendTextMessageAsync(e.Update.Message.From.Id, Vars.CurrentLang.Message_AlreadyUpToDate, ParseMode.Markdown, false, false, e.Update.Message.MessageId);
+                                    return;
+                                }
+                            } catch (Exception ex) {
+                                string ErrorString = Vars.CurrentLang.Message_AlreadyUpToDate.Replace("$1", ex.Message);
+                                await Vars.Bot.SendTextMessageAsync(e.Update.Message.From.Id, ErrorString, ParseMode.Markdown, false, false, e.Update.Message.MessageId);
+                                return;
+                            } // end of try, not end if
                         } // not a command.
                     }
                     await Vars.Bot.SendTextMessageAsync(e.Update.Message.From.Id, Vars.CurrentLang.Message_CommandNotReplying, ParseMode.Markdown, false, false, e.Update.Message.MessageId);

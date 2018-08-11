@@ -6,8 +6,10 @@
 
 using System;
 using System.IO;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Collections.Generic;
+using System.Net;
 using Newtonsoft.Json;
 using static pmcenter.Methods;
 
@@ -25,6 +27,7 @@ namespace pmcenter {
                 ForwardingPaused = false;
                 BannedKeywords = new List<string>();
                 KeywordBanning = true;
+                RestartCommand = "systemctl restart pmcenter";
             }
             public string APIKey;
             public long OwnerUID;
@@ -33,6 +36,7 @@ namespace pmcenter {
             public bool ForwardingPaused;
             public List<string> BannedKeywords;
             public bool KeywordBanning;
+            public string RestartCommand;
         }
         public class BanObj {
             public BanObj() {
@@ -47,6 +51,14 @@ namespace pmcenter {
             }
             public long UID;
             public int MessageCount;
+        }
+        public class Update {
+            public Update() {
+                Latest = "0.0.0.0";
+                Details = "(Load failed.)";
+            }
+            public string Latest;
+            public string Details;
         }
         /*
          * FUNCTIONS & METHODS. DO NOT PUT ANY CLASSES HERE.
@@ -117,6 +129,20 @@ namespace pmcenter {
             } else {
                 Vars.CurrentConf.KeywordBanning = true;
                 return true;
+            }
+        }
+        public static Update CheckForUpdates() {
+            WebClient Downloader = new WebClient();
+            string Response = Downloader.DownloadString(new Uri(Vars.UpdateInfoURL));
+            return JsonConvert.DeserializeObject<Update>(Response);
+        }
+        public static bool IsNewerVersionAvailable(Update CurrentUpdate) {
+            Version CurrentVersion = Vars.AppVer;
+            Version CurrentLatest = new Version(CurrentUpdate.Latest);
+            if (CurrentLatest > CurrentVersion) {
+                return true;
+            } else {
+                return false;
             }
         }
     }

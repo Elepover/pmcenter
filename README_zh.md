@@ -65,6 +65,7 @@ dotnet pmcenter.dll
 | `ForwardingPaused` | `Boolean` | 是否启用消息转发 |
 | `BannedKeywords` | `Array` | 屏蔽的关键字存储 |
 | `KeywordBanning` | `Boolean` | 是否启用关键词屏蔽功能 |
+| `RestartCommand` | `string` | 用于自动更新后重新启动机器人的命令 |
 
 提示：升级后，可向机器人发送 `/saveconf` 命令来自动补齐升级后缺少的新配置项。
 
@@ -97,3 +98,6 @@ dotnet pmcenter.dll
 | `/switchbw` | 所有者 | 启用/停用关键字屏蔽 |
 | `/saveconf` | 所有者 | 手动保存配置及翻译，可用于更新后补齐缺少的配置项 |
 | `/readconf` | 所有者 | 在不重启机器人的情况下，重新载入配置 |
+| `/uptime` | 所有者 | 获取系统在线时间信息 |
+| `/update` | 所有者 | 检查更新并自动更新（如果可用） |
+| `/chkupdate` | 所有者 | 仅检查更新 |
