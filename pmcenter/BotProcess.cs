@@ -143,7 +143,7 @@ namespace pmcenter {
                                     // download compiled package
                                     Log("Starting update download...", "BOT");
                                     WebClient Downloader = new WebClient();
-                                    Downloader.DownloadFileAsync(new Uri(Vars.UpdateArchiveURL), Path.Combine(Vars.AppDirectory, "pmcenter_update.zip"));
+                                    Downloader.DownloadFile(new Uri(Vars.UpdateArchiveURL), Path.Combine(Vars.AppDirectory, "pmcenter_update.zip"));
                                     Log("Download complete. Extracting...", "BOT");
                                     ZipFile.ExtractToDirectory(Path.Combine(Vars.AppDirectory, "pmcenter_update.zip"), Vars.AppDirectory);
                                     Log("Cleaning up temporary files...", "BOT");
