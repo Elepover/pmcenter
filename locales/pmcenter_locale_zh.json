@@ -19,7 +19,7 @@
   "Message_UptimeInfo": "🚀 *在线时间信息*:\n系统在线时间: `$1`\n机器人在线时间: `$2`",
   "Message_UpdateAvailable": "🔃 *有更新可用！*\n新版本: `$1`\n新特性:\n`$2`",
   "Message_UpdateProcessing": "💠 正在准备更新...",
-  "Message_UpdateCheckFailed": "⚠ 检查更新错误: `$1`",
+  "Message_UpdateCheckFailed": "⚠ 更新错误: `$1`",
   "Message_AlreadyUpToDate": "✅ 已为最新！",
   "Message_UpdateExtracting": "📤 正在解压更新文件...",
   "Message_UpdateComplete": "✅ 更新完毕！重启机器人即可生效。",

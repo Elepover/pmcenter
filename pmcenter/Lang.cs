@@ -35,7 +35,7 @@ namespace pmcenter {
                 Message_UptimeInfo = "🚀 *Uptime Information*:\nSystem uptime: `$1`\nBot uptime: `$2`";
                 Message_UpdateAvailable = "🔃 *Update available!*\nNew version: `$1`\nWhat's new:\n`$2`";
                 Message_UpdateProcessing = "💠 Preparing to update...";
-                Message_UpdateCheckFailed = "⚠ Update check failed: `$1`";
+                Message_UpdateCheckFailed = "⚠ Update failed: `$1`";
                 Message_AlreadyUpToDate = "✅ Already up to date!";
                 Message_UpdateExtracting = "📤 Extracting update files...";
                 Message_UpdateComplete = "✅ Update complete! Restart bot to take effect.";

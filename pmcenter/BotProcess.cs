@@ -163,7 +163,7 @@ namespace pmcenter {
                                     return;
                                 }
                             } catch (Exception ex) {
-                                string ErrorString = Vars.CurrentLang.Message_AlreadyUpToDate.Replace("$1", ex.Message);
+                                string ErrorString = Vars.CurrentLang.Message_UpdateCheckFailed.Replace("$1", ex.Message);
                                 await Vars.Bot.SendTextMessageAsync(e.Update.Message.From.Id, ErrorString, ParseMode.Markdown, false, false, e.Update.Message.MessageId);
                                 return;
                             } // end of try, not end if
