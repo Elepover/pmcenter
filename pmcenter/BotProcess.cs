@@ -147,6 +147,7 @@ namespace pmcenter {
                                     Log("Download complete. Extracting...", "BOT");
                                     using (ZipArchive Zip = ZipFile.OpenRead(Path.Combine(Vars.AppDirectory, "pmcenter_update.zip"))) {
                                         foreach (ZipArchiveEntry Entry in Zip.Entries) {
+                                            Log("Extracting: " + Path.Combine(Vars.AppDirectory, Entry.FullName), "BOT");
                                             Entry.ExtractToFile(Path.Combine(Vars.AppDirectory, Entry.FullName), true);
                                         }
                                     }
@@ -154,7 +155,7 @@ namespace pmcenter {
                                     File.Delete(Path.Combine(Vars.AppDirectory, "pmcenter_update.zip"));
                                     Log("Trying to execute restart command...", "BOT");
                                     try {
-                                        Process.Start(Vars.CurrentConf.RestartCommand);
+                                        Process.Start(Vars.CurrentConf.RestartCommand, Vars.CurrentConf.RestartArgs);
                                         Log("Executed.", "BOT");
                                         return;
                                     } catch (Exception ex) {

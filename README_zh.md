@@ -66,6 +66,7 @@ dotnet pmcenter.dll
 | `BannedKeywords` | `Array` | 屏蔽的关键字存储 |
 | `KeywordBanning` | `Boolean` | 是否启用关键词屏蔽功能 |
 | `RestartCommand` | `string` | 用于自动更新后重新启动机器人的命令 |
+| `RestartArgs` | `string` | 重启命令的参数部分 |
 
 提示：升级后，可向机器人发送 `/saveconf` 命令来自动补齐升级后缺少的新配置项。
 

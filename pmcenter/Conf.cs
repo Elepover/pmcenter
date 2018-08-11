@@ -27,7 +27,8 @@ namespace pmcenter {
                 ForwardingPaused = false;
                 BannedKeywords = new List<string>();
                 KeywordBanning = true;
-                RestartCommand = "systemctl restart pmcenter";
+                RestartCommand = "/bin/systemctl";
+                RestartArgs = "restart pmcenter";
             }
             public string APIKey;
             public long OwnerUID;
@@ -37,6 +38,7 @@ namespace pmcenter {
             public List<string> BannedKeywords;
             public bool KeywordBanning;
             public string RestartCommand;
+            public string RestartArgs;
         }
         public class BanObj {
             public BanObj() {

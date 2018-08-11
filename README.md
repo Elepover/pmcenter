@@ -66,6 +66,7 @@ During the first run, `pmcenter` will automatically generate the `pmcenter.json`
 | `BannedKeywords` | `Array` | Storage of banned keywords. |
 | `KeywordBanning` | `Boolean` | Decides whether the keyword banning feature is enabled or not. |
 | `RestartCommand` | `string` | Command to restart pmcenter. Used for auto-updates. |
+| `RestartArgs` | `string` | Arguments part of restart command. |
 
 Note: After upgrades, you can send `/saveconf` command to the bot to fix missing new settings.
 
