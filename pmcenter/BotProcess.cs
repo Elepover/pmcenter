@@ -112,7 +112,7 @@ namespace pmcenter {
                             return;
                         } else if (e.Update.Message.Text.ToLower() == "/uptime") {
                             string UptimeString = Vars.CurrentLang.Message_UptimeInfo;
-                            UptimeString = UptimeString.Replace("$1", (new TimeSpan(Environment.TickCount)).ToString()).Replace("$2", Vars.StartSW.Elapsed.ToString());
+                            UptimeString = UptimeString.Replace("$1", (new TimeSpan(0, 0, 0, 0, Environment.TickCount)).ToString()).Replace("$2", Vars.StartSW.Elapsed.ToString());
                             await Vars.Bot.SendTextMessageAsync(e.Update.Message.From.Id, UptimeString, ParseMode.Markdown, false, false, e.Update.Message.MessageId);
                             return;
                         } else if (e.Update.Message.Text.ToLower() == "/chkupdate") {
