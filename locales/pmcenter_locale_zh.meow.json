@@ -22,7 +22,7 @@
   "Message_UpdateCheckFailed": "⚠ 更新失败qaq: `$1`",
   "Message_AlreadyUpToDate": "✅ *已经是最新版本啦*！\n最新版本: `$1`\n已安装版本: `$2`\n更新内容:\n`$3`",
   "Message_UpdateExtracting": "📤 正在解压升级文件喵~",
-  "Message_UpdateComplete": "✅ 更新完毕啦！重新启动机器人即可完成更新qwq",
+  "Message_UpdateFinalizing": "✅ 文件更新搞定！马上回来...",
   "Message_CurrentConf": "💾 *当前配置数据*: \n```\n$1\n```",
   "CLI_InitThreads": "==> 正在初始化模块 - 线程",
   "CLI_InitBotHeader": "==> 正在初始化模块 - 机器人",

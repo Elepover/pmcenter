@@ -153,6 +153,7 @@ namespace pmcenter {
                                     }
                                     Log("Cleaning up temporary files...", "BOT");
                                     File.Delete(Path.Combine(Vars.AppDirectory, "pmcenter_update.zip"));
+                                    await Vars.Bot.SendTextMessageAsync(e.Update.Message.From.Id, Vars.CurrentLang.Message_UpdateFinalizing, ParseMode.Markdown, false, false, e.Update.Message.MessageId);
                                     Log("Trying to execute restart command...", "BOT");
                                     try {
                                         Process.Start(Vars.CurrentConf.RestartCommand, Vars.CurrentConf.RestartArgs);

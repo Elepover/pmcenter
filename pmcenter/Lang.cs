@@ -38,7 +38,7 @@ namespace pmcenter {
                 Message_UpdateCheckFailed = "⚠ Update failed: `$1`";
                 Message_AlreadyUpToDate = "✅ *Already up to date*!\nLatest version: `$1`\nCurrently installed: `$2`\nUpdate details:\n`$3`";
                 Message_UpdateExtracting = "📤 Extracting update files...";
-                Message_UpdateComplete = "✅ Update complete! Restart bot to take effect.";
+                Message_UpdateFinalizing = "✅ Files patching complete! Trying to restart...";
                 Message_CurrentConf = "💾 *Your current configurations*: \n`$1`";
 
                 CLI_Finished = "==> All finished!";
@@ -80,7 +80,7 @@ namespace pmcenter {
             public string Message_UpdateCheckFailed {get; set;}
             public string Message_AlreadyUpToDate {get; set;}
             public string Message_UpdateExtracting {get; set;}
-            public string Message_UpdateComplete {get; set;}
+            public string Message_UpdateFinalizing {get; set;}
             public string Message_CurrentConf {get; set;}
             public string CLI_InitThreads {get; set;}
             public string CLI_InitBotHeader {get; set;}
