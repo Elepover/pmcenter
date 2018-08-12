@@ -1,4 +1,4 @@
 {
-    "Latest": "1.1.37.107",
-    "Details": "[+] Added auto-update system.\n[+] Added uptime query function."
+    "Latest": "1.1.38.110",
+    "Details": "[+] You can now use regular expressions in keyword blocking!\n[+] You can now get your configurations through the bot!\n[/] Translations update."
 }
