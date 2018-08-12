@@ -172,6 +172,10 @@ namespace pmcenter {
                                 await Vars.Bot.SendTextMessageAsync(e.Update.Message.From.Id, ErrorString, ParseMode.Markdown, false, false, e.Update.Message.MessageId);
                                 return;
                             } // end of try, not end if
+                        } else if (e.Update.Message.Text.ToLower() == "/catconf") {
+                            string ConfMessage = Vars.CurrentLang.Message_CurrentConf.Replace("$1", SerializeCurrentConf());
+                            await Vars.Bot.SendTextMessageAsync(e.Update.Message.From.Id, ConfMessage, ParseMode.Markdown, false, false, e.Update.Message.MessageId);
+                            return;
                         } // not a command.
                     }
                     await Vars.Bot.SendTextMessageAsync(e.Update.Message.From.Id, Vars.CurrentLang.Message_CommandNotReplying, ParseMode.Markdown, false, false, e.Update.Message.MessageId);
@@ -197,6 +201,9 @@ namespace pmcenter {
                     if (string.IsNullOrEmpty(e.Update.Message.Text) != true) {
                         if (IsKeywordBanned(e.Update.Message.Text)) {
                             Log(Vars.CurrentLang.CLI_SentenceBlocked, "BOT", LogLevel.INFO);
+                            if (Vars.CurrentConf.KeywordAutoBan) {
+                                BanUser(e.Update.Message.From.Id);
+                            }
                             return;
                         }
                     }

@@ -23,20 +23,26 @@ namespace pmcenter {
                 APIKey = "";
                 OwnerUID = -1;
                 AutoBan = true;
+                AutoBanThreshold = 20;
                 Banned = new List<BanObj>();
                 ForwardingPaused = false;
                 BannedKeywords = new List<string>();
                 KeywordBanning = true;
+                KeywordAutoBan = false;
+                EnableRegex = false;
                 RestartCommand = "/bin/systemctl";
                 RestartArgs = "restart pmcenter";
             }
             public string APIKey;
             public long OwnerUID;
             public bool AutoBan;
+            public int AutoBanThreshold;
             public List<BanObj> Banned;
             public bool ForwardingPaused;
             public List<string> BannedKeywords;
             public bool KeywordBanning;
+            public bool KeywordAutoBan;
+            public bool EnableRegex;
             public string RestartCommand;
             public string RestartArgs;
         }

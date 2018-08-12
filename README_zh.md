@@ -61,12 +61,15 @@ dotnet pmcenter.dll
 | `APIKey` | `String` | 你的 Telegram 机器人 API 密钥 |
 | `OwnerID` | `Long` | 使用者的 Telegram ID |
 | `AutoBan` | `Boolean` | 是否自动封禁刷屏用户 |
+| `AutoBanThreshold` | `Int` | 30 秒内消息量阈值，超过将自动封禁 |
 | `Banned` | `Array` | 封禁用户存储 |
 | `ForwardingPaused` | `Boolean` | 是否启用消息转发 |
 | `BannedKeywords` | `Array` | 屏蔽的关键字存储 |
 | `KeywordBanning` | `Boolean` | 是否启用关键词屏蔽功能 |
-| `RestartCommand` | `string` | 用于自动更新后重新启动机器人的命令 |
-| `RestartArgs` | `string` | 重启命令的参数部分 |
+| `KeywordAutoBan` | `Boolean` | 是否自动封禁被屏蔽消息发送者 |
+| `EnableRegex` | `Boolean` | 是否启用关键字屏蔽中的正则表达式匹配 |
+| `RestartCommand` | `String` | 用于自动更新后重新启动机器人的命令 |
+| `RestartArgs` | `String` | 重启命令的参数部分 |
 
 提示：升级后，可向机器人发送 `/saveconf` 命令来自动补齐升级后缺少的新配置项。
 
@@ -102,3 +105,4 @@ dotnet pmcenter.dll
 | `/uptime` | 所有者 | 获取系统在线时间信息 |
 | `/update` | 所有者 | 检查更新并自动更新（如果可用） |
 | `/chkupdate` | 所有者 | 仅检查更新 |
+| `/catconf` | 所有者 | 获取当前配置数据 |

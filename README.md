@@ -61,12 +61,15 @@ During the first run, `pmcenter` will automatically generate the `pmcenter.json`
 | `APIKey` | `String` | Your Telegram bot's API key. |
 | `OwnerID` | `Long` | The owner's Telegram user ID. |
 | `AutoBan` | `Boolean` | Decides whether the flood-banning feature is enabled or not. |
+| `AutoBanThreshold` | `Int` | How many messages in 0.5m will be banned. |
 | `Banned` | `Array` | Storage of banned users. |
 | `ForwardingPaused` | `Boolean` | Decides whether the message forwarding is enabled or not. |
 | `BannedKeywords` | `Array` | Storage of banned keywords. |
 | `KeywordBanning` | `Boolean` | Decides whether the keyword banning feature is enabled or not. |
-| `RestartCommand` | `string` | Command to restart pmcenter. Used for auto-updates. |
-| `RestartArgs` | `string` | Arguments part of restart command. |
+| `KeywordAutoBan` | `Boolean` | Automatically bans the matching user. |
+| `EnableRegex` | `Boolean` | Enables regex matching in keywords banning or not. |
+| `RestartCommand` | `String` | Command to restart pmcenter. Used for auto-updates. |
+| `RestartArgs` | `String` | Arguments part of restart command. |
 
 Note: After upgrades, you can send `/saveconf` command to the bot to fix missing new settings.
 
@@ -102,3 +105,4 @@ You can write a `systemd service` to keep it running, even after the host machin
 | `/uptime` | Owner | Get system uptime info. |
 | `/update` | Owner | Check for updates and update bot if available. |
 | `/chkupdate` | Owner | Only check for updates. |
+| `/catconf` | Owner | Get current configurations. |

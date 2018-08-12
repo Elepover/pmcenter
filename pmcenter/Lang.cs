@@ -17,7 +17,7 @@ namespace pmcenter {
             public Language() {
                 Message_CommandNotReplying = "😶 Don't talk to me, spend time chatting with those who love you.";
                 Message_CommandNotReplyingValidMessage = "😐 Speaking to me makes no sense.";
-                Message_Help = "❓ `pmcenter` *Bot Help*\n/start - Display welcome message.\n/info - Display the message's info.\n/ban - Restrict the user from contacting you.\n/pardon - Pardon the user.\n/ping - Test if the bot is working.\n/switchfw - Pause/Resume message forwarding.\n/switchbw - Enable/Disable keyword banning.\n/saveconf - Manually save all settings and translations. Especially useful after upgrades.\n/readconf - Reload configurations without restarting bot.\n/uptime - Check system uptime information.\n/update - Check for updates and update bot.\n/chkupdate - Only check for updates.\n/help - Display this message.\n\nThank you for using `pmcenter`!";
+                Message_Help = "❓ `pmcenter` *Bot Help*\n/start - Display welcome message.\n/info - Display the message's info.\n/ban - Restrict the user from contacting you.\n/pardon - Pardon the user.\n/ping - Test if the bot is working.\n/switchfw - Pause/Resume message forwarding.\n/switchbw - Enable/Disable keyword banning.\n/saveconf - Manually save all settings and translations. Especially useful after upgrades.\n/readconf - Reload configurations without restarting bot.\n/uptime - Check system uptime information.\n/update - Check for updates and update bot.\n/chkupdate - Only check for updates.\n/catconf - Get your current configurations.\n/help - Display this message.\n\nThank you for using `pmcenter`!";
                 Message_OwnerStart = "😊 *Hi!* I'm your `pmcenter` bot, and I work just for you.\nThis message means that you've set up the bot successfully.\nTo reply to any forwarded messages, just directly reply to them here.\n\nThank you for using the `pmcenter` bot!";
                 Message_ReplySuccessful = "✅ Successfully replied to user $1!";
                 Message_UserBanned = "🚫 The user has been banned permanently.";
@@ -39,6 +39,7 @@ namespace pmcenter {
                 Message_AlreadyUpToDate = "✅ Already up to date!";
                 Message_UpdateExtracting = "📤 Extracting update files...";
                 Message_UpdateComplete = "✅ Update complete! Restart bot to take effect.";
+                Message_CurrentConf = "💾 *Your current configurations*: \n```\n$1\n```";
 
                 CLI_Finished = "==> All finished!";
                 CLI_HookEvents = "Hooking event processors...";
@@ -80,6 +81,7 @@ namespace pmcenter {
             public string Message_AlreadyUpToDate {get; set;}
             public string Message_UpdateExtracting {get; set;}
             public string Message_UpdateComplete {get; set;}
+            public string Message_CurrentConf {get; set;}
             public string CLI_InitThreads {get; set;}
             public string CLI_InitBotHeader {get; set;}
             public string CLI_InitBot {get; set;}

@@ -5,9 +5,11 @@
 */
 
 using System;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 using static pmcenter.Conf;
 
 namespace pmcenter {
@@ -48,14 +50,14 @@ namespace pmcenter {
             Log(Vars.CurrentLang.CLI_ThreadStarted, "RATELIMIT");
             while (true) {
                 foreach (RateData Data in Vars.RateLimits) {
-                    if (Data.MessageCount > 60 && Vars.CurrentConf.AutoBan) {
+                    if (Data.MessageCount > Vars.CurrentConf.AutoBanThreshold && Vars.CurrentConf.AutoBan) {
                         BanUser(Data.UID);
                         await Conf.SaveConf(false, true);
                         Log("Banning user: " + Data.UID, "RATELIMIT");
                     }
                     Data.MessageCount = 0;
                 }
-                Thread.Sleep(60000);
+                Thread.Sleep(30000);
             }
         }
         public static bool IsBanned(long UID) {
@@ -66,8 +68,13 @@ namespace pmcenter {
         }
         public static bool IsKeywordBanned(string Sentence) {
             if (Vars.CurrentConf.KeywordBanning != true) { return false; }
+            
             foreach (string Blocked in Vars.CurrentConf.BannedKeywords) {
-                if (Sentence.Contains(Blocked)) { return true; }
+                if (Vars.CurrentConf.EnableRegex) {
+                    if (IsRegexMatch(Sentence, Blocked)) { return true; }
+                } else {
+                    if (Sentence.Contains(Blocked)) { return true; }
+                }
             }
             return false;
         }
@@ -110,6 +117,21 @@ namespace pmcenter {
                 Data.UID = UID;
                 Data.MessageCount = 1;
                 Vars.RateLimits.Add(Data);
+            }
+        }
+        public static string SerializeCurrentConf() {
+            return JsonConvert.SerializeObject(Vars.CurrentConf, Formatting.Indented);
+        }
+        public static bool IsRegexMatch(string Source, string Expression) {
+            try {
+                if (Regex.IsMatch(Source, Expression, RegexOptions.None)) {
+                    return true;
+                } else {
+                    return false;
+                }
+            } catch (Exception ex) {
+                Log("Regex match failed: " + ex.Message + ", did you use a wrong regex?", "BOT", LogLevel.ERROR);
+                return false;
             }
         }
     }
