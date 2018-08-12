@@ -20,7 +20,7 @@
   "Message_UpdateAvailable": "🔃 *嗷！有更新可用喵~*\n新版本: `$1`\n新特性:\n`$2`",
   "Message_UpdateProcessing": "💠 正在准备更新...",
   "Message_UpdateCheckFailed": "⚠ 更新失败qaq: `$1`",
-  "Message_AlreadyUpToDate": "✅ 已经是最新版本啦！",
+  "Message_AlreadyUpToDate": "✅ *已经是最新版本啦*！\n最新版本: `$1`\n已安装版本: `$2`\n更新内容:\n`$3`",
   "Message_UpdateExtracting": "📤 正在解压升级文件喵~",
   "Message_UpdateComplete": "✅ 更新完毕啦！重新启动机器人即可完成更新qwq",
   "Message_CurrentConf": "💾 *当前配置数据*: \n```\n$1\n```",

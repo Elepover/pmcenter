@@ -123,11 +123,11 @@ namespace pmcenter {
                                     await Vars.Bot.SendTextMessageAsync(e.Update.Message.From.Id, UpdateString, ParseMode.Markdown, false, false, e.Update.Message.MessageId);
                                     return;
                                 } else {
-                                    await Vars.Bot.SendTextMessageAsync(e.Update.Message.From.Id, Vars.CurrentLang.Message_AlreadyUpToDate, ParseMode.Markdown, false, false, e.Update.Message.MessageId);
+                                    await Vars.Bot.SendTextMessageAsync(e.Update.Message.From.Id, Vars.CurrentLang.Message_AlreadyUpToDate.Replace("$1", Latest.Latest).Replace("$2", Vars.AppVer.ToString()).Replace("$3", Latest.Details), ParseMode.Markdown, false, false, e.Update.Message.MessageId);
                                     return;
                                 }
                             } catch (Exception ex) {
-                                string ErrorString = Vars.CurrentLang.Message_AlreadyUpToDate.Replace("$1", ex.Message);
+                                string ErrorString = Vars.CurrentLang.Message_UpdateCheckFailed.Replace("$1", ex.Message);
                                 await Vars.Bot.SendTextMessageAsync(e.Update.Message.From.Id, ErrorString, ParseMode.Markdown, false, false, e.Update.Message.MessageId);
                                 return;
                             }
@@ -164,7 +164,7 @@ namespace pmcenter {
                                     }
                                     // end of difference
                                 } else {
-                                    await Vars.Bot.SendTextMessageAsync(e.Update.Message.From.Id, Vars.CurrentLang.Message_AlreadyUpToDate, ParseMode.Markdown, false, false, e.Update.Message.MessageId);
+                                    await Vars.Bot.SendTextMessageAsync(e.Update.Message.From.Id, Vars.CurrentLang.Message_AlreadyUpToDate.Replace("$1", Latest.Latest).Replace("$2", Vars.AppVer.ToString()).Replace("$3", Latest.Details), ParseMode.Markdown, false, false, e.Update.Message.MessageId);
                                     return;
                                 }
                             } catch (Exception ex) {

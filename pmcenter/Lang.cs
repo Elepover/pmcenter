@@ -36,10 +36,10 @@ namespace pmcenter {
                 Message_UpdateAvailable = "🔃 *Update available!*\nNew version: `$1`\nWhat's new:\n`$2`";
                 Message_UpdateProcessing = "💠 Preparing to update...";
                 Message_UpdateCheckFailed = "⚠ Update failed: `$1`";
-                Message_AlreadyUpToDate = "✅ Already up to date!";
+                Message_AlreadyUpToDate = "✅ *Already up to date*!\nLatest version: `$1`\nCurrently installed: `$2`\nUpdate details:\n`$3`";
                 Message_UpdateExtracting = "📤 Extracting update files...";
                 Message_UpdateComplete = "✅ Update complete! Restart bot to take effect.";
-                Message_CurrentConf = "💾 *Your current configurations*: \n```\n$1\n```";
+                Message_CurrentConf = "💾 *Your current configurations*: \n`$1`";
 
                 CLI_Finished = "==> All finished!";
                 CLI_HookEvents = "Hooking event processors...";
