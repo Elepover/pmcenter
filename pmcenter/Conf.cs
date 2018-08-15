@@ -99,12 +99,14 @@ namespace pmcenter {
         public static async void InitConf() {
             Log("Checking configurations file's integrity...", "CONF");
             if (File.Exists(Vars.ConfFile) != true) { // STEP 1, DETECT EXISTENCE.
+                Log("Configurations file not found. Creating...", "CONF", LogLevel.WARN);
                 Vars.CurrentConf = new ConfObj();
 			    await SaveConf(true); // Then the app will exit, do nothing.
             } else { // STEP 2, READ TEST.
                 try {
                     await ReadConf(false); // Read but don't apply.
-                } catch {
+                } catch (Exception ex) {
+                    Log("Error! " + ex.ToString(), "CONF", LogLevel.ERROR);
                     Log("Moving old configurations file to \"pmcenter.json.bak\"...", "CONF", LogLevel.WARN);
                     File.Move(Vars.ConfFile, Vars.ConfFile + ".bak");
                     Vars.CurrentConf = new ConfObj();

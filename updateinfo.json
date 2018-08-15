@@ -1,4 +1,4 @@
 {
-    "Latest": "1.1.41.117",
-    "Details": "[+] You can now use regular expressions in keyword blocking!\n[+] You can now get your configurations through the bot!\n[/] Translations update.\n[/] When you are checking updates with the latest version, it will show you detailed version info.\n[+] Detailed update information."
+    "Latest": "1.1.42.118",
+    "Details": "[+] More details when configurations are corrupt.\n[+] First-time-use reminder."
 }

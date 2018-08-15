@@ -35,6 +35,8 @@ namespace pmcenter {
                 InitLang();
                 await ReadLang();
                 if (RestartRequired) {
+                    Log("This may be the first time that you use the pmcenter bot.");
+                    Log("Configuration guide could be found at https://see.wtf/feEJJ");
                     Log("Received restart requirement from settings system. Exiting...", "CORE", LogLevel.ERROR);
                     Log("You may need to check your settings and try again.", "CORE", LogLevel.INFO);
                     Environment.Exit(1);

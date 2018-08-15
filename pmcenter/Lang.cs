@@ -123,12 +123,14 @@ namespace pmcenter {
         public static async void InitLang() {
             Log("Checking language file's integrity...", "LANG");
             if (File.Exists(Vars.LangFile) != true) { // STEP 1, DETECT EXISTENCE.
+                Log("Language file not found. Creating...", "LANG", LogLevel.WARN);
                 Vars.CurrentLang = new Language();
 			    await SaveLang(true); // Then the app will exit, do nothing.
             } else { // STEP 2, READ TEST.
                 try {
                     await ReadLang(false); // Read but don't apply.
-                } catch {
+                } catch (Exception ex) {
+                    Log("Error! " + ex.ToString(), "LANG", LogLevel.ERROR);
                     Log("Moving old language file to \"pmcenter_locale.json.bak\"...", "LANG", LogLevel.WARN);
                     File.Move(Vars.LangFile, Vars.LangFile + ".bak");
                     Vars.CurrentLang = new Language();
