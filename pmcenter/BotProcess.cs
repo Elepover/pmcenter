@@ -205,6 +205,8 @@ namespace pmcenter {
                             try {
                                 Conf.Update Latest = Conf.CheckForUpdates();
                                 if (Conf.IsNewerVersionAvailable(Latest)) {
+                                    Vars.UpdatePending = true;
+                                    Vars.UpdateVersion = new Version(Latest.Latest);
                                     string UpdateString = Vars.CurrentLang.Message_UpdateAvailable
                                         .Replace("$1", Latest.Latest)
                                         .Replace("$2", Latest.Details);
@@ -216,6 +218,7 @@ namespace pmcenter {
                                                                         e.Update.Message.MessageId);
                                     return;
                                 } else {
+                                    Vars.UpdatePending = false;
                                     await Vars.Bot.SendTextMessageAsync(e.Update.Message.From.Id,
                                                                         Vars.CurrentLang.Message_AlreadyUpToDate
                                                                             .Replace("$1", Latest.Latest)
