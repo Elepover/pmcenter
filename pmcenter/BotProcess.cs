@@ -12,6 +12,7 @@ using System.Net;
 using System.IO;
 using System.IO.Compression;
 using System.Diagnostics;
+using System.Runtime.InteropServices;
 using Telegram.Bot.Args;
 using static pmcenter.Methods;
 
@@ -347,12 +348,14 @@ namespace pmcenter {
                             MessageStr += Vars.CurrentLang.Message_SysStatus_Summary
                                 .Replace("$1", Environment.MachineName)
                                 .Replace("$2", Environment.OSVersion.ToString())
-                                .Replace("$3", (new TimeSpan(0, 0, 0, 0, Environment.TickCount)).ToString())
-                                .Replace("$4", Vars.StartSW.Elapsed.ToString())
-                                .Replace("$5", DateTime.UtcNow.ToShortDateString() + DateTime.UtcNow.ToShortTimeString())
-                                .Replace("$6", Environment.Version.ToString())
-                                .Replace("$7", Vars.AppVer.ToString())
-                                .Replace("$8", Environment.ProcessorCount.ToString());
+                                .Replace("$3", RuntimeInformation.OSDescription)
+                                .Replace("$4", (new TimeSpan(0, 0, 0, 0, Environment.TickCount)).ToString())
+                                .Replace("$5", Vars.StartSW.Elapsed.ToString())
+                                .Replace("$6", DateTime.UtcNow.ToShortDateString() + DateTime.UtcNow.ToShortTimeString())
+                                .Replace("$7", Environment.Version.ToString())
+                                .Replace("$8", RuntimeInformation.FrameworkDescription)
+                                .Replace("$9", Vars.AppVer.ToString())
+                                .Replace("$a", Environment.ProcessorCount.ToString());
 
                             await Vars.Bot.SendTextMessageAsync(e.Update.Message.From.Id,
                                                                 MessageStr,

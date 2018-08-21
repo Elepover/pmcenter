@@ -44,7 +44,7 @@ namespace pmcenter {
                 Message_SysStatus_NoOperationRequired = "🚀 *Good job, No action needed!*";
                 Message_SysStatus_PendingUpdate = "🔃 *Update available to*: `$1`";
                 Message_SysStatus_RestartRequired = "🔃 *Bot restart required to apply changes.*";
-                Message_SysStatus_Summary = "📝 *Device name*: `$1`\n💿 *Operating System*: `$2`\n⌛ *Server uptime*: `$3`\n🕓 *Bot uptime*: `$4`\n📅 *Server time (UTC)*: `$5`\n📐 *Runtime version*: `$6`\n📏 *Application version*: `$7`\n💠 *Processor count*: `$8`";
+                Message_SysStatus_Summary = "📝 *Device name*: `$1`\n💿 *Operating System*: `$2`\nℹ *OS description*: `$3`\n⌛ *Server uptime*: `$4`\n🕓 *Bot uptime*: `$5`\n📅 *Server time (UTC)*: `$6`\n📐 *Runtime version*: `$7`\nℹ *Runtime description*: `$8`\n📏 *Application version*: `$9`\n💠 *Processor count*: `$a`";
                 Message_Restarting = "🔄 Restarting...";
 
                 CLI_Finished = "==> All finished!";

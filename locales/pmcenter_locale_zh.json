@@ -28,7 +28,7 @@
   "Message_SysStatus_NoOperationRequired": "🚀 *无需进行任何额外操作！*",
   "Message_SysStatus_PendingUpdate": "🔃 *更新可用升级至*: `$1`",
   "Message_SysStatus_RestartRequired": "🔄 *需重启机器人以应用配置。*",
-  "Message_SysStatus_Summary": "📝 *设备名*: `$1`\n💿 *操作系统*: `$2`\n⌛ *服务器在线时间*: `$3`\n🕓 *机器人在线时间*: `$4`\n📅 *服务器时间 (UTC)*: `$5`\n📐 *运行时版本*: `$6`\n📏 *应用版本*: `$7`\n💠 *处理器个数*: `$8`",
+  "Message_SysStatus_Summary": "📝 *设备名*: `$1`\n💿 *操作系统*: `$2`\nℹ *系统描述信息*: `$3`\n⌛ *服务器在线时间*: `$4`\n🕓 *机器人在线时间*: `$5`\n📅 *服务器时间 (UTC)*: `$6`\n📐 *运行时版本*: `$7`\nℹ *运行时描述信息*: `$8`\n📏 *应用版本*: `$9`\n💠 *处理器个数*: `$a`",
   "Message_Restarting": "🔄 准备重启...",
   "CLI_InitThreads": "==> 初始化模块 - 线程",
   "CLI_InitBotHeader": "==> 初始化模块 - 机器人",
