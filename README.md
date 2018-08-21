@@ -106,3 +106,5 @@ You can write a `systemd service` to keep it running, even after the host machin
 | `/update` | Owner | Check for updates and update bot if available. |
 | `/chkupdate` | Owner | Only check for updates. |
 | `/catconf` | Owner | Get current configurations. |
+| `/restart` | Owner | Restart bot. |
+| `/status` | Owner | Get host device's status. |

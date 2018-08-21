@@ -1,4 +1,4 @@
 {
-    "Latest": "1.1.42.118",
-    "Details": "[+] More details when configurations are corrupt.\n[+] First-time-use reminder."
+    "Latest": "1.1.50.135",
+    "Details": "[+] Added new \"/status\" and \"/restart\" command.\n[/] Improved code readability.\n[+] Updated translations."
 }

@@ -17,7 +17,7 @@ namespace pmcenter {
             public Language() {
                 Message_CommandNotReplying = "😶 Don't talk to me, spend time chatting with those who love you.";
                 Message_CommandNotReplyingValidMessage = "😐 Speaking to me makes no sense.";
-                Message_Help = "❓ `pmcenter` *Bot Help*\n/start - Display welcome message.\n/info - Display the message's info.\n/ban - Restrict the user from contacting you.\n/pardon - Pardon the user.\n/ping - Test if the bot is working.\n/switchfw - Pause/Resume message forwarding.\n/switchbw - Enable/Disable keyword banning.\n/saveconf - Manually save all settings and translations. Especially useful after upgrades.\n/readconf - Reload configurations without restarting bot.\n/uptime - Check system uptime information.\n/update - Check for updates and update bot.\n/chkupdate - Only check for updates.\n/catconf - Get your current configurations.\n/help - Display this message.\n\nThank you for using `pmcenter`!";
+                Message_Help = "❓ `pmcenter` *Bot Help*\n/start - Display welcome message.\n/info - Display the message's info.\n/ban - Restrict the user from contacting you.\n/pardon - Pardon the user.\n/ping - Test if the bot is working.\n/switchfw - Pause/Resume message forwarding.\n/switchbw - Enable/Disable keyword banning.\n/saveconf - Manually save all settings and translations. Especially useful after upgrades.\n/readconf - Reload configurations without restarting bot.\n/uptime - Check system uptime information.\n/update - Check for updates and update bot.\n/chkupdate - Only check for updates.\n/catconf - Get your current configurations.\n/restart - Restart bot.\n/status - Get host device's status information.\n/help - Display this message.\n\nThank you for using `pmcenter`!";
                 Message_OwnerStart = "😊 *Hi!* I'm your `pmcenter` bot, and I work just for you.\nThis message means that you've set up the bot successfully.\nTo reply to any forwarded messages, just directly reply to them here.\n\nThank you for using the `pmcenter` bot!";
                 Message_ReplySuccessful = "✅ Successfully replied to user $1!";
                 Message_UserBanned = "🚫 The user has been banned permanently.";
@@ -40,6 +40,12 @@ namespace pmcenter {
                 Message_UpdateExtracting = "📤 Extracting update files...";
                 Message_UpdateFinalizing = "✅ Files patching complete! Trying to restart...";
                 Message_CurrentConf = "💾 *Your current configurations*: \n`$1`";
+                Message_SysStatus_Header = "💻 *System Status*";
+                Message_SysStatus_NoOperationRequired = "🚀 *Good job, No action needed!*";
+                Message_SysStatus_PendingUpdate = "🔃 *Update available to*: `$1`";
+                Message_SysStatus_RestartRequired = "🔃 *Bot restart required to apply changes.*";
+                Message_SysStatus_Summary = "📝 *Device name*: `$1`\n💿 *Operating System*: `$2`\n⌛ *Server uptime*: `$3`\n🕓 *Bot uptime*: `$4`\n📅 *Server time (UTC)*: `$5`\n📐 *Runtime version*: `$6`\n📏 *Application version*: `$7`\n💠 *Processor count*: `$8`";
+                Message_Restarting = "🔄 Restarting...";
 
                 CLI_Finished = "==> All finished!";
                 CLI_HookEvents = "Hooking event processors...";
@@ -82,6 +88,13 @@ namespace pmcenter {
             public string Message_UpdateExtracting {get; set;}
             public string Message_UpdateFinalizing {get; set;}
             public string Message_CurrentConf {get; set;}
+            public string Message_SysStatus_Header {get; set;}
+            public string Message_SysStatus_RestartRequired {get; set;}
+            public string Message_SysStatus_PendingUpdate {get; set;}
+            public string Message_SysStatus_NoOperationRequired {get; set;}
+            public string Message_SysStatus_Summary {get; set;}
+            public string Message_Restarting {get; set;}
+
             public string CLI_InitThreads {get; set;}
             public string CLI_InitBotHeader {get; set;}
             public string CLI_InitBot {get; set;}

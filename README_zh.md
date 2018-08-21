@@ -106,3 +106,5 @@ dotnet pmcenter.dll
 | `/update` | 所有者 | 检查更新并自动更新（如果可用） |
 | `/chkupdate` | 所有者 | 仅检查更新 |
 | `/catconf` | 所有者 | 获取当前配置数据 |
+| `/restart` | 所有者 | 重新启动机器人 |
+| `/status` | 所有者 | 获取设备状态 |
