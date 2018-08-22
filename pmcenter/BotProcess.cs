@@ -272,6 +272,13 @@ namespace pmcenter {
                                             Entry.ExtractToFile(Path.Combine(Vars.AppDirectory, Entry.FullName), true);
                                         }
                                     }
+                                    if (Vars.CurrentConf.AutoLangUpdate) {
+                                        Log("Starting automatic language file update...", "BOT");
+                                        Downloader.DownloadFile(
+                                            new Uri(Vars.CurrentConf.LangURL),
+                                            Path.Combine(Vars.AppDirectory, "pmcenter_locale.json")
+                                        );
+                                    }
                                     Log("Cleaning up temporary files...", "BOT");
                                     File.Delete(Path.Combine(Vars.AppDirectory, "pmcenter_update.zip"));
                                     await Vars.Bot.SendTextMessageAsync(e.Update.Message.From.Id,
@@ -398,7 +405,27 @@ namespace pmcenter {
                             return;
                         }
                     }
-                    await Vars.Bot.ForwardMessageAsync(Vars.CurrentConf.OwnerUID, e.Update.Message.From.Id, e.Update.Message.MessageId, false);
+                    // process owner
+                    Log("Forwarding message to owner...", "BOT");
+                    await Vars.Bot.ForwardMessageAsync(Vars.CurrentConf.OwnerUID,
+                                                       e.Update.Message.From.Id,
+                                                       e.Update.Message.MessageId,
+                                                       false);
+                    // process cc
+                    if (Vars.CurrentConf.EnableCc) {
+                        Log("Cc enabled, forwarding...", "BOT");
+                        foreach (long Id in Vars.CurrentConf.Cc) {
+                            Log("Forwarding message to cc: " + Id, "BOT");
+                            try {
+                                await Vars.Bot.ForwardMessageAsync(Id,
+                                                                e.Update.Message.From.Id,
+                                                                e.Update.Message.MessageId,
+                                                                false);
+                            } catch (Exception ex) {
+                                Log("Unable to forward message to cc: " + Id + ", reason: " + ex.Message, "BOT", LogLevel.ERROR);
+                            }
+                        }
+                    }
                     AddRateLimit(e.Update.Message.From.Id);
                 }
                 return;

@@ -22,6 +22,8 @@ namespace pmcenter {
             public ConfObj() {
                 APIKey = "";
                 OwnerUID = -1;
+                EnableCc = false;
+                Cc = new long[]{};
                 AutoBan = true;
                 AutoBanThreshold = 20;
                 Banned = new List<BanObj>();
@@ -32,9 +34,13 @@ namespace pmcenter {
                 EnableRegex = false;
                 RestartCommand = "/bin/systemctl";
                 RestartArgs = "restart pmcenter";
+                AutoLangUpdate = true;
+                LangURL = "https://raw.githubusercontent.com/Elepover/pmcenter/master/locales/pmcenter_locale_en.json";
             }
             public string APIKey;
             public long OwnerUID;
+            public bool EnableCc;
+            public long[] Cc;
             public bool AutoBan;
             public int AutoBanThreshold;
             public List<BanObj> Banned;
@@ -45,6 +51,8 @@ namespace pmcenter {
             public bool EnableRegex;
             public string RestartCommand;
             public string RestartArgs;
+            public bool AutoLangUpdate;
+            public string LangURL;
         }
         public class BanObj {
             public BanObj() {

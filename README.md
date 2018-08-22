@@ -60,6 +60,8 @@ During the first run, `pmcenter` will automatically generate the `pmcenter.json`
 | :---- | :----- | ----:|
 | `APIKey` | `String` | Your Telegram bot's API key. |
 | `OwnerID` | `Long` | The owner's Telegram user ID. |
+| `EnableCc` | `Boolean` | Decides whether cc feature is enabled or not. |
+| `Cc` | `Array` | Other users/groups/channels to receive forwarded messages. |
 | `AutoBan` | `Boolean` | Decides whether the flood-banning feature is enabled or not. |
 | `AutoBanThreshold` | `Int` | How many messages in 0.5m will be banned. |
 | `Banned` | `Array` | Storage of banned users. |
@@ -70,12 +72,14 @@ During the first run, `pmcenter` will automatically generate the `pmcenter.json`
 | `EnableRegex` | `Boolean` | Enables regex matching in keywords banning or not. |
 | `RestartCommand` | `String` | Command to restart pmcenter. Used for auto-updates. |
 | `RestartArgs` | `String` | Arguments part of restart command. |
+| `AutoLangUpdate` | `Boolean` | Allows the bot to automatically update language file after updating. |
+| `LangURL` | `String` | URL to the updated language file. |
 
-Note: After upgrades, you can send `/saveconf` command to the bot to fix missing new settings.
+Tip: After upgrades, you can send `/saveconf` command to the bot to fix missing new settings.
 
 ##### Note About Translations
 
-- The `$1` variable in the `Message_ReplySuccessful` and `Message_BotStarted` key could be safely deleted, if you like.
+- The variables like `$1` in the `Message_ReplySuccessful` and other keys could be safely deleted, if you like.
 - **Emojis** are supported, and were used by default.
 - Currently the response of the `/info` command is unchangeable.
 - Familiar with another language? Pull requests are welcome!

@@ -1,6 +1,6 @@
 ﻿/*
 // Program.cs / pmcenter project / https://github.com/Elepover/pmcenter
-// Main entry pmcenter.
+// Main entry to pmcenter.
 // Copyright (C) 2018 Elepover. Licensed under the MIT License.
 */
 

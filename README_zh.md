@@ -60,6 +60,8 @@ dotnet pmcenter.dll
 | :---- | :----- | ----:|
 | `APIKey` | `String` | 你的 Telegram 机器人 API 密钥 |
 | `OwnerID` | `Long` | 使用者的 Telegram ID |
+| `EnableCc` | `Boolean` | 是否启用 Cc 功能 |
+| `Cc` | `Array` | 其他消息接收者 |
 | `AutoBan` | `Boolean` | 是否自动封禁刷屏用户 |
 | `AutoBanThreshold` | `Int` | 30 秒内消息量阈值，超过将自动封禁 |
 | `Banned` | `Array` | 封禁用户存储 |
@@ -70,12 +72,14 @@ dotnet pmcenter.dll
 | `EnableRegex` | `Boolean` | 是否启用关键字屏蔽中的正则表达式匹配 |
 | `RestartCommand` | `String` | 用于自动更新后重新启动机器人的命令 |
 | `RestartArgs` | `String` | 重启命令的参数部分 |
+| `AutoLangUpdate` | `Boolean` | 是否启用自动语言文件更新 |
+| `LangURL` | `String` | 新语言文件的 URL |
 
 提示：升级后，可向机器人发送 `/saveconf` 命令来自动补齐升级后缺少的新配置项。
 
 ##### 翻译注意事项
 
-- `Message_ReplySuccessful` 及 `Message_BotStarted` 项中的 `$1` 可安全删除。
+- `Message_ReplySuccessful` 等各种翻译中类似 `$1` 的变量可安全删除。
 - 支持 **Emojis** 且默认启用。
 - 目前 `/info` 命令的回复尚且无法更改。
 - 欢迎 Pull Requests.
