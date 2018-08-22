@@ -7,11 +7,11 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using static pmcenter.Methods;
-using static pmcenter.Vars;
+using Telegram.Bot;
 using static pmcenter.Conf;
 using static pmcenter.Lang;
-using Telegram.Bot;
+using static pmcenter.Methods;
+using static pmcenter.Vars;
 
 namespace pmcenter {
     public class Program {
