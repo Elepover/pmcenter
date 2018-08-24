@@ -10,8 +10,6 @@ using System.IO;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
-using MySql.Data;
-using MySql.Data.MySqlClient;
 using Newtonsoft.Json;
 using static pmcenter.Methods;
 
