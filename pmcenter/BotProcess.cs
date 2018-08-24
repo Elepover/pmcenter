@@ -27,11 +27,11 @@ namespace pmcenter {
             string FirstName = e.Update.Message.From.FirstName;
             long UID = e.Update.Message.From.Id;
             if (IsBanned(e.Update.Message.From.Id)) {
-                string WaitToProcess = Vars.CurrentLang.CLI_UserBlocked;
-                WaitToProcess = WaitToProcess.Replace("$1", FirstName + " (@" + Username + " / " + UID + ")");
-                Log(WaitToProcess, "BOT");
+                Log("Restricting banned user from sending messages: " + FirstName + " (@" + Username + " / " + UID + ")", "BOT");
                 return;
             }
+            // Pre-assign a shortcut.
+            bool DisNotif = Vars.CurrentConf.DisableNotifications;
             // Reworked processing logic.
             if (e.Update.Message.From.Id == Vars.CurrentConf.OwnerUID) {
                 // Commands?
@@ -53,7 +53,7 @@ namespace pmcenter {
                                 await Vars.Bot.SendTextMessageAsync(e.Update.Message.From.Id,
                                                                     MessageInfo, ParseMode.Markdown,
                                                                     false,
-                                                                    false,
+                                                                    DisNotif,
                                                                     e.Update.Message.MessageId);
                                 return;
                             } else if (e.Update.Message.Text.ToLower() == "/ban") {
@@ -63,7 +63,7 @@ namespace pmcenter {
                                                                     Vars.CurrentLang.Message_UserBanned,
                                                                     ParseMode.Markdown,
                                                                     false,
-                                                                    false,
+                                                                    DisNotif,
                                                                     e.Update.Message.MessageId);
                                 return;
                             } else if (e.Update.Message.Text.ToLower() == "/pardon") {
@@ -73,7 +73,7 @@ namespace pmcenter {
                                                                     Vars.CurrentLang.Message_UserPardoned,
                                                                     ParseMode.Markdown,
                                                                     false,
-                                                                    false,
+                                                                    DisNotif,
                                                                     e.Update.Message.MessageId);
                                 return;
                             } // not a recogized command.
@@ -82,14 +82,12 @@ namespace pmcenter {
                         await Vars.Bot.ForwardMessageAsync(e.Update.Message.ReplyToMessage.ForwardFrom.Id,
                                                            e.Update.Message.Chat.Id,
                                                            e.Update.Message.MessageId,
-                                                           false);
+                                                           DisNotif);
                         // Process locale.
                         string ReplyToMessage = Vars.CurrentLang.Message_ReplySuccessful;
                         ReplyToMessage = ReplyToMessage.Replace("$1", "[" + e.Update.Message.ReplyToMessage.ForwardFrom.FirstName + " (@" + e.Update.Message.ReplyToMessage.ForwardFrom.Username + ")](tg://user?id=" + e.Update.Message.ReplyToMessage.ForwardFrom.Id + ")");
                         await Vars.Bot.SendTextMessageAsync(e.Update.Message.From.Id, ReplyToMessage, ParseMode.Markdown, false, false, e.Update.Message.MessageId);
-                        string WaitToProcess = Vars.CurrentLang.CLI_OwnerMessageForwarded;
-                        WaitToProcess = WaitToProcess.Replace("$1", e.Update.Message.ReplyToMessage.ForwardFrom.FirstName + " (@" + e.Update.Message.ReplyToMessage.ForwardFrom.Username + " / " + e.Update.Message.ReplyToMessage.ForwardFrom.Id + ")");
-                        Log(WaitToProcess, "BOT");
+                        Log("Successfully passed owner's reply to " + e.Update.Message.ReplyToMessage.ForwardFrom.FirstName + " (@" + e.Update.Message.ReplyToMessage.ForwardFrom.Username + " / " + e.Update.Message.ReplyToMessage.ForwardFrom.Id + ")", "BOT");
                         return;
                     } else {
                         // The owner is replying to bot messages. (no forwardfrom)
@@ -97,7 +95,7 @@ namespace pmcenter {
                                                             Vars.CurrentLang.Message_CommandNotReplyingValidMessage,
                                                             ParseMode.Markdown,
                                                             false,
-                                                            false,
+                                                            DisNotif,
                                                             e.Update.Message.MessageId);
                         return;
                     }
@@ -110,7 +108,7 @@ namespace pmcenter {
                                                                 Vars.CurrentLang.Message_OwnerStart,
                                                                 ParseMode.Markdown,
                                                                 false,
-                                                                false,
+                                                                DisNotif,
                                                                 e.Update.Message.MessageId);
                             return;
                         } else if (e.Update.Message.Text.ToLower() == "/help") {
@@ -118,7 +116,7 @@ namespace pmcenter {
                                                                 Vars.CurrentLang.Message_Help,
                                                                 ParseMode.Markdown,
                                                                 false,
-                                                                false,
+                                                                DisNotif,
                                                                 e.Update.Message.MessageId);
                             return;
                         } else if (e.Update.Message.Text.ToLower() == "/ping") {
@@ -126,7 +124,7 @@ namespace pmcenter {
                                                                 Vars.CurrentLang.Message_PingReply,
                                                                 ParseMode.Markdown,
                                                                 false,
-                                                                false,
+                                                                DisNotif,
                                                                 e.Update.Message.MessageId);
                             return;
                         } else if (e.Update.Message.Text.ToLower() == "/switchfw") {
@@ -137,7 +135,7 @@ namespace pmcenter {
                                                                     Vars.CurrentLang.Message_ServicePaused,
                                                                     ParseMode.Markdown,
                                                                     false,
-                                                                    false,
+                                                                    DisNotif,
                                                                     e.Update.Message.MessageId);
                                 return;
                             } else {
@@ -145,7 +143,7 @@ namespace pmcenter {
                                                                     Vars.CurrentLang.Message_ServiceResumed,
                                                                     ParseMode.Markdown,
                                                                     false,
-                                                                    false,
+                                                                    DisNotif,
                                                                     e.Update.Message.MessageId);
                                 return;
                             }
@@ -157,7 +155,7 @@ namespace pmcenter {
                                                                     Vars.CurrentLang.Message_MessageBlockEnabled,
                                                                     ParseMode.Markdown,
                                                                     false,
-                                                                    false,
+                                                                    DisNotif,
                                                                     e.Update.Message.MessageId);
                                 return;
                             } else {
@@ -165,7 +163,7 @@ namespace pmcenter {
                                                                     Vars.CurrentLang.Message_MessageBlockDisabled,
                                                                     ParseMode.Markdown,
                                                                     false,
-                                                                    false,
+                                                                    DisNotif,
                                                                     e.Update.Message.MessageId);
                                 return;
                             }
@@ -176,7 +174,7 @@ namespace pmcenter {
                                                                 Vars.CurrentLang.Message_ConfigUpdated,
                                                                 ParseMode.Markdown,
                                                                 false,
-                                                                false,
+                                                                DisNotif,
                                                                 e.Update.Message.MessageId);
                             return;
                         } else if (e.Update.Message.Text.ToLower() == "/readconf") {
@@ -186,7 +184,7 @@ namespace pmcenter {
                                                                 Vars.CurrentLang.Message_ConfigReloaded,
                                                                 ParseMode.Markdown,
                                                                 false,
-                                                                false,
+                                                                DisNotif,
                                                                 e.Update.Message.MessageId);
                             return;
                         } else if (e.Update.Message.Text.ToLower() == "/uptime") {
@@ -198,7 +196,7 @@ namespace pmcenter {
                                                                 UptimeString,
                                                                 ParseMode.Markdown,
                                                                 false,
-                                                                false,
+                                                                DisNotif,
                                                                 e.Update.Message.MessageId);
                             return;
                         } else if (e.Update.Message.Text.ToLower() == "/chkupdate") {
@@ -214,7 +212,7 @@ namespace pmcenter {
                                                                         UpdateString,
                                                                         ParseMode.Markdown,
                                                                         false,
-                                                                        false,
+                                                                        DisNotif,
                                                                         e.Update.Message.MessageId);
                                     return;
                                 } else {
@@ -226,7 +224,7 @@ namespace pmcenter {
                                                                             .Replace("$3", Latest.Details),
                                                                         ParseMode.Markdown,
                                                                         false,
-                                                                        false,
+                                                                        DisNotif,
                                                                         e.Update.Message.MessageId);
                                     return;
                                 }
@@ -235,7 +233,7 @@ namespace pmcenter {
                                 await Vars.Bot.SendTextMessageAsync(e.Update.Message.From.Id,
                                                                     ErrorString, ParseMode.Markdown,
                                                                     false,
-                                                                    false,
+                                                                    DisNotif,
                                                                     e.Update.Message.MessageId);
                                 return;
                             }
@@ -250,14 +248,14 @@ namespace pmcenter {
                                     await Vars.Bot.SendTextMessageAsync(e.Update.Message.From.Id,
                                                                         UpdateString, ParseMode.Markdown,
                                                                         false,
-                                                                        false,
+                                                                        DisNotif,
                                                                         e.Update.Message.MessageId);
                                     // where difference begins
                                     await Vars.Bot.SendTextMessageAsync(e.Update.Message.From.Id,
                                                                         Vars.CurrentLang.Message_UpdateProcessing,
                                                                         ParseMode.Markdown,
                                                                         false,
-                                                                        false,
+                                                                        DisNotif,
                                                                         e.Update.Message.MessageId);
                                     // download compiled package
                                     Log("Starting update download...", "BOT");
@@ -285,7 +283,7 @@ namespace pmcenter {
                                                                         Vars.CurrentLang.Message_UpdateFinalizing,
                                                                         ParseMode.Markdown,
                                                                         false,
-                                                                        false,
+                                                                        DisNotif,
                                                                         e.Update.Message.MessageId);
                                     Log("Trying to execute restart command...", "BOT");
                                     try {
@@ -305,7 +303,7 @@ namespace pmcenter {
                                                                             .Replace("$3", Latest.Details),
                                                                         ParseMode.Markdown,
                                                                         false,
-                                                                        false,
+                                                                        DisNotif,
                                                                         e.Update.Message.MessageId);
                                     return;
                                 }
@@ -315,7 +313,7 @@ namespace pmcenter {
                                                                     ErrorString,
                                                                     ParseMode.Markdown,
                                                                     false,
-                                                                    false,
+                                                                    DisNotif,
                                                                     e.Update.Message.MessageId);
                                 return;
                             } // end of try, not end if
@@ -325,7 +323,7 @@ namespace pmcenter {
                                                                 ConfMessage,
                                                                 ParseMode.Markdown,
                                                                 false,
-                                                                false,
+                                                                DisNotif,
                                                                 e.Update.Message.MessageId);
                             return;
                         } else if (e.Update.Message.Text.ToLower() == "/restart") {
@@ -333,7 +331,7 @@ namespace pmcenter {
                                                                 Vars.CurrentLang.Message_Restarting,
                                                                 ParseMode.Markdown,
                                                                 false,
-                                                                false,
+                                                                DisNotif,
                                                                 e.Update.Message.MessageId);
                             Thread.Sleep(5000);
                             Environment.Exit(0);
@@ -371,12 +369,37 @@ namespace pmcenter {
                                                                 MessageStr,
                                                                 ParseMode.Markdown,
                                                                 false,
-                                                                false,
+                                                                DisNotif,
                                                                 e.Update.Message.MessageId);
                             return;
+                        } else if (e.Update.Message.Text.ToLower() == "/switchnf") {
+                            bool IsDisabledNow = Conf.SwitchNotifications();
+                            await Conf.SaveConf(false, true);
+                            if (IsDisabledNow) {
+                                await Vars.Bot.SendTextMessageAsync(e.Update.Message.From.Id,
+                                                                    Vars.CurrentLang.Message_NotificationsOff,
+                                                                    ParseMode.Markdown,
+                                                                    false,
+                                                                    DisNotif,
+                                                                    e.Update.Message.MessageId);
+                                return;
+                            } else {
+                                await Vars.Bot.SendTextMessageAsync(e.Update.Message.From.Id,
+                                                                    Vars.CurrentLang.Message_NotificationsOn,
+                                                                    ParseMode.Markdown,
+                                                                    false,
+                                                                    DisNotif,
+                                                                    e.Update.Message.MessageId);
+                                return;
+                            }
                         } // not a command.
                     }
-                    await Vars.Bot.SendTextMessageAsync(e.Update.Message.From.Id, Vars.CurrentLang.Message_CommandNotReplying, ParseMode.Markdown, false, false, e.Update.Message.MessageId);
+                    await Vars.Bot.SendTextMessageAsync(e.Update.Message.From.Id,
+                                                        Vars.CurrentLang.Message_CommandNotReplying,
+                                                        ParseMode.Markdown,
+                                                        false,
+                                                        DisNotif,
+                                                        e.Update.Message.MessageId);
                     return;
                 }
             } else {
@@ -384,21 +407,29 @@ namespace pmcenter {
                 if (e.Update.Message.Type == MessageType.Text) {
                     // is command?
                     if (e.Update.Message.Text.ToLower() == "/start") {
-                        await Vars.Bot.SendTextMessageAsync(e.Update.Message.From.Id, Vars.CurrentLang.Message_UserStartDefault, ParseMode.Markdown, false, false, e.Update.Message.MessageId);
+                        await Vars.Bot.SendTextMessageAsync(e.Update.Message.From.Id,
+                                                            Vars.CurrentLang.Message_UserStartDefault,
+                                                            ParseMode.Markdown,
+                                                            false,
+                                                            false,
+                                                            e.Update.Message.MessageId);
                         return;
                     }
                 }
-                string WaitToProcess = Vars.CurrentLang.CLI_UserMessageReceived;
-                WaitToProcess = WaitToProcess.Replace("$1", "\"" + FirstName + "\" (@" + Username + " / " + UID + ")");
-                Log(WaitToProcess, "BOT");
+                Log("Received message from " + "\"" + FirstName + "\" (@" + Username + " / " + UID + ")" + ", forwarding...", "BOT");
                 if (Vars.CurrentConf.ForwardingPaused) {
-                    Log(Vars.CurrentLang.CLI_ForwardingPaused, "BOT", LogLevel.INFO);
-                    await Vars.Bot.SendTextMessageAsync(e.Update.Message.From.Id, Vars.CurrentLang.Message_UserServicePaused, ParseMode.Markdown, false, false, e.Update.Message.MessageId);
+                    Log("Stopped: forwarding is currently paused.", "BOT", LogLevel.INFO);
+                    await Vars.Bot.SendTextMessageAsync(e.Update.Message.From.Id, 
+                                                        Vars.CurrentLang.Message_UserServicePaused,
+                                                        ParseMode.Markdown,
+                                                        false,
+                                                        false,
+                                                        e.Update.Message.MessageId);
                 } else {
                     // test text blacklist
                     if (string.IsNullOrEmpty(e.Update.Message.Text) != true) {
                         if (IsKeywordBanned(e.Update.Message.Text)) {
-                            Log(Vars.CurrentLang.CLI_SentenceBlocked, "BOT", LogLevel.INFO);
+                            Log("Stopped: sentence contains blocked words.", "BOT", LogLevel.INFO);
                             if (Vars.CurrentConf.KeywordAutoBan) {
                                 BanUser(e.Update.Message.From.Id);
                             }
@@ -410,7 +441,7 @@ namespace pmcenter {
                     await Vars.Bot.ForwardMessageAsync(Vars.CurrentConf.OwnerUID,
                                                        e.Update.Message.From.Id,
                                                        e.Update.Message.MessageId,
-                                                       false);
+                                                       DisNotif);
                     // process cc
                     if (Vars.CurrentConf.EnableCc) {
                         Log("Cc enabled, forwarding...", "BOT");
@@ -420,7 +451,7 @@ namespace pmcenter {
                                 await Vars.Bot.ForwardMessageAsync(Id,
                                                                 e.Update.Message.From.Id,
                                                                 e.Update.Message.MessageId,
-                                                                false);
+                                                                DisNotif);
                             } catch (Exception ex) {
                                 Log("Unable to forward message to cc: " + Id + ", reason: " + ex.Message, "BOT", LogLevel.ERROR);
                             }

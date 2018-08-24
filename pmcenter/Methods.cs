@@ -6,6 +6,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
@@ -47,7 +48,7 @@ namespace pmcenter {
             Console.ForegroundColor = ConsoleColor.White;
         }
         public static async void ThrRateLimiter() {
-            Log(Vars.CurrentLang.CLI_ThreadStarted, "RATELIMIT");
+            Log("Started!", "RATELIMIT");
             while (true) {
                 foreach (RateData Data in Vars.RateLimits) {
                     if (Data.MessageCount > Vars.CurrentConf.AutoBanThreshold && Vars.CurrentConf.AutoBan) {
@@ -133,6 +134,10 @@ namespace pmcenter {
                 Log("Regex match failed: " + ex.Message + ", did you use a wrong regex?", "BOT", LogLevel.ERROR);
                 return false;
             }
+        }
+        public static string GetRandomString() {
+            const string Chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            return new string(Enumerable.Repeat(Chars, 8).Select(s => s[(new Random()).Next(s.Length)]).ToArray());
         }
     }
 }

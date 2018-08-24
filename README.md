@@ -74,6 +74,7 @@ During the first run, `pmcenter` will automatically generate the `pmcenter.json`
 | `RestartArgs` | `String` | Arguments part of restart command. |
 | `AutoLangUpdate` | `Boolean` | Allows the bot to automatically update language file after updating. |
 | `LangURL` | `String` | URL to the updated language file. |
+| `DisableNotifications` | `Boolean` | Enable/Disable notifications. |
 
 Tip: After upgrades, you can send `/saveconf` command to the bot to fix missing new settings.
 
@@ -104,6 +105,7 @@ You can write a `systemd service` to keep it running, even after the host machin
 | `/ping` | Owner | Test if the bot is working. |
 | `/switchfw` | Owner | Switch message forwarding status. |
 | `/switchbw` | Owner | Switch keyword banning status. |
+| `/switchnf` | Owner | Switch notifications status. |
 | `/saveconf` | Owner | Manually save configurations and translations. Useful after upgrades. |
 | `/readconf` | Owner | Reload configurations without restarting bot. |
 | `/uptime` | Owner | Get system uptime info. |

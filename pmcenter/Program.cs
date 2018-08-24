@@ -42,24 +42,24 @@ namespace pmcenter {
                     Environment.Exit(1);
                 }
 
-                Log(Vars.CurrentLang.CLI_InitThreads);
-                Log(Vars.CurrentLang.CLI_StartRateLimiter);
+                Log("==> Initializing module - THREADS");
+                Log("Starting RateLimiter...");
                 RateLimiter = new Thread(() => ThrRateLimiter());
                 RateLimiter.Start();
                 Thread.Sleep(500);
 
-                Log(Vars.CurrentLang.CLI_InitBotHeader);
-                Log(Vars.CurrentLang.CLI_InitBot);
+                Log("==> Initializing module - BOT");
+                Log("Initializing bot instance...");
                 Bot = new TelegramBotClient(CurrentConf.APIKey);
                 await Bot.TestApiAsync();
-                Log(Vars.CurrentLang.CLI_HookEvents);
+                Log("Hooking event processors...");
                 Bot.OnUpdate += BotProcess.OnUpdate;
-                Log(Vars.CurrentLang.CLI_StartReceiving);
+                Log("Starting receiving...");
                 Bot.StartReceiving(new []{Telegram.Bot.Types.Enums.UpdateType.Message});
-                Log(Vars.CurrentLang.CLI_StartupComplete);
-                Log(Vars.CurrentLang.CLI_PostStartup);
+                Log("==> Startup complete!");
+                Log("==> Running post-start operations...");
                 await Bot.SendTextMessageAsync(Vars.CurrentConf.OwnerUID, Vars.CurrentLang.Message_BotStarted.Replace("$1", StartSW.Elapsed.TotalMilliseconds + "ms"), Telegram.Bot.Types.Enums.ParseMode.Markdown, false, false);
-                Log(Vars.CurrentLang.CLI_Finished);
+                Log("==> All finished!");
                 while (true) {
                     Thread.Sleep(60000);
                 }

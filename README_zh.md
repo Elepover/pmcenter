@@ -74,6 +74,7 @@ dotnet pmcenter.dll
 | `RestartArgs` | `String` | 重启命令的参数部分 |
 | `AutoLangUpdate` | `Boolean` | 是否启用自动语言文件更新 |
 | `LangURL` | `String` | 新语言文件的 URL |
+| `DisableNotifications` | `Boolean` | 是否停用消息通知 |
 
 提示：升级后，可向机器人发送 `/saveconf` 命令来自动补齐升级后缺少的新配置项。
 
@@ -104,6 +105,7 @@ dotnet pmcenter.dll
 | `/ping` | 所有者 | 测试机器人工作状态 |
 | `/switchfw` | 所有者 | 启用/暂停消息转发 |
 | `/switchbw` | 所有者 | 启用/停用关键字屏蔽 |
+| `/switchnf` | 所有者 | 启用/停用消息通知 |
 | `/saveconf` | 所有者 | 手动保存配置及翻译，可用于更新后补齐缺少的配置项 |
 | `/readconf` | 所有者 | 在不重启机器人的情况下，重新载入配置 |
 | `/uptime` | 所有者 | 获取系统在线时间信息 |

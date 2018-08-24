@@ -18,7 +18,7 @@ namespace pmcenter {
             public Language() {
                 Message_CommandNotReplying = "😶 Don't talk to me, spend time chatting with those who love you.";
                 Message_CommandNotReplyingValidMessage = "😐 Speaking to me makes no sense.";
-                Message_Help = "❓ `pmcenter` *Bot Help*\n/start - Display welcome message.\n/info - Display the message's info.\n/ban - Restrict the user from contacting you.\n/pardon - Pardon the user.\n/ping - Test if the bot is working.\n/switchfw - Pause/Resume message forwarding.\n/switchbw - Enable/Disable keyword banning.\n/saveconf - Manually save all settings and translations. Especially useful after upgrades.\n/readconf - Reload configurations without restarting bot.\n/uptime - Check system uptime information.\n/update - Check for updates and update bot.\n/chkupdate - Only check for updates.\n/catconf - Get your current configurations.\n/restart - Restart bot.\n/status - Get host device's status information.\n/help - Display this message.\n\nThank you for using `pmcenter`!";
+                Message_Help = "❓ `pmcenter` *Bot Help*\n/start - Display welcome message.\n/info - Display the message's info.\n/ban - Restrict the user from contacting you.\n/pardon - Pardon the user.\n/ping - Test if the bot is working.\n/switchfw - Pause/Resume message forwarding.\n/switchbw - Enable/Disable keyword banning.\n/switchnf - Enable/Disable notifications.\n/saveconf - Manually save all settings and translations. Especially useful after upgrades.\n/readconf - Reload configurations without restarting bot.\n/uptime - Check system uptime information.\n/update - Check for updates and update bot.\n/chkupdate - Only check for updates.\n/catconf - Get your current configurations.\n/restart - Restart bot.\n/status - Get host device's status information.\n/help - Display this message.\n\nThank you for using `pmcenter`!";
                 Message_OwnerStart = "😊 *Hi!* I'm your `pmcenter` bot, and I work just for you.\nThis message means that you've set up the bot successfully.\nTo reply to any forwarded messages, just directly reply to them here.\n\nThank you for using the `pmcenter` bot!";
                 Message_ReplySuccessful = "✅ Successfully replied to user $1!";
                 Message_UserBanned = "🚫 The user has been banned permanently.";
@@ -47,22 +47,8 @@ namespace pmcenter {
                 Message_SysStatus_RestartRequired = "🔃 *Bot restart required to apply changes.*";
                 Message_SysStatus_Summary = "📝 *Device name*: `$1`\n💿 *Operating System*: `$2`\nℹ *OS description*: `$3`\n⌛ *Server uptime*: `$4`\n🕓 *Bot uptime*: `$5`\n📅 *Server time (UTC)*: `$6`\n📐 *Runtime version*: `$7`\nℹ *Runtime description*: `$8`\n📏 *Application version*: `$9`\n💠 *Processor count*: `$a`";
                 Message_Restarting = "🔄 Restarting...";
-
-                CLI_Finished = "==> All finished!";
-                CLI_HookEvents = "Hooking event processors...";
-                CLI_InitBot = "Initializing bot instance...";
-                CLI_InitBotHeader = "==> Initializing module - BOT";
-                CLI_InitThreads = "==> Initializing module - THREADS";
-                CLI_OwnerMessageForwarded = "Successfully passed owner's reply to $1!";
-                CLI_PostStartup = "==> Running post-start operations...";
-                CLI_SentenceBlocked = "Stopped: sentence contains blocked words.";
-                CLI_StartRateLimiter = "Starting RateLimiter...";
-                CLI_StartReceiving = "Starting receiving...";
-                CLI_StartupComplete = "==> Startup complete!";
-                CLI_ThreadStarted = "Started!";
-                CLI_UserBlocked = "Restricting banned user from sending messages: $1";
-                CLI_ForwardingPaused = "Stopped: forwarding is currently paused.";
-                CLI_UserMessageReceived = "Received message from $1, forwarding...";
+                Message_NotificationsOff = "📳 Notifications are *OFF*.";
+                Message_NotificationsOn = "📲 Notifications are *ON*.";
             }
             public string Message_OwnerStart {get; set;}
             public string Message_UserStartDefault {get; set;}
@@ -95,22 +81,8 @@ namespace pmcenter {
             public string Message_SysStatus_NoOperationRequired {get; set;}
             public string Message_SysStatus_Summary {get; set;}
             public string Message_Restarting {get; set;}
-
-            public string CLI_InitThreads {get; set;}
-            public string CLI_InitBotHeader {get; set;}
-            public string CLI_InitBot {get; set;}
-            public string CLI_HookEvents {get; set;}
-            public string CLI_StartReceiving {get; set;}
-            public string CLI_StartupComplete {get; set;}
-            public string CLI_StartRateLimiter {get; set;}
-            public string CLI_PostStartup {get; set;}
-            public string CLI_Finished {get; set;}
-            public string CLI_ThreadStarted {get; set;}
-            public string CLI_UserBlocked {get; set;}
-            public string CLI_SentenceBlocked {get; set;}
-            public string CLI_OwnerMessageForwarded {get; set;}
-            public string CLI_UserMessageReceived {get; set;}
-            public string CLI_ForwardingPaused {get; set;}
+            public string Message_NotificationsOff {get; set;}
+            public string Message_NotificationsOn {get; set;}
         }
         public static string KillIllegalChars(string Input) {
             return Input.Replace("/", "-").Replace("<", "-").Replace(">", "-").Replace(":", "-").Replace("\"", "-").Replace("/", "-").Replace("\\", "-").Replace("|", "-").Replace("?", "-").Replace("*", "-");

@@ -10,6 +10,8 @@ using System.IO;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
+using MySql.Data;
+using MySql.Data.MySqlClient;
 using Newtonsoft.Json;
 using static pmcenter.Methods;
 
@@ -36,45 +38,47 @@ namespace pmcenter {
                 RestartArgs = "restart pmcenter";
                 AutoLangUpdate = true;
                 LangURL = "https://raw.githubusercontent.com/Elepover/pmcenter/master/locales/pmcenter_locale_en.json";
+                DisableNotifications = false;
             }
-            public string APIKey;
-            public long OwnerUID;
-            public bool EnableCc;
-            public long[] Cc;
-            public bool AutoBan;
-            public int AutoBanThreshold;
-            public List<BanObj> Banned;
-            public bool ForwardingPaused;
-            public List<string> BannedKeywords;
-            public bool KeywordBanning;
-            public bool KeywordAutoBan;
-            public bool EnableRegex;
-            public string RestartCommand;
-            public string RestartArgs;
-            public bool AutoLangUpdate;
-            public string LangURL;
+            public string APIKey {get; set;}
+            public long OwnerUID {get; set;}
+            public bool EnableCc {get; set;}
+            public long[] Cc {get; set;}
+            public bool AutoBan {get; set;}
+            public int AutoBanThreshold {get; set;}
+            public List<BanObj> Banned {get; set;}
+            public bool ForwardingPaused {get; set;}
+            public List<string> BannedKeywords {get; set;}
+            public bool KeywordBanning {get; set;}
+            public bool KeywordAutoBan {get; set;}
+            public bool EnableRegex {get; set;}
+            public string RestartCommand {get; set;}
+            public string RestartArgs {get; set;}
+            public bool AutoLangUpdate {get; set;}
+            public string LangURL {get; set;}
+            public bool DisableNotifications {get; set;}
         }
         public class BanObj {
             public BanObj() {
                 UID = -1;
             }
-            public long UID;
+            public long UID {get; set;}
         }
         public class RateData {
             public RateData() {
                 UID = -1;
                 MessageCount = 0;
             }
-            public long UID;
-            public int MessageCount;
+            public long UID {get; set;}
+            public int MessageCount {get; set;}
         }
         public class Update {
             public Update() {
                 Latest = "0.0.0.0";
                 Details = "(Load failed.)";
             }
-            public string Latest;
-            public string Details;
+            public string Latest {get; set;}
+            public string Details {get; set;}
         }
         /*
          * FUNCTIONS & METHODS. DO NOT PUT ANY CLASSES HERE.
@@ -84,10 +88,7 @@ namespace pmcenter {
         }
         public static async Task<bool> SaveConf(bool IsInvalid = false, bool IsAutoSave = false) { // DO NOT HANDLE ERRORS HERE.
             string Text = JsonConvert.SerializeObject(Vars.CurrentConf, Formatting.Indented);
-            StreamWriter Writer = new StreamWriter(File.Create(Vars.ConfFile), System.Text.Encoding.UTF8);
-            await Writer.WriteAsync(Text);
-            await Writer.FlushAsync();
-            Writer.Close();
+            await File.WriteAllTextAsync(Vars.ConfFile, Text);
             if (IsAutoSave) {
                 Log("Autosave complete.", "CONF");
             }
@@ -146,6 +147,19 @@ namespace pmcenter {
                 return false;
             } else {
                 Vars.CurrentConf.KeywordBanning = true;
+                return true;
+            }
+        }
+        /// <summary>
+        /// Switch 'disablenotifications' status, returning current status.
+        /// </summary>
+        /// <returns></returns>
+        public static bool SwitchNotifications() {
+            if (Vars.CurrentConf.DisableNotifications) {
+                Vars.CurrentConf.DisableNotifications = false;
+                return false;
+            } else {
+                Vars.CurrentConf.DisableNotifications = true;
                 return true;
             }
         }

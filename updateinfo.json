@@ -1,4 +1,4 @@
 {
-    "Latest": "1.1.54.139",
-    "Details": "[+] Message Cc feature.\n[+] Automatic language file update."
+    "Latest": "1.1.55.140",
+    "Details": "[-] Removed CLI translations.\n[+] New notification switch - Allows you to switch notifications on and off, creating a special, comfort and silent ambient for you.\n[/] Refined code structure."
 }
