@@ -84,9 +84,11 @@ namespace pmcenter {
                                                            e.Update.Message.MessageId,
                                                            DisNotif);
                         // Process locale.
-                        string ReplyToMessage = Vars.CurrentLang.Message_ReplySuccessful;
-                        ReplyToMessage = ReplyToMessage.Replace("$1", "[" + e.Update.Message.ReplyToMessage.ForwardFrom.FirstName + " (@" + e.Update.Message.ReplyToMessage.ForwardFrom.Username + ")](tg://user?id=" + e.Update.Message.ReplyToMessage.ForwardFrom.Id + ")");
-                        await Vars.Bot.SendTextMessageAsync(e.Update.Message.From.Id, ReplyToMessage, ParseMode.Markdown, false, false, e.Update.Message.MessageId);
+                        if (Vars.CurrentConf.EnableRepliedConfirmation) {
+                            string ReplyToMessage = Vars.CurrentLang.Message_ReplySuccessful;
+                            ReplyToMessage = ReplyToMessage.Replace("$1", "[" + e.Update.Message.ReplyToMessage.ForwardFrom.FirstName + " (@" + e.Update.Message.ReplyToMessage.ForwardFrom.Username + ")](tg://user?id=" + e.Update.Message.ReplyToMessage.ForwardFrom.Id + ")");
+                            await Vars.Bot.SendTextMessageAsync(e.Update.Message.From.Id, ReplyToMessage, ParseMode.Markdown, false, false, e.Update.Message.MessageId);
+                        }
                         Log("Successfully passed owner's reply to " + e.Update.Message.ReplyToMessage.ForwardFrom.FirstName + " (@" + e.Update.Message.ReplyToMessage.ForwardFrom.Username + " / " + e.Update.Message.ReplyToMessage.ForwardFrom.Id + ")", "BOT");
                         return;
                     } else {
@@ -458,6 +460,14 @@ namespace pmcenter {
                                 Log("Unable to forward message to cc: " + Id + ", reason: " + ex.Message, "BOT", LogLevel.ERROR);
                             }
                         }
+                    }
+                    if (Vars.CurrentConf.EnableForwardedConfirmation) {
+                        await Vars.Bot.SendTextMessageAsync(e.Update.Message.From.Id, 
+                                                            Vars.CurrentLang.Message_ForwardedToOwner,
+                                                            ParseMode.Markdown,
+                                                            false,
+                                                            false,
+                                                            e.Update.Message.MessageId);
                     }
                     AddRateLimit(e.Update.Message.From.Id);
                 }
