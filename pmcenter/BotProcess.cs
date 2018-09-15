@@ -205,6 +205,7 @@ namespace pmcenter {
                                 if (Conf.IsNewerVersionAvailable(Latest)) {
                                     Vars.UpdatePending = true;
                                     Vars.UpdateVersion = new Version(Latest.Latest);
+                                    Vars.UpdateLevel = Latest.UpdateLevel;
                                     string UpdateString = Vars.CurrentLang.Message_UpdateAvailable
                                         .Replace("$1", Latest.Latest)
                                         .Replace("$2", Latest.Details);
