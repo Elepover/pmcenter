@@ -1,4 +1,5 @@
 {
-    "Latest": "1.1.55.140",
-    "Details": "[-] Removed CLI translations.\n[+] New notification switch - Allows you to switch notifications on and off, creating a special, comfort and silent ambient for you.\n[/] Refined code structure."
+    "Latest": "1.1.56.141",
+    "Details": "[+] You can now enable/disable replied messages.\n[+] Update level display.",
+    "UpdateLevel": 1
 }

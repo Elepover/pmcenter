@@ -37,6 +37,8 @@ namespace pmcenter {
                 AutoLangUpdate = true;
                 LangURL = "https://raw.githubusercontent.com/Elepover/pmcenter/master/locales/pmcenter_locale_en.json";
                 DisableNotifications = false;
+                EnableRepliedConfirmation = true;
+                EnableForwardedConfirmation = false;
             }
             public string APIKey {get; set;}
             public long OwnerUID {get; set;}
@@ -55,6 +57,8 @@ namespace pmcenter {
             public bool AutoLangUpdate {get; set;}
             public string LangURL {get; set;}
             public bool DisableNotifications {get; set;}
+            public bool EnableRepliedConfirmation {get; set;}
+            public bool EnableForwardedConfirmation {get; set;}
         }
         public class BanObj {
             public BanObj() {
@@ -74,9 +78,17 @@ namespace pmcenter {
             public Update() {
                 Latest = "0.0.0.0";
                 Details = "(Load failed.)";
+                UpdateLevel = UpdateLevel.Optional;
             }
             public string Latest {get; set;}
             public string Details {get; set;}
+            public UpdateLevel UpdateLevel {get; set;}
+        }
+        public enum UpdateLevel {
+            Optional = 0,
+            Recommended = 1,
+            Important = 2,
+            Urgent = 3,
         }
         /*
          * FUNCTIONS & METHODS. DO NOT PUT ANY CLASSES HERE.

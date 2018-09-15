@@ -16,11 +16,13 @@ namespace pmcenter {
     public class Lang {
         public class Language {
             public Language() {
+                LangCode = "en.default.integrated";
                 Message_CommandNotReplying = "😶 Don't talk to me, spend time chatting with those who love you.";
                 Message_CommandNotReplyingValidMessage = "😐 Speaking to me makes no sense.";
                 Message_Help = "❓ `pmcenter` *Bot Help*\n/start - Display welcome message.\n/info - Display the message's info.\n/ban - Restrict the user from contacting you.\n/pardon - Pardon the user.\n/ping - Test if the bot is working.\n/switchfw - Pause/Resume message forwarding.\n/switchbw - Enable/Disable keyword banning.\n/switchnf - Enable/Disable notifications.\n/saveconf - Manually save all settings and translations. Especially useful after upgrades.\n/readconf - Reload configurations without restarting bot.\n/uptime - Check system uptime information.\n/update - Check for updates and update bot.\n/chkupdate - Only check for updates.\n/catconf - Get your current configurations.\n/restart - Restart bot.\n/status - Get host device's status information.\n/help - Display this message.\n\nThank you for using `pmcenter`!";
                 Message_OwnerStart = "😊 *Hi!* I'm your `pmcenter` bot, and I work just for you.\nThis message means that you've set up the bot successfully.\nTo reply to any forwarded messages, just directly reply to them here.\n\nThank you for using the `pmcenter` bot!";
                 Message_ReplySuccessful = "✅ Successfully replied to user $1!";
+                Message_ForwardedToOwner = "✅ Your message has been forwarded to my owner!";
                 Message_UserBanned = "🚫 The user has been banned permanently.";
                 Message_UserPardoned = "✅ You've pardoned the user.";
                 Message_UserStartDefault = "📨 *Hi!* To send anything to my owner, just send it here.\n⚠ To be informed: I'll *automatically* ban flooding users.";
@@ -44,15 +46,23 @@ namespace pmcenter {
                 Message_SysStatus_Header = "💻 *System Status*";
                 Message_SysStatus_NoOperationRequired = "🚀 *Good job, No action needed!*";
                 Message_SysStatus_PendingUpdate = "🔃 *Update available to*: `$1`";
+                Message_SysStatus_UpdateLevel_Template = "🚨 *Update level*: `$1`";
+                Message_SysStatus_UpdateLevel_Optional = "💡 Optional";
+                Message_SysStatus_UpdateLevel_Recommended = "💠 Recommended";
+                Message_SysStatus_UpdateLevel_Important = "❗ Important";
+                Message_SysStatus_UpdateLevel_Urgent = "⚠ Urgent";
+                Message_SysStatus_UpdateLevel_Unknown = "❓ Unknown";
                 Message_SysStatus_RestartRequired = "🔃 *Bot restart required to apply changes.*";
                 Message_SysStatus_Summary = "📝 *Device name*: `$1`\n💿 *Operating System*: `$2`\nℹ *OS description*: `$3`\n⌛ *Server uptime*: `$4`\n🕓 *Bot uptime*: `$5`\n📅 *Server time (UTC)*: `$6`\n📐 *Runtime version*: `$7`\nℹ *Runtime description*: `$8`\n📏 *Application version*: `$9`\n💠 *Processor count*: `$a`";
                 Message_Restarting = "🔄 Restarting...";
                 Message_NotificationsOff = "📳 Notifications are *OFF*.";
                 Message_NotificationsOn = "📲 Notifications are *ON*.";
             }
+            public string LangCode {get; set;}
             public string Message_OwnerStart {get; set;}
             public string Message_UserStartDefault {get; set;}
             public string Message_ReplySuccessful {get; set;}
+            public string Message_ForwardedToOwner {get; set;}
             public string Message_Help {get; set;}
             public string Message_UserBanned {get; set;}
             public string Message_UserPardoned {get; set;}
@@ -78,6 +88,12 @@ namespace pmcenter {
             public string Message_SysStatus_Header {get; set;}
             public string Message_SysStatus_RestartRequired {get; set;}
             public string Message_SysStatus_PendingUpdate {get; set;}
+            public string Message_SysStatus_UpdateLevel_Template {get; set;}
+            public string Message_SysStatus_UpdateLevel_Optional {get; set;}
+            public string Message_SysStatus_UpdateLevel_Recommended {get; set;}
+            public string Message_SysStatus_UpdateLevel_Important {get; set;}
+            public string Message_SysStatus_UpdateLevel_Urgent {get; set;}
+            public string Message_SysStatus_UpdateLevel_Unknown {get; set;}
             public string Message_SysStatus_NoOperationRequired {get; set;}
             public string Message_SysStatus_Summary {get; set;}
             public string Message_Restarting {get; set;}

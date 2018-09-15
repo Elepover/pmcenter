@@ -139,5 +139,20 @@ namespace pmcenter {
             const string Chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
             return new string(Enumerable.Repeat(Chars, 8).Select(s => s[(new Random()).Next(s.Length)]).ToArray());
         }
+        public static string GetUpdateLevel(UpdateLevel Level) {
+            string Processed = Vars.CurrentLang.Message_SysStatus_UpdateLevel_Template;
+            switch (Level) {
+                case UpdateLevel.Optional:
+                    return Processed.Replace("$1", Vars.CurrentLang.Message_SysStatus_UpdateLevel_Optional);
+                case UpdateLevel.Recommended:
+                    return Processed.Replace("$1", Vars.CurrentLang.Message_SysStatus_UpdateLevel_Recommended);
+                case UpdateLevel.Important:
+                    return Processed.Replace("$1", Vars.CurrentLang.Message_SysStatus_UpdateLevel_Important);
+                case UpdateLevel.Urgent:
+                    return Processed.Replace("$1", Vars.CurrentLang.Message_SysStatus_UpdateLevel_Urgent);
+                default:
+                    return Processed.Replace("$1", Vars.CurrentLang.Message_SysStatus_UpdateLevel_Unknown);
+            }
+        }
     }
 }

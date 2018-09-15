@@ -75,6 +75,8 @@ dotnet pmcenter.dll
 | `AutoLangUpdate` | `Boolean` | 是否启用自动语言文件更新 |
 | `LangURL` | `String` | 新语言文件的 URL |
 | `DisableNotifications` | `Boolean` | 是否停用消息通知 |
+| `EnableRepliedConfirmation` | `Boolean` | 是否启用 “回复成功” 提示 |
+| `EnableForwardedConfirmation` | `Boolean` | 是否启用 “已转发” 提示 |
 
 提示：升级后，可向机器人发送 `/saveconf` 命令来自动补齐升级后缺少的新配置项。
 

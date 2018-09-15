@@ -75,6 +75,8 @@ During the first run, `pmcenter` will automatically generate the `pmcenter.json`
 | `AutoLangUpdate` | `Boolean` | Allows the bot to automatically update language file after updating. |
 | `LangURL` | `String` | URL to the updated language file. |
 | `DisableNotifications` | `Boolean` | Enable/Disable notifications. |
+| `EnableRepliedConfirmation` | `Boolean` | Enable/Disable "reply successful" messages. |
+| `EnableForwardedConfirmation` | `Boolean` | Enable/Disable "forwarded to owner" messages. |
 
 Tip: After upgrades, you can send `/saveconf` command to the bot to fix missing new settings.
 

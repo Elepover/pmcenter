@@ -342,6 +342,7 @@ namespace pmcenter {
                             bool NoActionRequired = true;
                             if (Vars.UpdatePending) {
                                 MessageStr += Vars.CurrentLang.Message_SysStatus_PendingUpdate.Replace("$1", Vars.UpdateVersion.ToString()) + "\n";
+                                MessageStr += GetUpdateLevel(Vars.UpdateLevel) + "\n";
                                 NoActionRequired = false;
                             }
                             if (Vars.NonEmergRestartRequired) {
