@@ -377,8 +377,8 @@ namespace pmcenter {
                                 .Replace("$7", Environment.Version.ToString())
                                 .Replace("$8", RuntimeInformation.FrameworkDescription)
                                 .Replace("$9", Vars.AppVer.ToString())
-                                .Replace("$a", Environment.ProcessorCount.ToString()
-                                .Replace("$b", Vars.CurrentLang.LangCode));
+                                .Replace("$a", Environment.ProcessorCount.ToString())
+                                .Replace("$b", Vars.CurrentLang.LangCode);
 
                             await Vars.Bot.SendTextMessageAsync(e.Update.Message.From.Id,
                                                                 MessageStr,
