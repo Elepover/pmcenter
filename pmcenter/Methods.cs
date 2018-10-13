@@ -7,10 +7,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using Telegram.Bot.Args;
+using Telegram.Bot.Types.Enums;
 using static pmcenter.Conf;
 
 namespace pmcenter {
@@ -59,6 +62,36 @@ namespace pmcenter {
                     Data.MessageCount = 0;
                 }
                 Thread.Sleep(30000);
+            }
+        }
+        public static async void ThrUpdateChecker() {
+            Log("Started!", "UPDATER");
+            while (true) {
+                try {
+                    Update Latest = Conf.CheckForUpdates();
+                    bool DisNotif = Vars.CurrentConf.DisableNotifications;
+                    // Identical with BotProcess.cs, L206.
+                    if (Conf.IsNewerVersionAvailable(Latest)) {
+                        Vars.UpdatePending = true;
+                        Vars.UpdateVersion = new Version(Latest.Latest);
+                        Vars.UpdateLevel = Latest.UpdateLevel;
+                        string UpdateString = Vars.CurrentLang.Message_UpdateAvailable
+                            .Replace("$1", Latest.Latest)
+                            .Replace("$2", Latest.Details);
+                        await Vars.Bot.SendTextMessageAsync(Vars.CurrentConf.OwnerUID,
+                                                            UpdateString,
+                                                            ParseMode.Markdown,
+                                                            false,
+                                                            DisNotif);
+                        return; // Since this thread wouldn't be useful any longer, exit.
+                    } else {
+                        Vars.UpdatePending = false;
+                        // This part has been cut out.
+                    }
+                } catch (Exception ex) {
+                    Log("Error during update check: " + ex.ToString(), "UPDATER", LogLevel.ERROR);
+                }
+                Thread.Sleep(60000);
             }
         }
         public static bool IsBanned(long UID) {
@@ -152,6 +185,18 @@ namespace pmcenter {
                     return Processed.Replace("$1", Vars.CurrentLang.Message_SysStatus_UpdateLevel_Urgent);
                 default:
                     return Processed.Replace("$1", Vars.CurrentLang.Message_SysStatus_UpdateLevel_Unknown);
+            }
+        }
+        public static async Task<int> ForwardMessageAnonymously(Telegram.Bot.Types.ChatId ToChatId,
+                                                           bool DisableNotifications,
+                                                           Telegram.Bot.Types.Message Msg) {
+            switch (Msg.Type) {
+                case MessageType.Text:
+                    await Vars.Bot.SendTextMessageAsync(ToChatId, Msg.Text, ParseMode.Default, false, DisableNotifications);
+                    return 0;
+                default:
+                    await Vars.Bot.SendTextMessageAsync(Vars.CurrentConf.OwnerUID, Vars.CurrentLang.Message_SupportTextMessagesOnly, ParseMode.Markdown, false, DisableNotifications, Msg.MessageId);
+                    return 1;
             }
         }
     }

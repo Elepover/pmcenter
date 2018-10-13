@@ -51,6 +51,17 @@ namespace pmcenter {
                 while (RateLimiter.IsAlive != true) {
                     Thread.Sleep(100);
                 }
+                Log("Starting UpdateChecker");
+                if (Vars.CurrentConf.EnableAutoUpdateCheck) {
+                    UpdateChecker = new Thread(() => ThrUpdateChecker());
+                    UpdateChecker.Start();
+                    Log("Waiting...");
+                    while (UpdateChecker.IsAlive != true) {
+                        Thread.Sleep(100);
+                    }
+                } else {
+                    Log("Skipped.");
+                }
                 Thread.Sleep(500);
 
                 Log("==> Initializing module - BOT");

@@ -1,5 +1,5 @@
 {
-    "Latest": "1.1.60.145",
-    "Details": "[+] You can now enable/disable replied messages.\n[+] Update level display.",
+    "Latest": "1.1.61.150",
+    "Details": "[+][BETA] Reply to messages anonymously!\n[+] Auto background update check (can be disabled).\n[+] \"Here\" in /info can be replaced with message sender's nickname.\n\nNote: In Anonymous Forward mode, only text messages could be forwarded.",
     "UpdateLevel": 1
 }

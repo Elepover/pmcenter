@@ -39,7 +39,13 @@ namespace pmcenter {
                     if (e.Update.Message.ReplyToMessage.ForwardFrom != null) {
                         if (e.Update.Message.Type == MessageType.Text) {
                             if (e.Update.Message.Text.ToLower() == "/info") {
-                                string MessageInfo = "ℹ *Message Info*\n📩 *Sender*: [Here](tg://user?id="
+                                string MessageInfo = "ℹ *Message Info*\n📩 *Sender*: [";
+                                if (Vars.CurrentConf.UseUsernameInMsgInfo) {
+                                    MessageInfo += e.Update.Message.From.FirstName + " " + e.Update.Message.From.LastName;
+                                } else {
+                                    MessageInfo += "Here";
+                                }
+                                MessageInfo += "](tg://user?id="
                                     + e.Update.Message.ReplyToMessage.ForwardFrom.Id
                                     + ")\n🔢 *User ID*: `"
                                     + e.Update.Message.ReplyToMessage.ForwardFrom.Id
@@ -79,10 +85,14 @@ namespace pmcenter {
                             } // not a recogized command.
                         }
                         // Is replying, replying to forwarded message AND not command.
-                        await Vars.Bot.ForwardMessageAsync(e.Update.Message.ReplyToMessage.ForwardFrom.Id,
-                                                           e.Update.Message.Chat.Id,
-                                                           e.Update.Message.MessageId,
-                                                           DisNotif);
+                        if (Vars.CurrentConf.AnonymousForward) {
+                            await ForwardMessageAnonymously(e.Update.Message.ReplyToMessage.ForwardFrom.Id, DisNotif, e.Update.Message);
+                        } else {
+                            await Vars.Bot.ForwardMessageAsync(e.Update.Message.ReplyToMessage.ForwardFrom.Id,
+                                                            e.Update.Message.Chat.Id,
+                                                            e.Update.Message.MessageId,
+                                                            DisNotif);
+                        }
                         // Process locale.
                         if (Vars.CurrentConf.EnableRepliedConfirmation) {
                             string ReplyToMessage = Vars.CurrentLang.Message_ReplySuccessful;
@@ -367,7 +377,8 @@ namespace pmcenter {
                                 .Replace("$7", Environment.Version.ToString())
                                 .Replace("$8", RuntimeInformation.FrameworkDescription)
                                 .Replace("$9", Vars.AppVer.ToString())
-                                .Replace("$a", Environment.ProcessorCount.ToString());
+                                .Replace("$a", Environment.ProcessorCount.ToString()
+                                .Replace("$b", Vars.CurrentLang.LangCode));
 
                             await Vars.Bot.SendTextMessageAsync(e.Update.Message.From.Id,
                                                                 MessageStr,

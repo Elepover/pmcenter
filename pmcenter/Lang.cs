@@ -53,10 +53,11 @@ namespace pmcenter {
                 Message_SysStatus_UpdateLevel_Urgent = "⚠ Urgent";
                 Message_SysStatus_UpdateLevel_Unknown = "❓ Unknown";
                 Message_SysStatus_RestartRequired = "🔃 *Bot restart required to apply changes.*";
-                Message_SysStatus_Summary = "📝 *Device name*: `$1`\n💿 *Operating System*: `$2`\nℹ *OS description*: `$3`\n⌛ *Server uptime*: `$4`\n🕓 *Bot uptime*: `$5`\n📅 *Server time (UTC)*: `$6`\n📐 *Runtime version*: `$7`\nℹ *Runtime description*: `$8`\n📏 *Application version*: `$9`\n💠 *Processor count*: `$a`";
+                Message_SysStatus_Summary = "📝 *Device name*: `$1`\n💿 *Operating System*: `$2`\nℹ *OS description*: `$3`\n⌛ *Server uptime*: `$4`\n🕓 *Bot uptime*: `$5`\n📅 *Server time (UTC)*: `$6`\n📐 *Runtime version*: `$7`\nℹ *Runtime description*: `$8`\n📏 *Application version*: `$9`\n💠 *Processor count*: `$a`\n📖 *Language code*: `$b`";
                 Message_Restarting = "🔄 Restarting...";
                 Message_NotificationsOff = "📳 Notifications are *OFF*.";
                 Message_NotificationsOn = "📲 Notifications are *ON*.";
+                Message_SupportTextMessagesOnly = "📋 Sorry... Only text messages can be forwarded in Anonymous Forward mode.";
             }
             public string LangCode {get; set;}
             public string Message_OwnerStart {get; set;}
@@ -99,6 +100,7 @@ namespace pmcenter {
             public string Message_Restarting {get; set;}
             public string Message_NotificationsOff {get; set;}
             public string Message_NotificationsOn {get; set;}
+            public string Message_SupportTextMessagesOnly {get; set;}
         }
         public static string KillIllegalChars(string Input) {
             return Input.Replace("/", "-").Replace("<", "-").Replace(">", "-").Replace(":", "-").Replace("\"", "-").Replace("/", "-").Replace("\\", "-").Replace("|", "-").Replace("?", "-").Replace("*", "-");

@@ -30,14 +30,15 @@
   "Message_SysStatus_NoOperationRequired": "🚀 *好棒！无需进行任何额外操作！*",
   "Message_SysStatus_PendingUpdate": "🔃 *更新可用升级至*: `$1`",
   "Message_SysStatus_UpdateLevel_Template": "🚨 *更新等级*: `$1`",
-  "Message_SysStatus_UpdateLevel_Optional": "💡 可以不鸟它（",
-  "Message_SysStatus_UpdateLevel_Recommended": "💠 最好装一下（",
+  "Message_SysStatus_UpdateLevel_Optional": "💡 可选的啦（",
+  "Message_SysStatus_UpdateLevel_Recommended": "💠 最好装一下喵",
   "Message_SysStatus_UpdateLevel_Important": "❗ 重要更新啊（",
   "Message_SysStatus_UpdateLevel_Urgent": "⚠ 是紧急更新！",
   "Message_SysStatus_UpdateLevel_Unknown": "❓ 不知道耶（",
   "Message_SysStatus_RestartRequired": "🔄 *机器人需要重启一下才能应用配置呢~*",
-  "Message_SysStatus_Summary": "📝 *设备名*: `$1`\n💿 *操作系统*: `$2`\nℹ *系统描述信息*: `$3`\n⌛ *服务器在线时间*: `$4`\n🕓 *机器人在线时间*: `$5`\n📅 *服务器时间 (UTC)*: `$6`\n📐 *运行时版本*: `$7`\nℹ *运行时描述信息*: `$8`\n📏 *应用版本*: `$9`\n💠 *处理器个数*: `$a`",
+  "Message_SysStatus_Summary": "📝 *设备名*: `$1`\n💿 *操作系统*: `$2`\nℹ *系统描述信息*: `$3`\n⌛ *服务器在线时间*: `$4`\n🕓 *机器人在线时间*: `$5`\n📅 *服务器时间 (UTC)*: `$6`\n📐 *运行时版本*: `$7`\nℹ *运行时描述信息*: `$8`\n📏 *应用版本*: `$9`\n💠 *处理器个数*: `$a`\n📖 *语言代码*: `$b`",
   "Message_Restarting": "🔄 准备重启...",
-  "Message_NotificationsOff": "📳 消息通知*关闭*了啦qwq.",
-  "Message_NotificationsOn": "📲 消息通知*启用*了啦qwq."
+  "Message_NotificationsOff": "📳 消息通知*关闭*了啦qwq",
+  "Message_NotificationsOn": "📲 消息通知*启用*了啦qwq",
+  "Message_SupportTextMessagesOnly": "📋 抱歉qaq, 匿名转发模式下仅能转发纯文本消息。"
 }
