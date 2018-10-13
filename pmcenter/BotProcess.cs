@@ -41,7 +41,7 @@ namespace pmcenter {
                             if (e.Update.Message.Text.ToLower() == "/info") {
                                 string MessageInfo = "ℹ *Message Info*\n📩 *Sender*: [";
                                 if (Vars.CurrentConf.UseUsernameInMsgInfo) {
-                                    MessageInfo += e.Update.Message.From.FirstName + " " + e.Update.Message.From.LastName;
+                                    MessageInfo += e.Update.Message.ReplyToMessage.ForwardFrom.FirstName + " " + e.Update.Message.ReplyToMessage.ForwardFrom.LastName;
                                 } else {
                                     MessageInfo += "Here";
                                 }
