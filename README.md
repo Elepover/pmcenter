@@ -4,7 +4,7 @@ A telegram bot helping you to process private messages.
 
 ## Setting Up Your Own `pmcenter`
 
-Setting up `pmcenter` is not as hard as imagined. The following content will guide you through the installation process.
+The following content will guide you through the installation process.
 
 ### Prerequisites
 

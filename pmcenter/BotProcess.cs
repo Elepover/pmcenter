@@ -271,7 +271,7 @@ namespace pmcenter {
                                                                         DisNotif,
                                                                         e.Update.Message.MessageId);
                                     // download compiled package
-                                    Log("Starting update download...", "BOT");
+                                    Log("Starting update download... (pmcenter_update.zip)", "BOT");
                                     WebClient Downloader = new WebClient();
                                     Downloader.DownloadFile(
                                         new Uri(Vars.UpdateArchiveURL),
@@ -283,6 +283,8 @@ namespace pmcenter {
                                             Entry.ExtractToFile(Path.Combine(Vars.AppDirectory, Entry.FullName), true);
                                         }
                                     }
+                                    Log("Resting for a while...", "BOT");
+                                    Thread.Sleep(3000);
                                     if (Vars.CurrentConf.AutoLangUpdate) {
                                         Log("Starting automatic language file update...", "BOT");
                                         Downloader.DownloadFile(
@@ -298,6 +300,8 @@ namespace pmcenter {
                                                                         false,
                                                                         DisNotif,
                                                                         e.Update.Message.MessageId);
+                                    Log("Resting for a while...", "BOT");
+                                    Thread.Sleep(3000);
                                     Log("Trying to execute restart command...", "BOT");
                                     try {
                                         Process.Start(Vars.CurrentConf.RestartCommand, Vars.CurrentConf.RestartArgs);
