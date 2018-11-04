@@ -80,7 +80,7 @@ namespace pmcenter {
                     Thread.Sleep(60000);
                 }
             } catch (Exception ex) {
-                Log("Error during startup: " + ex.ToString(), "CORE", LogLevel.ERROR);
+                Log("Unexpected error during startup: " + ex.ToString(), "CORE", LogLevel.ERROR);
                 Environment.Exit(1);
             }
         }

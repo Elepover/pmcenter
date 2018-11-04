@@ -1,5 +1,5 @@
 {
-    "Latest": "1.1.63.152",
-    "Details": "[/] Added a small delay in updates.",
-    "UpdateLevel": 0
+    "Latest": "1.1.64.153",
+    "Details": "This is a Security Update.\n\nSecurity Updates fix bugs and potential security flaws.\nIt is strongly recommended that you install the update ASAP.\n\nVersions affected: all versions below 1.1.63.152.\n\nMeanwhile, codes were formatted in a united way, which is a good news for contributors.",
+    "UpdateLevel": 2
 }

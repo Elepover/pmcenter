@@ -12,10 +12,14 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using static pmcenter.Methods;
 
-namespace pmcenter {
-    public class Lang {
-        public class Language {
-            public Language() {
+namespace pmcenter
+{
+    public class Lang
+    {
+        public class Language
+        {
+            public Language()
+            {
                 LangCode = "en.default.integrated";
                 Message_CommandNotReplying = "😶 Don't talk to me, spend time chatting with those who love you.";
                 Message_CommandNotReplyingValidMessage = "😐 Speaking to me makes no sense.";
@@ -59,81 +63,92 @@ namespace pmcenter {
                 Message_NotificationsOn = "📲 Notifications are *ON*.";
                 Message_SupportTextMessagesOnly = "📋 Sorry... Only text messages can be forwarded in Anonymous Forward mode.";
             }
-            public string LangCode {get; set;}
-            public string Message_OwnerStart {get; set;}
-            public string Message_UserStartDefault {get; set;}
-            public string Message_ReplySuccessful {get; set;}
-            public string Message_ForwardedToOwner {get; set;}
-            public string Message_Help {get; set;}
-            public string Message_UserBanned {get; set;}
-            public string Message_UserPardoned {get; set;}
-            public string Message_CommandNotReplying {get; set;}
-            public string Message_CommandNotReplyingValidMessage {get; set;}
-            public string Message_PingReply {get; set;}
-            public string Message_ServicePaused {get; set;}
-            public string Message_ServiceResumed {get; set;}
-            public string Message_UserServicePaused {get; set;}
-            public string Message_BotStarted {get; set;}
-            public string Message_MessageBlockEnabled {get; set;}
-            public string Message_MessageBlockDisabled {get; set;}
-            public string Message_ConfigUpdated {get; set;}
-            public string Message_ConfigReloaded {get; set;}
-            public string Message_UptimeInfo {get; set;}
-            public string Message_UpdateAvailable {get; set;}
-            public string Message_UpdateProcessing {get; set;}
-            public string Message_UpdateCheckFailed {get; set;}
-            public string Message_AlreadyUpToDate {get; set;}
-            public string Message_UpdateExtracting {get; set;}
-            public string Message_UpdateFinalizing {get; set;}
-            public string Message_CurrentConf {get; set;}
-            public string Message_SysStatus_Header {get; set;}
-            public string Message_SysStatus_RestartRequired {get; set;}
-            public string Message_SysStatus_PendingUpdate {get; set;}
-            public string Message_SysStatus_UpdateLevel_Template {get; set;}
-            public string Message_SysStatus_UpdateLevel_Optional {get; set;}
-            public string Message_SysStatus_UpdateLevel_Recommended {get; set;}
-            public string Message_SysStatus_UpdateLevel_Important {get; set;}
-            public string Message_SysStatus_UpdateLevel_Urgent {get; set;}
-            public string Message_SysStatus_UpdateLevel_Unknown {get; set;}
-            public string Message_SysStatus_NoOperationRequired {get; set;}
-            public string Message_SysStatus_Summary {get; set;}
-            public string Message_Restarting {get; set;}
-            public string Message_NotificationsOff {get; set;}
-            public string Message_NotificationsOn {get; set;}
-            public string Message_SupportTextMessagesOnly {get; set;}
+            public string LangCode { get; set; }
+            public string Message_OwnerStart { get; set; }
+            public string Message_UserStartDefault { get; set; }
+            public string Message_ReplySuccessful { get; set; }
+            public string Message_ForwardedToOwner { get; set; }
+            public string Message_Help { get; set; }
+            public string Message_UserBanned { get; set; }
+            public string Message_UserPardoned { get; set; }
+            public string Message_CommandNotReplying { get; set; }
+            public string Message_CommandNotReplyingValidMessage { get; set; }
+            public string Message_PingReply { get; set; }
+            public string Message_ServicePaused { get; set; }
+            public string Message_ServiceResumed { get; set; }
+            public string Message_UserServicePaused { get; set; }
+            public string Message_BotStarted { get; set; }
+            public string Message_MessageBlockEnabled { get; set; }
+            public string Message_MessageBlockDisabled { get; set; }
+            public string Message_ConfigUpdated { get; set; }
+            public string Message_ConfigReloaded { get; set; }
+            public string Message_UptimeInfo { get; set; }
+            public string Message_UpdateAvailable { get; set; }
+            public string Message_UpdateProcessing { get; set; }
+            public string Message_UpdateCheckFailed { get; set; }
+            public string Message_AlreadyUpToDate { get; set; }
+            public string Message_UpdateExtracting { get; set; }
+            public string Message_UpdateFinalizing { get; set; }
+            public string Message_CurrentConf { get; set; }
+            public string Message_SysStatus_Header { get; set; }
+            public string Message_SysStatus_RestartRequired { get; set; }
+            public string Message_SysStatus_PendingUpdate { get; set; }
+            public string Message_SysStatus_UpdateLevel_Template { get; set; }
+            public string Message_SysStatus_UpdateLevel_Optional { get; set; }
+            public string Message_SysStatus_UpdateLevel_Recommended { get; set; }
+            public string Message_SysStatus_UpdateLevel_Important { get; set; }
+            public string Message_SysStatus_UpdateLevel_Urgent { get; set; }
+            public string Message_SysStatus_UpdateLevel_Unknown { get; set; }
+            public string Message_SysStatus_NoOperationRequired { get; set; }
+            public string Message_SysStatus_Summary { get; set; }
+            public string Message_Restarting { get; set; }
+            public string Message_NotificationsOff { get; set; }
+            public string Message_NotificationsOn { get; set; }
+            public string Message_SupportTextMessagesOnly { get; set; }
         }
-        public static string KillIllegalChars(string Input) {
+        public static string KillIllegalChars(string Input)
+        {
             return Input.Replace("/", "-").Replace("<", "-").Replace(">", "-").Replace(":", "-").Replace("\"", "-").Replace("/", "-").Replace("\\", "-").Replace("|", "-").Replace("?", "-").Replace("*", "-");
         }
-        public static async Task<bool> SaveLang(bool IsInvalid = false) { // DO NOT HANDLE ERRORS HERE.
+        public static async Task<bool> SaveLang(bool IsInvalid = false)
+        { // DO NOT HANDLE ERRORS HERE.
             string Text = JsonConvert.SerializeObject(Vars.CurrentLang, Formatting.Indented);
             StreamWriter Writer = new StreamWriter(File.Create(Vars.LangFile), System.Text.Encoding.UTF8);
             await Writer.WriteAsync(Text);
             await Writer.FlushAsync();
             Writer.Close();
-            if (IsInvalid) {
+            if (IsInvalid)
+            {
                 Log("We've detected an invalid language file and have reset it.", "LANG", LogLevel.WARN);
                 Log("Please reconfigure it and try to start pmcenter again.", "LANG", LogLevel.WARN);
                 Vars.RestartRequired = true;
             }
             return true;
         }
-        public static async Task<bool> ReadLang(bool Apply = true) { // DO NOT HANDLE ERRORS HERE. THE CALLING METHOD WILL HANDLE THEM.
+        public static async Task<bool> ReadLang(bool Apply = true)
+        { // DO NOT HANDLE ERRORS HERE. THE CALLING METHOD WILL HANDLE THEM.
             string SettingsText = await File.ReadAllTextAsync(Vars.LangFile);
             Language Temp = JsonConvert.DeserializeObject<Language>(SettingsText);
             if (Apply) { Vars.CurrentLang = Temp; }
             return true;
         }
-        public static async void InitLang() {
+        public static async void InitLang()
+        {
             Log("Checking language file's integrity...", "LANG");
-            if (File.Exists(Vars.LangFile) != true) { // STEP 1, DETECT EXISTENCE.
+            if (File.Exists(Vars.LangFile) != true)
+            { // STEP 1, DETECT EXISTENCE.
                 Log("Language file not found. Creating...", "LANG", LogLevel.WARN);
                 Vars.CurrentLang = new Language();
-			    await SaveLang(true); // Then the app will exit, do nothing.
-            } else { // STEP 2, READ TEST.
-                try {
+                await SaveLang(true); // Then the app will exit, do nothing.
+            }
+            else
+            { // STEP 2, READ TEST.
+                try
+                {
                     await ReadLang(false); // Read but don't apply.
-                } catch (Exception ex) {
+                }
+                catch (Exception ex)
+                {
                     Log("Error! " + ex.ToString(), "LANG", LogLevel.ERROR);
                     Log("Moving old language file to \"pmcenter_locale.json.bak\"...", "LANG", LogLevel.WARN);
                     File.Move(Vars.LangFile, Vars.LangFile + ".bak");
