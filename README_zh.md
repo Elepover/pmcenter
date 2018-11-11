@@ -17,6 +17,19 @@
 
 Arch Linux 可直接安装 `dotnet-runtime` 包。
 
+树莓派:
+
+以 `root` 权限运行以下脚本:
+
+```bash
+apt-get install curl libunwind8 gettext
+curl -sSL -o dotnet.tar.gz https://download.microsoft.com/download/9/1/7/917308D9-6C92-4DA5-B4B1-B4A19451E2D2/dotnet-runtime-2.1.0-linux-arm.tar.gz
+mkdir -p /opt/dotnet && sudo tar zxf dotnet.tar.gz -C /opt/dotnet
+ln -s /opt/dotnet/dotnet /usr/local/bin
+rm dotnet.tar.gz
+dotnet --info
+```
+
 ### 自行编译 `pmcenter`
 
 **您需要安装 .NET Core _SDK_ 及 _Runtime_ 才能完成此步。**

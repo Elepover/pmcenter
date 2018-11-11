@@ -17,6 +17,17 @@ For NOT officially supported operating systems, see [here](https://see.wtf/sIjUZ
 
 For Arch Linux, there's an official package.
 
+For `Raspian` or other distributions based on `armv7` architecture, run this following script as `root`:
+
+```bash
+apt-get install curl libunwind8 gettext
+curl -sSL -o dotnet.tar.gz https://download.microsoft.com/download/9/1/7/917308D9-6C92-4DA5-B4B1-B4A19451E2D2/dotnet-runtime-2.1.0-linux-arm.tar.gz
+mkdir -p /opt/dotnet && sudo tar zxf dotnet.tar.gz -C /opt/dotnet
+ln -s /opt/dotnet/dotnet /usr/local/bin
+rm dotnet.tar.gz
+dotnet --info
+```
+
 ### Build `pmcenter` Yourself
 
 **You need to install .NET Core _SDK_ and _Runtime_ to finish this.**
