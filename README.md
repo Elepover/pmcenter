@@ -60,6 +60,13 @@ wget https://ci.appveyor.com/api/projects/Elepover/pmcenter/artifacts/pmcenter.z
 unzip pmcenter.zip
 dotnet pmcenter.dll
 ```
+### Use Docker
+``` bash
+wget https://raw.githubusercontent.com/Elepover/pmcenter/master/Dockfile
+docker build . -t pmcenter
+docker run -v PATH_OF_YOUR_pmcenter.json:/opt/pmcenter/pmcenter.json pmcenter
+```
+That's all.
 
 ### Configuring
 
