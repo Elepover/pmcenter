@@ -63,7 +63,11 @@ dotnet pmcenter.dll
 
 ### Use Docker
 
-``` bash
+**DO NOT COPY & PASTE.**
+
+**You need to edit it before executing.**
+
+```bash
 wget https://raw.githubusercontent.com/Elepover/pmcenter/master/Dockfile
 docker build . -t pmcenter
 docker run -v PATH_OF_YOUR_pmcenter.json:/opt/pmcenter/pmcenter.json pmcenter
