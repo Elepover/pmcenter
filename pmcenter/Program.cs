@@ -13,9 +13,12 @@ using static pmcenter.Lang;
 using static pmcenter.Methods;
 using static pmcenter.Vars;
 
-namespace pmcenter {
-    public class Program {
-        public static void Main(string[] args) {
+namespace pmcenter
+{
+    public class Program
+    {
+        public static void Main(string[] args)
+        {
             StartSW.Start();
             Console.WriteLine(Vars.ASCII);
             Log("Main delegator activated!", "DELEGATOR");
@@ -25,8 +28,10 @@ namespace pmcenter {
             Log("Main worker accidentally exited. Stopping...", "DELEGATOR", LogLevel.ERROR);
             Environment.Exit(1);
         }
-        public static async Task MainAsync(string[] args) {
-            try {
+        public static async Task MainAsync(string[] args)
+        {
+            try
+            {
                 Log("==> Running pre-start operations...");
                 // Nothing hahah.
                 Log("==> Running start operations...");
@@ -35,7 +40,8 @@ namespace pmcenter {
                 await ReadConf();
                 InitLang();
                 await ReadLang();
-                if (RestartRequired) {
+                if (RestartRequired)
+                {
                     Log("This may be the first time that you use the pmcenter bot.", "CORE");
                     Log("Configuration guide could be found at https://see.wtf/feEJJ", "CORE");
                     Log("Received restart requirement from settings system. Exiting...", "CORE", LogLevel.ERROR);
@@ -48,18 +54,23 @@ namespace pmcenter {
                 RateLimiter = new Thread(() => ThrRateLimiter());
                 RateLimiter.Start();
                 Log("Waiting...");
-                while (RateLimiter.IsAlive != true) {
+                while (RateLimiter.IsAlive != true)
+                {
                     Thread.Sleep(100);
                 }
                 Log("Starting UpdateChecker");
-                if (Vars.CurrentConf.EnableAutoUpdateCheck) {
+                if (Vars.CurrentConf.EnableAutoUpdateCheck)
+                {
                     UpdateChecker = new Thread(() => ThrUpdateChecker());
                     UpdateChecker.Start();
                     Log("Waiting...");
-                    while (UpdateChecker.IsAlive != true) {
+                    while (UpdateChecker.IsAlive != true)
+                    {
                         Thread.Sleep(100);
                     }
-                } else {
+                }
+                else
+                {
                     Log("Skipped.");
                 }
                 Thread.Sleep(500);
@@ -71,15 +82,34 @@ namespace pmcenter {
                 Log("Hooking event processors...");
                 Bot.OnUpdate += BotProcess.OnUpdate;
                 Log("Starting receiving...");
-                Bot.StartReceiving(new []{Telegram.Bot.Types.Enums.UpdateType.Message});
+                Bot.StartReceiving(new[] { Telegram.Bot.Types.Enums.UpdateType.Message });
                 Log("==> Startup complete!");
                 Log("==> Running post-start operations...");
-                await Bot.SendTextMessageAsync(Vars.CurrentConf.OwnerUID, Vars.CurrentLang.Message_BotStarted.Replace("$1", StartSW.Elapsed.TotalMilliseconds + "ms"), Telegram.Bot.Types.Enums.ParseMode.Markdown, false, false);
+                await Bot.SendTextMessageAsync(Vars.CurrentConf.OwnerUID,
+                                               Vars.CurrentLang.Message_BotStarted
+                                                   .Replace("$1", StartSW.Elapsed.TotalMilliseconds + "ms"),
+                                               Telegram.Bot.Types.Enums.ParseMode.Markdown,
+                                               false,
+                                               false);
+                if (Vars.CurrentLang.TargetVersion != Vars.AppVer.ToString())
+                {
+                    Log("Language version mismatch detected.", "CORE", LogLevel.WARN);
+                    await Bot.SendTextMessageAsync(Vars.CurrentConf.OwnerUID,
+                                                   Vars.CurrentLang.Message_LangVerMismatch
+                                                       .Replace("$1", Vars.CurrentLang.TargetVersion)
+                                                       .Replace("$2", Vars.AppVer.ToString()),
+                                                   Telegram.Bot.Types.Enums.ParseMode.Markdown,
+                                                   false,
+                                                   false);
+                }
                 Log("==> All finished!");
-                while (true) {
+                while (true)
+                {
                     Thread.Sleep(60000);
                 }
-            } catch (Exception ex) {
+            }
+            catch (Exception ex)
+            {
                 Log("Unexpected error during startup: " + ex.ToString(), "CORE", LogLevel.ERROR);
                 Environment.Exit(1);
             }

@@ -1,4 +1,5 @@
 ﻿{
+  "TargetVersion": "1.1.65.154",
   "LangCode": "en.default.imported",
   "Message_OwnerStart": "😊 *Hi!* I'm your `pmcenter` bot, and I work just for you.\nThis message means that you've set up the bot successfully.\nTo reply to any forwarded messages, just directly reply to them here.\n\nThank you for using the `pmcenter` bot!",
   "Message_UserStartDefault": "📨 *Hi!* To send anything to my owner, just send it here.\n⚠ To be informed: I'll *automatically* ban flooding users.",
@@ -40,5 +41,8 @@
   "Message_Restarting": "🔄 Restarting...",
   "Message_NotificationsOff": "📳 Notifications are *OFF*.",
   "Message_NotificationsOn": "📲 Notifications are *ON*.",
-  "Message_SupportTextMessagesOnly": "📋 Sorry... Only text messages can be forwarded in Anonymous Forward mode."
+  "Message_SupportTextMessagesOnly": "📋 Sorry... Only text messages can be forwarded in Anonymous Forward mode.",
+  "Message_ForwarderNotReal": "ℹ The actual sender of this message is $1, whose UID is `$2`.\n\nYou can also ban this user by sending this following command:\n\n`/banid $2`\n\nTo undo this, send this command:\n\n`/pardonid $2`",
+  "Message_GeneralFailure": "✖ Error processing request: $1",
+  "Message_LangVerMismatch": "⚠ Language file ($1) is not for current version ($2), consider updating language file?"
 }

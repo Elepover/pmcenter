@@ -63,6 +63,18 @@ unzip pmcenter.zip
 dotnet pmcenter.dll
 ```
 
+### 使用 Docker
+
+请勿复制粘贴，您需要在运行命令前进行修改。
+
+```bash
+wget https://raw.githubusercontent.com/Elepover/pmcenter/master/Dockfile
+docker build . -t pmcenter
+docker run -v PATH_OF_YOUR_pmcenter.json:/opt/pmcenter/pmcenter.json pmcenter
+```
+
+That's all.
+
 ### 配置
 
 首次启动，`pmcenter` 将自动生成 `pmcenter.json` 和 `pmcenter_locale.json` 文件，修改文件来修改配置。

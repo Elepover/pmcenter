@@ -495,6 +495,60 @@ namespace pmcenter
                                                                         e.Update.Message.MessageId);
                                     return;
                                 }
+                            }
+                            else if (e.Update.Message.Text.ToLower().StartsWith("/banid"))
+                            {
+                                try
+                                {
+                                    long UserID = long.Parse(e.Update.Message.Text.ToLower().Split(" ")[1]);
+                                    BanUser(UserID);
+                                    await Conf.SaveConf(false, true);
+                                    await Vars.Bot.SendTextMessageAsync(e.Update.Message.From.Id,
+                                                                        Vars.CurrentLang.Message_UserBanned,
+                                                                        ParseMode.Markdown,
+                                                                        false,
+                                                                        DisNotif,
+                                                                        e.Update.Message.MessageId);
+                                    return;
+                                }
+                                catch (Exception ex)
+                                {
+                                    await Vars.Bot.SendTextMessageAsync(e.Update.Message.From.Id,
+                                                                        Vars.CurrentLang.Message_GeneralFailure
+                                                                            .Replace("$1", ex.Message),
+                                                                        ParseMode.Markdown,
+                                                                        false,
+                                                                        DisNotif,
+                                                                        e.Update.Message.MessageId);
+                                    return;
+                                }
+                            }
+                            else if (e.Update.Message.Text.ToLower().StartsWith("/pardonid"))
+                            {
+                                try
+                                {
+                                    long UserID = long.Parse(e.Update.Message.Text.ToLower().Split(" ")[1]);
+                                    UnbanUser(UserID);
+                                    await Conf.SaveConf(false, true);
+                                    await Vars.Bot.SendTextMessageAsync(e.Update.Message.From.Id,
+                                                                        Vars.CurrentLang.Message_UserPardoned,
+                                                                        ParseMode.Markdown,
+                                                                        false,
+                                                                        DisNotif,
+                                                                        e.Update.Message.MessageId);
+                                    return;
+                                }
+                                catch (Exception ex)
+                                {
+                                    await Vars.Bot.SendTextMessageAsync(e.Update.Message.From.Id,
+                                                                        Vars.CurrentLang.Message_GeneralFailure
+                                                                            .Replace("$1", ex.Message),
+                                                                        ParseMode.Markdown,
+                                                                        false,
+                                                                        DisNotif,
+                                                                        e.Update.Message.MessageId);
+                                    return;
+                                }
                             } // not a command.
                         }
                         await Vars.Bot.SendTextMessageAsync(e.Update.Message.From.Id,
@@ -551,10 +605,22 @@ namespace pmcenter
                         }
                         // process owner
                         Log("Forwarding message to owner...", "BOT");
-                        await Vars.Bot.ForwardMessageAsync(Vars.CurrentConf.OwnerUID,
-                                                        e.Update.Message.From.Id,
-                                                        e.Update.Message.MessageId,
-                                                        DisNotif);
+                        Telegram.Bot.Types.Message ForwardedMessage = await Vars.Bot.ForwardMessageAsync(Vars.CurrentConf.OwnerUID,
+                                                                                                         e.Update.Message.From.Id,
+                                                                                                         e.Update.Message.MessageId,
+                                                                                                         DisNotif);
+                        // check for real message sender
+                        if (ForwardedMessage.ForwardFrom.Id != e.Update.Message.From.Id)
+                        {
+                            await Vars.Bot.SendTextMessageAsync(Vars.CurrentConf.OwnerUID,
+                                                                Vars.CurrentLang.Message_ForwarderNotReal
+                                                                    .Replace("$2", e.Update.Message.From.Id.ToString())
+                                                                    .Replace("$1", "[" + e.Update.Message.From.FirstName + e.Update.Message.From.LastName + "](tg://user?id=" + e.Update.Message.From.Id + ")"),
+                                                                ParseMode.Markdown,
+                                                                false,
+                                                                DisNotif,
+                                                                ForwardedMessage.MessageId);
+                        }
                         // process cc
                         if (Vars.CurrentConf.EnableCc)
                         {
@@ -564,10 +630,22 @@ namespace pmcenter
                                 Log("Forwarding message to cc: " + Id, "BOT");
                                 try
                                 {
-                                    await Vars.Bot.ForwardMessageAsync(Id,
-                                                                    e.Update.Message.From.Id,
-                                                                    e.Update.Message.MessageId,
-                                                                    DisNotif);
+                                    Telegram.Bot.Types.Message ForwardedMessageCc = await Vars.Bot.ForwardMessageAsync(Id,
+                                                                                                                       e.Update.Message.From.Id,
+                                                                                                                       e.Update.Message.MessageId,
+                                                                                                                       DisNotif);
+                                    // check for real message sender
+                                    if (ForwardedMessageCc.ForwardFrom.Id != e.Update.Message.From.Id)
+                                    {
+                                        await Vars.Bot.SendTextMessageAsync(Id,
+                                                                            Vars.CurrentLang.Message_ForwarderNotReal
+                                                                                .Replace("$2", e.Update.Message.From.Id.ToString())
+                                                                                .Replace("$1", "[" + e.Update.Message.From.FirstName + e.Update.Message.From.LastName + "](tg://user?id=" + e.Update.Message.From.Id + ")"),
+                                                                            ParseMode.Markdown,
+                                                                            false,
+                                                                            DisNotif,
+                                                                            ForwardedMessageCc.MessageId);
+                                    }
                                 }
                                 catch (Exception ex)
                                 {

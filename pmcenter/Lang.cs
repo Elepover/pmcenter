@@ -20,6 +20,7 @@ namespace pmcenter
         {
             public Language()
             {
+                TargetVersion = Vars.AppVer.ToString();
                 LangCode = "en.default.integrated";
                 Message_CommandNotReplying = "😶 Don't talk to me, spend time chatting with those who love you.";
                 Message_CommandNotReplyingValidMessage = "😐 Speaking to me makes no sense.";
@@ -62,7 +63,11 @@ namespace pmcenter
                 Message_NotificationsOff = "📳 Notifications are *OFF*.";
                 Message_NotificationsOn = "📲 Notifications are *ON*.";
                 Message_SupportTextMessagesOnly = "📋 Sorry... Only text messages can be forwarded in Anonymous Forward mode.";
+                Message_ForwarderNotReal = "ℹ The actual sender of this message is $1, whose UID is `$2`.\n\nYou can also ban this user by sending this following command:\n\n`/banid $2`\n\nTo undo this, send this command:\n\n`/pardonid $2`";
+                Message_GeneralFailure = "✖ Error processing request: $1";
+                Message_LangVerMismatch = "⚠ Language file ($1) is not for current version ($2), consider updating language file?";
             }
+            public string TargetVersion { get; set; }
             public string LangCode { get; set; }
             public string Message_OwnerStart { get; set; }
             public string Message_UserStartDefault { get; set; }
@@ -105,6 +110,9 @@ namespace pmcenter
             public string Message_NotificationsOff { get; set; }
             public string Message_NotificationsOn { get; set; }
             public string Message_SupportTextMessagesOnly { get; set; }
+            public string Message_ForwarderNotReal { get; set; }
+            public string Message_GeneralFailure { get; set; }
+            public string Message_LangVerMismatch { get; set; }
         }
         public static string KillIllegalChars(string Input)
         {

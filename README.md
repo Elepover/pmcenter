@@ -63,9 +63,7 @@ dotnet pmcenter.dll
 
 ### Use Docker
 
-**DO NOT COPY & PASTE.**
-
-**You need to edit it before executing.**
+DO NOT COPY & PASTE. You need to edit it before executing.
 
 ```bash
 wget https://raw.githubusercontent.com/Elepover/pmcenter/master/Dockfile
