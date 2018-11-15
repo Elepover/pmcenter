@@ -79,6 +79,10 @@ That's all.
 
 首次启动，`pmcenter` 将自动生成 `pmcenter.json` 和 `pmcenter_locale.json` 文件，修改文件来修改配置。
 
+使用设置向导:
+
+`dotnet pmcenter.dll --setup`
+
 #### `pmcenter` 设置
 
 | 项目 | 类型 | 描述 |

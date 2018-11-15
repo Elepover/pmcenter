@@ -77,6 +77,10 @@ That's all.
 
 During the first run, `pmcenter` will automatically generate the `pmcenter.json` and `pmcenter_locale.json` file for you. Change the settings to set up.
 
+Or, use setup wizard:
+
+`dotnet pmcenter.dll --setup`
+
 #### `pmcenter` Settings
 
 | Key | Type | Description |
