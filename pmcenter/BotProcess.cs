@@ -615,7 +615,7 @@ namespace pmcenter
                             await Vars.Bot.SendTextMessageAsync(Vars.CurrentConf.OwnerUID,
                                                                 Vars.CurrentLang.Message_ForwarderNotReal
                                                                     .Replace("$2", e.Update.Message.From.Id.ToString())
-                                                                    .Replace("$1", "[" + e.Update.Message.From.FirstName + e.Update.Message.From.LastName + "](tg://user?id=" + e.Update.Message.From.Id + ")"),
+                                                                    .Replace("$1", "[" + e.Update.Message.From.FirstName + " " + e.Update.Message.From.LastName + "](tg://user?id=" + e.Update.Message.From.Id + ")"),
                                                                 ParseMode.Markdown,
                                                                 false,
                                                                 DisNotif,
@@ -640,7 +640,7 @@ namespace pmcenter
                                         await Vars.Bot.SendTextMessageAsync(Id,
                                                                             Vars.CurrentLang.Message_ForwarderNotReal
                                                                                 .Replace("$2", e.Update.Message.From.Id.ToString())
-                                                                                .Replace("$1", "[" + e.Update.Message.From.FirstName + e.Update.Message.From.LastName + "](tg://user?id=" + e.Update.Message.From.Id + ")"),
+                                                                                .Replace("$1", "[" + e.Update.Message.From.FirstName + " " + e.Update.Message.From.LastName + "](tg://user?id=" + e.Update.Message.From.Id + ")"),
                                                                             ParseMode.Markdown,
                                                                             false,
                                                                             DisNotif,

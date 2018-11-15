@@ -22,6 +22,18 @@ namespace pmcenter
             StartSW.Start();
             Console.WriteLine(Vars.ASCII);
             Log("Main delegator activated!", "DELEGATOR");
+            if (Environment.CommandLine.ToLower().Contains("--setup"))
+            {
+                try
+                {
+                    Setup.SetupWizard();
+                }
+                catch (Exception ex)
+                {
+                    Log("Setup wizard has exited accidentally: " + ex.ToString() + "\n\nProgram will now exit.", "DELEGATOR", LogLevel.ERROR);
+                }
+                // after the method above, program will exit.
+            }
             Log("Starting pmcenter, version " + AppVer.ToString() + ".", "DELEGATOR");
             Task MainAsyncTask = MainAsync(args);
             MainAsyncTask.Wait();
