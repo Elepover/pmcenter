@@ -1,0 +1,31 @@
+﻿using System;
+using System.Threading.Tasks;
+using Telegram.Bot;
+using Telegram.Bot.Types;
+using Telegram.Bot.Types.Enums;
+
+namespace pmcenter.Commands
+{
+    internal class UptimeCommand : ICommand
+    {
+        public bool OwnerOnly => true;
+
+        public string Prefix => "uptime";
+
+        public async Task<bool> ExecuteAsync(TelegramBotClient botClient, Update update)
+        {
+            string UptimeString =
+                Vars.CurrentLang.Message_UptimeInfo
+                .Replace("$1", (new TimeSpan(0, 0, 0, 0, Environment.TickCount)).ToString())
+                .Replace("$2", Vars.StartSW.Elapsed.ToString());
+            await botClient.SendTextMessageAsync(
+                update.Message.From.Id,
+                UptimeString,
+                ParseMode.Markdown,
+                false,
+                Vars.CurrentConf.DisableNotifications,
+                update.Message.MessageId);
+            return true;
+        }
+    }
+}

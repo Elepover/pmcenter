@@ -4,673 +4,251 @@
 // Copyright (C) 2018 Elepover. Licensed under the MIT License.
 */
 
+using pmcenter.Commands;
 using System;
-using System.Diagnostics;
-using System.IO;
-using System.IO.Compression;
-using System.Net;
-using System.Runtime.InteropServices;
-using System.Threading;
 using System.Threading.Tasks;
 using Telegram.Bot.Args;
+using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
 using static pmcenter.Methods;
 
 namespace pmcenter
 {
-    public class BotProcess
+    public static class BotProcess
     {
+        private static readonly CommandManager commandManager = new CommandManager();
+
+        static BotProcess()
+        {
+            commandManager.RegisterCommand(new StartCommand());
+            commandManager.RegisterCommand(new HelpCommand());
+
+            commandManager.RegisterCommand(new InfoCommand());
+            commandManager.RegisterCommand(new BanCommand());
+            commandManager.RegisterCommand(new PardonCommand());
+
+            commandManager.RegisterCommand(new BanIdCommand());
+            commandManager.RegisterCommand(new CatConfigCommand());
+            commandManager.RegisterCommand(new CheckUpdateCommand());
+            commandManager.RegisterCommand(new PardonIdCommand());
+            commandManager.RegisterCommand(new PingCommand());
+            commandManager.RegisterCommand(new ReadConfigCommand());
+            commandManager.RegisterCommand(new RestartCommand());
+            commandManager.RegisterCommand(new SaveConfigCommand());
+            commandManager.RegisterCommand(new StatusCommand());
+            commandManager.RegisterCommand(new SwitchBwCommand());
+            commandManager.RegisterCommand(new SwitchFwCommand());
+            commandManager.RegisterCommand(new SwtichNotificationCommand());
+            commandManager.RegisterCommand(new UpdateCommand());
+            commandManager.RegisterCommand(new UptimeCommand());
+        }
+
         public static async void OnUpdate(object sender, UpdateEventArgs e)
         {
             try
             {
-                if (e.Update.Type != UpdateType.Message) { return; }
-                if (e.Update.Message.From.IsBot) { return; }
-                if (e.Update.Message.Chat.Type != ChatType.Private) { return; }
+                Update update = e.Update;
+                if (update.Type != UpdateType.Message) { return; }
+                if (update.Message.From.IsBot) { return; }
+                if (update.Message.Chat.Type != ChatType.Private) { return; }
 
-                string Username = e.Update.Message.From.Username;
-                string FirstName = e.Update.Message.From.FirstName;
-                long UID = e.Update.Message.From.Id;
-                if (IsBanned(e.Update.Message.From.Id))
+                if (IsBanned(update.Message.From.Id))
                 {
-                    Log("Restricting banned user from sending messages: " + FirstName + " (@" + Username + " / " + UID + ")", "BOT");
+                    Log("Restricting banned user from sending messages: " + update.Message.From.FirstName + " (@" + update.Message.From.Username + " / " + (long)update.Message.From.Id + ")", "BOT");
                     return;
                 }
-                // Pre-assign a shortcut.
-                bool DisNotif = Vars.CurrentConf.DisableNotifications;
-                // Reworked processing logic.
-                if (e.Update.Message.From.Id == Vars.CurrentConf.OwnerUID)
-                {
-                    // Commands?
-                    if (e.Update.Message.ReplyToMessage != null)
-                    {
-                        if (e.Update.Message.ReplyToMessage.ForwardFrom != null)
-                        {
-                            if (e.Update.Message.Type == MessageType.Text)
-                            {
-                                if (e.Update.Message.Text.ToLower() == "/info")
-                                {
-                                    string MessageInfo = "ℹ *Message Info*\n📩 *Sender*: [";
-                                    if (Vars.CurrentConf.UseUsernameInMsgInfo)
-                                    {
-                                        MessageInfo += e.Update.Message.ReplyToMessage.ForwardFrom.FirstName + " " + e.Update.Message.ReplyToMessage.ForwardFrom.LastName;
-                                    }
-                                    else
-                                    {
-                                        MessageInfo += "Here";
-                                    }
-                                    MessageInfo += "](tg://user?id="
-                                        + e.Update.Message.ReplyToMessage.ForwardFrom.Id
-                                        + ")\n🔢 *User ID*: `"
-                                        + e.Update.Message.ReplyToMessage.ForwardFrom.Id
-                                        + "`\n🌐 *Language*: `"
-                                        + e.Update.Message.ReplyToMessage.ForwardFrom.LanguageCode
-                                        + "`\n⌚ *Forward Time*: `"
-                                        + e.Update.Message.ReplyToMessage.ForwardDate.ToString()
-                                        + "`\n🆔 *Message ID*: `"
-                                        + e.Update.Message.MessageId
-                                        + "`";
-                                    await Vars.Bot.SendTextMessageAsync(e.Update.Message.From.Id,
-                                                                        MessageInfo, ParseMode.Markdown,
-                                                                        false,
-                                                                        DisNotif,
-                                                                        e.Update.Message.MessageId);
-                                    return;
-                                }
-                                else if (e.Update.Message.Text.ToLower() == "/ban")
-                                {
-                                    BanUser(e.Update.Message.ReplyToMessage.ForwardFrom.Id);
-                                    await Conf.SaveConf(false, true);
-                                    await Vars.Bot.SendTextMessageAsync(e.Update.Message.From.Id,
-                                                                        Vars.CurrentLang.Message_UserBanned,
-                                                                        ParseMode.Markdown,
-                                                                        false,
-                                                                        DisNotif,
-                                                                        e.Update.Message.MessageId);
-                                    return;
-                                }
-                                else if (e.Update.Message.Text.ToLower() == "/pardon")
-                                {
-                                    UnbanUser(e.Update.Message.ReplyToMessage.ForwardFrom.Id);
-                                    await Conf.SaveConf(false, true);
-                                    await Vars.Bot.SendTextMessageAsync(e.Update.Message.From.Id,
-                                                                        Vars.CurrentLang.Message_UserPardoned,
-                                                                        ParseMode.Markdown,
-                                                                        false,
-                                                                        DisNotif,
-                                                                        e.Update.Message.MessageId);
-                                    return;
-                                } // not a recogized command.
-                            }
-                            // Is replying, replying to forwarded message AND not command.
-                            if (Vars.CurrentConf.AnonymousForward)
-                            {
-                                await ForwardMessageAnonymously(e.Update.Message.ReplyToMessage.ForwardFrom.Id, DisNotif, e.Update.Message);
-                            }
-                            else
-                            {
-                                await Vars.Bot.ForwardMessageAsync(e.Update.Message.ReplyToMessage.ForwardFrom.Id,
-                                                                e.Update.Message.Chat.Id,
-                                                                e.Update.Message.MessageId,
-                                                                DisNotif);
-                            }
-                            // Process locale.
-                            if (Vars.CurrentConf.EnableRepliedConfirmation)
-                            {
-                                string ReplyToMessage = Vars.CurrentLang.Message_ReplySuccessful;
-                                ReplyToMessage = ReplyToMessage.Replace("$1", "[" + e.Update.Message.ReplyToMessage.ForwardFrom.FirstName + " (@" + e.Update.Message.ReplyToMessage.ForwardFrom.Username + ")](tg://user?id=" + e.Update.Message.ReplyToMessage.ForwardFrom.Id + ")");
-                                await Vars.Bot.SendTextMessageAsync(e.Update.Message.From.Id, ReplyToMessage, ParseMode.Markdown, false, false, e.Update.Message.MessageId);
-                            }
-                            Log("Successfully passed owner's reply to " + e.Update.Message.ReplyToMessage.ForwardFrom.FirstName + " (@" + e.Update.Message.ReplyToMessage.ForwardFrom.Username + " / " + e.Update.Message.ReplyToMessage.ForwardFrom.Id + ")", "BOT");
-                            return;
-                        }
-                        else
-                        {
-                            // The owner is replying to bot messages. (no forwardfrom)
-                            await Vars.Bot.SendTextMessageAsync(e.Update.Message.From.Id,
-                                                                Vars.CurrentLang.Message_CommandNotReplyingValidMessage,
-                                                                ParseMode.Markdown,
-                                                                false,
-                                                                DisNotif,
-                                                                e.Update.Message.MessageId);
-                            return;
-                        }
-                    }
-                    else
-                    {
-                        // The owner is not even replying.
-                        // start or help command?
-                        if (e.Update.Message.Type == MessageType.Text)
-                        {
-                            if (e.Update.Message.Text.ToLower() == "/start")
-                            {
-                                await Vars.Bot.SendTextMessageAsync(Vars.CurrentConf.OwnerUID,
-                                                                    Vars.CurrentLang.Message_OwnerStart,
-                                                                    ParseMode.Markdown,
-                                                                    false,
-                                                                    DisNotif,
-                                                                    e.Update.Message.MessageId);
-                                return;
-                            }
-                            else if (e.Update.Message.Text.ToLower() == "/help")
-                            {
-                                await Vars.Bot.SendTextMessageAsync(Vars.CurrentConf.OwnerUID,
-                                                                    Vars.CurrentLang.Message_Help,
-                                                                    ParseMode.Markdown,
-                                                                    false,
-                                                                    DisNotif,
-                                                                    e.Update.Message.MessageId);
-                                return;
-                            }
-                            else if (e.Update.Message.Text.ToLower() == "/ping")
-                            {
-                                await Vars.Bot.SendTextMessageAsync(e.Update.Message.From.Id,
-                                                                    Vars.CurrentLang.Message_PingReply,
-                                                                    ParseMode.Markdown,
-                                                                    false,
-                                                                    DisNotif,
-                                                                    e.Update.Message.MessageId);
-                                return;
-                            }
-                            else if (e.Update.Message.Text.ToLower() == "/switchfw")
-                            {
-                                bool IsPausedNow = Conf.SwitchPaused();
-                                await Conf.SaveConf(false, true);
-                                if (IsPausedNow)
-                                {
-                                    await Vars.Bot.SendTextMessageAsync(e.Update.Message.From.Id,
-                                                                        Vars.CurrentLang.Message_ServicePaused,
-                                                                        ParseMode.Markdown,
-                                                                        false,
-                                                                        DisNotif,
-                                                                        e.Update.Message.MessageId);
-                                    return;
-                                }
-                                else
-                                {
-                                    await Vars.Bot.SendTextMessageAsync(e.Update.Message.From.Id,
-                                                                        Vars.CurrentLang.Message_ServiceResumed,
-                                                                        ParseMode.Markdown,
-                                                                        false,
-                                                                        DisNotif,
-                                                                        e.Update.Message.MessageId);
-                                    return;
-                                }
-                            }
-                            else if (e.Update.Message.Text.ToLower() == "/switchbw")
-                            {
-                                bool IsEnabledNow = Conf.SwitchBlocking();
-                                await Conf.SaveConf(false, true);
-                                if (IsEnabledNow)
-                                {
-                                    await Vars.Bot.SendTextMessageAsync(e.Update.Message.From.Id,
-                                                                        Vars.CurrentLang.Message_MessageBlockEnabled,
-                                                                        ParseMode.Markdown,
-                                                                        false,
-                                                                        DisNotif,
-                                                                        e.Update.Message.MessageId);
-                                    return;
-                                }
-                                else
-                                {
-                                    await Vars.Bot.SendTextMessageAsync(e.Update.Message.From.Id,
-                                                                        Vars.CurrentLang.Message_MessageBlockDisabled,
-                                                                        ParseMode.Markdown,
-                                                                        false,
-                                                                        DisNotif,
-                                                                        e.Update.Message.MessageId);
-                                    return;
-                                }
-                            }
-                            else if (e.Update.Message.Text.ToLower() == "/saveconf")
-                            {
-                                await Conf.SaveConf();
-                                await Lang.SaveLang();
-                                await Vars.Bot.SendTextMessageAsync(e.Update.Message.From.Id,
-                                                                    Vars.CurrentLang.Message_ConfigUpdated,
-                                                                    ParseMode.Markdown,
-                                                                    false,
-                                                                    DisNotif,
-                                                                    e.Update.Message.MessageId);
-                                return;
-                            }
-                            else if (e.Update.Message.Text.ToLower() == "/readconf")
-                            {
-                                await Conf.ReadConf();
-                                await Lang.ReadLang();
-                                await Vars.Bot.SendTextMessageAsync(e.Update.Message.From.Id,
-                                                                    Vars.CurrentLang.Message_ConfigReloaded,
-                                                                    ParseMode.Markdown,
-                                                                    false,
-                                                                    DisNotif,
-                                                                    e.Update.Message.MessageId);
-                                return;
-                            }
-                            else if (e.Update.Message.Text.ToLower() == "/uptime")
-                            {
-                                string UptimeString = Vars.CurrentLang.Message_UptimeInfo;
-                                UptimeString = UptimeString
-                                    .Replace("$1", (new TimeSpan(0, 0, 0, 0, Environment.TickCount)).ToString())
-                                    .Replace("$2", Vars.StartSW.Elapsed.ToString());
-                                await Vars.Bot.SendTextMessageAsync(e.Update.Message.From.Id,
-                                                                    UptimeString,
-                                                                    ParseMode.Markdown,
-                                                                    false,
-                                                                    DisNotif,
-                                                                    e.Update.Message.MessageId);
-                                return;
-                            }
-                            else if (e.Update.Message.Text.ToLower() == "/chkupdate")
-                            {
-                                try
-                                {
-                                    Conf.Update Latest = Conf.CheckForUpdates();
-                                    if (Conf.IsNewerVersionAvailable(Latest))
-                                    {
-                                        Vars.UpdatePending = true;
-                                        Vars.UpdateVersion = new Version(Latest.Latest);
-                                        Vars.UpdateLevel = Latest.UpdateLevel;
-                                        string UpdateString = Vars.CurrentLang.Message_UpdateAvailable
-                                            .Replace("$1", Latest.Latest)
-                                            .Replace("$2", Latest.Details);
-                                        await Vars.Bot.SendTextMessageAsync(e.Update.Message.From.Id,
-                                                                            UpdateString,
-                                                                            ParseMode.Markdown,
-                                                                            false,
-                                                                            DisNotif,
-                                                                            e.Update.Message.MessageId);
-                                        return;
-                                    }
-                                    else
-                                    {
-                                        Vars.UpdatePending = false;
-                                        await Vars.Bot.SendTextMessageAsync(e.Update.Message.From.Id,
-                                                                            Vars.CurrentLang.Message_AlreadyUpToDate
-                                                                                .Replace("$1", Latest.Latest)
-                                                                                .Replace("$2", Vars.AppVer.ToString())
-                                                                                .Replace("$3", Latest.Details),
-                                                                            ParseMode.Markdown,
-                                                                            false,
-                                                                            DisNotif,
-                                                                            e.Update.Message.MessageId);
-                                        return;
-                                    }
-                                }
-                                catch (Exception ex)
-                                {
-                                    string ErrorString = Vars.CurrentLang.Message_UpdateCheckFailed.Replace("$1", ex.Message);
-                                    await Vars.Bot.SendTextMessageAsync(e.Update.Message.From.Id,
-                                                                        ErrorString, ParseMode.Markdown,
-                                                                        false,
-                                                                        DisNotif,
-                                                                        e.Update.Message.MessageId);
-                                    return;
-                                }
-                            }
-                            else if (e.Update.Message.Text.ToLower() == "/update")
-                            {
-                                // Copied code starting at L115
-                                try
-                                {
-                                    Conf.Update Latest = Conf.CheckForUpdates();
-                                    if (Conf.IsNewerVersionAvailable(Latest))
-                                    {
-                                        string UpdateString = Vars.CurrentLang.Message_UpdateAvailable
-                                            .Replace("$1", Latest.Latest)
-                                            .Replace("$2", Latest.Details);
-                                        await Vars.Bot.SendTextMessageAsync(e.Update.Message.From.Id,
-                                                                            UpdateString, ParseMode.Markdown,
-                                                                            false,
-                                                                            DisNotif,
-                                                                            e.Update.Message.MessageId);
-                                        // where difference begins
-                                        await Vars.Bot.SendTextMessageAsync(e.Update.Message.From.Id,
-                                                                            Vars.CurrentLang.Message_UpdateProcessing,
-                                                                            ParseMode.Markdown,
-                                                                            false,
-                                                                            DisNotif,
-                                                                            e.Update.Message.MessageId);
-                                        // download compiled package
-                                        Log("Starting update download... (pmcenter_update.zip)", "BOT");
-                                        WebClient Downloader = new WebClient();
-                                        Downloader.DownloadFile(
-                                            new Uri(Vars.UpdateArchiveURL),
-                                            Path.Combine(Vars.AppDirectory, "pmcenter_update.zip"));
-                                        Log("Download complete. Extracting...", "BOT");
-                                        using (ZipArchive Zip = ZipFile.OpenRead(Path.Combine(Vars.AppDirectory, "pmcenter_update.zip")))
-                                        {
-                                            foreach (ZipArchiveEntry Entry in Zip.Entries)
-                                            {
-                                                Log("Extracting: " + Path.Combine(Vars.AppDirectory, Entry.FullName), "BOT");
-                                                Entry.ExtractToFile(Path.Combine(Vars.AppDirectory, Entry.FullName), true);
-                                            }
-                                        }
-                                        Log("Resting for a while...", "BOT");
-                                        Thread.Sleep(3000);
-                                        if (Vars.CurrentConf.AutoLangUpdate)
-                                        {
-                                            Log("Starting automatic language file update...", "BOT");
-                                            Downloader.DownloadFile(
-                                                new Uri(Vars.CurrentConf.LangURL),
-                                                Path.Combine(Vars.AppDirectory, "pmcenter_locale.json")
-                                            );
-                                        }
-                                        Log("Cleaning up temporary files...", "BOT");
-                                        File.Delete(Path.Combine(Vars.AppDirectory, "pmcenter_update.zip"));
-                                        await Vars.Bot.SendTextMessageAsync(e.Update.Message.From.Id,
-                                                                            Vars.CurrentLang.Message_UpdateFinalizing,
-                                                                            ParseMode.Markdown,
-                                                                            false,
-                                                                            DisNotif,
-                                                                            e.Update.Message.MessageId);
-                                        Log("Resting for a while...", "BOT");
-                                        Thread.Sleep(3000);
-                                        Log("Trying to execute restart command...", "BOT");
-                                        try
-                                        {
-                                            Process.Start(Vars.CurrentConf.RestartCommand, Vars.CurrentConf.RestartArgs);
-                                            Log("Executed.", "BOT");
-                                            return;
-                                        }
-                                        catch (Exception ex)
-                                        {
-                                            Log("Failed to execute restart command: " + ex.ToString(), "BOT", LogLevel.ERROR);
-                                            return;
-                                        }
-                                        // end of difference
-                                    }
-                                    else
-                                    {
-                                        await Vars.Bot.SendTextMessageAsync(e.Update.Message.From.Id,
-                                                                            Vars.CurrentLang.Message_AlreadyUpToDate
-                                                                                .Replace("$1", Latest.Latest)
-                                                                                .Replace("$2", Vars.AppVer.ToString())
-                                                                                .Replace("$3", Latest.Details),
-                                                                            ParseMode.Markdown,
-                                                                            false,
-                                                                            DisNotif,
-                                                                            e.Update.Message.MessageId);
-                                        return;
-                                    }
-                                }
-                                catch (Exception ex)
-                                {
-                                    string ErrorString = Vars.CurrentLang.Message_UpdateCheckFailed.Replace("$1", ex.Message);
-                                    await Vars.Bot.SendTextMessageAsync(e.Update.Message.From.Id,
-                                                                        ErrorString,
-                                                                        ParseMode.Markdown,
-                                                                        false,
-                                                                        DisNotif,
-                                                                        e.Update.Message.MessageId);
-                                    return;
-                                } // end of try, not end if
-                            }
-                            else if (e.Update.Message.Text.ToLower() == "/catconf")
-                            {
-                                string ConfMessage = Vars.CurrentLang.Message_CurrentConf.Replace("$1", SerializeCurrentConf());
-                                await Vars.Bot.SendTextMessageAsync(e.Update.Message.From.Id,
-                                                                    ConfMessage,
-                                                                    ParseMode.Markdown,
-                                                                    false,
-                                                                    DisNotif,
-                                                                    e.Update.Message.MessageId);
-                                return;
-                            }
-                            else if (e.Update.Message.Text.ToLower() == "/restart")
-                            {
-                                await Vars.Bot.SendTextMessageAsync(e.Update.Message.From.Id,
-                                                                    Vars.CurrentLang.Message_Restarting,
-                                                                    ParseMode.Markdown,
-                                                                    false,
-                                                                    DisNotif,
-                                                                    e.Update.Message.MessageId);
-                                Thread.Sleep(5000);
-                                Environment.Exit(0);
-                                return;
-                            }
-                            else if (e.Update.Message.Text.ToLower() == "/status")
-                            {
-                                string MessageStr = Vars.CurrentLang.Message_SysStatus_Header + "\n\n";
-                                // process other headers
-                                bool NoActionRequired = true;
-                                if (Vars.UpdatePending)
-                                {
-                                    MessageStr += Vars.CurrentLang.Message_SysStatus_PendingUpdate.Replace("$1", Vars.UpdateVersion.ToString()) + "\n";
-                                    MessageStr += GetUpdateLevel(Vars.UpdateLevel) + "\n";
-                                    NoActionRequired = false;
-                                }
-                                if (Vars.NonEmergRestartRequired)
-                                {
-                                    MessageStr += Vars.CurrentLang.Message_SysStatus_RestartRequired + "\n";
-                                    NoActionRequired = false;
-                                }
-                                if (NoActionRequired)
-                                {
-                                    MessageStr += Vars.CurrentLang.Message_SysStatus_NoOperationRequired + "\n";
-                                }
-                                MessageStr += "\n";
-                                // process summary
-                                MessageStr += Vars.CurrentLang.Message_SysStatus_Summary
-                                    .Replace("$1", Environment.MachineName)
-                                    .Replace("$2", Environment.OSVersion.ToString())
-                                    .Replace("$3", RuntimeInformation.OSDescription)
-                                    .Replace("$4", (new TimeSpan(0, 0, 0, 0, Environment.TickCount)).ToString())
-                                    .Replace("$5", Vars.StartSW.Elapsed.ToString())
-                                    .Replace("$6", DateTime.UtcNow.ToShortDateString() + " / " + DateTime.UtcNow.ToShortTimeString())
-                                    .Replace("$7", Environment.Version.ToString())
-                                    .Replace("$8", RuntimeInformation.FrameworkDescription)
-                                    .Replace("$9", Vars.AppVer.ToString())
-                                    .Replace("$a", Environment.ProcessorCount.ToString())
-                                    .Replace("$b", Vars.CurrentLang.LangCode);
 
-                                await Vars.Bot.SendTextMessageAsync(e.Update.Message.From.Id,
-                                                                    MessageStr,
-                                                                    ParseMode.Markdown,
-                                                                    false,
-                                                                    DisNotif,
-                                                                    e.Update.Message.MessageId);
-                                return;
-                            }
-                            else if (e.Update.Message.Text.ToLower() == "/switchnf")
-                            {
-                                bool IsDisabledNow = Conf.SwitchNotifications();
-                                await Conf.SaveConf(false, true);
-                                if (IsDisabledNow)
-                                {
-                                    await Vars.Bot.SendTextMessageAsync(e.Update.Message.From.Id,
-                                                                        Vars.CurrentLang.Message_NotificationsOff,
-                                                                        ParseMode.Markdown,
-                                                                        false,
-                                                                        DisNotif,
-                                                                        e.Update.Message.MessageId);
-                                    return;
-                                }
-                                else
-                                {
-                                    await Vars.Bot.SendTextMessageAsync(e.Update.Message.From.Id,
-                                                                        Vars.CurrentLang.Message_NotificationsOn,
-                                                                        ParseMode.Markdown,
-                                                                        false,
-                                                                        DisNotif,
-                                                                        e.Update.Message.MessageId);
-                                    return;
-                                }
-                            }
-                            else if (e.Update.Message.Text.ToLower().StartsWith("/banid"))
-                            {
-                                try
-                                {
-                                    long UserID = long.Parse(e.Update.Message.Text.ToLower().Split(" ")[1]);
-                                    BanUser(UserID);
-                                    await Conf.SaveConf(false, true);
-                                    await Vars.Bot.SendTextMessageAsync(e.Update.Message.From.Id,
-                                                                        Vars.CurrentLang.Message_UserBanned,
-                                                                        ParseMode.Markdown,
-                                                                        false,
-                                                                        DisNotif,
-                                                                        e.Update.Message.MessageId);
-                                    return;
-                                }
-                                catch (Exception ex)
-                                {
-                                    await Vars.Bot.SendTextMessageAsync(e.Update.Message.From.Id,
-                                                                        Vars.CurrentLang.Message_GeneralFailure
-                                                                            .Replace("$1", ex.Message),
-                                                                        ParseMode.Markdown,
-                                                                        false,
-                                                                        DisNotif,
-                                                                        e.Update.Message.MessageId);
-                                    return;
-                                }
-                            }
-                            else if (e.Update.Message.Text.ToLower().StartsWith("/pardonid"))
-                            {
-                                try
-                                {
-                                    long UserID = long.Parse(e.Update.Message.Text.ToLower().Split(" ")[1]);
-                                    UnbanUser(UserID);
-                                    await Conf.SaveConf(false, true);
-                                    await Vars.Bot.SendTextMessageAsync(e.Update.Message.From.Id,
-                                                                        Vars.CurrentLang.Message_UserPardoned,
-                                                                        ParseMode.Markdown,
-                                                                        false,
-                                                                        DisNotif,
-                                                                        e.Update.Message.MessageId);
-                                    return;
-                                }
-                                catch (Exception ex)
-                                {
-                                    await Vars.Bot.SendTextMessageAsync(e.Update.Message.From.Id,
-                                                                        Vars.CurrentLang.Message_GeneralFailure
-                                                                            .Replace("$1", ex.Message),
-                                                                        ParseMode.Markdown,
-                                                                        false,
-                                                                        DisNotif,
-                                                                        e.Update.Message.MessageId);
-                                    return;
-                                }
-                            } // not a command.
-                        }
-                        await Vars.Bot.SendTextMessageAsync(e.Update.Message.From.Id,
-                                                            Vars.CurrentLang.Message_CommandNotReplying,
-                                                            ParseMode.Markdown,
-                                                            false,
-                                                            DisNotif,
-                                                            e.Update.Message.MessageId);
-                        return;
-                    }
+                if (update.Message.From.Id == Vars.CurrentConf.OwnerUID)
+                {
+                    await OwnerLogic(update);
                 }
                 else
                 {
-                    // is user
-                    if (e.Update.Message.Type == MessageType.Text)
-                    {
-                        // is command?
-                        if (e.Update.Message.Text.ToLower() == "/start")
-                        {
-                            await Vars.Bot.SendTextMessageAsync(e.Update.Message.From.Id,
-                                                                Vars.CurrentLang.Message_UserStartDefault,
-                                                                ParseMode.Markdown,
-                                                                false,
-                                                                false,
-                                                                e.Update.Message.MessageId);
-                            return;
-                        }
-                    }
-                    Log("Received message from " + "\"" + FirstName + "\" (@" + Username + " / " + UID + ")" + ", forwarding...", "BOT");
-                    if (Vars.CurrentConf.ForwardingPaused)
-                    {
-                        Log("Stopped: forwarding is currently paused.", "BOT", LogLevel.INFO);
-                        await Vars.Bot.SendTextMessageAsync(e.Update.Message.From.Id,
-                                                            Vars.CurrentLang.Message_UserServicePaused,
-                                                            ParseMode.Markdown,
-                                                            false,
-                                                            false,
-                                                            e.Update.Message.MessageId);
-                    }
-                    else
-                    {
-                        // test text blacklist
-                        if (string.IsNullOrEmpty(e.Update.Message.Text) != true)
-                        {
-                            if (IsKeywordBanned(e.Update.Message.Text))
-                            {
-                                Log("Stopped: sentence contains blocked words.", "BOT", LogLevel.INFO);
-                                if (Vars.CurrentConf.KeywordAutoBan)
-                                {
-                                    BanUser(e.Update.Message.From.Id);
-                                }
-                                return;
-                            }
-                        }
-                        // process owner
-                        Log("Forwarding message to owner...", "BOT");
-                        Telegram.Bot.Types.Message ForwardedMessage = await Vars.Bot.ForwardMessageAsync(Vars.CurrentConf.OwnerUID,
-                                                                                                         e.Update.Message.From.Id,
-                                                                                                         e.Update.Message.MessageId,
-                                                                                                         DisNotif);
-                        // check for real message sender
-                        if (ForwardedMessage.ForwardFrom.Id != e.Update.Message.From.Id)
-                        {
-                            await Vars.Bot.SendTextMessageAsync(Vars.CurrentConf.OwnerUID,
-                                                                Vars.CurrentLang.Message_ForwarderNotReal
-                                                                    .Replace("$2", e.Update.Message.From.Id.ToString())
-                                                                    .Replace("$1", "[" + e.Update.Message.From.FirstName + " " + e.Update.Message.From.LastName + "](tg://user?id=" + e.Update.Message.From.Id + ")"),
-                                                                ParseMode.Markdown,
-                                                                false,
-                                                                DisNotif,
-                                                                ForwardedMessage.MessageId);
-                        }
-                        // process cc
-                        if (Vars.CurrentConf.EnableCc)
-                        {
-                            Log("Cc enabled, forwarding...", "BOT");
-                            foreach (long Id in Vars.CurrentConf.Cc)
-                            {
-                                Log("Forwarding message to cc: " + Id, "BOT");
-                                try
-                                {
-                                    Telegram.Bot.Types.Message ForwardedMessageCc = await Vars.Bot.ForwardMessageAsync(Id,
-                                                                                                                       e.Update.Message.From.Id,
-                                                                                                                       e.Update.Message.MessageId,
-                                                                                                                       DisNotif);
-                                    // check for real message sender
-                                    if (ForwardedMessageCc.ForwardFrom.Id != e.Update.Message.From.Id)
-                                    {
-                                        await Vars.Bot.SendTextMessageAsync(Id,
-                                                                            Vars.CurrentLang.Message_ForwarderNotReal
-                                                                                .Replace("$2", e.Update.Message.From.Id.ToString())
-                                                                                .Replace("$1", "[" + e.Update.Message.From.FirstName + " " + e.Update.Message.From.LastName + "](tg://user?id=" + e.Update.Message.From.Id + ")"),
-                                                                            ParseMode.Markdown,
-                                                                            false,
-                                                                            DisNotif,
-                                                                            ForwardedMessageCc.MessageId);
-                                    }
-                                }
-                                catch (Exception ex)
-                                {
-                                    Log("Unable to forward message to cc: " + Id + ", reason: " + ex.Message, "BOT", LogLevel.ERROR);
-                                }
-                            }
-                        }
-                        if (Vars.CurrentConf.EnableForwardedConfirmation)
-                        {
-                            await Vars.Bot.SendTextMessageAsync(e.Update.Message.From.Id,
-                                                                Vars.CurrentLang.Message_ForwardedToOwner,
-                                                                ParseMode.Markdown,
-                                                                false,
-                                                                false,
-                                                                e.Update.Message.MessageId);
-                        }
-                        AddRateLimit(e.Update.Message.From.Id);
-                    }
-                    return;
+                    await UserLogic(update);
                 }
+
             }
             catch (Exception ex)
             {
                 Log("General error while processing incoming update: " + ex.ToString(), "BOT", LogLevel.ERROR);
             }
+        }
+
+        private static async Task UserLogic(Update update)
+        {
+            // is user
+
+            if (await commandManager.Execute(Vars.Bot, update))
+            {
+                return;
+            }
+
+            Log("Received message from " + "\"" + update.Message.From.FirstName + "\" (@" + update.Message.From.Username + " / " + (long)update.Message.From.Id + ")" + ", forwarding...", "BOT");
+
+            if (Vars.CurrentConf.ForwardingPaused)
+            {
+                Log("Stopped: forwarding is currently paused.", "BOT", LogLevel.INFO);
+                await Vars.Bot.SendTextMessageAsync(update.Message.From.Id,
+                                                    Vars.CurrentLang.Message_UserServicePaused,
+                                                    ParseMode.Markdown,
+                                                    false,
+                                                    false,
+                                                    update.Message.MessageId);
+                return;
+            }
+
+            // test text blacklist
+            if (!string.IsNullOrEmpty(update.Message.Text) && IsKeywordBanned(update.Message.Text))
+            {
+                Log("Stopped: sentence contains blocked words.", "BOT", LogLevel.INFO);
+                if (Vars.CurrentConf.KeywordAutoBan)
+                {
+                    BanUser(update.Message.From.Id);
+                }
+                return;
+            }
+
+            // process owner
+            Log("Forwarding message to owner...", "BOT");
+            Telegram.Bot.Types.Message ForwardedMessage = await Vars.Bot.ForwardMessageAsync(Vars.CurrentConf.OwnerUID,
+                                                                                             update.Message.From.Id,
+                                                                                             update.Message.MessageId,
+                                                                                             Vars.CurrentConf.DisableNotifications);
+            // check for real message sender
+            if (ForwardedMessage.ForwardFrom.Id != update.Message.From.Id)
+            {
+                await Vars.Bot.SendTextMessageAsync(Vars.CurrentConf.OwnerUID,
+                                                    Vars.CurrentLang.Message_ForwarderNotReal
+                                                        .Replace("$2", update.Message.From.Id.ToString())
+                                                        .Replace("$1", "[" + update.Message.From.FirstName + " " + update.Message.From.LastName + "](tg://user?id=" + update.Message.From.Id + ")"),
+                                                    ParseMode.Markdown,
+                                                    false,
+                                                    Vars.CurrentConf.DisableNotifications,
+                                                    ForwardedMessage.MessageId);
+            }
+
+            // process cc
+            if (Vars.CurrentConf.EnableCc)
+            {
+                await RunCC(update);
+            }
+            if (Vars.CurrentConf.EnableForwardedConfirmation)
+            {
+                await Vars.Bot.SendTextMessageAsync(update.Message.From.Id,
+                                                    Vars.CurrentLang.Message_ForwardedToOwner,
+                                                    ParseMode.Markdown,
+                                                    false,
+                                                    false,
+                                                    update.Message.MessageId);
+            }
+            AddRateLimit(update.Message.From.Id);
+        }
+
+        private static async Task RunCC(Update update)
+        {
+            Log("Cc enabled, forwarding...", "BOT");
+            foreach (long Id in Vars.CurrentConf.Cc)
+            {
+                Log("Forwarding message to cc: " + Id, "BOT");
+                try
+                {
+                    Telegram.Bot.Types.Message ForwardedMessageCc = await Vars.Bot.ForwardMessageAsync(Id,
+                                                                                                       update.Message.From.Id,
+                                                                                                       update.Message.MessageId,
+                                                                                                       Vars.CurrentConf.DisableNotifications);
+                    // check for real message sender
+                    if (ForwardedMessageCc.ForwardFrom.Id != update.Message.From.Id)
+                    {
+                        await Vars.Bot.SendTextMessageAsync(Id,
+                                                            Vars.CurrentLang.Message_ForwarderNotReal
+                                                                .Replace("$2", update.Message.From.Id.ToString())
+                                                                .Replace("$1", "[" + update.Message.From.FirstName + " " + update.Message.From.LastName + "](tg://user?id=" + update.Message.From.Id + ")"),
+                                                            ParseMode.Markdown,
+                                                            false,
+                                                            Vars.CurrentConf.DisableNotifications,
+                                                            ForwardedMessageCc.MessageId);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Log("Unable to forward message to cc: " + Id + ", reason: " + ex.Message, "BOT", LogLevel.ERROR);
+                }
+            }
+        }
+
+        private static async Task OwnerLogic(Update update)
+        {
+            if (update.Message.ReplyToMessage != null)
+            {
+                await OwnerReplying(update);
+            }
+            else
+            {
+                await OwnerCommand(update);
+            }
+        }
+
+        private static async Task OwnerCommand(Update update)
+        {
+            // The owner is not even replying.
+            // start or help command?
+            if (await commandManager.Execute(Vars.Bot, update))
+            {
+                return;
+            }
+
+            await Vars.Bot.SendTextMessageAsync(
+                update.Message.From.Id,
+                Vars.CurrentLang.Message_CommandNotReplying,
+                ParseMode.Markdown,
+                false,
+                Vars.CurrentConf.DisableNotifications,
+                update.Message.MessageId);
+
+        }
+
+        private static async Task OwnerReplying(Update update)
+        {
+            if (update.Message.ReplyToMessage.ForwardFrom == null)
+            {
+                // The owner is replying to bot messages. (no forwardfrom)
+                await Vars.Bot.SendTextMessageAsync(
+                    update.Message.From.Id,
+                    Vars.CurrentLang.Message_CommandNotReplyingValidMessage,
+                    ParseMode.Markdown,
+                    false,
+                    Vars.CurrentConf.DisableNotifications,
+                    update.Message.MessageId);
+                return;
+            }
+
+            if (await commandManager.Execute(Vars.Bot, update))
+            {
+                return;
+            }
+
+            // Is replying, replying to forwarded message AND not command.
+            if (Vars.CurrentConf.AnonymousForward)
+            {
+                await ForwardMessageAnonymously(update.Message.ReplyToMessage.ForwardFrom.Id, Vars.CurrentConf.DisableNotifications, update.Message);
+            }
+            else
+            {
+                await Vars.Bot.ForwardMessageAsync(
+                    update.Message.ReplyToMessage.ForwardFrom.Id,
+                    update.Message.Chat.Id,
+                    update.Message.MessageId,
+                    Vars.CurrentConf.DisableNotifications);
+            }
+            // Process locale.
+            if (Vars.CurrentConf.EnableRepliedConfirmation)
+            {
+                string ReplyToMessage = Vars.CurrentLang.Message_ReplySuccessful;
+                ReplyToMessage = ReplyToMessage.Replace("$1", "[" + update.Message.ReplyToMessage.ForwardFrom.FirstName + " (@" + update.Message.ReplyToMessage.ForwardFrom.Username + ")](tg://user?id=" + update.Message.ReplyToMessage.ForwardFrom.Id + ")");
+                await Vars.Bot.SendTextMessageAsync(update.Message.From.Id, ReplyToMessage, ParseMode.Markdown, false, false, update.Message.MessageId);
+            }
+            Log("Successfully passed owner's reply to " + update.Message.ReplyToMessage.ForwardFrom.FirstName + " (@" + update.Message.ReplyToMessage.ForwardFrom.Username + " / " + update.Message.ReplyToMessage.ForwardFrom.Id + ")", "BOT");
+
         }
     }
 }
