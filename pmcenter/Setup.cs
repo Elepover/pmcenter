@@ -84,6 +84,18 @@ namespace pmcenter
                 Vars.CurrentConf = NewConf;
                 await Conf.SaveConf();
                 Say(" Done!");
+                if (File.Exists(Vars.LangFile))
+                {
+                    Say("Warning: pmcenter_locale.json already exists.");
+                    SIn("..       Moving the existing one to pmcenter_locale.json.bak...");
+                    File.Move(Vars.LangFile, Vars.LangFile + ".bak");
+                    Say(" Done!");
+                }
+                SIn("Saving language file to " + Vars.LangFile + "...");
+                Vars.CurrentLang = new Lang.Language();
+                await Lang.SaveLang();
+                Say(" Done!");
+                
                 Say(">> Setup complete!");
                 Say("   Thanks for using pmcenter!");
                 Say("   Check out pmcenter's GitHub repository at:");

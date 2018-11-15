@@ -1,5 +1,5 @@
 {
-    "Latest": "1.1.66.155",
-    "Details": "[+] A setup wizard is here!\n[/] Fixed user nickname output.\n[/] Stability and performance improvements.",
-    "UpdateLevel": 1
+    "Latest": "1.2.67.156",
+    "Details": "[/] Bot logic is now completely rebuilt.\n[/] Fixed problem with automatic language file update.\n\n[i] A test update will arrive soon.",
+    "UpdateLevel": 2
 }
