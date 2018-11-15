@@ -137,7 +137,7 @@ namespace pmcenter
             if (Apply) { Vars.CurrentConf = Temp; }
             return true;
         }
-        public static async void InitConf()
+        public static async Task InitConf()
         {
             Log("Checking configurations file's integrity...", "CONF");
             if (File.Exists(Vars.ConfFile) != true)

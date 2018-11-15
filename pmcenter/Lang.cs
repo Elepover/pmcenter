@@ -140,7 +140,7 @@ namespace pmcenter
             if (Apply) { Vars.CurrentLang = Temp; }
             return true;
         }
-        public static async void InitLang()
+        public static async Task InitLang()
         {
             Log("Checking language file's integrity...", "LANG");
             if (File.Exists(Vars.LangFile) != true)

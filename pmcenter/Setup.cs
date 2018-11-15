@@ -7,6 +7,7 @@
 using System;
 using System.IO;
 using System.Threading;
+using System.Threading.Tasks;
 using Telegram.Bot;
 using Telegram.Bot.Args;
 using Telegram.Bot.Types.Enums;
@@ -28,7 +29,7 @@ namespace pmcenter
             {
                 IsUIDReceived = true;
                 ReceivedUID = e.Update.Message.From.Id;
-                Nickname = e.Update.Message.From.FirstName + " " + e.Update.Message.From.LastName;        
+                Nickname = e.Update.Message.From.FirstName + " " + e.Update.Message.From.LastName;
                 TestBot.StopReceiving();
             }
         }
@@ -41,7 +42,7 @@ namespace pmcenter
         {
             Console.Write(Input);
         }
-        public static async void SetupWizard()
+        public static async Task SetupWizard()
         {
             Say(":) Welcome!");
             Say("   This is the pmcenter setup wizard.");
@@ -53,13 +54,18 @@ namespace pmcenter
                 Environment.Exit(0);
             }
 
-            SetAPIKey();
+            Say("");
+            await SetAPIKey();
+            Say("");
             SetUID();
+            Say("");
             SetNotifPrefs();
+            Say("");
             SetAutoBanPrefs();
-            
+
 
             // finalization
+            Say("");
             Say(">> Complete!");
             Say("   All major configurations have been set!");
             Say("");
@@ -92,7 +98,7 @@ namespace pmcenter
             }
             Environment.Exit(0);
         }
-        public static void SetAPIKey()
+        public static async Task SetAPIKey()
         {
             Say("1> API Key");
             Say("   API Key is necessary for any Telegram bot to contact with Telegram servers.");
@@ -105,7 +111,10 @@ namespace pmcenter
             try
             {
                 TestBot = new TelegramBotClient(Key);
-                TestBot.TestApiAsync();
+                if (await TestBot.TestApiAsync() != true)
+                {
+                    throw (new ArgumentException("API Key is not valid."));
+                }
             }
             catch (Exception ex)
             {
@@ -121,7 +130,7 @@ namespace pmcenter
             Say("   Your Telegram UID is your unique and permanent identifier.");
             Say("   It is required to enable your pmcenter instance to contact with you.");
             Say("");
-EnterUID:
+        EnterUID:
             SIn("=> Enter your UID, or \"auto\" for automatic setup: ");
             string UID = Console.ReadLine();
             if (UID.ToLower() == "auto")
