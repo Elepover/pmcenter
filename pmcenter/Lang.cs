@@ -24,7 +24,7 @@ namespace pmcenter
                 LangCode = "en.default.integrated";
                 Message_CommandNotReplying = "😶 Don't talk to me, spend time chatting with those who love you.";
                 Message_CommandNotReplyingValidMessage = "😐 Speaking to me makes no sense.";
-                Message_Help = "❓ `pmcenter` *Bot Help*\n/start - Display welcome message.\n/info - Display the message's info.\n/ban - Restrict the user from contacting you.\n/pardon - Pardon the user.\n/ping - Test if the bot is working.\n/switchfw - Pause/Resume message forwarding.\n/switchbw - Enable/Disable keyword banning.\n/switchnf - Enable/Disable notifications.\n/saveconf - Manually save all settings and translations. Especially useful after upgrades.\n/readconf - Reload configurations without restarting bot.\n/uptime - Check system uptime information.\n/update - Check for updates and update bot.\n/chkupdate - Only check for updates.\n/catconf - Get your current configurations.\n/restart - Restart bot.\n/status - Get host device's status information.\n/help - Display this message.\n\nThank you for using `pmcenter`!";
+                Message_Help = "❓ `pmcenter` *Bot Help*\n/start - Display welcome message.\n/info - Display the message's info.\n/ban - Restrict the user from contacting you.\n/banid <ID> - Restrict a user from contacting you with his/her ID.\n/pardon - Pardon the user.\n/pardonid <ID> - Pardon a user with his/her ID.\n/ping - Test if the bot is working.\n/switchfw - Pause/Resume message forwarding.\n/switchbw - Enable/Disable keyword banning.\n/switchnf - Enable/Disable notifications.\n/switchlang <URL> - Switch language file.\n/saveconf - Manually save all settings and translations. Especially useful after upgrades.\n/readconf - Reload configurations without restarting bot.\n/uptime - Check system uptime information.\n/update - Check for updates and update bot.\n/chkupdate - Only check for updates.\n/catconf - Get your current configurations.\n/restart - Restart bot.\n/status - Get host device's status information.\n/help - Display this message.\n\nThank you for using `pmcenter`!";
                 Message_OwnerStart = "😊 *Hi!* I'm your `pmcenter` bot, and I work just for you.\nThis message means that you've set up the bot successfully.\nTo reply to any forwarded messages, just directly reply to them here.\n\nThank you for using the `pmcenter` bot!";
                 Message_ReplySuccessful = "✅ Successfully replied to user $1!";
                 Message_ForwardedToOwner = "✅ Your message has been forwarded to my owner!";
@@ -66,6 +66,8 @@ namespace pmcenter
                 Message_ForwarderNotReal = "ℹ The actual sender of this message is $1, whose UID is `$2`.\n\nYou can also ban this user by sending this following command:\n\n`/banid $2`\n\nTo undo this, send this command:\n\n`/pardonid $2`";
                 Message_GeneralFailure = "✖ Error processing request: $1";
                 Message_LangVerMismatch = "⚠ Language file ($1) is not for current version ($2), consider updating language file?";
+                Message_SwitchingLang = "💠 Switching language...";
+                Message_LangSwitched = "🚀 Language switched!";
             }
             public string TargetVersion { get; set; }
             public string LangCode { get; set; }
@@ -113,6 +115,8 @@ namespace pmcenter
             public string Message_ForwarderNotReal { get; set; }
             public string Message_GeneralFailure { get; set; }
             public string Message_LangVerMismatch { get; set; }
+            public string Message_SwitchingLang { get; set; }
+            public string Message_LangSwitched { get; set; }
         }
         public static string KillIllegalChars(string Input)
         {

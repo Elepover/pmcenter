@@ -1,5 +1,5 @@
 {
-    "Latest": "1.2.68.157",
-    "Details": "[/] Bot logic is now completely rebuilt.\n[/] Fixed problem with automatic language file update.",
-    "UpdateLevel": 2
+    "Latest": "1.2.69.158",
+    "Details": "[+] You can now switch language on-the-fly!\n[+] Now we support docker!\n[/] Updated documentation.",
+    "UpdateLevel": 1
 }

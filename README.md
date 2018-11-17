@@ -104,6 +104,9 @@ Or, use setup wizard:
 | `DisableNotifications` | `Boolean` | Enable/Disable notifications. |
 | `EnableRepliedConfirmation` | `Boolean` | Enable/Disable "reply successful" messages. |
 | `EnableForwardedConfirmation` | `Boolean` | Enable/Disable "forwarded to owner" messages. |
+| `EnableAutoUpdateCheck` | `Boolean` | Enable/Disable automatic update check. |
+| `UseUsernameInMsgInfo` | `Boolean` | Decides whether to display user's nickname in message details or not. |
+| `AnonymousForward` | `Boolean` | Enable/Disable anonymous forwarding (BETA, text messages only) |
 
 Tip: After upgrades, you can send `/saveconf` command to the bot to fix missing new settings.
 
@@ -129,12 +132,15 @@ You can write a `systemd service` to keep it running, even after the host machin
 | `/start` | Owner, Users | Display start message. |
 | `/info` | Owner | Display the message's information. The command **must** be in reply to the target message. |
 | `/ban` | Owner | Restrict the message's sender from contacting you again. |
+| `/banid <ID>` | Owner | Restrict a sender by his/her ID. |
 | `/pardon` | Owner | Pardon the message's sender that you've banned before. |
+| `/pardonid <ID>` | Owner | Pardon a sender by his/her ID. |
 | `/help` | Owner | Display the help message. |
 | `/ping` | Owner | Test if the bot is working. |
 | `/switchfw` | Owner | Switch message forwarding status. |
 | `/switchbw` | Owner | Switch keyword banning status. |
 | `/switchnf` | Owner | Switch notifications status. |
+| `/switchlang <URL>` | Owner | Switch language file. |
 | `/saveconf` | Owner | Manually save configurations and translations. Useful after upgrades. |
 | `/readconf` | Owner | Reload configurations without restarting bot. |
 | `/uptime` | Owner | Get system uptime info. |

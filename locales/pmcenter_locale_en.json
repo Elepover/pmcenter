@@ -1,11 +1,11 @@
 ﻿{
-  "TargetVersion": "1.2.68.157",
+  "TargetVersion": "1.2.69.158",
   "LangCode": "en.default.imported",
   "Message_OwnerStart": "😊 *Hi!* I'm your `pmcenter` bot, and I work just for you.\nThis message means that you've set up the bot successfully.\nTo reply to any forwarded messages, just directly reply to them here.\n\nThank you for using the `pmcenter` bot!",
   "Message_UserStartDefault": "📨 *Hi!* To send anything to my owner, just send it here.\n⚠ To be informed: I'll *automatically* ban flooding users.",
   "Message_ReplySuccessful": "✅ Successfully replied to user $1!",
   "Message_ForwardedToOwner": "✅ Your message has been forwarded to my owner!",
-  "Message_Help": "❓ `pmcenter` *Bot Help*\n/start - Display welcome message.\n/info - Display the message's info.\n/ban - Restrict the user from contacting you.\n/pardon - Pardon the user.\n/ping - Test if the bot is working.\n/switchfw - Pause/Resume message forwarding.\n/switchbw - Enable/Disable keyword banning.\n/switchnf - Enable/Disable notifications.\n/saveconf - Manually save all settings and translations. Especially useful after upgrades.\n/readconf - Reload configurations without restarting bot.\n/uptime - Check system uptime information.\n/update - Check for updates and update bot.\n/chkupdate - Only check for updates.\n/catconf - Get your current configurations.\n/restart - Restart bot.\n/status - Get host device's status information.\n/help - Display this message.\n\nThank you for using `pmcenter`!",
+  "Message_Help": "❓ `pmcenter` *Bot Help*\n/start - Display welcome message.\n/info - Display the message's info.\n/ban - Restrict the user from contacting you.\n/banid <ID> - Restrict a user from contacting you with his/her ID.\n/pardon - Pardon the user.\n/pardonid <ID> - Pardon a user with his/her ID.\n/ping - Test if the bot is working.\n/switchfw - Pause/Resume message forwarding.\n/switchbw - Enable/Disable keyword banning.\n/switchnf - Enable/Disable notifications.\n/switchlang <URL> - Switch language file.\n/saveconf - Manually save all settings and translations. Especially useful after upgrades.\n/readconf - Reload configurations without restarting bot.\n/uptime - Check system uptime information.\n/update - Check for updates and update bot.\n/chkupdate - Only check for updates.\n/catconf - Get your current configurations.\n/restart - Restart bot.\n/status - Get host device's status information.\n/help - Display this message.\n\nThank you for using `pmcenter`!",
   "Message_UserBanned": "🚫 The user has been banned permanently.",
   "Message_UserPardoned": "✅ You've pardoned the user.",
   "Message_CommandNotReplying": "😶 Don't talk to me, spend time chatting with those who love you.",
@@ -44,5 +44,7 @@
   "Message_SupportTextMessagesOnly": "📋 Sorry... Only text messages can be forwarded in Anonymous Forward mode.",
   "Message_ForwarderNotReal": "ℹ The actual sender of this message is $1, whose UID is `$2`.\n\nYou can also ban this user by sending this following command:\n\n`/banid $2`\n\nTo undo this, send this command:\n\n`/pardonid $2`",
   "Message_GeneralFailure": "✖ Error processing request: $1",
-  "Message_LangVerMismatch": "⚠ Language file ($1) is not for current version ($2), consider updating language file?"
+  "Message_LangVerMismatch": "⚠ Language file ($1) is not for current version ($2), consider updating language file?",
+  "Message_SwitchingLang": "💠 Switching language...",
+  "Message_LangSwitched": "🚀 Language switched!"
 }

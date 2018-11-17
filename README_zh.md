@@ -106,6 +106,9 @@ That's all.
 | `DisableNotifications` | `Boolean` | 是否停用消息通知 |
 | `EnableRepliedConfirmation` | `Boolean` | 是否启用 “回复成功” 提示 |
 | `EnableForwardedConfirmation` | `Boolean` | 是否启用 “已转发” 提示 |
+| `EnableAutoUpdateCheck` | `Boolean` | 是否启用自动更新检查 |
+| `UseUsernameInMsgInfo` | `Boolean` | 是否在消息详情中显示用户昵称 |
+| `AnonymousForward` | `Boolean` | 是否启用匿名转发 (BETA, 仅支持纯文本消息) |
 
 提示：升级后，可向机器人发送 `/saveconf` 命令来自动补齐升级后缺少的新配置项。
 
@@ -131,12 +134,15 @@ That's all.
 | `/start` | 所有者, 用户 | 显示启动消息 |
 | `/info` | 所有者 | 显示所回复的消息信息 |
 | `/ban` | 所有者 | 阻止该发送者再次联系您 |
+| `/banid <ID>` | 所有者 | 通过 ID 封禁用户 |
 | `/pardon` | 所有者 | 解封此发送者 |
+| `/pardonid <ID>` | 所有者 | 通过 ID 解封用户 |
 | `/help` | 所有者 | 显示帮助消息 |
 | `/ping` | 所有者 | 测试机器人工作状态 |
 | `/switchfw` | 所有者 | 启用/暂停消息转发 |
 | `/switchbw` | 所有者 | 启用/停用关键字屏蔽 |
 | `/switchnf` | 所有者 | 启用/停用消息通知 |
+| `/switchlang` | 所有者 | 切换语言文件 |
 | `/saveconf` | 所有者 | 手动保存配置及翻译，可用于更新后补齐缺少的配置项 |
 | `/readconf` | 所有者 | 在不重启机器人的情况下，重新载入配置 |
 | `/uptime` | 所有者 | 获取系统在线时间信息 |

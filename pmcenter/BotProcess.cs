@@ -38,7 +38,8 @@ namespace pmcenter
             commandManager.RegisterCommand(new StatusCommand());
             commandManager.RegisterCommand(new SwitchBwCommand());
             commandManager.RegisterCommand(new SwitchFwCommand());
-            commandManager.RegisterCommand(new SwtichNotificationCommand());
+            commandManager.RegisterCommand(new SwitchLangCommand());
+            commandManager.RegisterCommand(new SwitchNotificationCommand());
             commandManager.RegisterCommand(new UpdateCommand());
             commandManager.RegisterCommand(new UptimeCommand());
         }

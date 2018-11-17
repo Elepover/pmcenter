@@ -62,7 +62,7 @@ namespace pmcenter.Commands
                     if (Vars.CurrentConf.AutoLangUpdate)
                     {
                         Log("Starting automatic language file update...", "BOT");
-                        Downloader.DownloadFile(
+                        await Downloader.DownloadFileTaskAsync(
                             new Uri(Vars.CurrentConf.LangURL),
                             Path.Combine(Vars.AppDirectory, "pmcenter_locale.json")
                         );
