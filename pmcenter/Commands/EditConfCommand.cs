@@ -19,7 +19,7 @@ namespace pmcenter.Commands
             try
             {
                 Log("Configurations received, applying...", "BOT", LogLevel.INFO);
-                string ConfStr = update.Message.Text.ToLower().Split(" ", 1)[1];
+                string ConfStr = update.Message.Text.ToLower().Split(" ", 2)[1];
                 Conf.ConfObj Temp = JsonConvert.DeserializeObject<Conf.ConfObj>(ConfStr);
                 Vars.CurrentConf = Temp;
                 Log("Applied! Saving to local disk...", "BOT", LogLevel.INFO);
@@ -31,7 +31,6 @@ namespace pmcenter.Commands
                     false,
                     Vars.CurrentConf.DisableNotifications,
                     update.Message.MessageId);
-                return false;
             }
             catch (Exception ex)
             {
