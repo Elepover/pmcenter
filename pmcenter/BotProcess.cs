@@ -30,6 +30,8 @@ namespace pmcenter
             commandManager.RegisterCommand(new BanIdCommand());
             commandManager.RegisterCommand(new CatConfigCommand());
             commandManager.RegisterCommand(new CheckUpdateCommand());
+            commandManager.RegisterCommand(new DonateCommand());
+            commandManager.RegisterCommand(new EditConfCommand());
             commandManager.RegisterCommand(new PardonIdCommand());
             commandManager.RegisterCommand(new PingCommand());
             commandManager.RegisterCommand(new ReadConfigCommand());

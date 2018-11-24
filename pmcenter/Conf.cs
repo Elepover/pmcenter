@@ -46,6 +46,8 @@ namespace pmcenter
                 EnableAutoUpdateCheck = false;
                 UseUsernameInMsgInfo = true;
                 AnonymousForward = false;
+                DonateString = "";
+                LowPerformanceMode = false;
             }
             public string APIKey { get; set; }
             public long OwnerUID { get; set; }
@@ -69,6 +71,8 @@ namespace pmcenter
             public bool EnableAutoUpdateCheck { get; set; }
             public bool UseUsernameInMsgInfo { get; set; }
             public bool AnonymousForward { get; set; }
+            public string DonateString { get; set; }
+            public bool LowPerformanceMode { get; set; }
         }
         public class BanObj
         {

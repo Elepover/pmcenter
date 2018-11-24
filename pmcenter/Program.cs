@@ -8,6 +8,7 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Telegram.Bot;
+using Telegram.Bot.Types.Enums;
 using static pmcenter.Conf;
 using static pmcenter.Lang;
 using static pmcenter.Methods;
@@ -94,7 +95,7 @@ namespace pmcenter
                 Log("Hooking event processors...");
                 Bot.OnUpdate += BotProcess.OnUpdate;
                 Log("Starting receiving...");
-                Bot.StartReceiving(new[] { Telegram.Bot.Types.Enums.UpdateType.Message });
+                Bot.StartReceiving(new[] { UpdateType.Message });
                 Log("==> Startup complete!");
                 Log("==> Running post-start operations...");
                 await Bot.SendTextMessageAsync(Vars.CurrentConf.OwnerUID,

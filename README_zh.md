@@ -109,6 +109,8 @@ That's all.
 | `EnableAutoUpdateCheck` | `Boolean` | 是否启用自动更新检查 |
 | `UseUsernameInMsgInfo` | `Boolean` | 是否在消息详情中显示用户昵称 |
 | `AnonymousForward` | `Boolean` | 是否启用匿名转发 (BETA, 仅支持纯文本消息) |
+| `DonateString` | `string` | 用户发送 /donate 指令时显示的消息，留空以关闭 |
+| `LowPerformanceMode` | `boolean` | 调节 pmcenter 配置以适应低性能设备，如树莓派 |
 
 提示：升级后，可向机器人发送 `/saveconf` 命令来自动补齐升级后缺少的新配置项。
 
@@ -132,6 +134,7 @@ That's all.
 | 命令 | 可用于 | 描述 |
 | :---- | :---- | ----: |
 | `/start` | 所有者, 用户 | 显示启动消息 |
+| `/donate` | 所有者, 用户 | 显示捐赠信息 |
 | `/info` | 所有者 | 显示所回复的消息信息 |
 | `/ban` | 所有者 | 阻止该发送者再次联系您 |
 | `/banid <ID>` | 所有者 | 通过 ID 封禁用户 |
@@ -142,7 +145,8 @@ That's all.
 | `/switchfw` | 所有者 | 启用/暂停消息转发 |
 | `/switchbw` | 所有者 | 启用/停用关键字屏蔽 |
 | `/switchnf` | 所有者 | 启用/停用消息通知 |
-| `/switchlang` | 所有者 | 切换语言文件 |
+| `/switchlang <URL>` | 所有者 | 切换语言文件 |
+| `/editconf <CONF>` | 所有者 | 手动保存 JSON 格式的配置及翻译 |
 | `/saveconf` | 所有者 | 手动保存配置及翻译，可用于更新后补齐缺少的配置项 |
 | `/readconf` | 所有者 | 在不重启机器人的情况下，重新载入配置 |
 | `/uptime` | 所有者 | 获取系统在线时间信息 |

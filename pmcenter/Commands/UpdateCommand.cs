@@ -57,8 +57,6 @@ namespace pmcenter.Commands
                             Entry.ExtractToFile(Path.Combine(Vars.AppDirectory, Entry.FullName), true);
                         }
                     }
-                    Log("Resting for a while...", "BOT");
-                    Thread.Sleep(3000);
                     if (Vars.CurrentConf.AutoLangUpdate)
                     {
                         Log("Starting automatic language file update...", "BOT");
@@ -76,8 +74,6 @@ namespace pmcenter.Commands
                         false,
                         Vars.CurrentConf.DisableNotifications,
                         update.Message.MessageId);
-                    Log("Resting for a while...", "BOT");
-                    Thread.Sleep(3000);
                     Log("Trying to execute restart command...", "BOT");
                     try
                     {

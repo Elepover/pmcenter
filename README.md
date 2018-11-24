@@ -107,6 +107,8 @@ Or, use setup wizard:
 | `EnableAutoUpdateCheck` | `Boolean` | Enable/Disable automatic update check. |
 | `UseUsernameInMsgInfo` | `Boolean` | Decides whether to display user's nickname in message details or not. |
 | `AnonymousForward` | `Boolean` | Enable/Disable anonymous forwarding (BETA, text messages only) |
+| `DonateString` | `string` | Text to show when users send the /donate command. Leave empty to disable this feature. |
+| `LowPerformanceMode` | `boolean` | Tune pmcenter for low-end hardware like a Raspberry Pi. |
 
 Tip: After upgrades, you can send `/saveconf` command to the bot to fix missing new settings.
 
@@ -130,6 +132,7 @@ You can write a `systemd service` to keep it running, even after the host machin
 | Command | Available to | Description |
 | :---- | :---- | ----: |
 | `/start` | Owner, Users | Display start message. |
+| `/donate` | Owner, Users | Display donate information. |
 | `/info` | Owner | Display the message's information. The command **must** be in reply to the target message. |
 | `/ban` | Owner | Restrict the message's sender from contacting you again. |
 | `/banid <ID>` | Owner | Restrict a sender by his/her ID. |
@@ -141,6 +144,7 @@ You can write a `systemd service` to keep it running, even after the host machin
 | `/switchbw` | Owner | Switch keyword banning status. |
 | `/switchnf` | Owner | Switch notifications status. |
 | `/switchlang <URL>` | Owner | Switch language file. |
+| `/editconf <CONF>` | Owner | Manually edit configurations and translations w/ JSON-formatted text. |
 | `/saveconf` | Owner | Manually save configurations and translations. Useful after upgrades. |
 | `/readconf` | Owner | Reload configurations without restarting bot. |
 | `/uptime` | Owner | Get system uptime info. |

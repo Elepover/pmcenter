@@ -1,5 +1,5 @@
 {
-    "Latest": "1.2.69.158",
-    "Details": "[+] You can now switch language on-the-fly!\n[+] Now we support docker!\n[/] Updated documentation.",
+    "Latest": "1.2.70.159",
+    "Details": "[+] Users can now send /donate command to donate the bot owner.\n[+] Now you can edit bot configurations on-the-fly!\n[/] Updated documentation.",
     "UpdateLevel": 1
 }

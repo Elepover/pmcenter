@@ -1,11 +1,11 @@
 ﻿{
-  "TargetVersion": "1.2.69.158",
+  "TargetVersion": "1.2.70.159",
   "LangCode": "zh.meow.imported",
   "Message_OwnerStart": "😊 *嗨！*我是您的 `pmcenter` 机器人, 只为您而服务！\n此消息表明您已成功完成机器人配置，并可正常使用了啦~\n若要回复任何转发的消息，只需在此选择消息回复喵~\n\n感谢您使用 `pmcenter` 机器人喵~",
   "Message_UserStartDefault": "📨 *嗨！*若要给我的主人发送任何消息, 告诉我就好啦喵~\n⚠ 当心：我会*自动*封禁刷屏用户喵~",
   "Message_ReplySuccessful": "✅ 已成功回复用户 $1 了啦qwq",
   "Message_ForwardedToOwner": "✅ 消息递送好啦!",
-  "Message_Help": "❓ `pmcenter` *机器人帮助*\n/start - 显示欢迎消息。\n/info - 显示消息信息。\n/ban - 阻止用户联系您。\n/banid <ID> - 使用 ID 封禁一个用户。\n/pardon - 解封该用户。\n/pardonid <ID> - 使用 ID 解封一个用户。\n/ping - 测试机器人。\n/switchfw - 切换转发状态。\n/switchbw - 切换屏蔽状态。\n/switchnf - 切换消息通知。\n/switchlang <URL> - 切换语言文件。\n/saveconf - 保存配置文件。\n/readconf - 读取配置文件。\n/uptime - 检索系统在线时间信息。\n/update - 检查更新，顺手更新机器人~\n/chkupdate - 只检查更新。\n/catconf - 猫当前的配置文件（雾）\n/restart - 重新启动一下（\n/status - 获取主机信息。\n/help - 显示此消息。\n\n感谢您使用 `pmcenter` 机器人喵~",
+  "Message_Help": "❓ `pmcenter` *机器人帮助*\n/start - 显示欢迎消息。\n/info - 显示消息信息。\n/ban - 阻止用户联系您。\n/banid <ID> - 使用 ID 封禁一个用户。\n/pardon - 解封该用户。\n/pardonid <ID> - 使用 ID 解封一个用户。\n/ping - 测试机器人。\n/switchfw - 切换转发状态。\n/switchbw - 切换屏蔽状态。\n/switchnf - 切换消息通知。\n/switchlang <URL> - 切换语言文件。\n/editconf <CONF> - 手动保存 JSON 格式的配置文件。\n/saveconf - 保存配置文件。\n/readconf - 读取配置文件。\n/uptime - 检索系统在线时间信息。\n/update - 检查更新，顺手更新机器人~\n/chkupdate - 只检查更新。\n/catconf - 猫当前的配置文件（雾）\n/restart - 重新启动一下（\n/status - 获取主机信息。\n/help - 显示此消息。\n\n感谢您使用 `pmcenter` 机器人喵~",
   "Message_UserBanned": "🚫 此用户已被您拍扁了喵~",
   "Message_UserPardoned": "✅ 此用户已被解封了喵~",
   "Message_CommandNotReplying": "😶 别跟我说话啊qaq, 多花点时间和爱你的人说话去（推",

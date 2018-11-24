@@ -30,6 +30,10 @@ namespace pmcenter
                                string Module = "CORE",
                                LogLevel Type = LogLevel.INFO)
         {
+            if (Vars.CurrentConf?.LowPerformanceMode != false)
+            {
+                return;
+            }
             string Output = "[" + Vars.StartSW.Elapsed.TotalMilliseconds + "ms][" + DateTime.UtcNow.ToShortDateString() + " " + DateTime.UtcNow.ToShortTimeString() + "][" + Module + "]";
             Console.BackgroundColor = ConsoleColor.Black;
             switch (Type)

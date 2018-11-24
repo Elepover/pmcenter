@@ -1,0 +1,32 @@
+﻿using System;
+using System.Threading.Tasks;
+using Telegram.Bot;
+using Telegram.Bot.Types;
+using Telegram.Bot.Types.Enums;
+using static pmcenter.Methods;
+
+namespace pmcenter.Commands
+{
+    internal class DonateCommand : ICommand
+    {
+        public bool OwnerOnly => false;
+
+        public string Prefix => "donate";
+
+        public async Task<bool> ExecuteAsync(TelegramBotClient botClient, Update update)
+        {
+            if (string.IsNullOrEmpty(Vars.CurrentConf.DonateString))
+            {
+                return false;
+            }
+            await botClient.SendTextMessageAsync(
+                update.Message.From.Id,
+                Vars.CurrentConf.DonateString,
+                ParseMode.Markdown,
+                false,
+                Vars.CurrentConf.DisableNotifications,
+                update.Message.MessageId);
+            return true;
+        }
+    }
+}
