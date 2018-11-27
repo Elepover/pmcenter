@@ -2,6 +2,25 @@
 
 A telegram bot helping you to process private messages.
 
+## Documentation Language
+
+- English
+
+- [简体中文](https://github.com/Elepover/pmcenter/blob/master/README_zh.md)
+
+## Table of Contents
+
+> - [Setting Up Your Own `pmcenter`](#setting-up-your-own-pmcenter)
+>   - [Prerequisites](#prerequisites)
+>   - [Build `pmcenter` Yourself](#build-pmcenter-yourself)
+>   - [Use Pre-compiled Binaries](#use-pre-compiled-binaries)
+>   - [Use Docker](#use-docker)
+> - [Configuring](#configuring)
+>   - [`pmcenter` Settings](#pmcenter-settings)
+>     - [Note About Translations](#note-about-translations)
+> - [Starting](#starting)
+> - [Commands](#commands)
+
 ## Setting Up Your Own `pmcenter`
 
 The following content will guide you through the installation process.
@@ -73,7 +92,7 @@ docker run -v PATH_OF_YOUR_pmcenter.json:/opt/pmcenter/pmcenter.json pmcenter
 
 That's all.
 
-### Configuring
+## Configuring
 
 During the first run, `pmcenter` will automatically generate the `pmcenter.json` and `pmcenter_locale.json` file for you. Change the settings to set up.
 
@@ -81,7 +100,7 @@ Or, use setup wizard:
 
 `dotnet pmcenter.dll --setup`
 
-#### `pmcenter` Settings
+### `pmcenter` Settings
 
 | Key | Type | Description |
 | :---- | :----- | ----:|
@@ -112,14 +131,14 @@ Or, use setup wizard:
 
 Tip: After upgrades, you can send `/saveconf` command to the bot to fix missing new settings.
 
-##### Note About Translations
+#### Note About Translations
 
 - The variables like `$1` in the `Message_ReplySuccessful` and other keys could be safely deleted, if you like.
 - **Emojis** are supported, and were used by default.
 - Currently the response of the `/info` command is unchangeable.
 - Familiar with another language? Pull requests are welcome!
 
-### Start
+## Starting
 
 After all these, you can start your own `pmcenter` safely by using this command:
 
@@ -127,7 +146,7 @@ After all these, you can start your own `pmcenter` safely by using this command:
 
 You can write a `systemd service` to keep it running, even after the host machine's rebooting.
 
-### Commands
+## Commands
 
 | Command | Available to | Description |
 | :---- | :---- | ----: |

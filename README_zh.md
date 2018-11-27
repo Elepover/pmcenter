@@ -2,6 +2,25 @@
 
 一个帮你处理私人聊天消息的 Telegram 机器人。
 
+## 文档语言
+
+- [English](https://github.com/Elepover/pmcenter/blob/master/README.md)
+
+- 简体中文
+
+## 目录
+
+> - [搭建你自己的 `pmcenter` 机器人](#搭建你自己的-pmcenter-机器人)
+>   - [环境要求](#环境要求)
+>   - [自行编译 `pmcenter`](#自行编译-pmcenter)
+>   - [使用 CI 预编译二进制文件](#使用-ci-预编译二进制文件)
+>   - [使用 Docker](#使用-docker)
+> - [配置](#配置)
+>   - [`pmcenter` 设置](#pmcenter-设置)
+>     - [翻译注意事项](#翻译注意事项)
+> - [启动](#启动)
+> - [命令](#命令)
+
 ## 搭建你自己的 `pmcenter` 机器人
 
 以下教程将指导你完成搭建工作。
@@ -75,7 +94,7 @@ docker run -v PATH_OF_YOUR_pmcenter.json:/opt/pmcenter/pmcenter.json pmcenter
 
 That's all.
 
-### 配置
+## 配置
 
 首次启动，`pmcenter` 将自动生成 `pmcenter.json` 和 `pmcenter_locale.json` 文件，修改文件来修改配置。
 
@@ -83,7 +102,7 @@ That's all.
 
 `dotnet pmcenter.dll --setup`
 
-#### `pmcenter` 设置
+### `pmcenter` 设置
 
 | 项目 | 类型 | 描述 |
 | :---- | :----- | ----:|
@@ -114,14 +133,14 @@ That's all.
 
 提示：升级后，可向机器人发送 `/saveconf` 命令来自动补齐升级后缺少的新配置项。
 
-##### 翻译注意事项
+#### 翻译注意事项
 
 - `Message_ReplySuccessful` 等各种翻译中类似 `$1` 的变量可安全删除。
 - 支持 **Emojis** 且默认启用。
 - 目前 `/info` 命令的回复尚且无法更改。
 - 欢迎 Pull Requests.
 
-### 启动
+## 启动
 
 完成上述操作后，可以使用以下命令安全启动 `pmcenter`:
 
@@ -129,7 +148,7 @@ That's all.
 
 您也可以编写一个 `systemd 服务` 来保证其在主机重启后仍能保持运行。
 
-### 命令
+## 命令
 
 | 命令 | 可用于 | 描述 |
 | :---- | :---- | ----: |

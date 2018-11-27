@@ -20,5 +20,7 @@
     "EnableForwardedConfirmation": false,
     "EnableAutoUpdateCheck": false,
     "UseUsernameInMsgInfo": true,
-    "AnonymousForward": false
+    "AnonymousForward": false,
+    "DonateString": "",
+    "LowPerformanceMode": false
   }
