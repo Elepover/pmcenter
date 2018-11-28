@@ -10,6 +10,7 @@
 
 ## 目录
 
+> - [功能](#功能)
 > - [搭建你自己的 `pmcenter` 机器人](#搭建你自己的-pmcenter-机器人)
 >   - [环境要求](#环境要求)
 >   - [自行编译 `pmcenter`](#自行编译-pmcenter)
@@ -20,6 +21,28 @@
 >     - [翻译注意事项](#翻译注意事项)
 > - [启动](#启动)
 > - [命令](#命令)
+
+## 功能
+
+- 🚉 跨平台运行
+- 🛡️ 高稳定性及容错率
+- 🚧 强大的的消息过滤系统
+  - 🗨️ 多模式的关键词过滤
+    - 正则表达式模式
+    - 全词匹配模式
+  - 👤 用户 ID 屏蔽
+  - 🔄 根据消息量的自动屏蔽
+  - ☑️ 可手动屏蔽用户
+- 📺 无需连接 SSH 即可在 TG 上完成常用维护
+  - 📥 自动更新
+    - ⏱ 可选的自动更新检查
+    - ➡️ 手动的更新检查
+  - 🔄 重启机器人
+  - 🌐 切换语言
+  - 🗃 保存或读取配置
+  - 💻 获取系统信息
+- ℹ️ 真实转发消息源显示
+- …… 更多!
 
 ## 搭建你自己的 `pmcenter` 机器人
 
@@ -128,8 +151,9 @@ That's all.
 | `EnableAutoUpdateCheck` | `Boolean` | 是否启用自动更新检查 |
 | `UseUsernameInMsgInfo` | `Boolean` | 是否在消息详情中显示用户昵称 |
 | `AnonymousForward` | `Boolean` | 是否启用匿名转发 (BETA, 仅支持纯文本消息) |
-| `DonateString` | `string` | 用户发送 /donate 指令时显示的消息，留空以关闭 |
-| `LowPerformanceMode` | `boolean` | 调节 pmcenter 配置以适应低性能设备，如树莓派 |
+| `DonateString` | `String` | 用户发送 /donate 指令时显示的消息，留空以关闭 |
+| `LowPerformanceMode` | `Boolean` | 调节 pmcenter 配置以适应低性能设备，如树莓派 |
+| `DetailedMsgLogging` | `Boolean` | 是否在收到每条消息时都输出消息详情 |
 
 提示：升级后，可向机器人发送 `/saveconf` 命令来自动补齐升级后缺少的新配置项。
 

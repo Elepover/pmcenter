@@ -50,6 +50,16 @@ namespace pmcenter
         {
             try
             {
+                if (Vars.CurrentConf.DetailedMsgLogging)
+                {
+                    Log("OnUpdate() triggered: UpdType: " + e.Update.Type.ToString()
+                        + " UpdID: " + e.Update.Id
+                        + " ChatId: " + e.Update.Message.Chat.Id
+                        + " Username: " + e.Update.Message.Chat.Username
+                        + " FromID: " + e.Update.Message.From.Id
+                        + " FromUsername" + e.Update.Message.From.Username
+                        , "BOT-DETAILED", LogLevel.INFO);
+                }
                 Update update = e.Update;
                 if (update.Type != UpdateType.Message) { return; }
                 if (update.Message.From.IsBot) { return; }

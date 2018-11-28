@@ -1,5 +1,5 @@
 {
-    "Latest": "1.2.71.160",
-    "Details": "[+] Users can now send /donate command to donate the bot owner.\n[+] Now you can edit bot configurations on-the-fly!\n[/] Updated documentation.\n[/] Bug fixes to previous version.",
+    "Latest": "1.2.72.161",
+    "Details": "[/] Translation update.\n[+] Detailed logging is now available.\n[/] Bug fixes to previous version.",
     "UpdateLevel": 1
 }

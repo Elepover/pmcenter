@@ -10,6 +10,7 @@ A telegram bot helping you to process private messages.
 
 ## Table of Contents
 
+> - [Features](#features)
 > - [Setting Up Your Own `pmcenter`](#setting-up-your-own-pmcenter)
 >   - [Prerequisites](#prerequisites)
 >   - [Build `pmcenter` Yourself](#build-pmcenter-yourself)
@@ -20,6 +21,28 @@ A telegram bot helping you to process private messages.
 >     - [Note About Translations](#note-about-translations)
 > - [Starting](#starting)
 > - [Commands](#commands)
+
+## Features
+
+- 🚉 Cross-platform support from Windows to Linux and Raspian
+- 🛡️ High stability and availability
+- 🚧 Powerful anti-spamming system
+  - 🗨️ Multiple filtering modes
+    - Regular expression mode
+    - Full word matching mode
+  - 👤 Blocking by User ID
+  - 🔄 Automatic blocking by message count
+  - ☑️ Support for manual blocking
+- 📺 Daily maintenance, all on Telegram
+  - 📥 Automatic updates
+    - ⏱ Optional auto update check
+    - ➡️ Manual update check
+  - 🔄 Restarting bot
+  - 🌐 Switching languages
+  - 🗃 Reading/Writing configurations
+  - 💻 Getting system status
+- ℹ️ Real message source display
+- ... and more!
 
 ## Setting Up Your Own `pmcenter`
 
@@ -128,6 +151,7 @@ Or, use setup wizard:
 | `AnonymousForward` | `Boolean` | Enable/Disable anonymous forwarding (BETA, text messages only) |
 | `DonateString` | `string` | Text to show when users send the /donate command. Leave empty to disable this feature. |
 | `LowPerformanceMode` | `boolean` | Tune pmcenter for low-end hardware like a Raspberry Pi. |
+| `DetailedMsgLogging` | `Boolean` | Enable/Disable detailed message information output. |
 
 Tip: After upgrades, you can send `/saveconf` command to the bot to fix missing new settings.
 

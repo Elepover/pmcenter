@@ -48,6 +48,7 @@ namespace pmcenter
                 AnonymousForward = false;
                 DonateString = "";
                 LowPerformanceMode = false;
+                DetailedMsgLogging = false;
             }
             public string APIKey { get; set; }
             public long OwnerUID { get; set; }
@@ -73,6 +74,7 @@ namespace pmcenter
             public bool AnonymousForward { get; set; }
             public string DonateString { get; set; }
             public bool LowPerformanceMode { get; set; }
+            public bool DetailedMsgLogging { get; set; }
         }
         public class BanObj
         {
