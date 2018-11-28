@@ -57,7 +57,7 @@ namespace pmcenter
                         + " ChatId: " + e.Update.Message.Chat.Id
                         + " Username: " + e.Update.Message.Chat.Username
                         + " FromID: " + e.Update.Message.From.Id
-                        + " FromUsername" + e.Update.Message.From.Username
+                        + " FromUsername: " + e.Update.Message.From.Username
                         , "BOT-DETAILED", LogLevel.INFO);
                 }
                 Update update = e.Update;
