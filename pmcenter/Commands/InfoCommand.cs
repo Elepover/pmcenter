@@ -18,7 +18,7 @@ namespace pmcenter.Commands
                 return false;
             }
 
-            string MessageInfo = "ℹ *Message Info*\n📩 *Sender*: [";
+            string MessageInfo = "ℹ *Message Info*\n\n📩 *Sender*: [";
             if (Vars.CurrentConf.UseUsernameInMsgInfo)
             {
                 MessageInfo += update.Message.ReplyToMessage.ForwardFrom.FirstName + " " + update.Message.ReplyToMessage.ForwardFrom.LastName;
@@ -29,15 +29,69 @@ namespace pmcenter.Commands
             }
             MessageInfo += "](tg://user?id="
                 + update.Message.ReplyToMessage.ForwardFrom.Id
-                + ")\n🔢 *User ID*: `"
+                + ")\n👤 User ID: `"
                 + update.Message.ReplyToMessage.ForwardFrom.Id
-                + "`\n🌐 *Language*: `"
+                + "`\n🌐 Language: `"
                 + update.Message.ReplyToMessage.ForwardFrom.LanguageCode
-                + "`\n⌚ *Forward Time*: `"
+                + "`\n⌚ Forward Time: `"
                 + update.Message.ReplyToMessage.ForwardDate.ToString()
-                + "`\n🆔 *Message ID*: `"
+                + "`\n🆔 Message ID: `"
                 + update.Message.MessageId
                 + "`";
+                if (update.Message.Type != MessageType.Text)
+                {
+                    MessageInfo += "\n\n➕ *Additional Information*";
+                    if (update.Message.Type == MessageType.Document)
+                    {
+                        MessageInfo += "\n📛 File Name: `"
+                        + update.Message.Document.FileName
+                        + "`\n📄 File ID: `"
+                        + update.Message.Document.FileId
+                        + "`\n🗜 File Size: `"
+                        + update.Message.Document.FileSize
+                        + "`\n📖 MIME Type: `"
+                        + update.Message.Document.MimeType
+                        + "`";
+                    }
+                    else if (update.Message.Type == MessageType.Location)
+                    {
+                        MessageInfo += "\n🌐 Latitude: `"
+                        + update.Message.Location.Latitude
+                        + "`\n🌐 Longitude: `"
+                        + update.Message.Location.Longitude
+                        + "`";
+                    }
+                    else if (update.Message.Type == MessageType.Sticker)
+                    {
+                        MessageInfo += "\n😶 Emoji: `"
+                        + update.Message.Sticker.Emoji
+                        + "`\n 📄 File ID: `"
+                        + update.Message.Sticker.FileId
+                        + "`";
+                    }
+                    else if (update.Message.Type == MessageType.Audio)
+                    {
+                        MessageInfo += "\n📄 File ID: `"
+                        + update.Message.Audio.FileId
+                        + "`\n🗜 File Size: `"
+                        + update.Message.Audio.FileSize
+                        + "`\n📖 MIME Type: `"
+                        + update.Message.Audio.MimeType
+                        + "`\n⏳ Duration(secs): `"
+                        + update.Message.Audio.Duration
+                        + "`";
+                    }
+                    else if (update.Message.Type == MessageType.Photo)
+                    {
+                        MessageInfo += "\n📄 File ID: `"
+                        + update.Message.Photo[0].FileId
+                        + "`\n🗜 File Size: `"
+                        + update.Message.Photo[0].FileSize
+                        + "`";
+                    }
+                    MessageInfo += "\n\n_Additional information is available for a limited set of message types, including: Audios, Documents(Files), Locations, Photos and Stickers._";
+                }
+                
             await botClient.SendTextMessageAsync(
                 update.Message.From.Id,
                 MessageInfo,
