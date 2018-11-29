@@ -41,7 +41,7 @@ namespace pmcenter.Commands
                 
                 MessageInfo += "\n\n➕ *Additional Information*"
                 + "\n📼 Message Type: " + update.Message.Type.ToString();
-                if (update.Message.Type == MessageType.Document)
+                if (update.Message.Document != null)
                 {
                     MessageInfo += "\n📛 File Name: `"
                     + update.Message.Document.FileName
@@ -53,7 +53,7 @@ namespace pmcenter.Commands
                     + update.Message.Document.MimeType
                     + "`";
                 }
-                else if (update.Message.Type == MessageType.Location)
+                else if (update.Message.Location != null)
                 {
                     MessageInfo += "\n🌐 Latitude: `"
                     + update.Message.Location.Latitude
@@ -61,7 +61,7 @@ namespace pmcenter.Commands
                     + update.Message.Location.Longitude
                     + "`";
                 }
-                else if (update.Message.Type == MessageType.Sticker)
+                else if (update.Message.Sticker != null)
                 {
                     MessageInfo += "\n😶 Emoji: `"
                     + update.Message.Sticker.Emoji
@@ -69,7 +69,7 @@ namespace pmcenter.Commands
                     + update.Message.Sticker.FileId
                     + "`";
                 }
-                else if (update.Message.Type == MessageType.Audio)
+                else if (update.Message.Audio != null)
                 {
                     MessageInfo += "\n📄 File ID: `"
                     + update.Message.Audio.FileId
@@ -81,7 +81,7 @@ namespace pmcenter.Commands
                     + update.Message.Audio.Duration
                     + "`";
                 }
-                else if (update.Message.Type == MessageType.Photo)
+                else if (update.Message.Photo != null)
                 {
                     MessageInfo += "\n📄 File ID: `"
                     + update.Message.Photo[0].FileId
