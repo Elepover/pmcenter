@@ -39,7 +39,8 @@ namespace pmcenter.Commands
                 + update.Message.MessageId
                 + "`";
                 
-                MessageInfo += "\n\n➕ *Additional Information*";
+                MessageInfo += "\n\n➕ *Additional Information*"
+                + "\n📼 Message Type: " + update.Message.Type.ToString();
                 if (update.Message.Type == MessageType.Document)
                 {
                     MessageInfo += "\n📛 File Name: `"
