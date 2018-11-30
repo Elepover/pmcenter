@@ -18,7 +18,7 @@ namespace pmcenter.Commands
                 return false;
             }
 
-            string MessageInfo = "ℹ *Message Info*\n\n📩 *Sender*: [";
+            string MessageInfo = "ℹ *Message Info*\n📩 *Sender*: [";
             if (Vars.CurrentConf.UseUsernameInMsgInfo)
             {
                 MessageInfo += update.Message.ReplyToMessage.ForwardFrom.FirstName + " " + update.Message.ReplyToMessage.ForwardFrom.LastName;
@@ -65,7 +65,7 @@ namespace pmcenter.Commands
                 {
                     MessageInfo += "\n😶 Emoji: `"
                     + update.Message.ReplyToMessage.Sticker.Emoji
-                    + "`\n 📄 File ID: `"
+                    + "`\n📄 File ID: `"
                     + update.Message.ReplyToMessage.Sticker.FileId
                     + "`";
                 }
