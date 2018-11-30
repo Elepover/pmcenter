@@ -36,57 +36,57 @@ namespace pmcenter.Commands
                 + "`\n⌚ Forward Time: `"
                 + update.Message.ReplyToMessage.ForwardDate.ToString()
                 + "`\n🆔 Message ID: `"
-                + update.Message.MessageId
+                + update.Message.ReplyToMessage.MessageId
                 + "`";
                 
                 MessageInfo += "\n\n➕ *Additional Information*"
-                + "\n📼 Message Type: " + update.Message.Type.ToString();
-                if (update.Message.Document != null)
+                + "\n📼 Message Type: " + update.Message.ReplyToMessage.Type.ToString();
+                if (update.Message.ReplyToMessage.Document != null)
                 {
                     MessageInfo += "\n📛 File Name: `"
-                    + update.Message.Document.FileName
+                    + update.Message.ReplyToMessage.Document.FileName
                     + "`\n📄 File ID: `"
-                    + update.Message.Document.FileId
+                    + update.Message.ReplyToMessage.Document.FileId
                     + "`\n🗜 File Size: `"
-                    + update.Message.Document.FileSize
+                    + update.Message.ReplyToMessage.Document.FileSize
                     + "`\n📖 MIME Type: `"
-                    + update.Message.Document.MimeType
+                    + update.Message.ReplyToMessage.Document.MimeType
                     + "`";
                 }
-                else if (update.Message.Location != null)
+                else if (update.Message.ReplyToMessage.Location != null)
                 {
                     MessageInfo += "\n🌐 Latitude: `"
-                    + update.Message.Location.Latitude
+                    + update.Message.ReplyToMessage.Location.Latitude
                     + "`\n🌐 Longitude: `"
-                    + update.Message.Location.Longitude
+                    + update.Message.ReplyToMessage.Location.Longitude
                     + "`";
                 }
-                else if (update.Message.Sticker != null)
+                else if (update.Message.ReplyToMessage.Sticker != null)
                 {
                     MessageInfo += "\n😶 Emoji: `"
-                    + update.Message.Sticker.Emoji
+                    + update.Message.ReplyToMessage.Sticker.Emoji
                     + "`\n 📄 File ID: `"
-                    + update.Message.Sticker.FileId
+                    + update.Message.ReplyToMessage.Sticker.FileId
                     + "`";
                 }
-                else if (update.Message.Audio != null)
+                else if (update.Message.ReplyToMessage.Audio != null)
                 {
                     MessageInfo += "\n📄 File ID: `"
-                    + update.Message.Audio.FileId
+                    + update.Message.ReplyToMessage.Audio.FileId
                     + "`\n🗜 File Size: `"
-                    + update.Message.Audio.FileSize
+                    + update.Message.ReplyToMessage.Audio.FileSize
                     + "`\n📖 MIME Type: `"
-                    + update.Message.Audio.MimeType
+                    + update.Message.ReplyToMessage.Audio.MimeType
                     + "`\n⏳ Duration(secs): `"
-                    + update.Message.Audio.Duration
+                    + update.Message.ReplyToMessage.Audio.Duration
                     + "`";
                 }
-                else if (update.Message.Photo != null)
+                else if (update.Message.ReplyToMessage.Photo != null)
                 {
                     MessageInfo += "\n📄 File ID: `"
-                    + update.Message.Photo[0].FileId
+                    + update.Message.ReplyToMessage.Photo[0].FileId
                     + "`\n🗜 File Size: `"
-                    + update.Message.Photo[0].FileSize
+                    + update.Message.ReplyToMessage.Photo[0].FileSize
                     + "`";
                 }
                 MessageInfo += "\n\n_Additional information is available for a limited set of message types, including: Audios, Documents(Files), Locations, Photos and Stickers._";

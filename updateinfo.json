@@ -1,5 +1,5 @@
 {
-    "Latest": "1.2.73.162",
-    "Details": "[+] We've updated the /info command, which now has a lot of new detailed information.",
+    "Latest": "1.2.74.163",
+    "Details": "[+] We've updated the /info command, which now has a lot of new detailed information.\n[/] ⬆ We finally fixed the problem w/ the stuff above.",
     "UpdateLevel": 1
 }

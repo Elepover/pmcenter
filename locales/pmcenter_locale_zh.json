@@ -1,5 +1,5 @@
 ﻿{
-  "TargetVersion": "1.2.73.162",
+  "TargetVersion": "1.2.74.163",
   "LangCode": "zh.simplified.imported",
   "Message_OwnerStart": "😊 *嗨！*我是您的 `pmcenter` 机器人, 只为您而服务！\n此消息表明您已成功完成机器人配置，并可正常使用了。\n若要回复任何转发的消息，只需在此选择消息回复。\n\n感谢您使用 `pmcenter` 机器人!",
   "Message_UserStartDefault": "📨 *嗨！*若要给我的主人发送任何消息, 告诉我就好啦。\n⚠ 当心：我会*自动*封禁刷屏用户。",
