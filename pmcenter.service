@@ -13,6 +13,8 @@ After=network-online.target
 Wants=network.target
 [Service]
 Type=simple
+User=pmcenter
+Group=pmcenter
 # Example: WorkingDirectory=/home/pmcenter
 WorkingDirectory={directory that's containing pmcenter.dll}
 # Example: ExecStart=/usr/bin/dotnet /home/pmcenter/pmcenter.dll

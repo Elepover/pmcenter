@@ -123,6 +123,8 @@ Or, use setup wizard:
 
 `dotnet pmcenter.dll --setup`
 
+*Note: Running `pmcenter` with `root` privileges is STRONGLY UNRECOMMENDED. We recommend you run pmcenter as a regular user.*
+
 ### `pmcenter` Settings
 
 | Key | Type | Description |

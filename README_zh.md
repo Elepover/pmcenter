@@ -125,6 +125,8 @@ That's all.
 
 `dotnet pmcenter.dll --setup`
 
+*提示：不建议使用 `root` 权限运行 `pmcenter`，我们强烈推荐您使用普通用户权限执行 `pmcenter`。*
+
 ### `pmcenter` 设置
 
 | 项目 | 类型 | 描述 |
