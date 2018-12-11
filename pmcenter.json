@@ -22,5 +22,6 @@
     "UseUsernameInMsgInfo": true,
     "AnonymousForward": false,
     "DonateString": "",
-    "LowPerformanceMode": false
+    "LowPerformanceMode": false,
+    "DetailedMsgLogging": false
   }

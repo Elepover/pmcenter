@@ -1,5 +1,5 @@
 {
-    "Latest": "1.2.75.164",
-    "Details": "[+] We've updated the /info command, which now has a lot of new detailed information.\n[/] ⬆ We finally fixed the problem w/ the stuff above.\n[/] ⬆ Yet another fix with its typo. Sorry about that.",
+    "Latest": "1.3.76.165",
+    "Details": "[+] Performance test feature.\n[+] Resetting configurations via Telegram.",
     "UpdateLevel": 1
 }

@@ -20,11 +20,19 @@ namespace pmcenter
 {
     public class Methods
     {
+        public enum ThreadStatus
+        {
+            Unknown = 0,
+            Standby = 1,
+            Working = 2,
+            Stopped = 3,
+            Error = 4,
+        }
         public enum LogLevel
         {
             INFO = 0,
             WARN = 1,
-            ERROR = 2
+            ERROR = 2,
         }
         public static void Log(string Text,
                                string Module = "CORE",
@@ -114,6 +122,25 @@ namespace pmcenter
                 }
                 Thread.Sleep(60000);
             }
+        }
+        public static void ThrDoResetConfCount()
+        {
+            if (Vars.IsResetConfAvailable) { return; }
+            Vars.IsResetConfAvailable = true;
+            Thread.Sleep(30000);
+            Vars.IsResetConfAvailable = false;
+        }
+        public static void ThrPerform()
+        {
+            if (Vars.IsPerformanceTestExecuting) { return; }
+            Vars.IsPerformanceTestExecuting = true;
+            Vars.PerformanceScore = 0;
+            while (Vars.IsPerformanceTestEndRequested != true)
+            {
+                Vars.PerformanceScore += 1;
+            }
+            Vars.IsPerformanceTestExecuting = false;
+            Vars.IsPerformanceTestEndRequested = false;
         }
         public static bool IsBanned(long UID)
         {

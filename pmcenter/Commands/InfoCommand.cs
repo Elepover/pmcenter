@@ -39,7 +39,7 @@ namespace pmcenter.Commands
                 + update.Message.ReplyToMessage.MessageId
                 + "`";
                 
-                MessageInfo += "\n\n➕ *Additional Information*"
+                MessageInfo += "\n\n➕ *Additional Info*"
                 + "\n📼 Message Type: " + update.Message.ReplyToMessage.Type.ToString();
                 if (update.Message.ReplyToMessage.Document != null)
                 {

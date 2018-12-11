@@ -192,9 +192,11 @@ You can write a `systemd service` to keep it running, even after the host machin
 | `/editconf <CONF>` | Owner | Manually edit configurations and translations w/ JSON-formatted text. |
 | `/saveconf` | Owner | Manually save configurations and translations. Useful after upgrades. |
 | `/readconf` | Owner | Reload configurations without restarting bot. |
+| `/resetconf` | Owner | Reset configurations. |
 | `/uptime` | Owner | Get system uptime info. |
 | `/update` | Owner | Check for updates and update bot if available. |
 | `/chkupdate` | Owner | Only check for updates. |
 | `/catconf` | Owner | Get current configurations. |
 | `/restart` | Owner | Restart bot. |
 | `/status` | Owner | Get host device's status. |
+| `/perform` | Owner | Start performance test. |
