@@ -24,15 +24,16 @@ namespace pmcenter.Commands
                 update.Message.MessageId);
             Thread PerformanceChecker = new Thread(() => Methods.ThrPerform());
             PerformanceChecker.Start();
-            Thread.Sleep(5000);
+            Thread.Sleep(1000);
             Vars.IsPerformanceTestEndRequested = true;
             while (Vars.IsPerformanceTestExecuting)
             {
                 Thread.Sleep(500);
             }
+            Vars.PerformanceScore /= 1000000000;
             await botClient.SendTextMessageAsync(
                 update.Message.From.Id,
-                Vars.CurrentLang.Message_Performance_Results.Replace("$1", Vars.PerformanceScore / 5 + "op/s"),
+                Vars.CurrentLang.Message_Performance_Results.Replace("$1", Vars.PerformanceScore / 5 + "Gop/s"),
                 ParseMode.Markdown,
                 false,
                 Vars.CurrentConf.DisableNotifications,

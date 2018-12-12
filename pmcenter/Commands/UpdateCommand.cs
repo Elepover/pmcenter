@@ -105,7 +105,7 @@ namespace pmcenter.Commands
             }
             catch (Exception ex)
             {
-                string ErrorString = Vars.CurrentLang.Message_UpdateCheckFailed.Replace("$1", ex.Message);
+                string ErrorString = Vars.CurrentLang.Message_UpdateCheckFailed.Replace("$1", ex.ToString());
                 await botClient.SendTextMessageAsync(
                     update.Message.From.Id,
                     ErrorString,

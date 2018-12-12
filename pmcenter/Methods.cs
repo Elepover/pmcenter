@@ -142,6 +142,41 @@ namespace pmcenter
             Vars.IsPerformanceTestExecuting = false;
             Vars.IsPerformanceTestEndRequested = false;
         }
+        public static string GetThreadStatusString(ThreadStatus Status)
+        {
+            switch (Status)
+            {
+                case ThreadStatus.Working:
+                    return Vars.CurrentLang.Message_ThreadStatus_Working;
+                case ThreadStatus.Standby:
+                    return Vars.CurrentLang.Message_ThreadStatus_Standby;
+                case ThreadStatus.Stopped:
+                    return Vars.CurrentLang.Message_ThreadStatus_Stopped;
+                case ThreadStatus.Error:
+                    return Vars.CurrentLang.Message_ThreadStatus_Error;
+                default:
+                    return Vars.CurrentLang.Message_ThreadStatus_Unknown;
+            }
+        }
+        public static ThreadStatus GetThreadStatus(Thread Thread)
+        {
+            try
+            {
+                if (Thread.IsAlive)
+                {
+                    return ThreadStatus.Standby;
+                }
+                else
+                {
+                    return ThreadStatus.Stopped;
+                }
+            }
+            catch
+            {
+                return ThreadStatus.Unknown;
+            }
+            
+        }
         public static bool IsBanned(long UID)
         {
             foreach (BanObj Banned in Vars.CurrentConf.Banned)
