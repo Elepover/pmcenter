@@ -203,6 +203,7 @@ You can write a `systemd service` to keep it running, even after the host machin
 | `/switchbw` | Owner | Switch keyword banning status. |
 | `/switchnf` | Owner | Switch notifications status. |
 | `/switchlang <URL>` | Owner | Switch language file. |
+| `/backup` | Owner | Backup configurations. |
 | `/editconf <CONF>` | Owner | Manually edit configurations and translations w/ JSON-formatted text. |
 | `/saveconf` | Owner | Manually save configurations and translations. Useful after upgrades. |
 | `/readconf` | Owner | Reload configurations without restarting bot. |
