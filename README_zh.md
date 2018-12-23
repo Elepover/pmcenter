@@ -26,6 +26,7 @@
 
 - 🚉 跨平台运行
 - 🛡️ 高稳定性及容错率
+- 📡 SOCKS5 代理支持
 - 🚧 强大的的消息过滤系统
   - 🗨️ 多模式的关键词过滤
     - 正则表达式模式
@@ -156,6 +157,19 @@ That's all.
 | `DonateString` | `String` | 用户发送 /donate 指令时显示的消息，留空以关闭 |
 | `LowPerformanceMode` | `Boolean` | 调节 pmcenter 配置以适应低性能设备，如树莓派 |
 | `DetailedMsgLogging` | `Boolean` | 是否在收到每条消息时都输出消息详情 |
+| `Socks5Proxies` | `Array` | SOCKS5 代理列表 |
+| `UseProxy` | `Boolean` | 是否使用 SOCKS5 代理 |
+| `ResolveHostnamesLocally` | `Boolean` | 是否使用远程服务器解析域名 |
+| `CatchAllExceptions` | `Boolean` | 是否将所有错误转发给所有者 |
+
+#### 代理配置
+
+| 项目 | 类型 | 描述 |
+| :---- | :----- | ----:|
+| `ServerName` | `String` | 服务器地址 |
+| `ServerPort` | `Int` | 服务器端口 |
+| `Username` | `String` | 代理用户名 |
+| `ProxyPass` | `String` | 代理密码 |
 
 提示：升级后，可向机器人发送 `/saveconf` 命令来自动补齐升级后缺少的新配置项。
 
@@ -165,6 +179,7 @@ That's all.
 - 支持 **Emojis** 且默认启用。
 - 目前 `/info` 命令的回复尚且无法更改。
 - 欢迎 Pull Requests.
+- 切换中文语言包，只需发送 `/switchlang https://raw.githubusercontent.com/Elepover/pmcenter/master/locales/pmcenter_locale_zh.json`
 
 ## 启动
 

@@ -5,8 +5,10 @@
 */
 
 using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using MihaZupan;
 using Telegram.Bot;
 using Telegram.Bot.Types.Enums;
 using static pmcenter.Conf;
@@ -84,13 +86,34 @@ namespace pmcenter
                 }
                 else
                 {
+                    Vars.UpdateCheckerStatus = ThreadStatus.Stopped;
                     Log("Skipped.");
                 }
                 Thread.Sleep(500);
 
                 Log("==> Initializing module - BOT");
                 Log("Initializing bot instance...");
-                Bot = new TelegramBotClient(CurrentConf.APIKey);
+                if (CurrentConf.UseProxy)
+                {
+                    Log("Activating SOCKS5 proxy...");
+                    List<ProxyInfo> ProxyInfoList = new List<ProxyInfo>();
+                    foreach (Socks5Proxy Info in CurrentConf.Socks5Proxies)
+                    {
+                        ProxyInfo ProxyInfo = new ProxyInfo(Info.ServerName,
+                                                            Info.ServerPort,
+                                                            Info.Username,
+                                                            Info.ProxyPass);
+                        ProxyInfoList.Add(ProxyInfo);
+                    }
+                    HttpToSocks5Proxy Proxy = new HttpToSocks5Proxy(ProxyInfoList.ToArray());
+                    Proxy.ResolveHostnamesLocally = CurrentConf.ResolveHostnamesLocally;
+                    Log("SOCKS5 proxy is enabled.");
+                    Bot = new TelegramBotClient(CurrentConf.APIKey, Proxy);
+                }
+                else
+                {
+                    Bot = new TelegramBotClient(CurrentConf.APIKey);
+                }
                 await Bot.TestApiAsync();
                 Log("Hooking event processors...");
                 Bot.OnUpdate += BotProcess.OnUpdate;

@@ -27,6 +27,7 @@ namespace pmcenter
             commandManager.RegisterCommand(new BanCommand());
             commandManager.RegisterCommand(new PardonCommand());
 
+            commandManager.RegisterCommand(new BackupConfCommand());
             commandManager.RegisterCommand(new BanIdCommand());
             commandManager.RegisterCommand(new CatConfigCommand());
             commandManager.RegisterCommand(new CheckUpdateCommand());
@@ -86,6 +87,21 @@ namespace pmcenter
             catch (Exception ex)
             {
                 Log("General error while processing incoming update: " + ex.ToString(), "BOT", LogLevel.ERROR);
+                if (Vars.CurrentConf.CatchAllExceptions)
+                {
+                    try
+                    {
+                        await Vars.Bot.SendTextMessageAsync(Vars.CurrentConf.OwnerUID, 
+                                                        Vars.CurrentLang.Message_GeneralFailure.Replace("$1", ex.ToString()),
+                                                        ParseMode.Markdown,
+                                                        false,
+                                                        Vars.CurrentConf.DisableNotifications);
+                    }
+                    catch (Exception iEx)
+                    {
+                        Log("Failed to catch exception to owner: "+ iEx.ToString(), "BOT", LogLevel.ERROR);
+                    }
+                }
             }
         }
 

@@ -26,6 +26,7 @@ A telegram bot helping you to process private messages.
 
 - 🚉 Cross-platform support from Windows to Linux and Raspian
 - 🛡️ High stability and availability
+- 📡 SOCKS5 proxy support
 - 🚧 Powerful anti-spamming system
   - 🗨️ Multiple filtering modes
     - Regular expression mode
@@ -154,6 +155,19 @@ Or, use setup wizard:
 | `DonateString` | `string` | Text to show when users send the /donate command. Leave empty to disable this feature. |
 | `LowPerformanceMode` | `boolean` | Tune pmcenter for low-end hardware like a Raspberry Pi. |
 | `DetailedMsgLogging` | `Boolean` | Enable/Disable detailed message information output. |
+| `Socks5Proxies` | `Array` | List of SOCKS5 proxies. |
+| `UseProxy` | `Boolean` | Use/Not to use SOCKS5 proxy. |
+| `ResolveHostnamesLocally` | `Boolean` | Use/Not to use remote server to resolve domain names. |
+| `CatchAllExceptions` | `Boolean` | Decides whether to forward all exceptions to the owner or not. |
+
+#### Proxy Configuration
+
+| Key | Type | Description |
+| :---- | :----- | ----:|
+| `ServerName` | `String` | Server hostname. |
+| `ServerPort` | `Int` | Server port. |
+| `Username` | `String` | Proxy user name. |
+| `ProxyPass` | `String` | Proxy password. |
 
 Tip: After upgrades, you can send `/saveconf` command to the bot to fix missing new settings.
 

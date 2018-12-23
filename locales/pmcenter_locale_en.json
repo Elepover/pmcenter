@@ -1,5 +1,5 @@
 ﻿{
-  "TargetVersion": "1.3.77.166",
+  "TargetVersion": "1.4.78.167",
   "LangCode": "en.default.imported",
   "Message_OwnerStart": "😊 *Hi!* I'm your `pmcenter` bot, and I work just for you.\nThis message means that you've set up the bot successfully.\nTo reply to any forwarded messages, just directly reply to them here.\n\nThank you for using the `pmcenter` bot!",
   "Message_UserStartDefault": "📨 *Hi!* To send anything to my owner, just send it here.\n⚠ To be informed: I'll *automatically* ban flooding users.",
@@ -56,5 +56,6 @@
   "Message_ConfReset_Started": "💠 Resetting...",
   "Message_ConfReset_Done": "🔄 Configurations have been reset! Restarting...",
   "Message_Performance_Inited": "🔃 Performance test started.",
-  "Message_Performance_Results": "✅ *Performance test complete*\n\nScore: `$1`."
+  "Message_Performance_Results": "✅ *Performance test complete*\n\nScore: `$1`.",
+  "Message_BackupComplete": "✅ Backup complete! File name: `$1`"
 }

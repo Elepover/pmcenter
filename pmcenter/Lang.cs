@@ -78,6 +78,7 @@ namespace pmcenter
                 Message_ConfReset_Done = "🔄 Configurations have been reset! Restarting...";
                 Message_Performance_Inited = "🔃 Performance test started.";
                 Message_Performance_Results = "✅ *Performance test complete*\n\nScore: `$1`.";
+                Message_BackupComplete = "✅ Backup complete! File name: `$1`";
             }
             public string TargetVersion { get; set; }
             public string LangCode { get; set; }
@@ -137,6 +138,7 @@ namespace pmcenter
             public string Message_ConfReset_Done { get; set; }
             public string Message_Performance_Inited { get; set; }
             public string Message_Performance_Results { get; set; }
+            public string Message_BackupComplete { get; set; }
         }
         public static string KillIllegalChars(string Input)
         {

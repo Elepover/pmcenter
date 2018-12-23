@@ -8,6 +8,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Security.Cryptography;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
@@ -72,6 +74,7 @@ namespace pmcenter
             Log("Started!", "RATELIMIT");
             while (true)
             {
+                Vars.RateLimiterStatus = ThreadStatus.Working;
                 foreach (RateData Data in Vars.RateLimits)
                 {
                     if (Data.MessageCount > Vars.CurrentConf.AutoBanThreshold && Vars.CurrentConf.AutoBan)
@@ -83,6 +86,7 @@ namespace pmcenter
                     Data.MessageCount = 0;
                 }
                 Thread.Sleep(30000);
+                Vars.RateLimiterStatus = ThreadStatus.Standby;
             }
         }
         public static async void ThrUpdateChecker()
@@ -90,6 +94,7 @@ namespace pmcenter
             Log("Started!", "UPDATER");
             while (true)
             {
+                Vars.UpdateCheckerStatus = ThreadStatus.Working;
                 try
                 {
                     Update Latest = Conf.CheckForUpdates();
@@ -121,14 +126,17 @@ namespace pmcenter
                     Log("Error during update check: " + ex.ToString(), "UPDATER", LogLevel.ERROR);
                 }
                 Thread.Sleep(60000);
+                Vars.UpdateCheckerStatus = ThreadStatus.Standby;
             }
         }
         public static void ThrDoResetConfCount()
         {
+            Vars.ConfResetTimerStatus = ThreadStatus.Working;
             if (Vars.IsResetConfAvailable) { return; }
             Vars.IsResetConfAvailable = true;
             Thread.Sleep(30000);
             Vars.IsResetConfAvailable = false;
+            Vars.ConfResetTimerStatus = ThreadStatus.Stopped;
         }
         public static void ThrPerform()
         {
@@ -175,7 +183,7 @@ namespace pmcenter
             {
                 return ThreadStatus.Unknown;
             }
-            
+
         }
         public static bool IsBanned(long UID)
         {
@@ -280,10 +288,10 @@ namespace pmcenter
                 return false;
             }
         }
-        public static string GetRandomString()
+        public static string GetRandomString(int Length = 8)
         {
             const string Chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-            return new string(Enumerable.Repeat(Chars, 8).Select(s => s[(new Random()).Next(s.Length)]).ToArray());
+            return new string(Enumerable.Repeat(Chars, Length).Select(s => s[(new Random()).Next(s.Length)]).ToArray());
         }
         public static string GetUpdateLevel(UpdateLevel Level)
         {

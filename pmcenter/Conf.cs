@@ -49,6 +49,11 @@ namespace pmcenter
                 DonateString = "";
                 LowPerformanceMode = false;
                 DetailedMsgLogging = false;
+                Socks5Proxies = new List<Socks5Proxy>();
+                    Socks5Proxies.Add(new Socks5Proxy());
+                UseProxy = false;
+                ResolveHostnamesLocally = true;
+                CatchAllExceptions = false;
             }
             public string APIKey { get; set; }
             public long OwnerUID { get; set; }
@@ -75,6 +80,10 @@ namespace pmcenter
             public string DonateString { get; set; }
             public bool LowPerformanceMode { get; set; }
             public bool DetailedMsgLogging { get; set; }
+            public List<Socks5Proxy> Socks5Proxies { get; set; }
+            public bool UseProxy { get; set; }
+            public bool ResolveHostnamesLocally { get; set; }
+            public bool CatchAllExceptions { get; set; }
         }
         public class BanObj
         {
@@ -105,6 +114,20 @@ namespace pmcenter
             public string Latest { get; set; }
             public string Details { get; set; }
             public UpdateLevel UpdateLevel { get; set; }
+        }
+        public class Socks5Proxy
+        {
+            public Socks5Proxy()
+            {
+                ServerName = "example.com";
+                ServerPort = 1080;
+                Username = "username";
+                ProxyPass = "password";
+            }
+            public string ServerName { get; set; }
+            public int ServerPort { get; set; }
+            public string Username { get; set; }
+            public string ProxyPass { get; set; }
         }
         public enum UpdateLevel
         {
