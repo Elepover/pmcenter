@@ -85,8 +85,8 @@ namespace pmcenter
                     }
                     Data.MessageCount = 0;
                 }
-                Thread.Sleep(30000);
                 Vars.RateLimiterStatus = ThreadStatus.Standby;
+                Thread.Sleep(30000);
             }
         }
         public static async void ThrUpdateChecker()
@@ -125,8 +125,8 @@ namespace pmcenter
                 {
                     Log("Error during update check: " + ex.ToString(), "UPDATER", LogLevel.ERROR);
                 }
-                Thread.Sleep(60000);
                 Vars.UpdateCheckerStatus = ThreadStatus.Standby;
+                Thread.Sleep(60000);
             }
         }
         public static void ThrDoResetConfCount()
