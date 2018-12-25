@@ -10,17 +10,18 @@ A telegram bot helping you to process private messages.
 
 ## Table of Contents
 
-> - [Features](#features)
-> - [Setting Up Your Own `pmcenter`](#setting-up-your-own-pmcenter)
->   - [Prerequisites](#prerequisites)
->   - [Build `pmcenter` Yourself](#build-pmcenter-yourself)
->   - [Use Pre-compiled Binaries](#use-pre-compiled-binaries)
->   - [Use Docker](#use-docker)
-> - [Configuring](#configuring)
->   - [`pmcenter` Settings](#pmcenter-settings)
->     - [Note About Translations](#note-about-translations)
-> - [Starting](#starting)
-> - [Commands](#commands)
+> - [🔨 Features](#features)
+> - [📻 Setting Up Your Own `pmcenter`](#setting-up-your-own-pmcenter)
+>   - [⚙️ Prerequisites](#prerequisites)
+>   - [📥 Build `pmcenter` Yourself](#build-pmcenter-yourself)
+>   - [📩 Use Pre-compiled Binaries](#use-pre-compiled-binaries)
+>   - [🐠 Use Docker](#use-docker)
+> - [🔧 Configuring](#configuring)
+>   - [⚒️ `pmcenter` Settings](#pmcenter-settings)
+>     - [📄 Note About Translations](#note-about-translations)
+> - [🚀 Starting](#starting)
+> - [🔩 Commands](#commands)
+> - [🔺 Disclaimer](#disclaimer)
 
 ## Features
 
@@ -215,3 +216,7 @@ You can write a `systemd service` to keep it running, even after the host machin
 | `/restart` | Owner | Restart bot. |
 | `/status` | Owner | Get host device's status. |
 | `/perform` | Owner | Start performance test. |
+
+# Disclaimer
+
+The program is licensed under Apache License _(Version 2.0. Dependencies are licensed under MIT License)_ and comes with **ABSOLUTELY NO WARRANTY**. By using the program in any way, you acknowledge and confirm that the developer of the program is **NOT RESPONSIBLE** for service outage, data loss or any other rare unlisted incident caused by the program.
