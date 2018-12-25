@@ -1,5 +1,5 @@
 {
-    "Latest": "1.4.78.167",
-    "Details": "[+] For those who don't have direct access to Telegram, we support SOCKS5 proxies now! (And yes, you can add multiple SOCKS5 proxies.)\n[+] You can turn on the \"CatchAllExceptions\" option to forward all unexpected errors to the owner.\n[/] More accurate thread status.\n[+] You can now backup configurations!",
+    "Latest": "1.4.79.168",
+    "Details": "Bugfix version!\n\n[/] Fixed duplicate proxy problem.\n[+] Fixed exception in \"CatchAllExceptions\".\n[+] Use /detectperm command to detect permissions!",
     "UpdateLevel": 1
 }

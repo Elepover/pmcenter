@@ -31,6 +31,7 @@ namespace pmcenter
             commandManager.RegisterCommand(new BanIdCommand());
             commandManager.RegisterCommand(new CatConfigCommand());
             commandManager.RegisterCommand(new CheckUpdateCommand());
+            commandManager.RegisterCommand(new DetectPermissionCommand());
             commandManager.RegisterCommand(new DonateCommand());
             commandManager.RegisterCommand(new EditConfCommand());
             commandManager.RegisterCommand(new PardonIdCommand());
@@ -93,7 +94,7 @@ namespace pmcenter
                     {
                         await Vars.Bot.SendTextMessageAsync(Vars.CurrentConf.OwnerUID, 
                                                         Vars.CurrentLang.Message_GeneralFailure.Replace("$1", ex.ToString()),
-                                                        ParseMode.Markdown,
+                                                        ParseMode.Default,
                                                         false,
                                                         Vars.CurrentConf.DisableNotifications);
                     }

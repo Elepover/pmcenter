@@ -50,7 +50,6 @@ namespace pmcenter
                 LowPerformanceMode = false;
                 DetailedMsgLogging = false;
                 Socks5Proxies = new List<Socks5Proxy>();
-                    Socks5Proxies.Add(new Socks5Proxy());
                 UseProxy = false;
                 ResolveHostnamesLocally = true;
                 CatchAllExceptions = false;

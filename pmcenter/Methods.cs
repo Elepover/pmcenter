@@ -324,5 +324,13 @@ namespace pmcenter
                     return 1;
             }
         }
+        public static bool FlipBool(bool Input)
+        {
+            if (Input) { return false; } else { return true; }
+        }
+        public static string BoolStr(bool Input)
+        {
+            if (Input) { return "true"; } else { return "false"; }
+        }
     }
 }
