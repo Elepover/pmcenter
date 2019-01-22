@@ -105,8 +105,10 @@ namespace pmcenter
                                                             Info.ProxyPass);
                         ProxyInfoList.Add(ProxyInfo);
                     }
-                    HttpToSocks5Proxy Proxy = new HttpToSocks5Proxy(ProxyInfoList.ToArray());
-                    Proxy.ResolveHostnamesLocally = CurrentConf.ResolveHostnamesLocally;
+                    HttpToSocks5Proxy Proxy = new HttpToSocks5Proxy(ProxyInfoList.ToArray())
+                    {
+                        ResolveHostnamesLocally = CurrentConf.ResolveHostnamesLocally
+                    };
                     Log("SOCKS5 proxy is enabled.");
                     Bot = new TelegramBotClient(CurrentConf.APIKey, Proxy);
                 }

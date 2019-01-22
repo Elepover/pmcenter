@@ -5,16 +5,11 @@
 */
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Security.Cryptography;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
-using Telegram.Bot.Args;
 using Telegram.Bot.Types.Enums;
 using static pmcenter.Conf;
 
@@ -214,8 +209,10 @@ namespace pmcenter
         {
             if (IsBanned(UID) != true)
             {
-                BanObj Banned = new BanObj();
-                Banned.UID = UID;
+                BanObj Banned = new BanObj
+                {
+                    UID = UID
+                };
                 Vars.CurrentConf.Banned.Add(Banned);
             }
         }
@@ -259,9 +256,11 @@ namespace pmcenter
             }
             else
             {
-                RateData Data = new RateData();
-                Data.UID = UID;
-                Data.MessageCount = 1;
+                RateData Data = new RateData
+                {
+                    UID = UID,
+                    MessageCount = 1
+                };
                 Vars.RateLimits.Add(Data);
             }
         }

@@ -142,12 +142,12 @@ namespace pmcenter
 
             // process owner
             Log("Forwarding message to owner...", "BOT");
-            Telegram.Bot.Types.Message ForwardedMessage = await Vars.Bot.ForwardMessageAsync(Vars.CurrentConf.OwnerUID,
-                                                                                             update.Message.From.Id,
-                                                                                             update.Message.MessageId,
-                                                                                             Vars.CurrentConf.DisableNotifications);
+            Message ForwardedMessage = await Vars.Bot.ForwardMessageAsync(Vars.CurrentConf.OwnerUID,
+                                                                          update.Message.From.Id,
+                                                                          update.Message.MessageId,
+                                                                          Vars.CurrentConf.DisableNotifications);
             // check for real message sender
-            if (ForwardedMessage.ForwardFrom.Id != update.Message.From.Id)
+            if (ForwardedMessage.ForwardFrom.Id != update.Message.From.Id || update.ChannelPost != null)
             {
                 await Vars.Bot.SendTextMessageAsync(Vars.CurrentConf.OwnerUID,
                                                     Vars.CurrentLang.Message_ForwarderNotReal

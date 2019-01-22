@@ -1,5 +1,5 @@
 {
-    "Latest": "1.4.79.168",
-    "Details": "Bugfix version!\n\n[/] Fixed duplicate proxy problem.\n[+] Fixed exception in \"CatchAllExceptions\".\n[+] Use /detectperm command to detect permissions!",
-    "UpdateLevel": 1
+  "Latest": "1.4.80.169",
+  "Details": "[/] Code structure has been refined.\n[/] Updated translations of zh.meow\n[/] Fixed a bug when user forward channels' posts.",
+  "UpdateLevel": 1
 }
