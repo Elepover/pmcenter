@@ -218,6 +218,8 @@ You can write a `systemd service` to keep it running, even after the host machin
 | `/status` | Owner | Get host device's status. |
 | `/perform` | Owner | Start performance test. |
 
+Please note: `/restart` command only works with a daemon that auto-restarts pmcenter when it exits. pmcenter cannot restart by itself.
+
 # Disclaimer
 
 The program is licensed under Apache License _(Version 2.0. Dependencies are licensed under MIT License)_ and comes with **ABSOLUTELY NO WARRANTY**. By using the program in any way, you acknowledge and confirm that the developer of the program is **NOT RESPONSIBLE** for service outage, data loss or any other rare unlisted incident caused by the program.

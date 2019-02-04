@@ -1,7 +1,7 @@
 /*
 // Vars.cs / pmcenter project / https://github.com/Elepover/pmcenter
 // Storage of variables for easier calling.
-// Copyright (C) 2018 Elepover. Licensed under the MIT License.
+// Copyright (C) 2018 Elepover. Licensed under the Apache License (Version 2.0).
 */
 
 using System;
@@ -17,7 +17,7 @@ namespace pmcenter
     public class Vars
     {
         public readonly static string ASCII = "                                     __           \n    ____  ____ ___  ________  ____  / /____  _____\n   / __ \\/ __ `__ \\/ ___/ _ \\/ __ \\/ __/ _ \\/ ___/\n  / /_/ / / / / / / /__/  __/ / / / /_/  __/ /    \n / .___/_/ /_/ /_/\\___/\\___/_/ /_/\\__/\\___/_/     \n/_/                                               ";
-        public readonly static Version AppVer = new Version("1.4.80.169");
+        public readonly static Version AppVer = new Version("1.4.81.170");
         public readonly static string AppExecutable = Assembly.GetExecutingAssembly().Location;
         public readonly static string AppDirectory = (new FileInfo(AppExecutable)).DirectoryName;
         public readonly static string ConfFile = Path.Combine(AppDirectory, "pmcenter.json");

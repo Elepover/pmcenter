@@ -1,5 +1,5 @@
 {
-  "Latest": "1.4.80.169",
-  "Details": "[/] Code structure has been refined.\n[/] Updated translations of zh.meow\n[/] Fixed a bug when user forward channels' posts.",
+  "Latest": "1.4.81.170",
+  "Details": "[/] Finally fixed the bug when user forward channels' posts. We're really sorry about that.",
   "UpdateLevel": 1
 }

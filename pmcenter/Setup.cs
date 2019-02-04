@@ -1,7 +1,7 @@
 /*
 // Setup.cs / pmcenter project / https://github.com/Elepover/pmcenter
 // Methods & functions for Setup Wizard.
-// Copyright (C) 2018 Elepover. Licensed under the MIT License.
+// Copyright (C) 2018 Elepover. Licensed under the Apache License (Version 2.0).
 */
 
 using System;

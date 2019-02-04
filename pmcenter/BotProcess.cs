@@ -1,7 +1,7 @@
 /*
 // BotProcess.cs / pmcenter project / https://github.com/Elepover/pmcenter
 // Main processing logic of pmcenter.
-// Copyright (C) 2018 Elepover. Licensed under the MIT License.
+// Copyright (C) 2018 Elepover. Licensed under the Apache License (Version 2.0).
 */
 
 using pmcenter.Commands;
@@ -147,8 +147,10 @@ namespace pmcenter
                                                                           update.Message.MessageId,
                                                                           Vars.CurrentConf.DisableNotifications);
             // check for real message sender
-            if (ForwardedMessage.ForwardFrom.Id != update.Message.From.Id || update.ChannelPost != null)
+            // check if forwarded from channels
+            if (update.Message.ForwardFrom == null && update.Message.ForwardFromChat != null)
             {
+                // is forwarded from channel
                 await Vars.Bot.SendTextMessageAsync(Vars.CurrentConf.OwnerUID,
                                                     Vars.CurrentLang.Message_ForwarderNotReal
                                                         .Replace("$2", update.Message.From.Id.ToString())
@@ -158,7 +160,22 @@ namespace pmcenter
                                                     Vars.CurrentConf.DisableNotifications,
                                                     ForwardedMessage.MessageId);
             }
-
+            if (update.Message.ForwardFrom != null && update.Message.ForwardFromChat == null)
+            {
+                // is forwarded from chats
+                if (update.Message.ForwardFrom.Id != update.Message.From.Id)
+                {
+                    await Vars.Bot.SendTextMessageAsync(Vars.CurrentConf.OwnerUID,
+                                                        Vars.CurrentLang.Message_ForwarderNotReal
+                                                            .Replace("$2", update.Message.From.Id.ToString())
+                                                            .Replace("$1", "[" + update.Message.From.FirstName + " " + update.Message.From.LastName + "](tg://user?id=" + update.Message.From.Id + ")"),
+                                                        ParseMode.Markdown,
+                                                        false,
+                                                        Vars.CurrentConf.DisableNotifications,
+                                                        ForwardedMessage.MessageId);
+                }
+            }
+            
             // process cc
             if (Vars.CurrentConf.EnableCc)
             {
@@ -184,13 +201,14 @@ namespace pmcenter
                 Log("Forwarding message to cc: " + Id, "BOT");
                 try
                 {
-                    Telegram.Bot.Types.Message ForwardedMessageCc = await Vars.Bot.ForwardMessageAsync(Id,
+                    Message ForwardedMessageCc = await Vars.Bot.ForwardMessageAsync(Id,
                                                                                                        update.Message.From.Id,
                                                                                                        update.Message.MessageId,
                                                                                                        Vars.CurrentConf.DisableNotifications);
-                    // check for real message sender
-                    if (ForwardedMessageCc.ForwardFrom.Id != update.Message.From.Id)
+                    // check if forwarded from channels
+                    if (update.Message.ForwardFrom == null && update.Message.ForwardFromChat != null)
                     {
+                        // is forwarded from channel
                         await Vars.Bot.SendTextMessageAsync(Id,
                                                             Vars.CurrentLang.Message_ForwarderNotReal
                                                                 .Replace("$2", update.Message.From.Id.ToString())
@@ -199,6 +217,22 @@ namespace pmcenter
                                                             false,
                                                             Vars.CurrentConf.DisableNotifications,
                                                             ForwardedMessageCc.MessageId);
+                    }
+                    if (update.Message.ForwardFrom != null && update.Message.ForwardFromChat == null)
+                    {
+                        // is forwarded from chats
+                        // check real message sender
+                        if (update.Message.ForwardFrom.Id != update.Message.From.Id)
+                        {
+                            await Vars.Bot.SendTextMessageAsync(Id,
+                                                                Vars.CurrentLang.Message_ForwarderNotReal
+                                                                    .Replace("$2", update.Message.From.Id.ToString())
+                                                                    .Replace("$1", "[" + update.Message.From.FirstName + " " + update.Message.From.LastName + "](tg://user?id=" + update.Message.From.Id + ")"),
+                                                                ParseMode.Markdown,
+                                                                false,
+                                                                Vars.CurrentConf.DisableNotifications,
+                                                                ForwardedMessageCc.MessageId);
+                        }
                     }
                 }
                 catch (Exception ex)

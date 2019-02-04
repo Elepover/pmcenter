@@ -1,7 +1,7 @@
 /*
 // Methods.cs / pmcenter project / https://github.com/Elepover/pmcenter
 // Home of complicated processes of pmcenter.
-// Copyright (C) 2018 Elepover. Licensed under the MIT License.
+// Copyright (C) 2018 Elepover. Licensed under the Apache License (Version 2.0).
 */
 
 using System;

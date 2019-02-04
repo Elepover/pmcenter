@@ -1,4 +1,10 @@
-﻿using System;
+﻿/*
+// CommandManager.cs / pmcenter project / https://github.com/Elepover/pmcenter
+// Command routing processor.
+// Copyright (C) 2018 Genteure. Licensed under the Apache License (Version 2.0).
+*/
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;

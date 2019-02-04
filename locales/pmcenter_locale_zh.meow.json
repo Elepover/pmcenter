@@ -1,5 +1,5 @@
 ﻿{
-  "TargetVersion": "1.4.80.169",
+  "TargetVersion": "1.4.81.170",
   "LangCode": "zh.meow.imported",
   "Message_OwnerStart": "😊 *喵呜！*我是您的 `pmcenter` 机器喵, 只为主人一个人服务的哦！\n此消息表明主人已成功完成机器喵配置，并可正常使用了啦~\n若要回复任何转发的消息，在这里回复就可以惹~\n\n感谢主人使用 `pmcenter` 机器喵~",
   "Message_UserStartDefault": "📨 *喵呜！*若要给本喵的主人发送任何消息, 在这告诉本喵就可以啦~\n⚠ 当心：本喵会*自动*吃掉刷屏用户的哟~",
