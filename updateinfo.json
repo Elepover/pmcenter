@@ -1,5 +1,5 @@
 {
-  "Latest": "1.4.81.170",
-  "Details": "[/] Finally fixed the bug when user forward channels' posts. We're really sorry about that.",
+  "Latest": "1.4.82.171",
+  "Details": "[/] Fixed a protential security breach.",
   "UpdateLevel": 1
 }

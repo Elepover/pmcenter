@@ -35,8 +35,6 @@ namespace pmcenter
                 KeywordBanning = true;
                 KeywordAutoBan = false;
                 EnableRegex = false;
-                RestartCommand = "/bin/systemctl";
-                RestartArgs = "restart pmcenter";
                 AutoLangUpdate = true;
                 LangURL = "https://raw.githubusercontent.com/Elepover/pmcenter/master/locales/pmcenter_locale_en.json";
                 DisableNotifications = false;
@@ -65,8 +63,6 @@ namespace pmcenter
             public bool KeywordBanning { get; set; }
             public bool KeywordAutoBan { get; set; }
             public bool EnableRegex { get; set; }
-            public string RestartCommand { get; set; }
-            public string RestartArgs { get; set; }
             public bool AutoLangUpdate { get; set; }
             public string LangURL { get; set; }
             public bool DisableNotifications { get; set; }

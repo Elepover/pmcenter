@@ -1,5 +1,5 @@
 ﻿{
-  "TargetVersion": "1.4.81.170",
+  "TargetVersion": "1.4.82.171",
   "LangCode": "en.default.imported",
   "Message_OwnerStart": "😊 *Hi!* I'm your `pmcenter` bot, and I work just for you.\nThis message means that you've set up the bot successfully.\nTo reply to any forwarded messages, just directly reply to them here.\n\nThank you for using the `pmcenter` bot!",
   "Message_UserStartDefault": "📨 *Hi!* To send anything to my owner, just send it here.\n⚠ To be informed: I'll *automatically* ban flooding users.",

@@ -74,11 +74,10 @@ namespace pmcenter.Commands
                         false,
                         Vars.CurrentConf.DisableNotifications,
                         update.Message.MessageId);
-                    Log("Trying to execute restart command...", "BOT");
+                    Log("Exiting program... (Let the daemon do the restart job)", "BOT");
                     try
                     {
-                        Process.Start(Vars.CurrentConf.RestartCommand, Vars.CurrentConf.RestartArgs);
-                        Log("Executed.", "BOT");
+                        Environment.Exit(0);
                         return true;
                     }
                     catch (Exception ex)
