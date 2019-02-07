@@ -143,8 +143,6 @@ Or, use setup wizard:
 | `KeywordBanning` | `Boolean` | Decides whether the keyword banning feature is enabled or not. |
 | `KeywordAutoBan` | `Boolean` | Automatically bans the matching user. |
 | `EnableRegex` | `Boolean` | Enables regex matching in keywords banning or not. |
-| `RestartCommand` | `String` | Command to restart pmcenter. Used for auto-updates. |
-| `RestartArgs` | `String` | Arguments part of restart command. |
 | `AutoLangUpdate` | `Boolean` | Allows the bot to automatically update language file after updating. |
 | `LangURL` | `String` | URL to the updated language file. |
 | `DisableNotifications` | `Boolean` | Enable/Disable notifications. |
