@@ -145,8 +145,6 @@ That's all.
 | `KeywordBanning` | `Boolean` | 是否启用关键词屏蔽功能 |
 | `KeywordAutoBan` | `Boolean` | 是否自动封禁被屏蔽消息发送者 |
 | `EnableRegex` | `Boolean` | 是否启用关键字屏蔽中的正则表达式匹配 |
-| `RestartCommand` | `String` | 用于自动更新后重新启动机器人的命令 |
-| `RestartArgs` | `String` | 重启命令的参数部分 |
 | `AutoLangUpdate` | `Boolean` | 是否启用自动语言文件更新 |
 | `LangURL` | `String` | 新语言文件的 URL |
 | `DisableNotifications` | `Boolean` | 是否停用消息通知 |
