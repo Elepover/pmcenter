@@ -45,7 +45,7 @@ namespace pmcenter.Commands
                     // download compiled package
                     Log("Starting update download... (pmcenter_update.zip)", "BOT");
                     WebClient Downloader = new WebClient();
-                    Downloader.DownloadFile(
+                    await Downloader.DownloadFileTaskAsync(
                         new Uri(Vars.UpdateArchiveURL),
                         Path.Combine(Vars.AppDirectory, "pmcenter_update.zip"));
                     Log("Download complete. Extracting...", "BOT");

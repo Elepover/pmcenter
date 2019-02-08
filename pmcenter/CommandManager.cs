@@ -53,7 +53,7 @@ namespace pmcenter
 
             var command = commands.FirstOrDefault(cmd =>
             {
-                // can run = cmd is not owner only command , OR sender id equals owner id
+                // can run = cmd is not owner only command, OR sender id equals owner id
                 bool adminRunnable = !cmd.OwnerOnly || (update.Message.From.Id == Vars.CurrentConf.OwnerUID);
 
                 // can run = remove global prefix fist, then if starts with cmd.Prefix
@@ -62,7 +62,7 @@ namespace pmcenter
                 return adminRunnable && prefixMatch;
             });
 
-            if (null == command)
+            if (command == null)
             {
                 return false;
             }

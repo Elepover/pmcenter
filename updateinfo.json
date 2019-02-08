@@ -1,5 +1,5 @@
 {
-  "Latest": "1.4.82.171",
-  "Details": "[/] Fixed a protential security breach.",
+  "Latest": "1.5.83.172",
+  "Details": "[/] Fixed a deadly problem with the /editconf command.\n[+] Added some commandline options! You can run \"dotnet pmcenter.dll --help\" to get details.\n[/] Fixed low performance mode.",
   "UpdateLevel": 1
 }

@@ -35,7 +35,7 @@ namespace pmcenter
                                string Module = "CORE",
                                LogLevel Type = LogLevel.INFO)
         {
-            if (Vars.CurrentConf?.LowPerformanceMode != false)
+            if (Vars.CurrentConf?.LowPerformanceMode == true)
             {
                 return;
             }

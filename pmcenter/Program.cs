@@ -23,7 +23,7 @@ namespace pmcenter
         public static void Main(string[] args)
         {
             StartSW.Start();
-            Console.WriteLine(Vars.ASCII);
+            Console.WriteLine(ASCII);
             Log("Main delegator activated!", "DELEGATOR");
             Log("Starting pmcenter, version " + AppVer.ToString() + ".", "DELEGATOR");
             Task MainAsyncTask = MainAsync(args);
@@ -36,19 +36,8 @@ namespace pmcenter
             try
             {
                 Log("==> Running pre-start operations...");
-                if (Environment.CommandLine.ToLower().Contains("--setup"))
-                {
-                    try
-                    {
-                        await Setup.SetupWizard();
-                    }
-                    catch (Exception ex)
-                    {
-                        Log("Setup wizard has exited accidentally: " + ex.ToString() + "\n\nProgram will now exit.", "DELEGATOR", LogLevel.ERROR);
-                    }
-                    // after the method above, program will exit.
-                }
-                // Nothing hahah.
+                await CmdLineProcess.RunCommand(Environment.CommandLine);
+                // everything (exits and/or errors) are handled above, please do not process.
                 Log("==> Running start operations...");
                 Log("==> Initializing module - CONF"); // BY DEFAULT CONF & LANG ARE NULL! PROCEED BEFORE DOING ANYTHING.
                 await InitConf();
