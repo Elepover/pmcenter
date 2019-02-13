@@ -1,5 +1,5 @@
 {
   "Latest": "1.5.84.173",
-  "Details": "[/] Fixed a deadly problem with the /editconf command.\n[+] Added some commandline options! You can run \"dotnet pmcenter.dll --help\" to get details.\n[/] Fixed low performance mode.",
+  "Details": "[+] We added something new to the --info command line.\n[/] Setup wizard is faster now.",
   "UpdateLevel": 1
 }
