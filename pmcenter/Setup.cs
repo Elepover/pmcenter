@@ -103,6 +103,8 @@ namespace pmcenter
                 Say("   Program will now exit.");
                 Say("   You can start it right away by typing this command:");
                 Say("     dotnet pmcenter.dll");
+                Say("   To run setup wizard again:");
+                Say("     dotnet pmcenter.dll --setup");
             }
             else
             {
@@ -166,7 +168,6 @@ namespace pmcenter
                 {
                     long NewUID = long.Parse(UID);
                     SIn(".. Saving UID: " + NewUID + " ...");
-                    Thread.Sleep(500);
                     NewConf.OwnerUID = NewUID;
                     Say(" Done!");
                 }
@@ -185,7 +186,6 @@ namespace pmcenter
             SIn("=> Mute notifications? [y/N]: ");
             string MuteNotif = Console.ReadLine();
             SIn(".. Saving...");
-            Thread.Sleep(500);
             if (MuteNotif.ToLower() != "y")
             {
                 NewConf.DisableNotifications = true;
@@ -204,7 +204,6 @@ namespace pmcenter
             SIn("=> Auto ban flooding users? [Y/n]: ");
             string AutoBan = Console.ReadLine();
             SIn(".. Saving...");
-            Thread.Sleep(500);
             if (AutoBan.ToLower() != "n")
             {
                 NewConf.AutoBan = true;

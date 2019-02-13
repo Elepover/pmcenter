@@ -6,6 +6,7 @@
 
 using System;
 using System.Linq;
+using System.Net;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
@@ -39,7 +40,7 @@ namespace pmcenter
             {
                 return;
             }
-            string Output = "[" + Vars.StartSW.Elapsed.TotalMilliseconds + "ms][" + DateTime.UtcNow.ToShortDateString() + " " + DateTime.UtcNow.ToShortTimeString() + "][" + Module + "]";
+            string Output = "[" + DateTime.UtcNow.ToShortDateString() + " " + DateTime.UtcNow.ToShortTimeString() + "][" + Module + "]";
             Console.BackgroundColor = ConsoleColor.Black;
             switch (Type)
             {
@@ -330,6 +331,27 @@ namespace pmcenter
         public static string BoolStr(bool Input)
         {
             if (Input) { return "true"; } else { return "false"; }
+        }
+        public static async Task<bool> TestConnectivity(string Target, bool Ignore45 = false)
+        {
+            try
+            {
+                HttpWebRequest Req = WebRequest.CreateHttp(Target);
+                Req.Timeout = 10000;
+                await Req.GetResponseAsync();
+                return true;
+            }
+            catch (WebException ex)
+            {
+                if (Ignore45) { return true; }
+                Log("Connectivity to " + Target + " is unavailable: " + ex.Message);
+                return false;
+            }
+            catch (Exception ex)
+            {
+                Log("Connectivity test failed: " + ex.Message);
+                return false;
+            }
         }
     }
 }
