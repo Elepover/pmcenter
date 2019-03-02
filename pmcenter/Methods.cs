@@ -356,12 +356,17 @@ namespace pmcenter
         }
         public static async Task<TimeSpan> TestLatency(string Target)
         {
+            Stopwatch ReqSW = new Stopwatch();
             try
             {
                 HttpWebRequest Req = WebRequest.CreateHttp(Target);
-                Stopwatch ReqSW = new Stopwatch();
                 ReqSW.Start();
                 await Req.GetResponseAsync();
+                ReqSW.Stop();
+                return ReqSW.Elapsed;
+            }
+            catch (WebException)
+            {
                 ReqSW.Stop();
                 return ReqSW.Elapsed;
             }
