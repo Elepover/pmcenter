@@ -1,4 +1,6 @@
-# pmcenter [![Build status](https://ci.appveyor.com/api/projects/status/gmbdiackw0563980?svg=true)](https://ci.appveyor.com/project/Elepover/pmcenter)
+# pmcenter
+
+[![build status](https://ci.appveyor.com/api/projects/status/gmbdiackw0563980?svg=true)](https://ci.appveyor.com/project/Elepover/pmcenter) [![telegram channel](https://img.shields.io/badge/telegram-channel-blue.svg)](https://t.me/pmcenter_devlog) ![license](https://img.shields.io/github/license/elepover/pmcenter.svg) ![language rank](https://img.shields.io/github/languages/top/elepover/pmcenter.svg?color=brightgreen) ![repo size in bytes](https://img.shields.io/github/repo-size/elepover/pmcenter.svg) ![environment](https://img.shields.io/badge/dotnet-v2.1-blue.svg) ![last commit](https://img.shields.io/github/last-commit/elepover/pmcenter.svg)
 
 一个帮你处理私人聊天消息的 Telegram 机器人。
 
@@ -19,6 +21,7 @@
 > - [🔧 配置](#配置)
 >   - [⚒️ `pmcenter` 设置](#pmcenter-设置)
 >     - [📄 翻译注意事项](#翻译注意事项)
+>     - [⛵ 改变文件位置](#改变文件位置)
 > - [🚀 启动](#启动)
 > - [🔩 命令](#命令)
 > - [🔺 免责声明](#免责声明)
@@ -160,6 +163,7 @@ That's all.
 | `UseProxy` | `Boolean` | 是否使用 SOCKS5 代理 |
 | `ResolveHostnamesLocally` | `Boolean` | 是否使用远程服务器解析域名 |
 | `CatchAllExceptions` | `Boolean` | 是否将所有错误转发给所有者 |
+| `NoStartupMessage` | `Boolean` | 是否停用 "启动成功" 消息 |
 
 #### 代理配置
 
@@ -179,6 +183,21 @@ That's all.
 - 目前 `/info` 命令的回复尚且无法更改。
 - 欢迎 Pull Requests.
 - 切换中文语言包，只需发送 `/switchlang https://raw.githubusercontent.com/Elepover/pmcenter/master/locales/pmcenter_locale_zh.json`
+
+#### 改变文件位置
+
+在 1.5.85.174 或更高版本, pmcenter 会在启动时读取以下两个环境变量:
+
+```
+pmcenter_conf: pmcenter 配置文件路径。
+pmcenter_lang: pmcenter 语言文件路径。
+```
+
+在以下三种情况下, pmcenter 仍将使用默认位置:
+
+- 环境变量不存在。
+- 无法读取环境变量。
+- 指定的文件不存在。
 
 ## 启动
 
@@ -218,6 +237,7 @@ That's all.
 | `/restart` | 所有者 | 重新启动机器人 |
 | `/status` | 所有者 | 获取设备状态 |
 | `/perform` | 所有者 | 启动性能测试 |
+| `/testnetwork` | 所有者 | 测试到 pmcenter 所用服务器的延迟 |
 
 请注意: `/restart` 命令仅在有有效的守护进程，且其能在 pmcenter 退出后自动将其重启的情况下工作。pmcenter 无法自行重新启动。
 

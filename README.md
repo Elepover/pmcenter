@@ -1,6 +1,6 @@
 # pmcenter
 
-[![build status](https://ci.appveyor.com/api/projects/status/gmbdiackw0563980?svg=true)](https://ci.appveyor.com/project/Elepover/pmcenter) [![telegram channel](https://img.shields.io/badge/telegram-channel-blue.svg)](https://t.me/pmcenter_devlog) ![license](https://img.shields.io/github/license/elepover/pmcenter.svg) ![language rank](https://img.shields.io/github/languages/top/elepover/pmcenter.svg?color=brightgreen) ![repo size in bytes](https://img.shields.io/github/repo-size/elepover/pmcenter.svg)
+[![build status](https://ci.appveyor.com/api/projects/status/gmbdiackw0563980?svg=true)](https://ci.appveyor.com/project/Elepover/pmcenter) [![telegram channel](https://img.shields.io/badge/telegram-channel-blue.svg)](https://t.me/pmcenter_devlog) ![license](https://img.shields.io/github/license/elepover/pmcenter.svg) ![language rank](https://img.shields.io/github/languages/top/elepover/pmcenter.svg?color=brightgreen) ![repo size in bytes](https://img.shields.io/github/repo-size/elepover/pmcenter.svg) ![environment](https://img.shields.io/badge/dotnet-v2.1-blue.svg) ![last commit](https://img.shields.io/github/last-commit/elepover/pmcenter.svg)
 
 A telegram bot helping you to process private messages.
 
@@ -21,6 +21,7 @@ A telegram bot helping you to process private messages.
 > - [🔧 Configuring](#configuring)
 >   - [⚒️ `pmcenter` Settings](#pmcenter-settings)
 >     - [📄 Note About Translations](#note-about-translations)
+>     - [⛵ Changing File Location](#changing-file-location)
 > - [🚀 Starting](#starting)
 > - [🔩 Commands](#commands)
 > - [🔺 Disclaimer](#disclaimer)
@@ -160,6 +161,7 @@ Or, use setup wizard:
 | `UseProxy` | `Boolean` | Use/Not to use SOCKS5 proxy. |
 | `ResolveHostnamesLocally` | `Boolean` | Use/Not to use remote server to resolve domain names. |
 | `CatchAllExceptions` | `Boolean` | Decides whether to forward all exceptions to the owner or not. |
+| `NoStartupMessage` | `Boolean` | Enable/Disable "startup complete" messages. |
 
 #### Proxy Configuration
 
@@ -178,6 +180,21 @@ Tip: After upgrades, you can send `/saveconf` command to the bot to fix missing 
 - **Emojis** are supported, and were used by default.
 - Currently the response of the `/info` command is unchangeable.
 - Familiar with another language? Pull requests are welcome!
+
+#### Changing File Location
+
+On version 1.5.85.174 and later, pmcenter will check these two following environment variables on startup:
+
+```
+pmcenter_conf: pmcenter's configurations file's location.
+pmcenter_lang: pmcenter's language file's location.
+```
+
+On these 3 scenarios, pmcenter will still use default location:
+
+- The environment variable doesn't exist.
+- The environment variable cannot be accessed.
+- File not found.
 
 ## Starting
 
@@ -217,6 +234,7 @@ You can write a `systemd service` to keep it running, even after the host machin
 | `/restart` | Owner | Restart bot. |
 | `/status` | Owner | Get host device's status. |
 | `/perform` | Owner | Start performance test. |
+| `/testnetwork` | Owner | Test latency to servers used by pmcenter. |
 
 Please note: `/restart` command only works with a daemon that auto-restarts pmcenter when it exits. pmcenter cannot restart by itself.
 

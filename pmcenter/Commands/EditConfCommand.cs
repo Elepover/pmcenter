@@ -21,6 +21,18 @@ namespace pmcenter.Commands
                 Log("Configurations received, applying...", "BOT", LogLevel.INFO);
                 string ConfStr = update.Message.Text.Split(" ", 2)[1];
                 Conf.ConfObj Temp = JsonConvert.DeserializeObject<Conf.ConfObj>(ConfStr);
+                if (Temp.APIKey != Vars.CurrentConf.APIKey)
+                {
+                    Log("API Key has changed! Please restart pmcenter to apply the change.", "BOT", LogLevel.WARN);
+                    await botClient.SendTextMessageAsync(
+                        update.Message.From.Id,
+                        Vars.CurrentLang.Message_APIKeyChanged,
+                        ParseMode.Markdown,
+                        false,
+                        Vars.CurrentConf.DisableNotifications,
+                        update.Message.MessageId);
+                    Vars.RestartRequired = true;
+                }
                 Vars.CurrentConf = Temp;
                 Log("Applied! Saving to local disk...", "BOT", LogLevel.INFO);
                 await Conf.SaveConf(false, true);

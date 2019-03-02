@@ -6,6 +6,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using MihaZupan;
@@ -14,7 +15,6 @@ using Telegram.Bot.Types.Enums;
 using static pmcenter.Conf;
 using static pmcenter.Lang;
 using static pmcenter.Methods;
-using static pmcenter.Vars;
 
 namespace pmcenter
 {
@@ -22,10 +22,10 @@ namespace pmcenter
     {
         public static void Main(string[] args)
         {
-            StartSW.Start();
-            Console.WriteLine(ASCII);
+            Vars.StartSW.Start();
+            Console.WriteLine(Vars.ASCII);
             Log("Main delegator activated!", "DELEGATOR");
-            Log("Starting pmcenter, version " + AppVer.ToString() + ".", "DELEGATOR");
+            Log("Starting pmcenter, version " + Vars.AppVer.ToString() + ".", "DELEGATOR");
             Task MainAsyncTask = MainAsync(args);
             MainAsyncTask.Wait();
             Log("Main worker accidentally exited. Stopping...", "DELEGATOR", LogLevel.ERROR);
@@ -38,13 +38,50 @@ namespace pmcenter
                 Log("==> Running pre-start operations...");
                 await CmdLineProcess.RunCommand(Environment.CommandLine);
                 // everything (exits and/or errors) are handled above, please do not process.
+                // detect environment variables
+                // including: $pmcenter_conf, $pmcenter_lang
+                try
+                {
+                    string ConfByEnviVar = Environment.GetEnvironmentVariable("pmcenter_conf");
+                    string LangByEnviVar = Environment.GetEnvironmentVariable("pmcenter_lang");
+                    if (ConfByEnviVar != null)
+                    {
+                        if (File.Exists(ConfByEnviVar))
+                        {
+                            Vars.ConfFile = ConfByEnviVar;
+                        }
+                        else
+                        {
+                            Log("==> The following file was not found: " + ConfByEnviVar, "CORE", LogLevel.INFO);
+                        }
+                    }
+                    if (LangByEnviVar != null)
+                    {
+                        if (File.Exists(LangByEnviVar))
+                        {
+                            Vars.LangFile = LangByEnviVar;
+                        }
+                        else
+                        {
+                            Log("==> The following file was not found: " + LangByEnviVar, "CORE", LogLevel.INFO);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Log("Failed to read environment variables: " + ex.ToString(), "CORE", LogLevel.WARN);
+                }
+                
+                Log("==> Using configurations file: " + Vars.ConfFile);
+                Log("==> Using language file: " + Vars.LangFile);
+                
                 Log("==> Running start operations...");
                 Log("==> Initializing module - CONF"); // BY DEFAULT CONF & LANG ARE NULL! PROCEED BEFORE DOING ANYTHING.
                 await InitConf();
                 await ReadConf();
                 await InitLang();
                 await ReadLang();
-                if (RestartRequired)
+                if (Vars.RestartRequired)
                 {
                     Log("This may be the first time that you use the pmcenter bot.", "CORE");
                     Log("Configuration guide could be found at https://see.wtf/feEJJ", "CORE");
@@ -55,20 +92,20 @@ namespace pmcenter
 
                 Log("==> Initializing module - THREADS");
                 Log("Starting RateLimiter...");
-                RateLimiter = new Thread(() => ThrRateLimiter());
-                RateLimiter.Start();
+                Vars.RateLimiter = new Thread(() => ThrRateLimiter());
+                Vars.RateLimiter.Start();
                 Log("Waiting...");
-                while (RateLimiter.IsAlive != true)
+                while (Vars.RateLimiter.IsAlive != true)
                 {
                     Thread.Sleep(100);
                 }
                 Log("Starting UpdateChecker");
                 if (Vars.CurrentConf.EnableAutoUpdateCheck)
                 {
-                    UpdateChecker = new Thread(() => ThrUpdateChecker());
-                    UpdateChecker.Start();
+                    Vars.UpdateChecker = new Thread(() => ThrUpdateChecker());
+                    Vars.UpdateChecker.Start();
                     Log("Waiting...");
-                    while (UpdateChecker.IsAlive != true)
+                    while (Vars.UpdateChecker.IsAlive != true)
                     {
                         Thread.Sleep(100);
                     }
@@ -82,11 +119,11 @@ namespace pmcenter
 
                 Log("==> Initializing module - BOT");
                 Log("Initializing bot instance...");
-                if (CurrentConf.UseProxy)
+                if (Vars.CurrentConf.UseProxy)
                 {
                     Log("Activating SOCKS5 proxy...");
                     List<ProxyInfo> ProxyInfoList = new List<ProxyInfo>();
-                    foreach (Socks5Proxy Info in CurrentConf.Socks5Proxies)
+                    foreach (Socks5Proxy Info in Vars.CurrentConf.Socks5Proxies)
                     {
                         ProxyInfo ProxyInfo = new ProxyInfo(Info.ServerName,
                                                             Info.ServerPort,
@@ -96,32 +133,42 @@ namespace pmcenter
                     }
                     HttpToSocks5Proxy Proxy = new HttpToSocks5Proxy(ProxyInfoList.ToArray())
                     {
-                        ResolveHostnamesLocally = CurrentConf.ResolveHostnamesLocally
+                        ResolveHostnamesLocally = Vars.CurrentConf.ResolveHostnamesLocally
                     };
                     Log("SOCKS5 proxy is enabled.");
-                    Bot = new TelegramBotClient(CurrentConf.APIKey, Proxy);
+                    Vars.Bot = new TelegramBotClient(Vars.CurrentConf.APIKey, Proxy);
                 }
                 else
                 {
-                    Bot = new TelegramBotClient(CurrentConf.APIKey);
+                    Vars.Bot = new TelegramBotClient(Vars.CurrentConf.APIKey);
                 }
-                await Bot.TestApiAsync();
+                await Vars.Bot.TestApiAsync();
                 Log("Hooking event processors...");
-                Bot.OnUpdate += BotProcess.OnUpdate;
+                Vars.Bot.OnUpdate += BotProcess.OnUpdate;
                 Log("Starting receiving...");
-                Bot.StartReceiving(new[] { UpdateType.Message });
+                Vars.Bot.StartReceiving(new[] { UpdateType.Message });
                 Log("==> Startup complete!");
                 Log("==> Running post-start operations...");
-                await Bot.SendTextMessageAsync(Vars.CurrentConf.OwnerUID,
-                                               Vars.CurrentLang.Message_BotStarted
-                                                   .Replace("$1", StartSW.Elapsed.TotalMilliseconds + "ms"),
-                                               Telegram.Bot.Types.Enums.ParseMode.Markdown,
-                                               false,
-                                               false);
+                try
+                {
+                    if (Vars.CurrentConf.NoStartupMessage != true)
+                    {
+                        await Vars.Bot.SendTextMessageAsync(Vars.CurrentConf.OwnerUID,
+                                                            Vars.CurrentLang.Message_BotStarted
+                                                                .Replace("$1", Vars.StartSW.Elapsed.TotalMilliseconds + "ms"),
+                                                            Telegram.Bot.Types.Enums.ParseMode.Markdown,
+                                                            false,
+                                                            false);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Log("Failed to send startup message to owner.\nDid you set the \"OwnerID\" key correctly? Otherwise pmcenter could not work correctly.\nYou can try to use setup wizard to update/get your OwnerID automatically, just run \"dotnet pmcenter.dll --setup\".\n\nError details: " + ex.ToString(), "BOT", LogLevel.ERROR);
+                }
                 if (Vars.CurrentLang.TargetVersion != Vars.AppVer.ToString())
                 {
                     Log("Language version mismatch detected.", "CORE", LogLevel.WARN);
-                    await Bot.SendTextMessageAsync(Vars.CurrentConf.OwnerUID,
+                    await Vars.Bot.SendTextMessageAsync(Vars.CurrentConf.OwnerUID,
                                                    Vars.CurrentLang.Message_LangVerMismatch
                                                        .Replace("$1", Vars.CurrentLang.TargetVersion)
                                                        .Replace("$2", Vars.AppVer.ToString()),

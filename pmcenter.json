@@ -34,5 +34,6 @@
   ],
   "UseProxy": false,
   "ResolveHostnamesLocally": true,
-  "CatchAllExceptions": false
+  "CatchAllExceptions": false,
+  "NoStartupMessage": false
 }

@@ -5,6 +5,7 @@
 */
 
 using System;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Text.RegularExpressions;
@@ -351,6 +352,23 @@ namespace pmcenter
             {
                 Log("Connectivity test failed: " + ex.Message);
                 return false;
+            }
+        }
+        public static async Task<TimeSpan> TestLatency(string Target)
+        {
+            try
+            {
+                HttpWebRequest Req = WebRequest.CreateHttp(Target);
+                Stopwatch ReqSW = new Stopwatch();
+                ReqSW.Start();
+                await Req.GetResponseAsync();
+                ReqSW.Stop();
+                return ReqSW.Elapsed;
+            }
+            catch (Exception ex)
+            {
+                Log("Latency test failed: " + ex.Message);
+                return new TimeSpan(0);
             }
         }
     }

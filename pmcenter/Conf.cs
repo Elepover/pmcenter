@@ -50,6 +50,7 @@ namespace pmcenter
                 UseProxy = false;
                 ResolveHostnamesLocally = true;
                 CatchAllExceptions = false;
+                NoStartupMessage = false;
             }
             public string APIKey { get; set; }
             public long OwnerUID { get; set; }
@@ -78,6 +79,7 @@ namespace pmcenter
             public bool UseProxy { get; set; }
             public bool ResolveHostnamesLocally { get; set; }
             public bool CatchAllExceptions { get; set; }
+            public bool NoStartupMessage { get; set; }
         }
         public class BanObj
         {
@@ -155,10 +157,14 @@ namespace pmcenter
         }
         public static async Task<bool> ReadConf(bool Apply = true)
         { // DO NOT HANDLE ERRORS HERE. THE CALLING METHOD WILL HANDLE THEM.
-            string SettingsText = await File.ReadAllTextAsync(Vars.ConfFile);
-            ConfObj Temp = JsonConvert.DeserializeObject<ConfObj>(SettingsText);
+            ConfObj Temp = await GetConf(Vars.ConfFile);
             if (Apply) { Vars.CurrentConf = Temp; }
             return true;
+        }
+        public static async Task<ConfObj> GetConf(string Filename)
+        {
+            string SettingsText = await File.ReadAllTextAsync(Filename);
+            return JsonConvert.DeserializeObject<ConfObj>(SettingsText);
         }
         public static async Task InitConf()
         {
