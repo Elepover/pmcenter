@@ -32,7 +32,7 @@ A telegram bot helping you to process private messages.
 - 🛡️ High stability and availability
 - 📡 SOCKS5 proxy support
 - 🚧 Powerful anti-spamming system
-  - 🗨️ Multiple filtering modes
+  - 💬 Multiple filtering modes
     - Regular expression mode
     - Full word matching mode
   - 👤 Blocking by User ID
@@ -40,7 +40,7 @@ A telegram bot helping you to process private messages.
   - ☑️ Support for manual blocking
 - 📺 Daily maintenance, all on Telegram
   - 📥 Automatic updates
-    - ⏱ Optional auto update check
+    - 🕑 Optional auto update check
     - ➡️ Manual update check
   - 🔄 Restarting bot
   - 🌐 Switching languages
@@ -162,6 +162,7 @@ Or, use setup wizard:
 | `ResolveHostnamesLocally` | `Boolean` | Use/Not to use remote server to resolve domain names. |
 | `CatchAllExceptions` | `Boolean` | Decides whether to forward all exceptions to the owner or not. |
 | `NoStartupMessage` | `Boolean` | Enable/Disable "startup complete" messages. |
+| `ContChatTarget` | `Long` | Target of Continued Conversation. |
 
 #### Proxy Configuration
 
@@ -235,6 +236,8 @@ You can write a `systemd service` to keep it running, even after the host machin
 | `/status` | Owner | Get host device's status. |
 | `/perform` | Owner | Start performance test. |
 | `/testnetwork` | Owner | Test latency to servers used by pmcenter. |
+| `/chat [ID]` | Owner | Enter Continued Conversation mode with someone. |
+| `/stopchat` | Owner | Leave Continued Conversation. |
 
 Please note: `/restart` command only works with a daemon that auto-restarts pmcenter when it exits. pmcenter cannot restart by itself.
 

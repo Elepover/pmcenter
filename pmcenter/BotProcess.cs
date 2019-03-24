@@ -30,6 +30,7 @@ namespace pmcenter
             commandManager.RegisterCommand(new BackupConfCommand());
             commandManager.RegisterCommand(new BanIdCommand());
             commandManager.RegisterCommand(new CatConfigCommand());
+            commandManager.RegisterCommand(new ChatCommand());
             commandManager.RegisterCommand(new CheckUpdateCommand());
             commandManager.RegisterCommand(new DetectPermissionCommand());
             commandManager.RegisterCommand(new DonateCommand());
@@ -42,6 +43,7 @@ namespace pmcenter
             commandManager.RegisterCommand(new RestartCommand());
             commandManager.RegisterCommand(new SaveConfigCommand());
             commandManager.RegisterCommand(new StatusCommand());
+            commandManager.RegisterCommand(new StopChatCommand());
             commandManager.RegisterCommand(new SwitchBwCommand());
             commandManager.RegisterCommand(new SwitchFwCommand());
             commandManager.RegisterCommand(new SwitchLangCommand());
@@ -263,6 +265,34 @@ namespace pmcenter
             {
                 return;
             }
+            // command mismatch
+            if (Vars.CurrentConf.ContChatTarget != -1)
+            {
+                // Is replying, replying to forwarded message AND not command.
+                if (Vars.CurrentConf.AnonymousForward)
+                {
+                    await ForwardMessageAnonymously(Vars.CurrentConf.ContChatTarget,
+                                                    Vars.CurrentConf.DisableNotifications,
+                                                    update.Message);
+                }
+                else
+                {
+                    await Vars.Bot.ForwardMessageAsync(
+                        Vars.CurrentConf.ContChatTarget,
+                        update.Message.Chat.Id,
+                        update.Message.MessageId,
+                        Vars.CurrentConf.DisableNotifications);
+                }
+                // Process locale.
+                if (Vars.CurrentConf.EnableRepliedConfirmation)
+                {
+                    string ReplyToMessage = Vars.CurrentLang.Message_ReplySuccessful;
+                    ReplyToMessage = ReplyToMessage.Replace("$1", "[" + Vars.CurrentConf.ContChatTarget + "](tg://user?id=" + Vars.CurrentConf.ContChatTarget + ")");
+                    await Vars.Bot.SendTextMessageAsync(update.Message.From.Id, ReplyToMessage, ParseMode.Markdown, false, false, update.Message.MessageId);
+                }
+                Log("Successfully passed owner's reply to UID: " + Vars.CurrentConf.ContChatTarget, "BOT");
+                return;
+            }
 
             await Vars.Bot.SendTextMessageAsync(
                 update.Message.From.Id,
@@ -297,7 +327,9 @@ namespace pmcenter
             // Is replying, replying to forwarded message AND not command.
             if (Vars.CurrentConf.AnonymousForward)
             {
-                await ForwardMessageAnonymously(update.Message.ReplyToMessage.ForwardFrom.Id, Vars.CurrentConf.DisableNotifications, update.Message);
+                await ForwardMessageAnonymously(update.Message.ReplyToMessage.ForwardFrom.Id,
+                                                Vars.CurrentConf.DisableNotifications,
+                                                update.Message);
             }
             else
             {

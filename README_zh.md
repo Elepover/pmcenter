@@ -32,7 +32,7 @@
 - 🛡️ 高稳定性及容错率
 - 📡 SOCKS5 代理支持
 - 🚧 强大的的消息过滤系统
-  - 🗨️ 多模式的关键词过滤
+  - 💬 多模式的关键词过滤
     - 正则表达式模式
     - 全词匹配模式
   - 👤 用户 ID 屏蔽
@@ -40,7 +40,7 @@
   - ☑️ 可手动屏蔽用户
 - 📺 无需连接 SSH 即可在 TG 上完成常用维护
   - 📥 自动更新
-    - ⏱ 可选的自动更新检查
+    - 🕑 可选的自动更新检查
     - ➡️ 手动的更新检查
   - 🔄 重启机器人
   - 🌐 切换语言
@@ -164,6 +164,7 @@ That's all.
 | `ResolveHostnamesLocally` | `Boolean` | 是否使用远程服务器解析域名 |
 | `CatchAllExceptions` | `Boolean` | 是否将所有错误转发给所有者 |
 | `NoStartupMessage` | `Boolean` | 是否停用 "启动成功" 消息 |
+| `ContChatTarget` | `Long` | 连续对话模式目标 |
 
 #### 代理配置
 
@@ -238,6 +239,8 @@ pmcenter_lang: pmcenter 语言文件路径。
 | `/status` | 所有者 | 获取设备状态 |
 | `/perform` | 所有者 | 启动性能测试 |
 | `/testnetwork` | 所有者 | 测试到 pmcenter 所用服务器的延迟 |
+| `/chat [ID]` | 所有者 | 进入持续对话模式 |
+| `/stopchat` | 所有者 | 退出持续对话模式 |
 
 请注意: `/restart` 命令仅在有有效的守护进程，且其能在 pmcenter 退出后自动将其重启的情况下工作。pmcenter 无法自行重新启动。
 

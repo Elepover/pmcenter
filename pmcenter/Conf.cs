@@ -51,6 +51,7 @@ namespace pmcenter
                 ResolveHostnamesLocally = true;
                 CatchAllExceptions = false;
                 NoStartupMessage = false;
+                ContChatTarget = -1;
             }
             public string APIKey { get; set; }
             public long OwnerUID { get; set; }
@@ -80,6 +81,7 @@ namespace pmcenter
             public bool ResolveHostnamesLocally { get; set; }
             public bool CatchAllExceptions { get; set; }
             public bool NoStartupMessage { get; set; }
+            public long ContChatTarget { get; set; }
         }
         public class BanObj
         {

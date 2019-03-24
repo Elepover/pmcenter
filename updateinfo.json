@@ -1,5 +1,5 @@
 {
-  "Latest": "1.5.85.174",
-  "Details": "[+] Configurations and language files' locations can be changed now! View documentation for more info.\n[+] You can now run /testnetwork command to see your server's latency with Telegram servers.\n[+] We added a warning that shows up when you changes the API Key with /editconf command.\n[+] You can now disable the (maybe) annoying startup message.\n[+] A help message will show up on console when bot fails to communicate with you.",
+  "Latest": "1.5.86.175",
+  "Details": "[+] New Continued Conversation mode!",
   "UpdateLevel": 1
 }
