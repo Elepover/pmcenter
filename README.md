@@ -33,8 +33,8 @@ A telegram bot helping you to process private messages.
 - 📡 SOCKS5 proxy support
 - 🚧 Powerful anti-spamming system
   - 💬 Multiple filtering modes
-    - Regular expression mode
-    - Full word matching mode
+    - 🔣 Regular expression mode
+    - 🔠 Full word matching mode
   - 👤 Blocking by User ID
   - 🔄 Automatic blocking by message count
   - ☑️ Support for manual blocking
@@ -47,6 +47,7 @@ A telegram bot helping you to process private messages.
   - 🗃 Reading/Writing configurations
   - 💻 Getting system status
 - ℹ️ Real message source display
+- 🆔 Support the new privacy mode introduced in Telegram 5.5.0
 - ... and more!
 
 ## Setting Up Your Own `pmcenter`
