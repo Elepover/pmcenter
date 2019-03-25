@@ -149,6 +149,15 @@ namespace pmcenter
                                                                           update.Message.From.Id,
                                                                           update.Message.MessageId,
                                                                           Vars.CurrentConf.DisableNotifications);
+            if (Vars.CurrentConf.EnableMsgLink)
+            {
+                Log("Recording message link: " + ForwardedMessage.MessageId + " -> " + update.Message.From.Id);
+                Vars.CurrentConf.MessageLinks.Add(
+                    new Conf.MessageIDLink()
+                    { OwnerSessionMessageID = ForwardedMessage.MessageId, TGUser = update.Message.From }
+                );
+                await Conf.SaveConf(false, true);
+            }
             // check for real message sender
             // check if forwarded from channels
             if (update.Message.ForwardFrom == null && update.Message.ForwardFromChat != null)
@@ -306,6 +315,13 @@ namespace pmcenter
 
         private static async Task OwnerReplying(Update update)
         {
+            // check anonymous forward (5.5.0 new feature compatibility fix)
+            Conf.MessageIDLink Link = GetLinkByMsgID(update.Message.ReplyToMessage.MessageId);
+            if (Link != null)
+            {
+                Log("Selected message is forwarded anonymously from " + Link.TGUser.Id + ", fixing user information from database.", "BOT");
+                update.Message.ReplyToMessage.ForwardFrom = Link.TGUser;
+            }
             if (update.Message.ReplyToMessage.ForwardFrom == null)
             {
                 // The owner is replying to bot messages. (no forwardfrom)

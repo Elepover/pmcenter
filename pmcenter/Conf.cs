@@ -10,6 +10,7 @@ using System.IO;
 using System.Net;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using Telegram.Bot.Types;
 using static pmcenter.Methods;
 
 namespace pmcenter
@@ -29,9 +30,7 @@ namespace pmcenter
                 Cc = new long[] { };
                 AutoBan = true;
                 AutoBanThreshold = 20;
-                Banned = new List<BanObj>();
                 ForwardingPaused = false;
-                BannedKeywords = new List<string>();
                 KeywordBanning = true;
                 KeywordAutoBan = false;
                 EnableRegex = false;
@@ -46,12 +45,16 @@ namespace pmcenter
                 DonateString = "";
                 LowPerformanceMode = false;
                 DetailedMsgLogging = false;
-                Socks5Proxies = new List<Socks5Proxy>();
                 UseProxy = false;
                 ResolveHostnamesLocally = true;
                 CatchAllExceptions = false;
                 NoStartupMessage = false;
                 ContChatTarget = -1;
+                EnableMsgLink = false;
+                Socks5Proxies = new List<Socks5Proxy>();
+                BannedKeywords = new List<string>();
+                Banned = new List<BanObj>();
+                MessageLinks = new List<MessageIDLink>();
             }
             public string APIKey { get; set; }
             public long OwnerUID { get; set; }
@@ -59,9 +62,7 @@ namespace pmcenter
             public long[] Cc { get; set; }
             public bool AutoBan { get; set; }
             public int AutoBanThreshold { get; set; }
-            public List<BanObj> Banned { get; set; }
             public bool ForwardingPaused { get; set; }
-            public List<string> BannedKeywords { get; set; }
             public bool KeywordBanning { get; set; }
             public bool KeywordAutoBan { get; set; }
             public bool EnableRegex { get; set; }
@@ -76,12 +77,16 @@ namespace pmcenter
             public string DonateString { get; set; }
             public bool LowPerformanceMode { get; set; }
             public bool DetailedMsgLogging { get; set; }
-            public List<Socks5Proxy> Socks5Proxies { get; set; }
             public bool UseProxy { get; set; }
             public bool ResolveHostnamesLocally { get; set; }
             public bool CatchAllExceptions { get; set; }
             public bool NoStartupMessage { get; set; }
             public long ContChatTarget { get; set; }
+            public bool EnableMsgLink { get; set; }
+            public List<Socks5Proxy> Socks5Proxies { get; set; }
+            public List<string> BannedKeywords { get; set; }
+            public List<BanObj> Banned { get; set; }
+            public List<MessageIDLink> MessageLinks { get; set; }
         }
         public class BanObj
         {
@@ -127,6 +132,19 @@ namespace pmcenter
             public string Username { get; set; }
             public string ProxyPass { get; set; }
         }
+        public class MessageIDLink
+        {
+            public MessageIDLink()
+            {
+                TGUser = null;
+                OwnerSessionMessageID = -1;
+            }
+            public User TGUser { get; set; }
+            /// <summary>
+            /// Message ID of the message in owner's session
+            /// </summary>
+            public long OwnerSessionMessageID { get; set; }
+        }
         public enum UpdateLevel
         {
             Optional = 0,
@@ -144,7 +162,7 @@ namespace pmcenter
         public static async Task<bool> SaveConf(bool IsInvalid = false, bool IsAutoSave = false)
         { // DO NOT HANDLE ERRORS HERE.
             string Text = JsonConvert.SerializeObject(Vars.CurrentConf, Formatting.Indented);
-            await File.WriteAllTextAsync(Vars.ConfFile, Text);
+            await System.IO.File.WriteAllTextAsync(Vars.ConfFile, Text);
             if (IsAutoSave)
             {
                 Log("Autosave complete.", "CONF");
@@ -165,13 +183,13 @@ namespace pmcenter
         }
         public static async Task<ConfObj> GetConf(string Filename)
         {
-            string SettingsText = await File.ReadAllTextAsync(Filename);
+            string SettingsText = await System.IO.File.ReadAllTextAsync(Filename);
             return JsonConvert.DeserializeObject<ConfObj>(SettingsText);
         }
         public static async Task InitConf()
         {
             Log("Checking configurations file's integrity...", "CONF");
-            if (File.Exists(Vars.ConfFile) != true)
+            if (System.IO.File.Exists(Vars.ConfFile) != true)
             { // STEP 1, DETECT EXISTENCE.
                 Log("Configurations file not found. Creating...", "CONF", LogLevel.WARN);
                 Vars.CurrentConf = new ConfObj();
@@ -187,7 +205,7 @@ namespace pmcenter
                 {
                     Log("Error! " + ex.ToString(), "CONF", LogLevel.ERROR);
                     Log("Moving old configurations file to \"pmcenter.json.bak\"...", "CONF", LogLevel.WARN);
-                    File.Move(Vars.ConfFile, Vars.ConfFile + ".bak");
+                    System.IO.File.Move(Vars.ConfFile, Vars.ConfFile + ".bak");
                     Vars.CurrentConf = new ConfObj();
                     await SaveConf(true); // Then the app will exit, do nothing.
                 }

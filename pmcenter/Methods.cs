@@ -249,6 +249,14 @@ namespace pmcenter
             }
             return -1;
         }
+        public static MessageIDLink GetLinkByMsgID(long OwnerSessionMsgID)
+        {
+            foreach (MessageIDLink Link in Vars.CurrentConf.MessageLinks)
+            {
+                if (Link.OwnerSessionMessageID == OwnerSessionMsgID) { return Link; }
+            }
+            return null;
+        }
         public static void AddRateLimit(long UID)
         {
             if (IsRateDataTracking(UID))

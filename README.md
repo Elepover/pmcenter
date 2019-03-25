@@ -20,7 +20,7 @@ A telegram bot helping you to process private messages.
 >   - [🐠 Use Docker](#use-docker)
 > - [🔧 Configuring](#configuring)
 >   - [⚒️ `pmcenter` Settings](#pmcenter-settings)
->     - [📄 Note About Translations](#note-about-translations)
+>     - [📄 Note](#note)
 >     - [⛵ Changing File Location](#changing-file-location)
 > - [🚀 Starting](#starting)
 > - [🔩 Commands](#commands)
@@ -140,9 +140,7 @@ Or, use setup wizard:
 | `Cc` | `Array` | Other users/groups/channels to receive forwarded messages. |
 | `AutoBan` | `Boolean` | Decides whether the flood-banning feature is enabled or not. |
 | `AutoBanThreshold` | `Int` | How many messages in 0.5m will be banned. |
-| `Banned` | `Array` | Storage of banned users. |
 | `ForwardingPaused` | `Boolean` | Decides whether the message forwarding is enabled or not. |
-| `BannedKeywords` | `Array` | Storage of banned keywords. |
 | `KeywordBanning` | `Boolean` | Decides whether the keyword banning feature is enabled or not. |
 | `KeywordAutoBan` | `Boolean` | Automatically bans the matching user. |
 | `EnableRegex` | `Boolean` | Enables regex matching in keywords banning or not. |
@@ -157,12 +155,16 @@ Or, use setup wizard:
 | `DonateString` | `string` | Text to show when users send the /donate command. Leave empty to disable this feature. |
 | `LowPerformanceMode` | `boolean` | Tune pmcenter for low-end hardware like a Raspberry Pi. |
 | `DetailedMsgLogging` | `Boolean` | Enable/Disable detailed message information output. |
-| `Socks5Proxies` | `Array` | List of SOCKS5 proxies. |
 | `UseProxy` | `Boolean` | Use/Not to use SOCKS5 proxy. |
 | `ResolveHostnamesLocally` | `Boolean` | Use/Not to use remote server to resolve domain names. |
 | `CatchAllExceptions` | `Boolean` | Decides whether to forward all exceptions to the owner or not. |
 | `NoStartupMessage` | `Boolean` | Enable/Disable "startup complete" messages. |
 | `ContChatTarget` | `Long` | Target of Continued Conversation. |
+| `EnableMsgLink` | `Boolean` | Enable/Disable message links. |
+| `Socks5Proxies` | `Array` | List of SOCKS5 proxies. |
+| `BannedKeywords` | `Array` | Storage of banned keywords. |
+| `Banned` | `Array` | Storage of banned users. |
+| `MessageLinks` | `Array` | Storage of message links. |
 
 #### Proxy Configuration
 
@@ -175,12 +177,13 @@ Or, use setup wizard:
 
 Tip: After upgrades, you can send `/saveconf` command to the bot to fix missing new settings.
 
-#### Note About Translations
+#### Note
 
 - The variables like `$1` in the `Message_ReplySuccessful` and other keys could be safely deleted, if you like.
 - **Emojis** are supported, and were used by default.
 - Currently the response of the `/info` command is unchangeable.
 - Familiar with another language? Pull requests are welcome!
+- Please think twice before turning on `EnableMsgLink`, it makes it possible for you to reply to messages that are forwarded anonymously or from channels, however, it will cost more and more of your storage space and memory as the storage grows and makes it slower for pmcenter to process configuration files.
 
 #### Changing File Location
 
