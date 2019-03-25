@@ -151,7 +151,7 @@ namespace pmcenter
                                                                           Vars.CurrentConf.DisableNotifications);
             if (Vars.CurrentConf.EnableMsgLink)
             {
-                Log("Recording message link: " + ForwardedMessage.MessageId + " -> " + update.Message.From.Id);
+                Log("Recording message link: " + ForwardedMessage.MessageId + " -> " + update.Message.From.Id, "BOT");
                 Vars.CurrentConf.MessageLinks.Add(
                     new Conf.MessageIDLink()
                     { OwnerSessionMessageID = ForwardedMessage.MessageId, TGUser = update.Message.From }
