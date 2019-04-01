@@ -32,15 +32,18 @@ namespace pmcenter
             commandManager.RegisterCommand(new CatConfigCommand());
             commandManager.RegisterCommand(new ChatCommand());
             commandManager.RegisterCommand(new CheckUpdateCommand());
+            commandManager.RegisterCommand(new ClearMessageLinksCommand());
             commandManager.RegisterCommand(new DetectPermissionCommand());
             commandManager.RegisterCommand(new DonateCommand());
             commandManager.RegisterCommand(new EditConfCommand());
+            commandManager.RegisterCommand(new GetStatsCommand());
             commandManager.RegisterCommand(new PardonIdCommand());
             commandManager.RegisterCommand(new PerformCommand());
             commandManager.RegisterCommand(new PingCommand());
             commandManager.RegisterCommand(new ReadConfigCommand());
             commandManager.RegisterCommand(new ResetConfCommand());
             commandManager.RegisterCommand(new RestartCommand());
+            commandManager.RegisterCommand(new RetractCommand());
             commandManager.RegisterCommand(new SaveConfigCommand());
             commandManager.RegisterCommand(new StatusCommand());
             commandManager.RegisterCommand(new StopChatCommand());
@@ -78,6 +81,7 @@ namespace pmcenter
                     return;
                 }
 
+                Vars.CurrentConf.Statistics.TotalMessagesReceived += 1;
                 if (update.Message.From.Id == Vars.CurrentConf.OwnerUID)
                 {
                     await OwnerLogic(update);
@@ -149,14 +153,15 @@ namespace pmcenter
                                                                           update.Message.From.Id,
                                                                           update.Message.MessageId,
                                                                           Vars.CurrentConf.DisableNotifications);
+            Vars.CurrentConf.Statistics.TotalForwardedToOwner += 1;
             if (Vars.CurrentConf.EnableMsgLink)
             {
-                Log("Recording message link: " + ForwardedMessage.MessageId + " -> " + update.Message.From.Id, "BOT");
+                Log("Recording message link: owner " + ForwardedMessage.MessageId + " <-> user " + update.Message.MessageId +  " user: " + update.Message.From.Id, "BOT");
                 Vars.CurrentConf.MessageLinks.Add(
                     new Conf.MessageIDLink()
-                    { OwnerSessionMessageID = ForwardedMessage.MessageId, TGUser = update.Message.From }
+                    { OwnerSessionMessageID = ForwardedMessage.MessageId, UserSessionMessageID = update.Message.MessageId, TGUser = update.Message.From, IsFromOwner = false }
                 );
-                await Conf.SaveConf(false, true);
+                // Conf.SaveConf(false, true);
             }
             // check for real message sender
             // check if forwarded from channels
@@ -272,25 +277,26 @@ namespace pmcenter
             // start or help command?
             if (await commandManager.Execute(Vars.Bot, update))
             {
+                Vars.CurrentConf.Statistics.TotalCommandsReceived += 1;
                 return;
             }
             // command mismatch
             if (Vars.CurrentConf.ContChatTarget != -1)
             {
                 // Is replying, replying to forwarded message AND not command.
-                if (Vars.CurrentConf.AnonymousForward)
+                Message Forwarded = await Vars.Bot.ForwardMessageAsync(
+                                                                       Vars.CurrentConf.ContChatTarget,
+                                                                       update.Message.Chat.Id,
+                                                                       update.Message.MessageId,
+                                                                       Vars.CurrentConf.DisableNotifications);
+                if (Vars.CurrentConf.EnableMsgLink)
                 {
-                    await ForwardMessageAnonymously(Vars.CurrentConf.ContChatTarget,
-                                                    Vars.CurrentConf.DisableNotifications,
-                                                    update.Message);
-                }
-                else
-                {
-                    await Vars.Bot.ForwardMessageAsync(
-                        Vars.CurrentConf.ContChatTarget,
-                        update.Message.Chat.Id,
-                        update.Message.MessageId,
-                        Vars.CurrentConf.DisableNotifications);
+                    Log("Recording message link: " + Forwarded.MessageId + " -> " + update.Message.MessageId + " in " + update.Message.From.Id, "BOT");
+                    Vars.CurrentConf.MessageLinks.Add(
+                        new Conf.MessageIDLink()
+                        { OwnerSessionMessageID = Forwarded.MessageId, UserSessionMessageID = update.Message.MessageId, TGUser = update.Message.From, IsFromOwner = true }
+                    );
+                    // Conf.SaveConf(false, true);
                 }
                 // Process locale.
                 if (Vars.CurrentConf.EnableRepliedConfirmation)
@@ -316,13 +322,13 @@ namespace pmcenter
         private static async Task OwnerReplying(Update update)
         {
             // check anonymous forward (5.5.0 new feature compatibility fix)
-            Conf.MessageIDLink Link = GetLinkByMsgID(update.Message.ReplyToMessage.MessageId);
-            if (Link != null)
+            Conf.MessageIDLink Link = GetLinkByOwnerMsgID(update.Message.ReplyToMessage.MessageId);
+            if (Link != null && !Link.IsFromOwner)
             {
                 Log("Selected message is forwarded anonymously from " + Link.TGUser.Id + ", fixing user information from database.", "BOT");
                 update.Message.ReplyToMessage.ForwardFrom = Link.TGUser;
             }
-            if (update.Message.ReplyToMessage.ForwardFrom == null)
+            if (update.Message.ReplyToMessage.ForwardFrom == null && update.Message.Text.ToLower() != "/retract")
             {
                 // The owner is replying to bot messages. (no forwardfrom)
                 await Vars.Bot.SendTextMessageAsync(
@@ -337,24 +343,26 @@ namespace pmcenter
 
             if (await commandManager.Execute(Vars.Bot, update))
             {
+                Vars.CurrentConf.Statistics.TotalCommandsReceived += 1;
                 return;
             }
 
             // Is replying, replying to forwarded message AND not command.
-            if (Vars.CurrentConf.AnonymousForward)
-            {
-                await ForwardMessageAnonymously(update.Message.ReplyToMessage.ForwardFrom.Id,
-                                                Vars.CurrentConf.DisableNotifications,
-                                                update.Message);
-            }
-            else
-            {
-                await Vars.Bot.ForwardMessageAsync(
+            Message Forwarded = await Vars.Bot.ForwardMessageAsync(
                     update.Message.ReplyToMessage.ForwardFrom.Id,
                     update.Message.Chat.Id,
                     update.Message.MessageId,
                     Vars.CurrentConf.DisableNotifications);
+            if (Vars.CurrentConf.EnableMsgLink)
+            {
+                Log("Recording message link: user " + Forwarded.MessageId + " <-> owner " + update.Message.MessageId + ", user: " + update.Message.ReplyToMessage.ForwardFrom.Id, "BOT");
+                Vars.CurrentConf.MessageLinks.Add(
+                    new Conf.MessageIDLink()
+                    { OwnerSessionMessageID = update.Message.MessageId, UserSessionMessageID = Forwarded.MessageId, TGUser = update.Message.ReplyToMessage.ForwardFrom, IsFromOwner = true }
+                );
+                // Conf.SaveConf(false, true);
             }
+            Vars.CurrentConf.Statistics.TotalForwardedFromOwner += 1;
             // Process locale.
             if (Vars.CurrentConf.EnableRepliedConfirmation)
             {

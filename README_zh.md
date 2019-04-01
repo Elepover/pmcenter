@@ -116,7 +116,7 @@ dotnet pmcenter.dll
 请勿复制粘贴，您需要在运行命令前进行修改。
 
 ```bash
-wget https://raw.githubusercontent.com/Elepover/pmcenter/master/Dockfile
+wget https://raw.githubusercontent.com/Elepover/pmcenter/master/Dockerfile
 docker build . -t pmcenter
 docker run -v PATH_OF_YOUR_pmcenter.json:/opt/pmcenter/pmcenter.json pmcenter
 ```
@@ -164,6 +164,8 @@ That's all.
 | `NoStartupMessage` | `Boolean` | 是否停用 "启动成功" 消息 |
 | `ContChatTarget` | `Long` | 连续对话模式目标 |
 | `EnableMsgLink` | `Boolean` | 是否启用消息链接 |
+| `AllowUserRetraction` | `Boolean` | 是否允许消息撤回 |
+| `Statistics` | `Stats` | 统计数据 |
 | `Socks5Proxies` | `Array` | SOCKS5 代理列表 |
 | `BannedKeywords` | `Array` | 屏蔽的关键字存储 |
 | `Banned` | `Array` | 封禁用户存储 |
@@ -245,6 +247,9 @@ pmcenter_lang: pmcenter 语言文件路径。
 | `/testnetwork` | 所有者 | 测试到 pmcenter 所用服务器的延迟 |
 | `/chat [ID]` | 所有者 | 进入持续对话模式 |
 | `/stopchat` | 所有者 | 退出持续对话模式 |
+| `/retract` | 所有者, 用户 | 撤回消息 |
+| `/clearmessagelinks` | 所有者 | 清除消息链接 |
+| `/getstats` | 所有者 | 显示统计数据 |
 
 请注意: `/restart` 命令仅在有有效的守护进程，且其能在 pmcenter 退出后自动将其重启的情况下工作。pmcenter 无法自行重新启动。
 

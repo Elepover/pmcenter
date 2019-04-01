@@ -114,7 +114,7 @@ dotnet pmcenter.dll
 DO NOT COPY & PASTE. You need to edit it before executing.
 
 ```bash
-wget https://raw.githubusercontent.com/Elepover/pmcenter/master/Dockfile
+wget https://raw.githubusercontent.com/Elepover/pmcenter/master/Dockerfile
 docker build . -t pmcenter
 docker run -v PATH_OF_YOUR_pmcenter.json:/opt/pmcenter/pmcenter.json pmcenter
 ```
@@ -162,6 +162,8 @@ Or, use setup wizard:
 | `NoStartupMessage` | `Boolean` | Enable/Disable "startup complete" messages. |
 | `ContChatTarget` | `Long` | Target of Continued Conversation. |
 | `EnableMsgLink` | `Boolean` | Enable/Disable message links. |
+| `AllowUserRetraction` | `Boolean` | Enable/Disable message retraction. |
+| `Statistics` | `Stats` | Statistics data. |
 | `Socks5Proxies` | `Array` | List of SOCKS5 proxies. |
 | `BannedKeywords` | `Array` | Storage of banned keywords. |
 | `Banned` | `Array` | Storage of banned users. |
@@ -242,6 +244,9 @@ You can write a `systemd service` to keep it running, even after the host machin
 | `/testnetwork` | Owner | Test latency to servers used by pmcenter. |
 | `/chat [ID]` | Owner | Enter Continued Conversation mode with someone. |
 | `/stopchat` | Owner | Leave Continued Conversation. |
+| `/retract` | Owner, Users | Retract a message. |
+| `/clearmessagelinks` | Owner | Clear message links. |
+| `/getstats` | Owner | Get statistics data. |
 
 Please note: `/restart` command only works with a daemon that auto-restarts pmcenter when it exits. pmcenter cannot restart by itself.
 

@@ -1,5 +1,5 @@
 {
-  "Latest": "1.5.87.176",
-  "Details": "[+] Now pmcenter is compatible with Telegram's new \"Anonymous Forward\" feature!\n[+] If the message you chose was forwarded by someone from a channel, you can reply to them, too!\n[/] Re-ordered configuration items, so you can edit things more easily.",
+  "Latest": "1.6.88.177",
+  "Details": "[+] Users can now retract their messages.\n[+] Improved performance.\n[+] New statistics system.",
   "UpdateLevel": 1
 }

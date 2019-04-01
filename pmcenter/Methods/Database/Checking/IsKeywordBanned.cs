@@ -4,7 +4,7 @@ namespace pmcenter
     {
         public static bool IsKeywordBanned(string Sentence)
         {
-            if (Vars.CurrentConf.KeywordBanning != true) { return false; }
+            if (!Vars.CurrentConf.KeywordBanning) { return false; }
 
             foreach (string Blocked in Vars.CurrentConf.BannedKeywords)
             {

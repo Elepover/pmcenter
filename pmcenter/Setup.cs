@@ -25,7 +25,7 @@ namespace pmcenter
         {
             Say("Update received.");
             Say(".. Processing...");
-            if (IsUIDReceived != true)
+            if (!IsUIDReceived)
             {
                 IsUIDReceived = true;
                 ReceivedUID = e.Update.Message.From.Id;
@@ -125,7 +125,7 @@ namespace pmcenter
             try
             {
                 TestBot = new TelegramBotClient(Key);
-                if (await TestBot.TestApiAsync() != true)
+                if (!await TestBot.TestApiAsync())
                 {
                     throw (new ArgumentException("API Key is not valid."));
                 }
@@ -153,7 +153,7 @@ namespace pmcenter
                 TestBot.OnUpdate += OnUpdate;
                 TestBot.StartReceiving(new UpdateType[] { UpdateType.Message });
                 Say("Say something to your bot on Telegram. We'll detect your UID automatically.");
-                while (IsUIDReceived != true)
+                while (!IsUIDReceived)
                 {
                     Thread.Sleep(200);
                 }

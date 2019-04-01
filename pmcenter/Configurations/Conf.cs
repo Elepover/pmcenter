@@ -41,7 +41,6 @@ namespace pmcenter
                 EnableForwardedConfirmation = false;
                 EnableAutoUpdateCheck = false;
                 UseUsernameInMsgInfo = true;
-                AnonymousForward = false;
                 DonateString = "";
                 LowPerformanceMode = false;
                 DetailedMsgLogging = false;
@@ -51,6 +50,8 @@ namespace pmcenter
                 NoStartupMessage = false;
                 ContChatTarget = -1;
                 EnableMsgLink = false;
+                AllowUserRetraction = false;
+                Statistics = new Stats();
                 Socks5Proxies = new List<Socks5Proxy>();
                 BannedKeywords = new List<string>();
                 Banned = new List<BanObj>();
@@ -73,7 +74,6 @@ namespace pmcenter
             public bool EnableForwardedConfirmation { get; set; }
             public bool EnableAutoUpdateCheck { get; set; }
             public bool UseUsernameInMsgInfo { get; set; }
-            public bool AnonymousForward { get; set; }
             public string DonateString { get; set; }
             public bool LowPerformanceMode { get; set; }
             public bool DetailedMsgLogging { get; set; }
@@ -83,6 +83,8 @@ namespace pmcenter
             public bool NoStartupMessage { get; set; }
             public long ContChatTarget { get; set; }
             public bool EnableMsgLink { get; set; }
+            public bool AllowUserRetraction { get; set; }
+            public Stats Statistics { get; set; }
             public List<Socks5Proxy> Socks5Proxies { get; set; }
             public List<string> BannedKeywords { get; set; }
             public List<BanObj> Banned { get; set; }
@@ -138,12 +140,16 @@ namespace pmcenter
             {
                 TGUser = null;
                 OwnerSessionMessageID = -1;
+                UserSessionMessageID = -1;
+                IsFromOwner = false;
             }
             public User TGUser { get; set; }
             /// <summary>
             /// Message ID of the message in owner's session
             /// </summary>
-            public long OwnerSessionMessageID { get; set; }
+            public int OwnerSessionMessageID { get; set; }
+            public int UserSessionMessageID { get; set; }
+            public bool IsFromOwner { get; set; }
         }
         public enum UpdateLevel
         {
@@ -151,6 +157,20 @@ namespace pmcenter
             Recommended = 1,
             Important = 2,
             Urgent = 3,
+        }
+        public class Stats
+        {
+            public Stats()
+            {
+                TotalMessagesReceived = 0;
+                TotalCommandsReceived = 0;
+                TotalForwardedToOwner = 0;
+                TotalForwardedFromOwner = 0;
+            }
+            public int TotalMessagesReceived { get; set; }
+            public int TotalCommandsReceived { get; set; }
+            public int TotalForwardedToOwner { get; set; }
+            public int TotalForwardedFromOwner { get; set; }
         }
         /*
          * FUNCTIONS & METHODS. DO NOT PUT ANY CLASSES HERE.
@@ -189,7 +209,7 @@ namespace pmcenter
         public static async Task InitConf()
         {
             Log("Checking configurations file's integrity...", "CONF");
-            if (System.IO.File.Exists(Vars.ConfFile) != true)
+            if (!System.IO.File.Exists(Vars.ConfFile))
             { // STEP 1, DETECT EXISTENCE.
                 Log("Configurations file not found. Creating...", "CONF", LogLevel.WARN);
                 Vars.CurrentConf = new ConfObj();

@@ -6,7 +6,7 @@ namespace pmcenter
     {
         public static void BanUser(long UID)
         {
-            if (IsBanned(UID) != true)
+            if (!IsBanned(UID))
             {
                 BanObj Banned = new BanObj
                 {

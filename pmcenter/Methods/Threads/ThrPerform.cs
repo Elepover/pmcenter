@@ -7,7 +7,7 @@ namespace pmcenter
             if (Vars.IsPerformanceTestExecuting) { return; }
             Vars.IsPerformanceTestExecuting = true;
             Vars.PerformanceScore = 0;
-            while (Vars.IsPerformanceTestEndRequested != true)
+            while (!Vars.IsPerformanceTestEndRequested)
             {
                 Vars.PerformanceScore += 1;
             }

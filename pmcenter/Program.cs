@@ -95,17 +95,17 @@ namespace pmcenter
                 Vars.RateLimiter = new Thread(() => ThrRateLimiter());
                 Vars.RateLimiter.Start();
                 Log("Waiting...");
-                while (Vars.RateLimiter.IsAlive != true)
+                while (!Vars.RateLimiter.IsAlive)
                 {
                     Thread.Sleep(100);
                 }
-                Log("Starting UpdateChecker");
+                Log("Starting UpdateChecker...");
                 if (Vars.CurrentConf.EnableAutoUpdateCheck)
                 {
                     Vars.UpdateChecker = new Thread(() => ThrUpdateChecker());
                     Vars.UpdateChecker.Start();
                     Log("Waiting...");
-                    while (Vars.UpdateChecker.IsAlive != true)
+                    while (!Vars.UpdateChecker.IsAlive)
                     {
                         Thread.Sleep(100);
                     }
@@ -115,7 +115,14 @@ namespace pmcenter
                     Vars.UpdateCheckerStatus = ThreadStatus.Stopped;
                     Log("Skipped.");
                 }
-                Thread.Sleep(500);
+                Log("Starting SyncConf...");
+                Vars.SyncConf = new Thread(() => ThrSyncConf());
+                Vars.SyncConf.Start();
+                Log("Waiting");
+                while (!Vars.SyncConf.IsAlive)
+                {
+                    Thread.Sleep(100);
+                }
 
                 Log("==> Initializing module - BOT");
                 Log("Initializing bot instance...");
@@ -151,7 +158,7 @@ namespace pmcenter
                 Log("==> Running post-start operations...");
                 try
                 {
-                    if (Vars.CurrentConf.NoStartupMessage != true)
+                    if (!Vars.CurrentConf.NoStartupMessage)
                     {
                         await Vars.Bot.SendTextMessageAsync(Vars.CurrentConf.OwnerUID,
                                                             Vars.CurrentLang.Message_BotStarted
