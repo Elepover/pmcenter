@@ -59,7 +59,7 @@
   "Message_Performance_Results": "✅ *性能測試結束*\n\n分數: `$1`.",
   "Message_BackupComplete": "✅ 備份完畢！文件名: `$1`",
   "Message_ConfAccess": "ℹ *權限資訊*\n\n設置文件: `$1`\n語言文件: `$2`",
-  "Message_APIKeyChanged": "⚠ 已偵測到 API Key 變動，請重新啟動 pmcenter 以套用更改。",
+  "Message_APIKeyChanged": "⚠ 已偵測到 API 金鑰變動，請重新啟動 pmcenter 以套用更改。",
   "Message_Connectivity": "📡 *連線資訊*\n\nGitHub 延遲: $1\nTelegram API 延遲: $2\nCI (更新服務) 延遲: $3",
   "Message_ContinuedChatEnabled": "💬 *連續對話* 模式已 `啟用` ! 您的所有訊息 (指令及回覆除外) 均將被轉傳至 $1",
   "Message_ContinuedChatDisabled": "✅ *連續對話* 模式已 `停用`",
