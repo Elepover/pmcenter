@@ -1,4 +1,4 @@
-{
+Ôªø{
   "Locales": [
     {
       "LocaleFileURL": "https://raw.githubusercontent.com/Elepover/pmcenter/master/locales/pmcenter_locale_en.json",
@@ -10,19 +10,19 @@
       "LocaleFileURL": "https://raw.githubusercontent.com/Elepover/pmcenter/master/locales/pmcenter_locale_zh.json",
       "LocaleCode": "zh.simplified",
       "LocaleNameEng": "Chinese (Simplified)",
-      "LocaleNameNative": "ºÚÃÂ÷–Œƒ"
+      "LocaleNameNative": "ÁÆÄ‰Ωì‰∏≠Êñá"
     },
     {
       "LocaleFileURL": "https://raw.githubusercontent.com/Elepover/pmcenter/master/locales/pmcenter_locale_zh.meow.json",
       "LocaleCode": "zh.meow",
       "LocaleNameEng": "Chinese (Meow)",
-      "LocaleNameNative": "ﬂ˜ÃÂ÷–Œƒ"
+      "LocaleNameNative": "Âñµ‰Ωì‰∏≠Êñá"
     },
     {
       "LocaleFileURL": "https://raw.githubusercontent.com/Elepover/pmcenter/master/locales/pmcenter_locale_zh.tw.json",
       "LocaleCode": "zh.tw",
       "LocaleNameEng": "Chinese (Traditional, Taiwan)",
-      "LocaleNameNative": "∑±Ûw÷–Œƒ£®Ã®û≥£©"
+      "LocaleNameNative": "ÁπÅÈ´î‰∏≠ÊñáÔºàÂè∞ÁÅ£Ôºâ"
     }
   ]
 }
