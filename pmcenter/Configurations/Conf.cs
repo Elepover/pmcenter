@@ -172,6 +172,28 @@ namespace pmcenter
             public int TotalForwardedToOwner { get; set; }
             public int TotalForwardedFromOwner { get; set; }
         }
+        public class LocaleMirror
+        {
+            public LocaleMirror()
+            {
+                LocaleFileURL = "";
+                LocaleCode = "";
+                LocaleNameEng = "";
+                LocaleNameNative = "";
+            }
+            public string LocaleFileURL { get; set; }
+            public string LocaleCode { get; set; }
+            public string LocaleNameEng { get; set; }
+            public string LocaleNameNative { get; set; }
+        }
+        public class LocaleList
+        {
+            public LocaleList()
+            {
+                Locales = new List<LocaleMirror>();
+            }
+            public List<LocaleMirror> Locales { get; set; }
+        }
         /*
          * FUNCTIONS & METHODS. DO NOT PUT ANY CLASSES HERE.
          */

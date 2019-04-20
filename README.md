@@ -2,7 +2,7 @@
 
 [![build status](https://ci.appveyor.com/api/projects/status/gmbdiackw0563980?svg=true)](https://ci.appveyor.com/project/Elepover/pmcenter) [![telegram channel](https://img.shields.io/badge/telegram-channel-blue.svg)](https://t.me/pmcenter_devlog) ![license](https://img.shields.io/github/license/elepover/pmcenter.svg) ![language rank](https://img.shields.io/github/languages/top/elepover/pmcenter.svg?color=brightgreen) ![repo size in bytes](https://img.shields.io/github/repo-size/elepover/pmcenter.svg) ![environment](https://img.shields.io/badge/dotnet-v2.1-blue.svg) ![last commit](https://img.shields.io/github/last-commit/elepover/pmcenter.svg) ![status](https://img.shields.io/badge/status-maintaining-success.svg)
 
-A telegram bot helping you to process private messages.
+A telegram bot helping you process private messages.
 
 ## Documentation Language
 
@@ -228,6 +228,7 @@ You can write a `systemd service` to keep it running, even after the host machin
 | `/switchbw` | Owner | Switch keyword banning status. |
 | `/switchnf` | Owner | Switch notifications status. |
 | `/switchlang <URL>` | Owner | Switch language file. |
+| `/switchlangcode [code]` | Owner | Switch language file by language code. |
 | `/detectperm` | Owner | Test access to configurations. |
 | `/backup` | Owner | Backup configurations. |
 | `/editconf <CONF>` | Owner | Manually edit configurations and translations w/ JSON-formatted text. |

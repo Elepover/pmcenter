@@ -49,6 +49,7 @@ namespace pmcenter
             commandManager.RegisterCommand(new StopChatCommand());
             commandManager.RegisterCommand(new SwitchBwCommand());
             commandManager.RegisterCommand(new SwitchFwCommand());
+            commandManager.RegisterCommand(new SwitchLangCodeCommand());
             commandManager.RegisterCommand(new SwitchLangCommand());
             commandManager.RegisterCommand(new SwitchNotificationCommand());
             commandManager.RegisterCommand(new TestNetworkCommand());

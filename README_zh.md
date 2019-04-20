@@ -231,6 +231,7 @@ pmcenter_lang: pmcenter 语言文件路径。
 | `/switchbw` | 所有者 | 启用/停用关键字屏蔽 |
 | `/switchnf` | 所有者 | 启用/停用消息通知 |
 | `/switchlang <URL>` | 所有者 | 切换语言文件 |
+| `/switchlangcode [code]` | 所有者 | 使用语言代码切换语言文件 |
 | `/detectperm` | 所有者 | 测试配置文件写入权限 |
 | `/backup` | 所有者 | 备份配置文件 |
 | `/editconf <CONF>` | 所有者 | 手动保存 JSON 格式的配置及翻译 |

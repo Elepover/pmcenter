@@ -1,6 +1,8 @@
 ﻿{
-  "TargetVersion": "1.6.88.177",
-  "LangCode": "en.default.imported",
+  "TargetVersion": "1.6.89.178",
+  "LangCode": "en.imported",
+  "LanguageNameInEnglish": "English",
+  "LanguageNameInNative": "English",
   "Message_OwnerStart": "😊 *Hi!* I'm your `pmcenter` bot, and I work just for you.\nThis message means that you've set up the bot successfully.\nTo reply to any forwarded messages, just directly reply to them here.\n\nThank you for using the `pmcenter` bot!",
   "Message_UserStartDefault": "📨 *Hi!* To send anything to my owner, just send it here.\n⚠ To be informed: I'll *automatically* ban flooding users.",
   "Message_ReplySuccessful": "✅ Successfully replied to user $1!",
@@ -21,7 +23,7 @@
   "Message_ConfigUpdated": "🔄 Settings have been updated!",
   "Message_ConfigReloaded": "🔄 Settings reloaded!",
   "Message_UptimeInfo": "🚀 *Uptime Information*:\nSystem uptime: `$1`\nBot uptime: `$2`",
-  "Message_UpdateAvailable": "🔄 *Update available!*\nNew version: `$1`\nWhat's new:\n`$2`\n\nExecute /update to perform automatic update.",
+  "Message_UpdateAvailable": "🔄 *Update available!*\n\nUpdate level: `$3`\nNew version: `$1`\nWhat's new:\n`$2`\n\nExecute /update to perform automatic update.",
   "Message_UpdateProcessing": "💠 Preparing to update...",
   "Message_UpdateCheckFailed": "⚠ Update failed: `$1`",
   "Message_AlreadyUpToDate": "✅ *Already up to date*!\nLatest version: `$1`\nCurrently installed: `$2`\nUpdate details:\n`$3`",
@@ -66,5 +68,6 @@
   "Message_FeatureNotAvailable": "⚠ This feature is unavailable or disabled.",
   "Message_Stats": "📝 *Statistics*\n\n💬 Received messages: `$1`\n🔄 Forwarded to owner: `$2`\n🔄 Forwareded from owner: `$3`\n🚀 Commands received: `$4`",
   "Message_Retracted": "✅ This message has been retracted.",
-  "Message_MsgLinksCleared": "✅ All message links have been cleared."
+  "Message_MsgLinksCleared": "✅ All message links have been cleared.",
+  "Message_AvailableLang": "ℹ *Available languages*\n\n`$1`"
 }

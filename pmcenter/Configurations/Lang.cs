@@ -20,7 +20,9 @@ namespace pmcenter
             public Language()
             {
                 TargetVersion = Vars.AppVer.ToString();
-                LangCode = "en.default.integrated";
+                LangCode = "en.integrated";
+                LanguageNameInEnglish = "English";
+                LanguageNameInNative = "English";
                 Message_CommandNotReplying = "😶 Don't talk to me, spend time chatting with those who love you.";
                 Message_CommandNotReplyingValidMessage = "😐 Speaking to me makes no sense.";
                 Message_Help = "❓ `pmcenter` *Bot Help*\n/start - Display welcome message.\n/info - Display the message's info.\n/ban - Restrict the user from contacting you.\n/banid <ID> - Restrict a user from contacting you with his/her ID.\n/pardon - Pardon the user.\n/pardonid <ID> - Pardon a user with his/her ID.\n/ping - Test if the bot is working.\n/switchfw - Pause/Resume message forwarding.\n/switchbw - Enable/Disable keyword banning.\n/switchnf - Enable/Disable notifications.\n/switchlang <URL> - Switch language file.\n/detectperm - Detect permissions.\n/backup - Backup configurations.\n/editconf <CONF> - Manually edit settings w/ JSON-formatted text.\n/saveconf - Manually save all settings and translations. Especially useful after upgrades.\n/readconf - Reload configurations without restarting bot.\n/resetconf - Reset configurations.\n/uptime - Check system uptime information.\n/update - Check for updates and update bot.\n/chkupdate - Only check for updates.\n/catconf - Get your current configurations.\n/restart - Restart bot.\n/status - Get host device's status information.\n/perform - Run performance test.\n/testnetwork - Test latency to servers used by pmcenter.\n/chat - Enter Continued Conversation mode.\n/stopchat - Leave Continued Conversation mode.\n/retract - Retract a message.\n/clearmessagelinks - Clear message links.\n/getstats - Get statistics data.\n/help - Display this message.\n\nThank you for using `pmcenter`!";
@@ -40,7 +42,7 @@ namespace pmcenter
                 Message_ConfigUpdated = "🔄 Settings have been updated!";
                 Message_ConfigReloaded = "🔄 Settings reloaded!";
                 Message_UptimeInfo = "🚀 *Uptime Information*:\nSystem uptime: `$1`\nBot uptime: `$2`";
-                Message_UpdateAvailable = "🔄 *Update available!*\nNew version: `$1`\nWhat's new:\n`$2`";
+                Message_UpdateAvailable = "🔄 *Update available!*\n\nUpdate level: `$3`\nNew version: `$1`\nWhat's new:\n`$2`\n\nExecute /update to perform automatic update.";
                 Message_UpdateProcessing = "💠 Preparing to update...";
                 Message_UpdateCheckFailed = "⚠ Update failed: `$1`";
                 Message_AlreadyUpToDate = "✅ *Already up to date*!\nLatest version: `$1`\nCurrently installed: `$2`\nUpdate details:\n`$3`";
@@ -87,9 +89,12 @@ namespace pmcenter
                 Message_Stats = "📝 *Statistics*\n\n💬 Received messages: `$1`\n🔄 Forwarded to owner: `$2`\n🔄 Forwareded from owner: `$3`\n🚀 Commands received: `$4`";
                 Message_Retracted = "✅ This message has been retracted.";
                 Message_MsgLinksCleared = "✅ All message links have been cleared.";
+                Message_AvailableLang = "ℹ *Available languages*\n\n`$1`";
             }
             public string TargetVersion { get; set; }
             public string LangCode { get; set; }
+            public string LanguageNameInEnglish { get; set; }
+            public string LanguageNameInNative { get; set; }
             public string Message_OwnerStart { get; set; }
             public string Message_UserStartDefault { get; set; }
             public string Message_ReplySuccessful { get; set; }
@@ -156,6 +161,7 @@ namespace pmcenter
             public string Message_Stats { get; set; }
             public string Message_Retracted { get; set; }
             public string Message_MsgLinksCleared { get; set; }
+            public string Message_AvailableLang { get; set; }
         }
         public static string KillIllegalChars(string Input)
         {
