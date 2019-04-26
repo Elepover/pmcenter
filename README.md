@@ -133,41 +133,42 @@ Or, use setup wizard:
 
 ### `pmcenter` Settings
 
-| Key | Type | Description |
-| :---- | :----- | ----:|
-| `APIKey` | `String` | Your Telegram bot's API key. |
-| `OwnerID` | `Long` | The owner's Telegram user ID. |
-| `EnableCc` | `Boolean` | Decides whether cc feature is enabled or not. |
-| `Cc` | `Array` | Other users/groups/channels to receive forwarded messages. |
-| `AutoBan` | `Boolean` | Decides whether the flood-banning feature is enabled or not. |
-| `AutoBanThreshold` | `Int` | How many messages in 0.5m will be banned. |
-| `ForwardingPaused` | `Boolean` | Decides whether the message forwarding is enabled or not. |
-| `KeywordBanning` | `Boolean` | Decides whether the keyword banning feature is enabled or not. |
-| `KeywordAutoBan` | `Boolean` | Automatically bans the matching user. |
-| `EnableRegex` | `Boolean` | Enables regex matching in keywords banning or not. |
-| `AutoLangUpdate` | `Boolean` | Allows the bot to automatically update language file after updating. |
-| `LangURL` | `String` | URL to the updated language file. |
-| `DisableNotifications` | `Boolean` | Enable/Disable notifications. |
-| `EnableRepliedConfirmation` | `Boolean` | Enable/Disable "reply successful" messages. |
-| `EnableForwardedConfirmation` | `Boolean` | Enable/Disable "forwarded to owner" messages. |
-| `EnableAutoUpdateCheck` | `Boolean` | Enable/Disable automatic update check. |
-| `UseUsernameInMsgInfo` | `Boolean` | Decides whether to display user's nickname in message details or not. |
-| `AnonymousForward` | `Boolean` | Enable/Disable anonymous forwarding (BETA, text messages only) |
-| `DonateString` | `string` | Text to show when users send the /donate command. Leave empty to disable this feature. |
-| `LowPerformanceMode` | `boolean` | Tune pmcenter for low-end hardware like a Raspberry Pi. |
-| `DetailedMsgLogging` | `Boolean` | Enable/Disable detailed message information output. |
-| `UseProxy` | `Boolean` | Use/Not to use SOCKS5 proxy. |
-| `ResolveHostnamesLocally` | `Boolean` | Use/Not to use remote server to resolve domain names. |
-| `CatchAllExceptions` | `Boolean` | Decides whether to forward all exceptions to the owner or not. |
-| `NoStartupMessage` | `Boolean` | Enable/Disable "startup complete" messages. |
-| `ContChatTarget` | `Long` | Target of Continued Conversation. |
-| `EnableMsgLink` | `Boolean` | Enable/Disable message links. |
-| `AllowUserRetraction` | `Boolean` | Enable/Disable message retraction. |
-| `Statistics` | `Stats` | Statistics data. |
-| `Socks5Proxies` | `Array` | List of SOCKS5 proxies. |
-| `BannedKeywords` | `Array` | Storage of banned keywords. |
-| `Banned` | `Array` | Storage of banned users. |
-| `MessageLinks` | `Array` | Storage of message links. |
+| Key | Type | User Editable | Description |
+| :---- | :---- | :---- | ----:|
+| `APIKey` | `String`| ✓ | Your Telegram bot's API key. |
+| `OwnerID` | `Long` | ✓ | The owner's Telegram user ID. |
+| `EnableCc` | `Boolean` | ✓ | Decides whether cc feature is enabled or not. |
+| `Cc` | `Array` | ✓ | Other users/groups/channels to receive forwarded messages. |
+| `AutoBan` | `Boolean` | ✓ | Decides whether the flood-banning feature is enabled or not. |
+| `AutoBanThreshold` | `Int` | ✓ | How many messages in 0.5m will be banned. |
+| `ForwardingPaused` | `Boolean` | ✓ | Decides whether the message forwarding is enabled or not. |
+| `KeywordBanning` | `Boolean` | ✓ | Decides whether the keyword banning feature is enabled or not. |
+| `KeywordAutoBan` | `Boolean` | ✓ | Automatically bans the matching user. |
+| `EnableRegex` | `Boolean` | ✓ | Enables regex matching in keywords banning or not. |
+| `AutoLangUpdate` | `Boolean` | ✓ | Allows the bot to automatically update language file after updating. |
+| `LangURL` | `String` | ✓ | URL to the updated language file. |
+| `DisableNotifications` | `Boolean` | ✓ | Enable/Disable notifications. |
+| `EnableRepliedConfirmation` | `Boolean` | ✓ | Enable/Disable "reply successful" messages. |
+| `EnableForwardedConfirmation` | `Boolean` | ✓ | Enable/Disable "forwarded to owner" messages. |
+| `EnableAutoUpdateCheck` | `Boolean` | ✓ | Enable/Disable automatic update check. |
+| `UseUsernameInMsgInfo` | `Boolean` | ✓ | Decides whether to display user's nickname in message details or not. |
+| `AnonymousForward` | `Boolean` | ✓ | Enable/Disable anonymous forwarding (BETA, text messages only) |
+| `DonateString` | `String` | ✓ | Text to show when users send the /donate command. Leave empty to disable this feature. |
+| `LowPerformanceMode` | `Boolean` | ✓ | Tune pmcenter for low-end hardware like a Raspberry Pi. |
+| `DetailedMsgLogging` | `Boolean` | ✓ | Enable/Disable detailed message information output. |
+| `UseProxy` | `Boolean` | ✓ | Use/Not to use SOCKS5 proxy. |
+| `ResolveHostnamesLocally` | `Boolean` | ✓ | Use/Not to use remote server to resolve domain names. |
+| `CatchAllExceptions` | `Boolean` | ✓ | Decides whether to forward all exceptions to the owner or not. |
+| `NoStartupMessage` | `Boolean` | ✓ | Enable/Disable "startup complete" messages. |
+| `ContChatTarget` | `Long` | ✕ | Target of Continued Conversation. |
+| `EnableMsgLink` | `Boolean` | ✓ | Enable/Disable message links. |
+| `AllowUserRetraction` | `Boolean` | ✓ | Enable/Disable message retraction. |
+| `AllowUntrustedCerts` | `Boolean` | ✓ | Allow untrusted certificates. |
+| `Statistics` | `Stats` | ✕ | Statistics data. |
+| `Socks5Proxies` | `Array` | ✓ | List of SOCKS5 proxies. |
+| `BannedKeywords` | `Array` | ✓ | Storage of banned keywords. |
+| `Banned` | `Array` | ✓ | Storage of banned users. |
+| `MessageLinks` | `Array` | ✕ | Storage of message links. |
 
 #### Proxy Configuration
 

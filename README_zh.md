@@ -135,41 +135,42 @@ That's all.
 
 ### `pmcenter` 设置
 
-| 项目 | 类型 | 描述 |
-| :---- | :----- | ----:|
-| `APIKey` | `String` | 你的 Telegram 机器人 API 密钥 |
-| `OwnerID` | `Long` | 使用者的 Telegram ID |
-| `EnableCc` | `Boolean` | 是否启用 Cc 功能 |
-| `Cc` | `Array` | 其他消息接收者 |
-| `AutoBan` | `Boolean` | 是否自动封禁刷屏用户 |
-| `AutoBanThreshold` | `Int` | 30 秒内消息量阈值，超过将自动封禁 |
-| `ForwardingPaused` | `Boolean` | 是否启用消息转发 |
-| `KeywordBanning` | `Boolean` | 是否启用关键词屏蔽功能 |
-| `KeywordAutoBan` | `Boolean` | 是否自动封禁被屏蔽消息发送者 |
-| `EnableRegex` | `Boolean` | 是否启用关键字屏蔽中的正则表达式匹配 |
-| `AutoLangUpdate` | `Boolean` | 是否启用自动语言文件更新 |
-| `LangURL` | `String` | 新语言文件的 URL |
-| `DisableNotifications` | `Boolean` | 是否停用消息通知 |
-| `EnableRepliedConfirmation` | `Boolean` | 是否启用 “回复成功” 提示 |
-| `EnableForwardedConfirmation` | `Boolean` | 是否启用 “已转发” 提示 |
-| `EnableAutoUpdateCheck` | `Boolean` | 是否启用自动更新检查 |
-| `UseUsernameInMsgInfo` | `Boolean` | 是否在消息详情中显示用户昵称 |
-| `AnonymousForward` | `Boolean` | 是否启用匿名转发 (BETA, 仅支持纯文本消息) |
-| `DonateString` | `String` | 用户发送 /donate 指令时显示的消息，留空以关闭 |
-| `LowPerformanceMode` | `Boolean` | 调节 pmcenter 配置以适应低性能设备，如树莓派 |
-| `DetailedMsgLogging` | `Boolean` | 是否在收到每条消息时都输出消息详情 |
-| `UseProxy` | `Boolean` | 是否使用 SOCKS5 代理 |
-| `ResolveHostnamesLocally` | `Boolean` | 是否使用远程服务器解析域名 |
-| `CatchAllExceptions` | `Boolean` | 是否将所有错误转发给所有者 |
-| `NoStartupMessage` | `Boolean` | 是否停用 "启动成功" 消息 |
-| `ContChatTarget` | `Long` | 连续对话模式目标 |
-| `EnableMsgLink` | `Boolean` | 是否启用消息链接 |
-| `AllowUserRetraction` | `Boolean` | 是否允许消息撤回 |
-| `Statistics` | `Stats` | 统计数据 |
-| `Socks5Proxies` | `Array` | SOCKS5 代理列表 |
-| `BannedKeywords` | `Array` | 屏蔽的关键字存储 |
-| `Banned` | `Array` | 封禁用户存储 |
-| `MessageLinks` | `Array` | 消息链接处理 |
+| 项目 | 类型 | 用户可编辑 | 描述 |
+| :---- | :---- | :---- | ----:|
+| `APIKey` | `String` | ✓ | 你的 Telegram 机器人 API 密钥 |
+| `OwnerID` | `Long` | ✓ | 使用者的 Telegram ID |
+| `EnableCc` | `Boolean` | ✓ | 是否启用 Cc 功能 |
+| `Cc` | `Array` | ✓ | 其他消息接收者 |
+| `AutoBan` | `Boolean` | ✓ | 是否自动封禁刷屏用户 |
+| `AutoBanThreshold` | `Int` | ✓ | 30 秒内消息量阈值，超过将自动封禁 |
+| `ForwardingPaused` | `Boolean` | ✓ | 是否启用消息转发 |
+| `KeywordBanning` | `Boolean` | ✓ | 是否启用关键词屏蔽功能 |
+| `KeywordAutoBan` | `Boolean` | ✓ | 是否自动封禁被屏蔽消息发送者 |
+| `EnableRegex` | `Boolean` | ✓ | 是否启用关键字屏蔽中的正则表达式匹配 |
+| `AutoLangUpdate` | `Boolean` | ✓ | 是否启用自动语言文件更新 |
+| `LangURL` | `String` | ✓ | 新语言文件的 URL |
+| `DisableNotifications` | `Boolean` | ✓ | 是否停用消息通知 |
+| `EnableRepliedConfirmation` | `Boolean` | ✓ | 是否启用 “回复成功” 提示 |
+| `EnableForwardedConfirmation` | `Boolean` | ✓ | 是否启用 “已转发” 提示 |
+| `EnableAutoUpdateCheck` | `Boolean` | ✓ | 是否启用自动更新检查 |
+| `UseUsernameInMsgInfo` | `Boolean` | ✓ | 是否在消息详情中显示用户昵称 |
+| `AnonymousForward` | `Boolean` | ✓ | 是否启用匿名转发 (BETA, 仅支持纯文本消息) |
+| `DonateString` | `String` | ✓ | 用户发送 /donate 指令时显示的消息，留空以关闭 |
+| `LowPerformanceMode` | `Boolean` | ✓ | 调节 pmcenter 配置以适应低性能设备，如树莓派 |
+| `DetailedMsgLogging` | `Boolean` | ✓ | 是否在收到每条消息时都输出消息详情 |
+| `UseProxy` | `Boolean` | ✓ | 是否使用 SOCKS5 代理 |
+| `ResolveHostnamesLocally` | `Boolean` | ✓ | 是否使用远程服务器解析域名 |
+| `CatchAllExceptions` | `Boolean` | ✓ | 是否将所有错误转发给所有者 |
+| `NoStartupMessage` | `Boolean` | ✓ | 是否停用 "启动成功" 消息 |
+| `ContChatTarget` | `Long` | ✓ | 连续对话模式目标 |
+| `EnableMsgLink` | `Boolean` | ✓ | 是否启用消息链接 |
+| `AllowUserRetraction` | `Boolean` | ✓ | 是否允许消息撤回 |
+| `AllowUntrustedCerts` | `Boolean` | ✓ | 允许不受信证书 |
+| `Statistics` | `Stats` | ✕ | 统计数据 |
+| `Socks5Proxies` | `Array` | ✓ | SOCKS5 代理列表 |
+| `BannedKeywords` | `Array` | ✓ | 屏蔽的关键字存储 |
+| `Banned` | `Array` | ✓ | 封禁用户存储 |
+| `MessageLinks` | `Array` | ✕ | 消息链接存储 |
 
 #### 代理配置
 
