@@ -17,7 +17,7 @@ namespace pmcenter
             }
             catch (WebException ex)
             {
-                if (Ignore45) { return true; }
+                if (ex.Status == WebExceptionStatus.ProtocolError && Ignore45) { return true; }
                 Log("Connectivity to " + Target + " is unavailable: " + ex.Message);
                 return false;
             }
