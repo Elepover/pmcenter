@@ -66,7 +66,7 @@
   "Message_ContinuedChatEnabled": "💬 *Continued Conversation* mode is now `active`! All your messages (except commands and replys) will be forwarded to $1",
   "Message_ContinuedChatDisabled": "✅ *Continued Conversation* is now `disabled`.",
   "Message_FeatureNotAvailable": "⚠ This feature is unavailable or disabled.",
-  "Message_Stats": "📝 *Statistics*\n\n💬 Received messages: `$1`\n🔄 Forwarded to owner: `$2`\n🔄 Forwareded from owner: `$3`\n🚀 Commands received: `$4`",
+  "Message_Stats": "📝 *Statistics*\n\n💬 Received messages: `$1`\n🔄 Forwarded to owner: `$2`\n🔄 Forwarded from owner: `$3`\n🚀 Commands received: `$4`",
   "Message_Retracted": "✅ This message has been retracted.",
   "Message_MsgLinksCleared": "✅ All message links have been cleared.",
   "Message_AvailableLang": "ℹ *Available languages*\n\n`$1`"
