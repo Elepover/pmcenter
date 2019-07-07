@@ -255,6 +255,29 @@ pmcenter_lang: pmcenter 语言文件路径。
 
 请注意: `/restart` 命令仅在有有效的守护进程，且其能在 pmcenter 退出后自动将其重启的情况下工作。pmcenter 无法自行重新启动。
 
+# 已知问题
+
+## OpenSSL 1.1 兼容性问题
+
+此问题仅在 Linux 环境下出现，与 Windows 无关。
+
+当使用旧版 (早于 PR [#34443](https://github.com/dotnet/corefx/pull/34443) (2019/02/14)) 的 .NET Core 2.1 (其与 OpenSSL 1.1+ 不兼容) 时, pmcenter 将会在建立安全连接时抛出以下错误:
+
+```
+System.Net.Http.HttpRequestException: The SSL connection could not be established, see inner exception. 
+---> System.Security.Authentication.AuthenticationException: Authentication failed, see inner exception. 
+---> System.TypeInitializationException: The type initializer for 'SslMethods' threw an exception. 
+---> System.TypeInitializationException: The type initializer for 'Ssl' threw an exception. 
+---> System.TypeInitializationException: The type initializer for 'SslInitializer' threw an exception. 
+---> Interop+Crypto+OpenSslCryptographicException: error:0E076071:configuration file routines:MODULE_RUN:unknown module name
+```
+
+在 issue [#33179](https://github.com/dotnet/corefx/issues/33179) 中提及了以下解决方案:
+
+1. 打开 `openssl.cnf` 并注释掉 `ssl_conf = ssl_sect` 一行。
+2. 更新 (新于 #34443) 的 .NET Core 2.1 运行时。
+3. 安装 OpenSSL 1.0.
+
 # 免责声明
 
 很抱歉，但鉴于某些事件，我们实在不得不加入这个章节，以至于独立成一个 commit 来提交。

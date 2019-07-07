@@ -1,5 +1,5 @@
 {
-  "Latest": "1.6.89.178",
-  "Details": "[+] You can now switch between languages more easily!\n[+] Update level will be displayed on update messages.\n[+] New Traditional Chinese translation is now available!",
+  "Latest": "1.6.90.179",
+  "Details": "[/] Added OpenSSL 1.1+ compatibility notification.\n[/] Fixed a minor bug in the Setup Wizard.",
   "UpdateLevel": 1
 }

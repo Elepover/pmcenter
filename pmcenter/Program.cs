@@ -191,6 +191,7 @@ namespace pmcenter
             }
             catch (Exception ex)
             {
+                CheckOpenSSLComp(ex);
                 Log("Unexpected error during startup: " + ex.ToString(), "CORE", LogLevel.ERROR);
                 Environment.Exit(1);
             }

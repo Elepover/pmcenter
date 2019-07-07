@@ -252,6 +252,29 @@ You can write a `systemd service` to keep it running, even after the host machin
 
 Please note: `/restart` command only works with a daemon that auto-restarts pmcenter when it exits. pmcenter cannot restart by itself.
 
+# Known Problems
+
+## OpenSSL Compatibility Problem
+
+This problem only occurs on Linux, and will not occur on Windows.
+
+When using older versions (earlier than PR [#34443](https://github.com/dotnet/corefx/pull/34443) (14 Feb, 2019)) of .NET Core 2.1, which is incompatible with OpenSSL 1.1+, pmcenter will throw the following exception:
+
+```
+System.Net.Http.HttpRequestException: The SSL connection could not be established, see inner exception. 
+---> System.Security.Authentication.AuthenticationException: Authentication failed, see inner exception. 
+---> System.TypeInitializationException: The type initializer for 'SslMethods' threw an exception. 
+---> System.TypeInitializationException: The type initializer for 'Ssl' threw an exception. 
+---> System.TypeInitializationException: The type initializer for 'SslInitializer' threw an exception. 
+---> Interop+Crypto+OpenSslCryptographicException: error:0E076071:configuration file routines:MODULE_RUN:unknown module name
+```
+
+As is mentioned in issue [#33179](https://github.com/dotnet/corefx/issues/33179), there're several workarounds:
+
+1. Find `openssl.cnf` and comment out the `ssl_conf = ssl_sect` line.
+2. Upgrade to a newer (later than #34443) .NET Core 2.1 runtime.
+3. Install OpenSSL 1.0.
+
 # Disclaimer
 
 The program is licensed under Apache License _(Version 2.0. Dependencies are licensed under MIT License)_ and comes with **ABSOLUTELY NO WARRANTY**. By using the program in any way, you acknowledge and confirm that the developer of the program is **NOT RESPONSIBLE** for service outage, data loss or any other rare unlisted incident caused by the program.

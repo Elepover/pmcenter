@@ -77,6 +77,11 @@ namespace pmcenter
                 {
                     Say("Warning: pmcenter.json already exists.");
                     SIn("..       Moving the existing one to pmcenter.json.bak...");
+                    if (File.Exists(Vars.ConfFile + ".bak"))
+                    {
+                        SIn(" File exists, deleting...");
+                        File.Delete(Vars.ConfFile + ".bak");
+                    }
                     File.Move(Vars.ConfFile, Vars.ConfFile + ".bak");
                     Say(" Done!");
                 }
@@ -88,6 +93,11 @@ namespace pmcenter
                 {
                     Say("Warning: pmcenter_locale.json already exists.");
                     SIn("..       Moving the existing one to pmcenter_locale.json.bak...");
+                    if (File.Exists(Vars.LangFile + ".bak"))
+                    {
+                        SIn(" File exists, deleting...");
+                        File.Delete(Vars.LangFile + ".bak");
+                    }
                     File.Move(Vars.LangFile, Vars.LangFile + ".bak");
                     Say(" Done!");
                 }
@@ -132,6 +142,7 @@ namespace pmcenter
             }
             catch (Exception ex)
             {
+                Methods.CheckOpenSSLComp(ex);
                 Say(" Invalid API Key: " + ex.Message);
                 goto EnterKey;
             }
