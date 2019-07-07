@@ -25,7 +25,8 @@ namespace pmcenter
                         Vars.UpdateLevel = Latest.UpdateLevel;
                         string UpdateString = Vars.CurrentLang.Message_UpdateAvailable
                             .Replace("$1", Latest.Latest)
-                            .Replace("$2", Latest.Details);
+                            .Replace("$2", Latest.Details)
+                            .Replace("$3", GetUpdateLevel(Latest.UpdateLevel));
                         await Vars.Bot.SendTextMessageAsync(Vars.CurrentConf.OwnerUID,
                                                             UpdateString,
                                                             ParseMode.Markdown,

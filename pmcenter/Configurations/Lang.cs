@@ -42,7 +42,7 @@ namespace pmcenter
                 Message_ConfigUpdated = "🔄 Settings have been updated!";
                 Message_ConfigReloaded = "🔄 Settings reloaded!";
                 Message_UptimeInfo = "🚀 *Uptime Information*:\nSystem uptime: `$1`\nBot uptime: `$2`";
-                Message_UpdateAvailable = "🔄 *Update available!*\n\nUpdate level: `$3`\nNew version: `$1`\nWhat's new:\n`$2`\n\nExecute /update to perform automatic update.";
+                Message_UpdateAvailable = "🔄 *Update available!*\n\n$3\nNew version: `$1`\nWhat's new:\n`$2`\n\nExecute /update to perform automatic update.";
                 Message_UpdateProcessing = "💠 Preparing to update...";
                 Message_UpdateCheckFailed = "⚠ Update failed: `$1`";
                 Message_AlreadyUpToDate = "✅ *Already up to date*!\nLatest version: `$1`\nCurrently installed: `$2`\nUpdate details:\n`$3`";
