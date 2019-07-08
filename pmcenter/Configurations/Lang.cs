@@ -203,10 +203,6 @@ namespace pmcenter
                 try
                 {
                     await ReadLang(false); // Read but don't apply.
-                    if (Vars.CurrentLang == null)
-                    {
-                        throw new InvalidOperationException("Language file is empty.");
-                    }
                 }
                 catch (Exception ex)
                 {

@@ -81,6 +81,12 @@ namespace pmcenter
                 await ReadConf();
                 await InitLang();
                 await ReadLang();
+
+                if (Vars.CurrentLang == null)
+                {
+                    throw new InvalidOperationException("Language file is empty.");
+                }
+
                 if (Vars.RestartRequired)
                 {
                     Log("This may be the first time that you use the pmcenter bot.", "CORE");
