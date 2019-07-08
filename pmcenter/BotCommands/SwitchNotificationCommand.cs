@@ -13,7 +13,7 @@ namespace pmcenter.Commands
 
         public async Task<bool> ExecuteAsync(TelegramBotClient botClient, Update update)
         {
-            bool IsDisabledNow = Conf.SwitchNotifications();
+            var IsDisabledNow = Conf.SwitchNotifications();
             await Conf.SaveConf(false, true);
             await botClient.SendTextMessageAsync(update.Message.From.Id,
                 IsDisabledNow ?

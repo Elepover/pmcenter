@@ -18,7 +18,7 @@ namespace pmcenter.Commands
                 return false;
             }
 
-            string MessageInfo = "ℹ *Message Info*\n📩 *Sender*: [";
+            var MessageInfo = "ℹ *Message Info*\n📩 *Sender*: [";
             if (Vars.CurrentConf.UseUsernameInMsgInfo)
             {
                 MessageInfo += update.Message.ReplyToMessage.ForwardFrom.FirstName + " " + update.Message.ReplyToMessage.ForwardFrom.LastName;

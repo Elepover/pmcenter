@@ -25,7 +25,7 @@ namespace pmcenter.Commands
                 Conf.Update Latest = Conf.CheckForUpdates();
                 if (Conf.IsNewerVersionAvailable(Latest))
                 {
-                    string UpdateString = Vars.CurrentLang.Message_UpdateAvailable
+                    var UpdateString = Vars.CurrentLang.Message_UpdateAvailable
                         .Replace("$1", Latest.Latest)
                         .Replace("$2", Latest.Details)
                         .Replace("$3", Methods.GetUpdateLevel(Latest.UpdateLevel));
@@ -45,7 +45,7 @@ namespace pmcenter.Commands
                         update.Message.MessageId);
                     // download compiled package
                     Log("Starting update download... (pmcenter_update.zip)", "BOT");
-                    WebClient Downloader = new WebClient();
+                    var Downloader = new WebClient();
                     await Downloader.DownloadFileTaskAsync(
                         new Uri(Vars.UpdateArchiveURL),
                         Path.Combine(Vars.AppDirectory, "pmcenter_update.zip"));

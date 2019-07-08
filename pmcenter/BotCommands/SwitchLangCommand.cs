@@ -28,8 +28,8 @@ namespace pmcenter.Commands
                 update.Message.MessageId);
                 
             // download file
-            string LangURL = update.Message.Text.Split(" ")[1];
-            WebClient Downloader = new WebClient();
+            var LangURL = update.Message.Text.Split(" ")[1];
+            var Downloader = new WebClient();
             await Downloader.DownloadFileTaskAsync(
                 new Uri(LangURL),
                 Path.Combine(Vars.AppDirectory, "pmcenter_locale.json")

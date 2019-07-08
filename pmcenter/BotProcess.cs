@@ -71,7 +71,7 @@ namespace pmcenter
                         + " FromUsername: " + e.Update.Message.From.Username
                         , "BOT-DETAILED", LogLevel.INFO);
                 }
-                Update update = e.Update;
+                var update = e.Update;
                 if (update.Type != UpdateType.Message) { return; }
                 if (update.Message.From.IsBot) { return; }
                 if (update.Message.Chat.Type != ChatType.Private) { return; }
@@ -150,7 +150,7 @@ namespace pmcenter
 
             // process owner
             Log("Forwarding message to owner...", "BOT");
-            Message ForwardedMessage = await Vars.Bot.ForwardMessageAsync(Vars.CurrentConf.OwnerUID,
+            var ForwardedMessage = await Vars.Bot.ForwardMessageAsync(Vars.CurrentConf.OwnerUID,
                                                                           update.Message.From.Id,
                                                                           update.Message.MessageId,
                                                                           Vars.CurrentConf.DisableNotifications);
@@ -219,7 +219,7 @@ namespace pmcenter
                 Log("Forwarding message to cc: " + Id, "BOT");
                 try
                 {
-                    Message ForwardedMessageCc = await Vars.Bot.ForwardMessageAsync(Id,
+                    var ForwardedMessageCc = await Vars.Bot.ForwardMessageAsync(Id,
                                                                                                        update.Message.From.Id,
                                                                                                        update.Message.MessageId,
                                                                                                        Vars.CurrentConf.DisableNotifications);
@@ -285,7 +285,7 @@ namespace pmcenter
             if (Vars.CurrentConf.ContChatTarget != -1)
             {
                 // Is replying, replying to forwarded message AND not command.
-                Message Forwarded = await Vars.Bot.ForwardMessageAsync(
+                var Forwarded = await Vars.Bot.ForwardMessageAsync(
                                                                        Vars.CurrentConf.ContChatTarget,
                                                                        update.Message.Chat.Id,
                                                                        update.Message.MessageId,
@@ -302,7 +302,7 @@ namespace pmcenter
                 // Process locale.
                 if (Vars.CurrentConf.EnableRepliedConfirmation)
                 {
-                    string ReplyToMessage = Vars.CurrentLang.Message_ReplySuccessful;
+                    var ReplyToMessage = Vars.CurrentLang.Message_ReplySuccessful;
                     ReplyToMessage = ReplyToMessage.Replace("$1", "[" + Vars.CurrentConf.ContChatTarget + "](tg://user?id=" + Vars.CurrentConf.ContChatTarget + ")");
                     await Vars.Bot.SendTextMessageAsync(update.Message.From.Id, ReplyToMessage, ParseMode.Markdown, false, false, update.Message.MessageId);
                 }
@@ -323,7 +323,7 @@ namespace pmcenter
         private static async Task OwnerReplying(Update update)
         {
             // check anonymous forward (5.5.0 new feature compatibility fix)
-            Conf.MessageIDLink Link = GetLinkByOwnerMsgID(update.Message.ReplyToMessage.MessageId);
+            var Link = GetLinkByOwnerMsgID(update.Message.ReplyToMessage.MessageId);
             if (Link != null && !Link.IsFromOwner)
             {
                 Log("Selected message is forwarded anonymously from " + Link.TGUser.Id + ", fixing user information from database.", "BOT");
@@ -349,7 +349,7 @@ namespace pmcenter
             }
 
             // Is replying, replying to forwarded message AND not command.
-            Message Forwarded = await Vars.Bot.ForwardMessageAsync(
+            var Forwarded = await Vars.Bot.ForwardMessageAsync(
                     update.Message.ReplyToMessage.ForwardFrom.Id,
                     update.Message.Chat.Id,
                     update.Message.MessageId,
@@ -367,7 +367,7 @@ namespace pmcenter
             // Process locale.
             if (Vars.CurrentConf.EnableRepliedConfirmation)
             {
-                string ReplyToMessage = Vars.CurrentLang.Message_ReplySuccessful;
+                var ReplyToMessage = Vars.CurrentLang.Message_ReplySuccessful;
                 ReplyToMessage = ReplyToMessage.Replace("$1", "[" + update.Message.ReplyToMessage.ForwardFrom.FirstName + " (@" + update.Message.ReplyToMessage.ForwardFrom.Username + ")](tg://user?id=" + update.Message.ReplyToMessage.ForwardFrom.Id + ")");
                 await Vars.Bot.SendTextMessageAsync(update.Message.From.Id, ReplyToMessage, ParseMode.Markdown, false, false, update.Message.MessageId);
             }

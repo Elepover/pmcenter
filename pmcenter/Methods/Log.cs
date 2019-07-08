@@ -12,7 +12,7 @@ namespace pmcenter
             {
                 return;
             }
-            string Output = "[" + DateTime.UtcNow.ToShortDateString() + " " + DateTime.UtcNow.ToShortTimeString() + "][" + Module + "]";
+            var Output = "[" + DateTime.UtcNow.ToShortDateString() + " " + DateTime.UtcNow.ToShortTimeString() + "][" + Module + "]";
             Console.BackgroundColor = ConsoleColor.Black;
             switch (Type)
             {

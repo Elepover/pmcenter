@@ -22,7 +22,7 @@ namespace pmcenter.Commands
                     Vars.UpdatePending = true;
                     Vars.UpdateVersion = new Version(Latest.Latest);
                     Vars.UpdateLevel = Latest.UpdateLevel;
-                    string UpdateString = Vars.CurrentLang.Message_UpdateAvailable
+                    var UpdateString = Vars.CurrentLang.Message_UpdateAvailable
                         .Replace("$1", Latest.Latest)
                         .Replace("$2", Latest.Details)
                         .Replace("$3", Methods.GetUpdateLevel(Latest.UpdateLevel));
@@ -53,7 +53,7 @@ namespace pmcenter.Commands
             }
             catch (Exception ex)
             {
-                string ErrorString = Vars.CurrentLang.Message_UpdateCheckFailed.Replace("$1", ex.Message);
+                var ErrorString = Vars.CurrentLang.Message_UpdateCheckFailed.Replace("$1", ex.Message);
                 await botClient.SendTextMessageAsync(
                     update.Message.From.Id,
                     ErrorString, ParseMode.Markdown,

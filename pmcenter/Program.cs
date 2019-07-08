@@ -42,8 +42,8 @@ namespace pmcenter
                 // including: $pmcenter_conf, $pmcenter_lang
                 try
                 {
-                    string ConfByEnviVar = Environment.GetEnvironmentVariable("pmcenter_conf");
-                    string LangByEnviVar = Environment.GetEnvironmentVariable("pmcenter_lang");
+                    var ConfByEnviVar = Environment.GetEnvironmentVariable("pmcenter_conf");
+                    var LangByEnviVar = Environment.GetEnvironmentVariable("pmcenter_lang");
                     if (ConfByEnviVar != null)
                     {
                         if (File.Exists(ConfByEnviVar))

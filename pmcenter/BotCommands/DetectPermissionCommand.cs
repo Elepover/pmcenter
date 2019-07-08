@@ -16,8 +16,8 @@ namespace pmcenter.Commands
 
         public async Task<bool> ExecuteAsync(TelegramBotClient botClient, Update update)
         {
-            bool ConfWritable = FlipBool((new FileInfo(Vars.ConfFile)).IsReadOnly);
-            bool LangWritable = FlipBool((new FileInfo(Vars.LangFile)).IsReadOnly);
+            var ConfWritable = FlipBool((new FileInfo(Vars.ConfFile)).IsReadOnly);
+            var LangWritable = FlipBool((new FileInfo(Vars.LangFile)).IsReadOnly);
             await botClient.SendTextMessageAsync(
                 update.Message.From.Id,
                 Vars.CurrentLang.Message_ConfAccess

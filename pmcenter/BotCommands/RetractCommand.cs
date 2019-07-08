@@ -17,7 +17,7 @@ namespace pmcenter.Commands
             {
                 return false;
             }
-            int SelectedMsgID = update.Message.ReplyToMessage.MessageId;
+            var SelectedMsgID = update.Message.ReplyToMessage.MessageId;
             if (update.Message.From.Id == Vars.CurrentConf.OwnerUID)
             { // owner retracting
                 if (Methods.IsOwnerRetractionAvailable(SelectedMsgID))

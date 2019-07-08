@@ -14,7 +14,7 @@ namespace pmcenter.Commands
 
         public async Task<bool> ExecuteAsync(TelegramBotClient botClient, Update update)
         {
-            string UptimeString =
+            var UptimeString =
                 Vars.CurrentLang.Message_UptimeInfo
                 .Replace("$1", (new TimeSpan(0, 0, 0, 0, Environment.TickCount)).ToString())
                 .Replace("$2", Vars.StartSW.Elapsed.ToString());

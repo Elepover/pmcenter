@@ -22,7 +22,7 @@ namespace pmcenter.Commands
                 false,
                 Vars.CurrentConf.DisableNotifications,
                 update.Message.MessageId);
-            Thread PerformanceChecker = new Thread(() => Methods.ThrPerform());
+            var PerformanceChecker = new Thread(() => Methods.ThrPerform());
             PerformanceChecker.Start();
             Thread.Sleep(1000);
             Vars.IsPerformanceTestEndRequested = true;

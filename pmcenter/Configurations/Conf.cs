@@ -219,13 +219,13 @@ namespace pmcenter
         }
         public static async Task<bool> ReadConf(bool Apply = true)
         { // DO NOT HANDLE ERRORS HERE. THE CALLING METHOD WILL HANDLE THEM.
-            ConfObj Temp = await GetConf(Vars.ConfFile);
+            var Temp = await GetConf(Vars.ConfFile);
             if (Apply) { Vars.CurrentConf = Temp; }
             return true;
         }
         public static async Task<ConfObj> GetConf(string Filename)
         {
-            string SettingsText = await System.IO.File.ReadAllTextAsync(Filename);
+            var SettingsText = await System.IO.File.ReadAllTextAsync(Filename);
             return JsonConvert.DeserializeObject<ConfObj>(SettingsText);
         }
         public static async Task InitConf()
@@ -307,14 +307,14 @@ namespace pmcenter
         }
         public static Update CheckForUpdates()
         {
-            WebClient Downloader = new WebClient();
-            string Response = Downloader.DownloadString(new Uri(Vars.UpdateInfoURL));
+            var Downloader = new WebClient();
+            var Response = Downloader.DownloadString(new Uri(Vars.UpdateInfoURL));
             return JsonConvert.DeserializeObject<Update>(Response);
         }
         public static bool IsNewerVersionAvailable(Update CurrentUpdate)
         {
-            Version CurrentVersion = Vars.AppVer;
-            Version CurrentLatest = new Version(CurrentUpdate.Latest);
+            var CurrentVersion = Vars.AppVer;
+            var CurrentLatest = new Version(CurrentUpdate.Latest);
             if (CurrentLatest > CurrentVersion)
             {
                 return true;

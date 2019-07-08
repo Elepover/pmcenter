@@ -15,15 +15,15 @@ namespace pmcenter
                 Vars.UpdateCheckerStatus = ThreadStatus.Working;
                 try
                 {
-                    Update Latest = Conf.CheckForUpdates();
-                    bool DisNotif = Vars.CurrentConf.DisableNotifications;
+                    var Latest = Conf.CheckForUpdates();
+                    var DisNotif = Vars.CurrentConf.DisableNotifications;
                     // Identical with BotProcess.cs, L206.
                     if (Conf.IsNewerVersionAvailable(Latest))
                     {
                         Vars.UpdatePending = true;
                         Vars.UpdateVersion = new Version(Latest.Latest);
                         Vars.UpdateLevel = Latest.UpdateLevel;
-                        string UpdateString = Vars.CurrentLang.Message_UpdateAvailable
+                        var UpdateString = Vars.CurrentLang.Message_UpdateAvailable
                             .Replace("$1", Latest.Latest)
                             .Replace("$2", Latest.Details)
                             .Replace("$3", GetUpdateLevel(Latest.UpdateLevel));

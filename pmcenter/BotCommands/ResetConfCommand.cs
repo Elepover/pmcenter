@@ -24,8 +24,8 @@ namespace pmcenter.Commands
                     false,
                     Vars.CurrentConf.DisableNotifications,
                     update.Message.MessageId);
-                long OwnerID = Vars.CurrentConf.OwnerUID;
-                string APIKey = Vars.CurrentConf.APIKey;
+                var OwnerID = Vars.CurrentConf.OwnerUID;
+                var APIKey = Vars.CurrentConf.APIKey;
                 Vars.CurrentConf = new Conf.ConfObj();
                 Vars.CurrentConf.OwnerUID = OwnerID;
                 Vars.CurrentConf.APIKey = APIKey;

@@ -19,7 +19,7 @@ namespace pmcenter.Commands
             try
             {
                 Log("Configurations received, applying...", "BOT", LogLevel.INFO);
-                string ConfStr = update.Message.Text.Split(" ", 2)[1];
+                var ConfStr = update.Message.Text.Split(" ", 2)[1];
                 Conf.ConfObj Temp = JsonConvert.DeserializeObject<Conf.ConfObj>(ConfStr);
                 if (Temp.APIKey != Vars.CurrentConf.APIKey)
                 {

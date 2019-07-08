@@ -1,5 +1,5 @@
 {
-  "Latest": "1.6.90.179",
-  "Details": "[/] Added OpenSSL 1.1+ compatibility notification.\n[/] Fixed a minor bug in the Setup Wizard.",
+  "Latest": "1.6.91.180",
+  "Details": "[/] Now pmcenter will automatically detect and fix empty language files.\n[/] We've updated the language files to fix the update level display.\n[/] We have refined this version's code structure.",
   "UpdateLevel": 1
 }

@@ -16,13 +16,13 @@ namespace pmcenter.CommandLines
         {
             Log("Application version: " + Vars.AppVer.ToString(), "CMD");
             Log("Checking for updates...", "CMD");
-            Conf.Update Latest = Conf.CheckForUpdates();
+            var Latest = Conf.CheckForUpdates();
             if (Conf.IsNewerVersionAvailable(Latest))
             {
                 Log("Newer version found: " + Latest.Latest + ", main changes:\n" + Latest.Details, "CMD");
                 Log("Updating...", "CMD");
                 Log("Starting update download... (pmcenter_update.zip)", "CMD");
-                WebClient Downloader = new WebClient();
+                var Downloader = new WebClient();
                 await Downloader.DownloadFileTaskAsync(
                     new Uri(Vars.UpdateArchiveURL),
                     Path.Combine(Vars.AppDirectory, "pmcenter_update.zip"));

@@ -169,8 +169,8 @@ namespace pmcenter
         }
         public static async Task<bool> SaveLang(bool IsInvalid = false)
         { // DO NOT HANDLE ERRORS HERE.
-            string Text = JsonConvert.SerializeObject(Vars.CurrentLang, Formatting.Indented);
-            StreamWriter Writer = new StreamWriter(File.Create(Vars.LangFile), System.Text.Encoding.UTF8);
+            var Text = JsonConvert.SerializeObject(Vars.CurrentLang, Formatting.Indented);
+            var Writer = new StreamWriter(File.Create(Vars.LangFile), System.Text.Encoding.UTF8);
             await Writer.WriteAsync(Text);
             await Writer.FlushAsync();
             Writer.Close();
@@ -184,8 +184,8 @@ namespace pmcenter
         }
         public static async Task<bool> ReadLang(bool Apply = true)
         { // DO NOT HANDLE ERRORS HERE. THE CALLING METHOD WILL HANDLE THEM.
-            string SettingsText = await File.ReadAllTextAsync(Vars.LangFile);
-            Language Temp = JsonConvert.DeserializeObject<Language>(SettingsText);
+            var SettingsText = await File.ReadAllTextAsync(Vars.LangFile);
+            var Temp = JsonConvert.DeserializeObject<Language>(SettingsText);
             if (Apply) { Vars.CurrentLang = Temp; }
             return true;
         }
@@ -203,6 +203,10 @@ namespace pmcenter
                 try
                 {
                     await ReadLang(false); // Read but don't apply.
+                    if (Vars.CurrentLang == null)
+                    {
+                        throw new InvalidOperationException("Language file is empty.");
+                    }
                 }
                 catch (Exception ex)
                 {

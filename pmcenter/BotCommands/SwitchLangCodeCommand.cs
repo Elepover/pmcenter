@@ -20,11 +20,11 @@ namespace pmcenter.Commands
             string Reply;
             // try to get locale list
             WebClient ListDownloader = new WebClient();
-            string ListJSONString = await ListDownloader.DownloadStringTaskAsync(Vars.LocaleMapURL);
+            var ListJSONString = await ListDownloader.DownloadStringTaskAsync(Vars.LocaleMapURL);
             Conf.LocaleList LocaleList = JsonConvert.DeserializeObject<Conf.LocaleList>(ListJSONString);
             if (!update.Message.Text.Contains(" "))
             {
-                string ListString = "";
+                var ListString = "";
                 foreach (Conf.LocaleMirror Mirror in LocaleList.Locales)
                 {
                     ListString += Mirror.LocaleCode + " - " + Mirror.LocaleNameNative + " (" + Mirror.LocaleNameEng + ")\n";
@@ -33,13 +33,13 @@ namespace pmcenter.Commands
             }
             else
             {
-                string TargetCode = update.Message.Text.Split(" ")[1];
+                var TargetCode = update.Message.Text.Split(" ")[1];
                 foreach (Conf.LocaleMirror Mirror in LocaleList.Locales)
                 {
                     if (Mirror.LocaleCode == TargetCode)
                     {
                         // start downloading
-                        WebClient Downloader = new WebClient();
+                        var Downloader = new WebClient();
                         await Downloader.DownloadFileTaskAsync(
                             new Uri(Mirror.LocaleFileURL),
                             Path.Combine(Vars.AppDirectory, "pmcenter_locale.json")

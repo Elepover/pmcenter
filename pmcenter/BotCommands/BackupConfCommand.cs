@@ -15,7 +15,7 @@ namespace pmcenter.Commands
 
         public async Task<bool> ExecuteAsync(TelegramBotClient botClient, Update update)
         {
-            string RandomFilename = "pmcenter." + DateTime.Now.ToString("yyyy-dd-M-HH-mm-ss") + "#" + GetRandomString(6) + ".json";
+            var RandomFilename = "pmcenter." + DateTime.Now.ToString("yyyy-dd-M-HH-mm-ss") + "#" + GetRandomString(6) + ".json";
             RandomFilename = System.IO.Path.Combine(Vars.AppDirectory, RandomFilename);
             Log("Backing up configurations, filename: " + RandomFilename, "BOT");
             System.IO.File.Copy(Vars.ConfFile, RandomFilename);

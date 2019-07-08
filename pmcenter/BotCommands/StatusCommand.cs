@@ -16,9 +16,9 @@ namespace pmcenter.Commands
 
         public async Task<bool> ExecuteAsync(TelegramBotClient botClient, Update update)
         {
-            string MessageStr = Vars.CurrentLang.Message_SysStatus_Header + "\n\n";
+            var MessageStr = Vars.CurrentLang.Message_SysStatus_Header + "\n\n";
             // process other headers
-            bool NoActionRequired = true;
+            var NoActionRequired = true;
             if (Vars.UpdatePending)
             {
                 MessageStr += Vars.CurrentLang.Message_SysStatus_PendingUpdate.Replace("$1", Vars.UpdateVersion.ToString()) + "\n";
