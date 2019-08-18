@@ -163,7 +163,6 @@ Or, use setup wizard:
 | `ContChatTarget` | `Long` | ✕ | Target of Continued Conversation. |
 | `EnableMsgLink` | `Boolean` | ✓ | Enable/Disable message links. |
 | `AllowUserRetraction` | `Boolean` | ✓ | Enable/Disable message retraction. |
-| `AllowUntrustedCerts` | `Boolean` | ✓ | Allow untrusted certificates. |
 | `Statistics` | `Stats` | ✕ | Statistics data. |
 | `Socks5Proxies` | `Array` | ✓ | List of SOCKS5 proxies. |
 | `BannedKeywords` | `Array` | ✓ | Storage of banned keywords. |
