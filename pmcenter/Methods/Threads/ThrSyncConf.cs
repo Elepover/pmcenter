@@ -18,7 +18,12 @@ namespace pmcenter
                 {
                     Log("Failed to write configurations to local disk: " + ex.Message, "CONFSYNC", LogLevel.ERROR);
                 }
-                Thread.Sleep(30000);
+                if (Vars.CurrentConf.ConfSyncInterval == 0)
+                {
+                    Log("ConfSync disabled, stopping...", "CONFSYNC", LogLevel.WARN);
+                    return;
+                }
+                Thread.Sleep(Vars.CurrentConf.ConfSyncInterval);
             }
         }
     }

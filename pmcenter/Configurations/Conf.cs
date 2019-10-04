@@ -51,6 +51,7 @@ namespace pmcenter
                 ContChatTarget = -1;
                 EnableMsgLink = false;
                 AllowUserRetraction = false;
+                ConfSyncInterval = 30000;
                 Statistics = new Stats();
                 Socks5Proxies = new List<Socks5Proxy>();
                 BannedKeywords = new List<string>();
@@ -84,6 +85,7 @@ namespace pmcenter
             public long ContChatTarget { get; set; }
             public bool EnableMsgLink { get; set; }
             public bool AllowUserRetraction { get; set; }
+            public int ConfSyncInterval { get; set; }
             public Stats Statistics { get; set; }
             public List<Socks5Proxy> Socks5Proxies { get; set; }
             public List<string> BannedKeywords { get; set; }
@@ -307,9 +309,11 @@ namespace pmcenter
         }
         public static Update CheckForUpdates()
         {
-            var Downloader = new WebClient();
-            var Response = Downloader.DownloadString(new Uri(Vars.UpdateInfoURL));
-            return JsonConvert.DeserializeObject<Update>(Response);
+            using (var Downloader = new WebClient())
+            {
+                var Response = Downloader.DownloadString(new Uri(Vars.UpdateInfoURL));
+                return JsonConvert.DeserializeObject<Update>(Response);
+            }
         }
         public static bool IsNewerVersionAvailable(Update CurrentUpdate)
         {

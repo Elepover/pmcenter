@@ -165,7 +165,7 @@ That's all.
 | `ContChatTarget` | `Long` | ✓ | 连续对话模式目标 |
 | `EnableMsgLink` | `Boolean` | ✓ | 是否启用消息链接 |
 | `AllowUserRetraction` | `Boolean` | ✓ | 是否允许消息撤回 |
-| `AllowUntrustedCerts` | `Boolean` | ✓ | 允许不受信证书 |
+| `ConfSyncInterval` | `Int` | ✓ | 指定自动保存间隔，单位毫秒 |
 | `Statistics` | `Stats` | ✕ | 统计数据 |
 | `Socks5Proxies` | `Array` | ✓ | SOCKS5 代理列表 |
 | `BannedKeywords` | `Array` | ✓ | 屏蔽的关键字存储 |

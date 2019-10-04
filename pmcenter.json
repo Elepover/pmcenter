@@ -5,14 +5,10 @@
   "Cc": [],
   "AutoBan": true,
   "AutoBanThreshold": 20,
-  "Banned": [],
   "ForwardingPaused": false,
-  "BannedKeywords": [],
   "KeywordBanning": true,
   "KeywordAutoBan": false,
   "EnableRegex": false,
-  "RestartCommand": "/bin/systemctl",
-  "RestartArgs": "restart pmcenter",
   "AutoLangUpdate": true,
   "LangURL": "https://raw.githubusercontent.com/Elepover/pmcenter/master/locales/pmcenter_locale_en.json",
   "DisableNotifications": false,
@@ -20,20 +16,25 @@
   "EnableForwardedConfirmation": false,
   "EnableAutoUpdateCheck": false,
   "UseUsernameInMsgInfo": true,
-  "AnonymousForward": false,
   "DonateString": "",
   "LowPerformanceMode": false,
   "DetailedMsgLogging": false,
-  "Socks5Proxies": [
-    {
-      "ServerName": "example.com",
-      "ServerPort": 1080,
-      "Username": "username",
-      "ProxyPass": "password"
-    }
-  ],
   "UseProxy": false,
   "ResolveHostnamesLocally": true,
   "CatchAllExceptions": false,
-  "NoStartupMessage": false
+  "NoStartupMessage": false,
+  "ContChatTarget": -1,
+  "EnableMsgLink": false,
+  "AllowUserRetraction": false,
+  "ConfSyncInterval": 30000,
+  "Statistics": {
+    "TotalMessagesReceived": 0,
+    "TotalCommandsReceived": 0,
+    "TotalForwardedToOwner": 0,
+    "TotalForwardedFromOwner": 0
+  },
+  "Socks5Proxies": [],
+  "BannedKeywords": [],
+  "Banned": [],
+  "MessageLinks": []
 }

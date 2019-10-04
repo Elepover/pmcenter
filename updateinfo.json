@@ -1,5 +1,5 @@
 {
-  "Latest": "1.6.91.180",
-  "Details": "[/] Now pmcenter will automatically detect and fix empty language files.\n[/] We've updated the language files to fix the update level display.\n[/] We have refined this version's code structure.",
+  "Latest": "1.6.92.210",
+  "Details": "[/] Improved memory efficiency.\n[+] When /catconf output is oversized, it will be automatically split to multiple parts.\n[+] You can change the autosave interval or completely disable it now.",
   "UpdateLevel": 1
 }

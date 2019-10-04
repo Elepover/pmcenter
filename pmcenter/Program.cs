@@ -124,7 +124,7 @@ namespace pmcenter
                 Log("Starting SyncConf...");
                 Vars.SyncConf = new Thread(() => ThrSyncConf());
                 Vars.SyncConf.Start();
-                Log("Waiting");
+                Log("Waiting...");
                 while (!Vars.SyncConf.IsAlive)
                 {
                     Thread.Sleep(100);
