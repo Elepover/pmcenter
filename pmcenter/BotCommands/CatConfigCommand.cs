@@ -18,7 +18,7 @@ namespace pmcenter.Commands
         public async Task<bool> ExecuteAsync(TelegramBotClient botClient, Update update)
         {
             var text = SerializeCurrentConf();
-            List<string> texts = StrChunk(text, 4096);
+            List<string> texts = StrChunk(text, 1024);
             if (texts.Count == 1)
             {
                 await botClient.SendTextMessageAsync(
