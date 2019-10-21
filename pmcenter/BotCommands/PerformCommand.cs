@@ -15,13 +15,13 @@ namespace pmcenter.Commands
 
         public async Task<bool> ExecuteAsync(TelegramBotClient botClient, Update update)
         {
-            await botClient.SendTextMessageAsync(
+            _ = await botClient.SendTextMessageAsync(
                 update.Message.From.Id,
                 Vars.CurrentLang.Message_Performance_Inited,
                 ParseMode.Markdown,
                 false,
                 Vars.CurrentConf.DisableNotifications,
-                update.Message.MessageId);
+                update.Message.MessageId).ConfigureAwait(false);
             var PerformanceChecker = new Thread(() => Methods.ThrPerform());
             PerformanceChecker.Start();
             Thread.Sleep(1000);
@@ -31,13 +31,13 @@ namespace pmcenter.Commands
                 Thread.Sleep(500);
             }
             Vars.PerformanceScore /= 1000000;
-            await botClient.SendTextMessageAsync(
+            _ = await botClient.SendTextMessageAsync(
                 update.Message.From.Id,
                 Vars.CurrentLang.Message_Performance_Results.Replace("$1", Vars.PerformanceScore / 5 + "Mop/s"),
                 ParseMode.Markdown,
                 false,
                 Vars.CurrentConf.DisableNotifications,
-                update.Message.MessageId);
+                update.Message.MessageId).ConfigureAwait(false);
             return true;
         }
     }

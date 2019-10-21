@@ -14,15 +14,15 @@ namespace pmcenter.Commands
         public async Task<bool> ExecuteAsync(TelegramBotClient botClient, Update update)
         {
             var IsPausedNow = Conf.SwitchPaused();
-            await Conf.SaveConf(false, true);
-            await botClient.SendTextMessageAsync(update.Message.From.Id,
+            _ = await Conf.SaveConf(false, true).ConfigureAwait(false);
+            _ = await botClient.SendTextMessageAsync(update.Message.From.Id,
             IsPausedNow ?
                 Vars.CurrentLang.Message_ServicePaused :
                 Vars.CurrentLang.Message_ServiceResumed,
             ParseMode.Markdown,
             false,
             Vars.CurrentConf.DisableNotifications,
-            update.Message.MessageId);
+            update.Message.MessageId).ConfigureAwait(false);
 
             return true;
         }

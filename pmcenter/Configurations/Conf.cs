@@ -27,7 +27,7 @@ namespace pmcenter
                 APIKey = "";
                 OwnerUID = -1;
                 EnableCc = false;
-                Cc = new long[] { };
+                Cc = new List<long>();
                 AutoBan = true;
                 AutoBanThreshold = 20;
                 ForwardingPaused = false;
@@ -61,7 +61,7 @@ namespace pmcenter
             public string APIKey { get; set; }
             public long OwnerUID { get; set; }
             public bool EnableCc { get; set; }
-            public long[] Cc { get; set; }
+            public List<long> Cc { get; set; }
             public bool AutoBan { get; set; }
             public int AutoBanThreshold { get; set; }
             public bool ForwardingPaused { get; set; }
@@ -206,7 +206,7 @@ namespace pmcenter
         public static async Task<bool> SaveConf(bool IsInvalid = false, bool IsAutoSave = false)
         { // DO NOT HANDLE ERRORS HERE.
             string Text = JsonConvert.SerializeObject(Vars.CurrentConf, Formatting.Indented);
-            await System.IO.File.WriteAllTextAsync(Vars.ConfFile, Text);
+            await System.IO.File.WriteAllTextAsync(Vars.ConfFile, Text).ConfigureAwait(false);
             if (IsAutoSave)
             {
                 Log("Autosave complete.", "CONF");
@@ -221,13 +221,13 @@ namespace pmcenter
         }
         public static async Task<bool> ReadConf(bool Apply = true)
         { // DO NOT HANDLE ERRORS HERE. THE CALLING METHOD WILL HANDLE THEM.
-            var Temp = await GetConf(Vars.ConfFile);
+            var Temp = await GetConf(Vars.ConfFile).ConfigureAwait(false);
             if (Apply) { Vars.CurrentConf = Temp; }
             return true;
         }
         public static async Task<ConfObj> GetConf(string Filename)
         {
-            var SettingsText = await System.IO.File.ReadAllTextAsync(Filename);
+            var SettingsText = await System.IO.File.ReadAllTextAsync(Filename).ConfigureAwait(false);
             return JsonConvert.DeserializeObject<ConfObj>(SettingsText);
         }
         public static async Task InitConf()
@@ -237,13 +237,13 @@ namespace pmcenter
             { // STEP 1, DETECT EXISTENCE.
                 Log("Configurations file not found. Creating...", "CONF", LogLevel.WARN);
                 Vars.CurrentConf = new ConfObj();
-                await SaveConf(true); // Then the app will exit, do nothing.
+                _ = await SaveConf(true).ConfigureAwait(false); // Then the app will exit, do nothing.
             }
             else
             { // STEP 2, READ TEST.
                 try
                 {
-                    await ReadConf(false); // Read but don't apply.
+                    _ = await ReadConf(false).ConfigureAwait(false); // Read but don't apply.
                 }
                 catch (Exception ex)
                 {
@@ -251,7 +251,7 @@ namespace pmcenter
                     Log("Moving old configurations file to \"pmcenter.json.bak\"...", "CONF", LogLevel.WARN);
                     System.IO.File.Move(Vars.ConfFile, Vars.ConfFile + ".bak");
                     Vars.CurrentConf = new ConfObj();
-                    await SaveConf(true); // Then the app will exit, do nothing.
+                    _ = await SaveConf(true).ConfigureAwait(false); // Then the app will exit, do nothing.
                 }
             }
             Log("Integrity test finished!", "CONF");

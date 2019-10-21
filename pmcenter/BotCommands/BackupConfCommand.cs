@@ -19,13 +19,13 @@ namespace pmcenter.Commands
             RandomFilename = System.IO.Path.Combine(Vars.AppDirectory, RandomFilename);
             Log("Backing up configurations, filename: " + RandomFilename, "BOT");
             System.IO.File.Copy(Vars.ConfFile, RandomFilename);
-            await botClient.SendTextMessageAsync(
+            _ = await botClient.SendTextMessageAsync(
                 update.Message.From.Id,
                 Vars.CurrentLang.Message_BackupComplete.Replace("$1", RandomFilename),
                 ParseMode.Markdown,
                 false,
                 Vars.CurrentConf.DisableNotifications,
-                update.Message.MessageId);
+                update.Message.MessageId).ConfigureAwait(false);
             return true;
         }
     }

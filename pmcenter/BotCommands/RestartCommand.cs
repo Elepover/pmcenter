@@ -15,13 +15,13 @@ namespace pmcenter.Commands
 
         public async Task<bool> ExecuteAsync(TelegramBotClient botClient, Update update)
         {
-            await botClient.SendTextMessageAsync(
+            _ = await botClient.SendTextMessageAsync(
                 update.Message.From.Id,
                 Vars.CurrentLang.Message_Restarting,
                 ParseMode.Markdown,
                 false,
                 Vars.CurrentConf.DisableNotifications,
-                update.Message.MessageId);
+                update.Message.MessageId).ConfigureAwait(false);
             Thread.Sleep(5000);
             Environment.Exit(0);
             return true;

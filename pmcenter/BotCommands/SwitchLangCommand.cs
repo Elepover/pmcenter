@@ -19,34 +19,36 @@ namespace pmcenter.Commands
         {
             // errors are handled by global error handler
             // notify user
-            await botClient.SendTextMessageAsync(
+            _ = await botClient.SendTextMessageAsync(
                 update.Message.From.Id,
                 Vars.CurrentLang.Message_SwitchingLang,
                 ParseMode.Markdown,
                 false,
                 Vars.CurrentConf.DisableNotifications,
-                update.Message.MessageId);
+                update.Message.MessageId).ConfigureAwait(false);
                 
             // download file
             var LangURL = update.Message.Text.Split(" ")[1];
-            var Downloader = new WebClient();
-            await Downloader.DownloadFileTaskAsync(
+            using (var Downloader = new WebClient())
+            {
+                await Downloader.DownloadFileTaskAsync(
                 new Uri(LangURL),
                 Path.Combine(Vars.AppDirectory, "pmcenter_locale.json")
-            );
+                ).ConfigureAwait(false);
+            }
 
             // reload configurations
-            await Conf.ReadConf();
-            await Lang.ReadLang();
+            _ = await Conf.ReadConf().ConfigureAwait(false);
+            _ = await Lang.ReadLang().ConfigureAwait(false);
 
             // notify user
-            await botClient.SendTextMessageAsync(
+            _ = await botClient.SendTextMessageAsync(
                 update.Message.From.Id,
                 Vars.CurrentLang.Message_LangSwitched,
                 ParseMode.Markdown,
                 false,
                 Vars.CurrentConf.DisableNotifications,
-                update.Message.MessageId);
+                update.Message.MessageId).ConfigureAwait(false);
 
             return true;
         }

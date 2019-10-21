@@ -18,13 +18,13 @@ namespace pmcenter.Commands
                 Vars.CurrentLang.Message_UptimeInfo
                 .Replace("$1", (new TimeSpan(0, 0, 0, 0, Environment.TickCount)).ToString())
                 .Replace("$2", Vars.StartSW.Elapsed.ToString());
-            await botClient.SendTextMessageAsync(
+            _ = await botClient.SendTextMessageAsync(
                 update.Message.From.Id,
                 UptimeString,
                 ParseMode.Markdown,
                 false,
                 Vars.CurrentConf.DisableNotifications,
-                update.Message.MessageId);
+                update.Message.MessageId).ConfigureAwait(false);
             return true;
         }
     }

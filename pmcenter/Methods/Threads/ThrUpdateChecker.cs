@@ -27,11 +27,11 @@ namespace pmcenter
                             .Replace("$1", Latest.Latest)
                             .Replace("$2", Latest.Details)
                             .Replace("$3", GetUpdateLevel(Latest.UpdateLevel));
-                        await Vars.Bot.SendTextMessageAsync(Vars.CurrentConf.OwnerUID,
+                        _ = await Vars.Bot.SendTextMessageAsync(Vars.CurrentConf.OwnerUID,
                                                             UpdateString,
                                                             ParseMode.Markdown,
                                                             false,
-                                                            DisNotif);
+                                                            DisNotif).ConfigureAwait(false);
                         return; // Since this thread wouldn't be useful any longer, exit.
                     }
                     else

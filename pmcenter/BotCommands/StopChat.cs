@@ -16,12 +16,12 @@ namespace pmcenter.Commands
         {
             Log("Disabling Continued Conversation with: " + Vars.CurrentConf.ContChatTarget, "BOT");
             Vars.CurrentConf.ContChatTarget = -1;
-            await botClient.SendTextMessageAsync(update.Message.From.Id,
+            _ = await botClient.SendTextMessageAsync(update.Message.From.Id,
                 Vars.CurrentLang.Message_ContinuedChatDisabled,
                 ParseMode.Markdown,
                 false,
                 Vars.CurrentConf.DisableNotifications,
-                update.Message.MessageId);
+                update.Message.MessageId).ConfigureAwait(false);
             return true;
         }
     }

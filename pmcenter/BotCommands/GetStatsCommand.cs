@@ -13,7 +13,7 @@ namespace pmcenter.Commands
 
         public async Task<bool> ExecuteAsync(TelegramBotClient botClient, Update update)
         {
-            await botClient.SendTextMessageAsync(
+            _ = await botClient.SendTextMessageAsync(
                 update.Message.From.Id,
                 Vars.CurrentLang.Message_Stats.Replace("$1", Vars.CurrentConf.Statistics.TotalMessagesReceived.ToString())
                                               .Replace("$2", Vars.CurrentConf.Statistics.TotalForwardedToOwner.ToString())
@@ -22,7 +22,7 @@ namespace pmcenter.Commands
                 ParseMode.Markdown,
                 false,
                 Vars.CurrentConf.DisableNotifications,
-                update.Message.MessageId);
+                update.Message.MessageId).ConfigureAwait(false);
             return true;
         }
     }

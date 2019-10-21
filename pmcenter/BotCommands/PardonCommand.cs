@@ -20,14 +20,14 @@ namespace pmcenter.Commands
             }
 
             UnbanUser(update.Message.ReplyToMessage.ForwardFrom.Id);
-            await Conf.SaveConf(false, true);
-            await botClient.SendTextMessageAsync(
+            _ = await Conf.SaveConf(false, true).ConfigureAwait(false);
+            _ = await botClient.SendTextMessageAsync(
                 update.Message.From.Id,
                 Vars.CurrentLang.Message_UserPardoned,
                 ParseMode.Markdown,
                 false,
                 Vars.CurrentConf.DisableNotifications,
-                update.Message.MessageId);
+                update.Message.MessageId).ConfigureAwait(false);
             return true;
         }
     }

@@ -12,7 +12,7 @@ namespace pmcenter
             {
                 var Req = WebRequest.CreateHttp(Target);
                 Req.Timeout = 10000;
-                await Req.GetResponseAsync();
+                using (_ = await Req.GetResponseAsync().ConfigureAwait(false)) { };
                 return true;
             }
             catch (WebException ex)

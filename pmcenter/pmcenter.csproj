@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <PackageReference Include="HttpToSocks5Proxy" Version="1.2.1" />
+    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.9.3" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
     <PackageReference Include="Telegram.Bot" Version="15.0.0" />
   </ItemGroup>

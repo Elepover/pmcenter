@@ -18,7 +18,7 @@ namespace pmcenter.Commands
         {
             var ConfWritable = FlipBool((new FileInfo(Vars.ConfFile)).IsReadOnly);
             var LangWritable = FlipBool((new FileInfo(Vars.LangFile)).IsReadOnly);
-            await botClient.SendTextMessageAsync(
+            _ = await botClient.SendTextMessageAsync(
                 update.Message.From.Id,
                 Vars.CurrentLang.Message_ConfAccess
                     .Replace("$1", BoolStr(ConfWritable))
@@ -27,7 +27,7 @@ namespace pmcenter.Commands
                 ParseMode.Markdown,
                 false,
                 Vars.CurrentConf.DisableNotifications,
-                update.Message.MessageId);
+                update.Message.MessageId).ConfigureAwait(false);
             return true;
         }
     }

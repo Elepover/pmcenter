@@ -54,7 +54,7 @@ namespace pmcenter
                     Log("HIT: executing: " + globalPrefix + cmdProcess.Prefix, "CMD");
                     try
                     {
-                        await cmdProcess.Process();
+                        _ = await cmdProcess.Process().ConfigureAwait(false);
                     }
                     catch (Exception ex)
                     {

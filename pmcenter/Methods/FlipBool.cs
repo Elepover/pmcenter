@@ -4,7 +4,7 @@ namespace pmcenter
     {
         public static bool FlipBool(bool Input)
         {
-            if (Input) { return false; } else { return true; }
+            return Input ? false : true;
         }
     }
 }

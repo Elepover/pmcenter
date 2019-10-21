@@ -90,14 +90,14 @@ namespace pmcenter.Commands
                     + "`";
                 }
                 MessageInfo += "\n\n_Additional information is available for a limited set of message types, including: Audios, Documents(Files), Locations, Photos and Stickers._";
-                
-            await botClient.SendTextMessageAsync(
+
+            _ = await botClient.SendTextMessageAsync(
                 update.Message.From.Id,
                 MessageInfo,
                 ParseMode.Markdown,
                 false,
                 Vars.CurrentConf.DisableNotifications,
-                update.Message.MessageId);
+                update.Message.MessageId).ConfigureAwait(false);
             return true;
         }
     }

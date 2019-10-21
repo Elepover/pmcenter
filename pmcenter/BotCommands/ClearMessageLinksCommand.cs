@@ -16,13 +16,13 @@ namespace pmcenter.Commands
         {
             Log("Clearing message links...", "BOT");
             Vars.CurrentConf.MessageLinks = new System.Collections.Generic.List<Conf.MessageIDLink>();
-            await botClient.SendTextMessageAsync(
+            _ = await botClient.SendTextMessageAsync(
                 update.Message.From.Id,
                 Vars.CurrentLang.Message_MsgLinksCleared,
                 ParseMode.Markdown,
                 false,
                 Vars.CurrentConf.DisableNotifications,
-                update.Message.MessageId);
+                update.Message.MessageId).ConfigureAwait(false);
             return true;
         }
     }

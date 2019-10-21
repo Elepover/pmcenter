@@ -14,8 +14,8 @@ namespace pmcenter.Commands
         public async Task<bool> ExecuteAsync(TelegramBotClient botClient, Update update)
         {
             var IsEnabledNow = Conf.SwitchBlocking();
-            await Conf.SaveConf(false, true);
-            await botClient.SendTextMessageAsync(
+            _ = await Conf.SaveConf(false, true).ConfigureAwait(false);
+            _ = await botClient.SendTextMessageAsync(
                 update.Message.From.Id,
                 IsEnabledNow ?
                     Vars.CurrentLang.Message_MessageBlockEnabled :
@@ -23,7 +23,7 @@ namespace pmcenter.Commands
                 ParseMode.Markdown,
                 false,
                 Vars.CurrentConf.DisableNotifications,
-                update.Message.MessageId);
+                update.Message.MessageId).ConfigureAwait(false);
 
             return true;
         }

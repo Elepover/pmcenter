@@ -171,8 +171,8 @@ namespace pmcenter
         { // DO NOT HANDLE ERRORS HERE.
             var Text = JsonConvert.SerializeObject(Vars.CurrentLang, Formatting.Indented);
             var Writer = new StreamWriter(File.Create(Vars.LangFile), System.Text.Encoding.UTF8);
-            await Writer.WriteAsync(Text);
-            await Writer.FlushAsync();
+            await Writer.WriteAsync(Text).ConfigureAwait(false);
+            await Writer.FlushAsync().ConfigureAwait(false);
             Writer.Close();
             if (IsInvalid)
             {
@@ -184,7 +184,7 @@ namespace pmcenter
         }
         public static async Task<bool> ReadLang(bool Apply = true)
         { // DO NOT HANDLE ERRORS HERE. THE CALLING METHOD WILL HANDLE THEM.
-            var SettingsText = await File.ReadAllTextAsync(Vars.LangFile);
+            var SettingsText = await File.ReadAllTextAsync(Vars.LangFile).ConfigureAwait(false);
             var Temp = JsonConvert.DeserializeObject<Language>(SettingsText);
             if (Apply) { Vars.CurrentLang = Temp; }
             return true;
@@ -196,13 +196,13 @@ namespace pmcenter
             { // STEP 1, DETECT EXISTENCE.
                 Log("Language file not found. Creating...", "LANG", LogLevel.WARN);
                 Vars.CurrentLang = new Language();
-                await SaveLang(true); // Then the app will exit, do nothing.
+                _ = await SaveLang(true).ConfigureAwait(false); // Then the app will exit, do nothing.
             }
             else
             { // STEP 2, READ TEST.
                 try
                 {
-                    await ReadLang(false); // Read but don't apply.
+                    _ = await ReadLang(false).ConfigureAwait(false); // Read but don't apply.
                 }
                 catch (Exception ex)
                 {
@@ -210,7 +210,7 @@ namespace pmcenter
                     Log("Moving old language file to \"pmcenter_locale.json.bak\"...", "LANG", LogLevel.WARN);
                     File.Move(Vars.LangFile, Vars.LangFile + ".bak");
                     Vars.CurrentLang = new Language();
-                    await SaveLang(true); // Then the app will exit, do nothing.
+                    _ = await SaveLang(true).ConfigureAwait(false); // Then the app will exit, do nothing.
                 }
             }
             Log("Integrity test finished!", "LANG");

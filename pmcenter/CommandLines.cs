@@ -24,7 +24,7 @@ namespace pmcenter
 
         public static async Task RunCommand(string CommandLine)
         {
-            await CmdLineRouter.Execute(CommandLine);
+            _ = await CmdLineRouter.Execute(CommandLine).ConfigureAwait(false);
         }
     }
 }

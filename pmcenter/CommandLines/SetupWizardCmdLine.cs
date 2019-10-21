@@ -14,7 +14,7 @@ namespace pmcenter.CommandLines
         {
             Log("Launching setup wizard...", "CMD");
             // use the global error handler.
-            await Setup.SetupWizard();
+            await Setup.SetupWizard().ConfigureAwait(false);
             return true;
         }
     }

@@ -25,13 +25,13 @@ namespace pmcenter.Commands
                 if (Temp.APIKey != Vars.CurrentConf.APIKey)
                 {
                     Log("API Key has changed! Please restart pmcenter to apply the change.", "BOT", LogLevel.WARN);
-                    await botClient.SendTextMessageAsync(
+                    _ = await botClient.SendTextMessageAsync(
                         update.Message.From.Id,
                         Vars.CurrentLang.Message_APIKeyChanged,
                         ParseMode.Markdown,
                         false,
                         Vars.CurrentConf.DisableNotifications,
-                        update.Message.MessageId);
+                        update.Message.MessageId).ConfigureAwait(false);
                     Vars.RestartRequired = true;
                 }
                 if (Temp.ConfSyncInterval == 0)
@@ -50,24 +50,24 @@ namespace pmcenter.Commands
                 }
                 Vars.CurrentConf = Temp;
                 Log("Applied! Saving to local disk...", "BOT", LogLevel.INFO);
-                await Conf.SaveConf(false, true);
-                await botClient.SendTextMessageAsync(
+                _ = await Conf.SaveConf(false, true).ConfigureAwait(false);
+                _ = await botClient.SendTextMessageAsync(
                     update.Message.From.Id,
                     Vars.CurrentLang.Message_ConfigUpdated,
                     ParseMode.Markdown,
                     false,
                     Vars.CurrentConf.DisableNotifications,
-                    update.Message.MessageId);
+                    update.Message.MessageId).ConfigureAwait(false);
             }
             catch (Exception ex)
             {
-                await botClient.SendTextMessageAsync(
+                _ = await botClient.SendTextMessageAsync(
                     update.Message.From.Id,
                     Vars.CurrentLang.Message_GeneralFailure.Replace("$1", ex.Message),
                     ParseMode.Markdown,
                     false,
                     Vars.CurrentConf.DisableNotifications,
-                    update.Message.MessageId);
+                    update.Message.MessageId).ConfigureAwait(false);
             }
             return true;
         }

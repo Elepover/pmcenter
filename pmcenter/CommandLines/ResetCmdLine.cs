@@ -14,9 +14,9 @@ namespace pmcenter.CommandLines
         {
             Log("Resetting configurations...", "CMD");
             Vars.CurrentConf = new Conf.ConfObj();
-            await Conf.SaveConf();
+            _ = await Conf.SaveConf().ConfigureAwait(false);
             Vars.CurrentLang = new Lang.Language();
-            await Lang.SaveLang();
+            _ = await Lang.SaveLang().ConfigureAwait(false);
             Log("Reset complete.");
             return true;
         }

@@ -4,7 +4,7 @@ namespace pmcenter
     {
         public static string BoolStr(bool Input)
         {
-            if (Input) { return "true"; } else { return "false"; }
+            return Input ? "true" : "false";
         }
     }
 }

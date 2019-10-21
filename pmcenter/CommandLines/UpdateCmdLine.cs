@@ -22,24 +22,26 @@ namespace pmcenter.CommandLines
                 Log("Newer version found: " + Latest.Latest + ", main changes:\n" + Latest.Details, "CMD");
                 Log("Updating...", "CMD");
                 Log("Starting update download... (pmcenter_update.zip)", "CMD");
-                var Downloader = new WebClient();
-                await Downloader.DownloadFileTaskAsync(
-                    new Uri(Vars.UpdateArchiveURL),
-                    Path.Combine(Vars.AppDirectory, "pmcenter_update.zip"));
-                Log("Download complete. Extracting...", "CMD");
-                using (ZipArchive Zip = ZipFile.OpenRead(Path.Combine(Vars.AppDirectory, "pmcenter_update.zip")))
+                using (var Downloader = new WebClient())
                 {
-                    foreach (ZipArchiveEntry Entry in Zip.Entries)
+                    await Downloader.DownloadFileTaskAsync(
+                        new Uri(Vars.UpdateArchiveURL),
+                        Path.Combine(Vars.AppDirectory, "pmcenter_update.zip")).ConfigureAwait(false);
+                    Log("Download complete. Extracting...", "CMD");
+                    using (ZipArchive Zip = ZipFile.OpenRead(Path.Combine(Vars.AppDirectory, "pmcenter_update.zip")))
                     {
-                        Log("Extracting: " + Path.Combine(Vars.AppDirectory, Entry.FullName), "CMD");
-                        Entry.ExtractToFile(Path.Combine(Vars.AppDirectory, Entry.FullName), true);
+                        foreach (ZipArchiveEntry Entry in Zip.Entries)
+                        {
+                            Log("Extracting: " + Path.Combine(Vars.AppDirectory, Entry.FullName), "CMD");
+                            Entry.ExtractToFile(Path.Combine(Vars.AppDirectory, Entry.FullName), true);
+                        }
                     }
+                    Log("Starting language file update...", "CMD");
+                    await Downloader.DownloadFileTaskAsync(
+                        new Uri(Vars.CurrentConf.LangURL),
+                        Path.Combine(Vars.AppDirectory, "pmcenter_locale.json")
+                        ).ConfigureAwait(false);
                 }
-                Log("Starting language file update...", "CMD");
-                await Downloader.DownloadFileTaskAsync(
-                    new Uri(Vars.CurrentConf.LangURL),
-                    Path.Combine(Vars.AppDirectory, "pmcenter_locale.json")
-                );
                 Log("Cleaning up temporary files...", "CMD");
                 File.Delete(Path.Combine(Vars.AppDirectory, "pmcenter_update.zip"));
                 Log("Update complete.", "CMD");

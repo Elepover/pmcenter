@@ -68,7 +68,7 @@ namespace pmcenter
             }
             else
             {
-                return await command.ExecuteAsync(botClient, update);
+                return await command.ExecuteAsync(botClient, update).ConfigureAwait(false);
             }
         }
     }

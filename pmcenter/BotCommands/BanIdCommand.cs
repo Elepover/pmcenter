@@ -18,24 +18,24 @@ namespace pmcenter.Commands
             try
             {
                 BanUser(long.Parse(update.Message.Text.ToLower().Split(" ")[1]));
-                await Conf.SaveConf(false, true);
-                await botClient.SendTextMessageAsync(
+                _ = await Conf.SaveConf(false, true).ConfigureAwait(false);
+                _ = await botClient.SendTextMessageAsync(
                     update.Message.From.Id,
                     Vars.CurrentLang.Message_UserBanned,
                     ParseMode.Markdown,
                     false,
                     Vars.CurrentConf.DisableNotifications,
-                    update.Message.MessageId);
+                    update.Message.MessageId).ConfigureAwait(false);
             }
             catch (Exception ex)
             {
-                await botClient.SendTextMessageAsync(
+                _ = await botClient.SendTextMessageAsync(
                     update.Message.From.Id,
                     Vars.CurrentLang.Message_GeneralFailure.Replace("$1", ex.Message),
                     ParseMode.Markdown,
                     false,
                     Vars.CurrentConf.DisableNotifications,
-                    update.Message.MessageId);
+                    update.Message.MessageId).ConfigureAwait(false);
             }
             return true;
         }

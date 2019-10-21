@@ -15,23 +15,23 @@ namespace pmcenter.Commands
         {
             if (update.Message.From.Id == Vars.CurrentConf.OwnerUID)
             {
-                await botClient.SendTextMessageAsync(
+                _ = await botClient.SendTextMessageAsync(
                     update.Message.From.Id,
                     Vars.CurrentLang.Message_OwnerStart,
                     ParseMode.Markdown,
                     false,
                     Vars.CurrentConf.DisableNotifications,
-                    update.Message.MessageId);
+                    update.Message.MessageId).ConfigureAwait(false);
             }
             else
             {
-                await botClient.SendTextMessageAsync(
+                _ = await botClient.SendTextMessageAsync(
                     update.Message.From.Id,
                     Vars.CurrentLang.Message_UserStartDefault,
                     ParseMode.Markdown,
                     false,
                     false,
-                    update.Message.MessageId);
+                    update.Message.MessageId).ConfigureAwait(false);
             }
             return true;
         }

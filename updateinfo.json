@@ -1,5 +1,5 @@
 {
-  "Latest": "1.6.92.210",
-  "Details": "[/] Improved memory efficiency.\n[+] When /catconf output is oversized, it will be automatically split to multiple parts.\n[+] You can change the autosave interval or completely disable it now.",
+  "Latest": "1.7.93.230",
+  "Details": "[/] Improved memory efficiency.\n[+] Refined code structure.",
   "UpdateLevel": 1
 }

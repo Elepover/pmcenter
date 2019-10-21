@@ -26,19 +26,19 @@ namespace pmcenter.Commands
                         .Replace("$1", Latest.Latest)
                         .Replace("$2", Latest.Details)
                         .Replace("$3", Methods.GetUpdateLevel(Latest.UpdateLevel));
-                    await botClient.SendTextMessageAsync(
+                    _ = await botClient.SendTextMessageAsync(
                         update.Message.From.Id,
                         UpdateString,
                         ParseMode.Markdown,
                         false,
                         Vars.CurrentConf.DisableNotifications,
-                        update.Message.MessageId);
+                        update.Message.MessageId).ConfigureAwait(false);
 
                 }
                 else
                 {
                     Vars.UpdatePending = false;
-                    await botClient.SendTextMessageAsync(
+                    _ = await botClient.SendTextMessageAsync(
                         update.Message.From.Id,
                         Vars.CurrentLang.Message_AlreadyUpToDate
                             .Replace("$1", Latest.Latest)
@@ -47,19 +47,19 @@ namespace pmcenter.Commands
                         ParseMode.Markdown,
                         false,
                         Vars.CurrentConf.DisableNotifications,
-                        update.Message.MessageId);
+                        update.Message.MessageId).ConfigureAwait(false);
                 }
                 return true;
             }
             catch (Exception ex)
             {
                 var ErrorString = Vars.CurrentLang.Message_UpdateCheckFailed.Replace("$1", ex.Message);
-                await botClient.SendTextMessageAsync(
+                _ = await botClient.SendTextMessageAsync(
                     update.Message.From.Id,
                     ErrorString, ParseMode.Markdown,
                     false,
                     Vars.CurrentConf.DisableNotifications,
-                    update.Message.MessageId);
+                    update.Message.MessageId).ConfigureAwait(false);
                 return true;
             }
         }

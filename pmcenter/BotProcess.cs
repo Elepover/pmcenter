@@ -61,6 +61,7 @@ namespace pmcenter
         {
             try
             {
+                if (e == null) return;
                 if (Vars.CurrentConf.DetailedMsgLogging)
                 {
                     Log("OnUpdate() triggered: UpdType: " + e.Update.Type.ToString()
@@ -72,9 +73,9 @@ namespace pmcenter
                         , "BOT-DETAILED", LogLevel.INFO);
                 }
                 var update = e.Update;
-                if (update.Type != UpdateType.Message) { return; }
-                if (update.Message.From.IsBot) { return; }
-                if (update.Message.Chat.Type != ChatType.Private) { return; }
+                if (update.Type != UpdateType.Message) return;
+                if (update.Message.From.IsBot) return;
+                if (update.Message.Chat.Type != ChatType.Private) return;
 
                 if (IsBanned(update.Message.From.Id))
                 {
@@ -85,11 +86,11 @@ namespace pmcenter
                 Vars.CurrentConf.Statistics.TotalMessagesReceived += 1;
                 if (update.Message.From.Id == Vars.CurrentConf.OwnerUID)
                 {
-                    await OwnerLogic(update);
+                    await OwnerLogic(update).ConfigureAwait(false);
                 }
                 else
                 {
-                    await UserLogic(update);
+                    await UserLogic(update).ConfigureAwait(false);
                 }
 
             }
@@ -100,11 +101,11 @@ namespace pmcenter
                 {
                     try
                     {
-                        await Vars.Bot.SendTextMessageAsync(Vars.CurrentConf.OwnerUID, 
+                        _ = await Vars.Bot.SendTextMessageAsync(Vars.CurrentConf.OwnerUID,
                                                         Vars.CurrentLang.Message_GeneralFailure.Replace("$1", ex.ToString()),
                                                         ParseMode.Default,
                                                         false,
-                                                        Vars.CurrentConf.DisableNotifications);
+                                                        Vars.CurrentConf.DisableNotifications).ConfigureAwait(false);
                     }
                     catch (Exception iEx)
                     {
@@ -118,7 +119,7 @@ namespace pmcenter
         {
             // is user
 
-            if (await commandManager.Execute(Vars.Bot, update))
+            if (await commandManager.Execute(Vars.Bot, update).ConfigureAwait(false))
             {
                 return;
             }
@@ -128,12 +129,12 @@ namespace pmcenter
             if (Vars.CurrentConf.ForwardingPaused)
             {
                 Log("Stopped: forwarding is currently paused.", "BOT", LogLevel.INFO);
-                await Vars.Bot.SendTextMessageAsync(update.Message.From.Id,
+                _ = await Vars.Bot.SendTextMessageAsync(update.Message.From.Id,
                                                     Vars.CurrentLang.Message_UserServicePaused,
                                                     ParseMode.Markdown,
                                                     false,
                                                     false,
-                                                    update.Message.MessageId);
+                                                    update.Message.MessageId).ConfigureAwait(false);
                 return;
             }
 
@@ -153,7 +154,7 @@ namespace pmcenter
             var ForwardedMessage = await Vars.Bot.ForwardMessageAsync(Vars.CurrentConf.OwnerUID,
                                                                           update.Message.From.Id,
                                                                           update.Message.MessageId,
-                                                                          Vars.CurrentConf.DisableNotifications);
+                                                                          Vars.CurrentConf.DisableNotifications).ConfigureAwait(false);
             Vars.CurrentConf.Statistics.TotalForwardedToOwner += 1;
             if (Vars.CurrentConf.EnableMsgLink)
             {
@@ -169,44 +170,44 @@ namespace pmcenter
             if (update.Message.ForwardFrom == null && update.Message.ForwardFromChat != null)
             {
                 // is forwarded from channel
-                await Vars.Bot.SendTextMessageAsync(Vars.CurrentConf.OwnerUID,
+                _ = await Vars.Bot.SendTextMessageAsync(Vars.CurrentConf.OwnerUID,
                                                     Vars.CurrentLang.Message_ForwarderNotReal
                                                         .Replace("$2", update.Message.From.Id.ToString())
                                                         .Replace("$1", "[" + update.Message.From.FirstName + " " + update.Message.From.LastName + "](tg://user?id=" + update.Message.From.Id + ")"),
                                                     ParseMode.Markdown,
                                                     false,
                                                     Vars.CurrentConf.DisableNotifications,
-                                                    ForwardedMessage.MessageId);
+                                                    ForwardedMessage.MessageId).ConfigureAwait(false);
             }
             if (update.Message.ForwardFrom != null && update.Message.ForwardFromChat == null)
             {
                 // is forwarded from chats
                 if (update.Message.ForwardFrom.Id != update.Message.From.Id)
                 {
-                    await Vars.Bot.SendTextMessageAsync(Vars.CurrentConf.OwnerUID,
+                    _ = await Vars.Bot.SendTextMessageAsync(Vars.CurrentConf.OwnerUID,
                                                         Vars.CurrentLang.Message_ForwarderNotReal
                                                             .Replace("$2", update.Message.From.Id.ToString())
                                                             .Replace("$1", "[" + update.Message.From.FirstName + " " + update.Message.From.LastName + "](tg://user?id=" + update.Message.From.Id + ")"),
                                                         ParseMode.Markdown,
                                                         false,
                                                         Vars.CurrentConf.DisableNotifications,
-                                                        ForwardedMessage.MessageId);
+                                                        ForwardedMessage.MessageId).ConfigureAwait(false);
                 }
             }
             
             // process cc
             if (Vars.CurrentConf.EnableCc)
             {
-                await RunCC(update);
+                await RunCC(update).ConfigureAwait(false);
             }
             if (Vars.CurrentConf.EnableForwardedConfirmation)
             {
-                await Vars.Bot.SendTextMessageAsync(update.Message.From.Id,
+                _ = await Vars.Bot.SendTextMessageAsync(update.Message.From.Id,
                                                     Vars.CurrentLang.Message_ForwardedToOwner,
                                                     ParseMode.Markdown,
                                                     false,
                                                     false,
-                                                    update.Message.MessageId);
+                                                    update.Message.MessageId).ConfigureAwait(false);
             }
             AddRateLimit(update.Message.From.Id);
         }
@@ -222,19 +223,19 @@ namespace pmcenter
                     var ForwardedMessageCc = await Vars.Bot.ForwardMessageAsync(Id,
                                                                                                        update.Message.From.Id,
                                                                                                        update.Message.MessageId,
-                                                                                                       Vars.CurrentConf.DisableNotifications);
+                                                                                                       Vars.CurrentConf.DisableNotifications).ConfigureAwait(false);
                     // check if forwarded from channels
                     if (update.Message.ForwardFrom == null && update.Message.ForwardFromChat != null)
                     {
                         // is forwarded from channel
-                        await Vars.Bot.SendTextMessageAsync(Id,
+                        _ = await Vars.Bot.SendTextMessageAsync(Id,
                                                             Vars.CurrentLang.Message_ForwarderNotReal
                                                                 .Replace("$2", update.Message.From.Id.ToString())
                                                                 .Replace("$1", "[" + update.Message.From.FirstName + " " + update.Message.From.LastName + "](tg://user?id=" + update.Message.From.Id + ")"),
                                                             ParseMode.Markdown,
                                                             false,
                                                             Vars.CurrentConf.DisableNotifications,
-                                                            ForwardedMessageCc.MessageId);
+                                                            ForwardedMessageCc.MessageId).ConfigureAwait(false);
                     }
                     if (update.Message.ForwardFrom != null && update.Message.ForwardFromChat == null)
                     {
@@ -242,14 +243,14 @@ namespace pmcenter
                         // check real message sender
                         if (update.Message.ForwardFrom.Id != update.Message.From.Id)
                         {
-                            await Vars.Bot.SendTextMessageAsync(Id,
+                            _ = await Vars.Bot.SendTextMessageAsync(Id,
                                                                 Vars.CurrentLang.Message_ForwarderNotReal
                                                                     .Replace("$2", update.Message.From.Id.ToString())
                                                                     .Replace("$1", "[" + update.Message.From.FirstName + " " + update.Message.From.LastName + "](tg://user?id=" + update.Message.From.Id + ")"),
                                                                 ParseMode.Markdown,
                                                                 false,
                                                                 Vars.CurrentConf.DisableNotifications,
-                                                                ForwardedMessageCc.MessageId);
+                                                                ForwardedMessageCc.MessageId).ConfigureAwait(false);
                         }
                     }
                 }
@@ -264,11 +265,11 @@ namespace pmcenter
         {
             if (update.Message.ReplyToMessage != null)
             {
-                await OwnerReplying(update);
+                await OwnerReplying(update).ConfigureAwait(false);
             }
             else
             {
-                await OwnerCommand(update);
+                await OwnerCommand(update).ConfigureAwait(false);
             }
         }
 
@@ -276,7 +277,7 @@ namespace pmcenter
         {
             // The owner is not even replying.
             // start or help command?
-            if (await commandManager.Execute(Vars.Bot, update))
+            if (await commandManager.Execute(Vars.Bot, update).ConfigureAwait(false))
             {
                 Vars.CurrentConf.Statistics.TotalCommandsReceived += 1;
                 return;
@@ -289,7 +290,7 @@ namespace pmcenter
                                                                        Vars.CurrentConf.ContChatTarget,
                                                                        update.Message.Chat.Id,
                                                                        update.Message.MessageId,
-                                                                       Vars.CurrentConf.DisableNotifications);
+                                                                       Vars.CurrentConf.DisableNotifications).ConfigureAwait(false);
                 if (Vars.CurrentConf.EnableMsgLink)
                 {
                     Log("Recording message link: " + Forwarded.MessageId + " -> " + update.Message.MessageId + " in " + update.Message.From.Id, "BOT");
@@ -304,19 +305,19 @@ namespace pmcenter
                 {
                     var ReplyToMessage = Vars.CurrentLang.Message_ReplySuccessful;
                     ReplyToMessage = ReplyToMessage.Replace("$1", "[" + Vars.CurrentConf.ContChatTarget + "](tg://user?id=" + Vars.CurrentConf.ContChatTarget + ")");
-                    await Vars.Bot.SendTextMessageAsync(update.Message.From.Id, ReplyToMessage, ParseMode.Markdown, false, false, update.Message.MessageId);
+                    _ = await Vars.Bot.SendTextMessageAsync(update.Message.From.Id, ReplyToMessage, ParseMode.Markdown, false, false, update.Message.MessageId).ConfigureAwait(false);
                 }
                 Log("Successfully passed owner's reply to UID: " + Vars.CurrentConf.ContChatTarget, "BOT");
                 return;
             }
 
-            await Vars.Bot.SendTextMessageAsync(
+            _ = await Vars.Bot.SendTextMessageAsync(
                 update.Message.From.Id,
                 Vars.CurrentLang.Message_CommandNotReplying,
                 ParseMode.Markdown,
                 false,
                 Vars.CurrentConf.DisableNotifications,
-                update.Message.MessageId);
+                update.Message.MessageId).ConfigureAwait(false);
 
         }
 
@@ -332,17 +333,17 @@ namespace pmcenter
             if (update.Message.ReplyToMessage.ForwardFrom == null && update.Message.Text.ToLower() != "/retract")
             {
                 // The owner is replying to bot messages. (no forwardfrom)
-                await Vars.Bot.SendTextMessageAsync(
+                _ = await Vars.Bot.SendTextMessageAsync(
                     update.Message.From.Id,
                     Vars.CurrentLang.Message_CommandNotReplyingValidMessage,
                     ParseMode.Markdown,
                     false,
                     Vars.CurrentConf.DisableNotifications,
-                    update.Message.MessageId);
+                    update.Message.MessageId).ConfigureAwait(false);
                 return;
             }
 
-            if (await commandManager.Execute(Vars.Bot, update))
+            if (await commandManager.Execute(Vars.Bot, update).ConfigureAwait(false))
             {
                 Vars.CurrentConf.Statistics.TotalCommandsReceived += 1;
                 return;
@@ -353,7 +354,7 @@ namespace pmcenter
                     update.Message.ReplyToMessage.ForwardFrom.Id,
                     update.Message.Chat.Id,
                     update.Message.MessageId,
-                    Vars.CurrentConf.DisableNotifications);
+                    Vars.CurrentConf.DisableNotifications).ConfigureAwait(false);
             if (Vars.CurrentConf.EnableMsgLink)
             {
                 Log("Recording message link: user " + Forwarded.MessageId + " <-> owner " + update.Message.MessageId + ", user: " + update.Message.ReplyToMessage.ForwardFrom.Id, "BOT");
@@ -369,7 +370,7 @@ namespace pmcenter
             {
                 var ReplyToMessage = Vars.CurrentLang.Message_ReplySuccessful;
                 ReplyToMessage = ReplyToMessage.Replace("$1", "[" + update.Message.ReplyToMessage.ForwardFrom.FirstName + " (@" + update.Message.ReplyToMessage.ForwardFrom.Username + ")](tg://user?id=" + update.Message.ReplyToMessage.ForwardFrom.Id + ")");
-                await Vars.Bot.SendTextMessageAsync(update.Message.From.Id, ReplyToMessage, ParseMode.Markdown, false, false, update.Message.MessageId);
+                _ = await Vars.Bot.SendTextMessageAsync(update.Message.From.Id, ReplyToMessage, ParseMode.Markdown, false, false, update.Message.MessageId).ConfigureAwait(false);
             }
             Log("Successfully passed owner's reply to " + update.Message.ReplyToMessage.ForwardFrom.FirstName + " (@" + update.Message.ReplyToMessage.ForwardFrom.Username + " / " + update.Message.ReplyToMessage.ForwardFrom.Id + ")", "BOT");
 

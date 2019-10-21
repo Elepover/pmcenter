@@ -16,10 +16,10 @@ namespace pmcenter.Commands
         public async Task<bool> ExecuteAsync(TelegramBotClient botClient, Update update)
         {
             Log("Starting network test...", "BOT");
-            var LatencyToGH = Math.Round((await TestLatency("https://github.com")).TotalMilliseconds, 2);
-            var LatencyToTG = Math.Round((await TestLatency("https://api.telegram.org/bot")).TotalMilliseconds, 2);
-            var LatencyToCI = Math.Round((await TestLatency("https://ci.appveyor.com")).TotalMilliseconds, 2);
-            await botClient.SendTextMessageAsync(update.Message.From.Id,
+            var LatencyToGH = Math.Round((await TestLatency("https://github.com").ConfigureAwait(false)).TotalMilliseconds, 2);
+            var LatencyToTG = Math.Round((await TestLatency("https://api.telegram.org/bot").ConfigureAwait(false)).TotalMilliseconds, 2);
+            var LatencyToCI = Math.Round((await TestLatency("https://ci.appveyor.com").ConfigureAwait(false)).TotalMilliseconds, 2);
+            _ = await botClient.SendTextMessageAsync(update.Message.From.Id,
                 Vars.CurrentLang.Message_Connectivity
                     .Replace("$1", LatencyToGH + "ms")
                     .Replace("$2", LatencyToTG + "ms")
@@ -27,7 +27,7 @@ namespace pmcenter.Commands
                 ParseMode.Markdown,
                 false,
                 Vars.CurrentConf.DisableNotifications,
-                update.Message.MessageId);
+                update.Message.MessageId).ConfigureAwait(false);
             return true;
         }
     }

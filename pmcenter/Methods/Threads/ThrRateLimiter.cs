@@ -16,7 +16,7 @@ namespace pmcenter
                     if (Data.MessageCount > Vars.CurrentConf.AutoBanThreshold && Vars.CurrentConf.AutoBan)
                     {
                         BanUser(Data.UID);
-                        await Conf.SaveConf(false, true);
+                        _ = await SaveConf(false, true).ConfigureAwait(false);
                         Log("Banning user: " + Data.UID, "RATELIMIT");
                     }
                     Data.MessageCount = 0;

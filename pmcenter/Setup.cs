@@ -55,7 +55,7 @@ namespace pmcenter
             }
 
             Say("");
-            await SetAPIKey();
+            await SetAPIKey().ConfigureAwait(false);
             Say("");
             SetUID();
             Say("");
@@ -87,7 +87,7 @@ namespace pmcenter
                 }
                 SIn("Saving configurations to " + Vars.ConfFile + "...");
                 Vars.CurrentConf = NewConf;
-                await Conf.SaveConf();
+                _ = await Conf.SaveConf().ConfigureAwait(false);
                 Say(" Done!");
                 if (File.Exists(Vars.LangFile))
                 {
@@ -103,7 +103,7 @@ namespace pmcenter
                 }
                 SIn("Saving language file to " + Vars.LangFile + "...");
                 Vars.CurrentLang = new Lang.Language();
-                await Lang.SaveLang();
+                _ = await Lang.SaveLang().ConfigureAwait(false);
                 Say(" Done!");
                 
                 Say(">> Setup complete!");
@@ -135,7 +135,7 @@ namespace pmcenter
             try
             {
                 TestBot = new TelegramBotClient(Key);
-                if (!await TestBot.TestApiAsync())
+                if (!await TestBot.TestApiAsync().ConfigureAwait(false))
                 {
                     throw (new ArgumentException("API Key is not valid."));
                 }

@@ -23,16 +23,16 @@ namespace pmcenter.Commands
                 if (Methods.IsOwnerRetractionAvailable(SelectedMsgID))
                 {
                     Conf.MessageIDLink Link = Methods.GetLinkByOwnerMsgID(SelectedMsgID);
-                    await botClient.DeleteMessageAsync(Link.TGUser.Id, Link.UserSessionMessageID);
+                    await botClient.DeleteMessageAsync(Link.TGUser.Id, Link.UserSessionMessageID).ConfigureAwait(false);
                 }
                 else
                 {
-                    await botClient.SendTextMessageAsync(update.Message.From.Id,
+                    _ = await botClient.SendTextMessageAsync(update.Message.From.Id,
                         Vars.CurrentLang.Message_FeatureNotAvailable,
                         ParseMode.Markdown,
                         false,
                         Vars.CurrentConf.DisableNotifications,
-                        update.Message.MessageId);
+                        update.Message.MessageId).ConfigureAwait(false);
                         return true;
                 }
             }
@@ -41,25 +41,25 @@ namespace pmcenter.Commands
                 if (Methods.IsUserRetractionAvailable(SelectedMsgID))
                 {
                     Conf.MessageIDLink Link = Methods.GetLinkByUserMsgID(SelectedMsgID);
-                    await botClient.DeleteMessageAsync(Vars.CurrentConf.OwnerUID, Link.OwnerSessionMessageID);
+                    await botClient.DeleteMessageAsync(Vars.CurrentConf.OwnerUID, Link.OwnerSessionMessageID).ConfigureAwait(false);
                 }
                 else
                 {
-                    await botClient.SendTextMessageAsync(update.Message.From.Id,
+                    _ = await botClient.SendTextMessageAsync(update.Message.From.Id,
                         Vars.CurrentLang.Message_FeatureNotAvailable,
                         ParseMode.Markdown,
                         false,
                         Vars.CurrentConf.DisableNotifications,
-                        update.Message.MessageId);
+                        update.Message.MessageId).ConfigureAwait(false);
                     return true;
                 }
             }
-            await botClient.SendTextMessageAsync(update.Message.From.Id,
+            _ = await botClient.SendTextMessageAsync(update.Message.From.Id,
                 Vars.CurrentLang.Message_Retracted,
                 ParseMode.Markdown,
                 false,
                 Vars.CurrentConf.DisableNotifications,
-                update.Message.MessageId);
+                update.Message.MessageId).ConfigureAwait(false);
             return true;
         }
     }

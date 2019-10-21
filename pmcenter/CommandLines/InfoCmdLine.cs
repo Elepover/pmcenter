@@ -13,9 +13,9 @@ namespace pmcenter.CommandLines
         public async Task<bool> Process()
         {
             Log("Gathering application information... This may take a while for there's some network activities.", "CMD");
-            var IsTelegramAPIAccessible = await TestConnectivity("https://api.telegram.org/bot/", true);
-            var IsGitHubAccessible = await TestConnectivity("https://raw.githubusercontent.com/", true);
-            var IsCIAvailable = await TestConnectivity("https://ci.appveyor.com/", true);
+            var IsTelegramAPIAccessible = await TestConnectivity("https://api.telegram.org/bot/", true).ConfigureAwait(false);
+            var IsGitHubAccessible = await TestConnectivity("https://raw.githubusercontent.com/", true).ConfigureAwait(false);
+            var IsCIAvailable = await TestConnectivity("https://ci.appveyor.com/", true).ConfigureAwait(false);
             Log("Application information", "CMD");
             Log("CLR version: " + Environment.Version.ToString(), "CMD");
             Log("Framework description: " + RuntimeInformation.FrameworkDescription, "CMD");

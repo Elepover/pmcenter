@@ -11,7 +11,7 @@ namespace pmcenter
             {
                 try
                 {
-                    await Conf.SaveConf(false, true);
+                    _ = await Conf.SaveConf(false, true).ConfigureAwait(false);
                     Log("Configurations saved.", "CONFSYNC");
                 }
                 catch (Exception ex)

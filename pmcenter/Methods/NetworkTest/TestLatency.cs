@@ -14,7 +14,7 @@ namespace pmcenter
             {
                 var Req = WebRequest.CreateHttp(Target);
                 ReqSW.Start();
-                await Req.GetResponseAsync();
+                using (_ = await Req.GetResponseAsync().ConfigureAwait(false)) { };
                 ReqSW.Stop();
                 return ReqSW.Elapsed;
             }

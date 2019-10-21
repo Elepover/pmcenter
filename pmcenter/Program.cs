@@ -36,7 +36,7 @@ namespace pmcenter
             try
             {
                 Log("==> Running pre-start operations...");
-                await CmdLineProcess.RunCommand(Environment.CommandLine);
+                await CmdLineProcess.RunCommand(Environment.CommandLine).ConfigureAwait(false);
                 // everything (exits and/or errors) are handled above, please do not process.
                 // detect environment variables
                 // including: $pmcenter_conf, $pmcenter_lang
@@ -77,10 +77,10 @@ namespace pmcenter
                 
                 Log("==> Running start operations...");
                 Log("==> Initializing module - CONF"); // BY DEFAULT CONF & LANG ARE NULL! PROCEED BEFORE DOING ANYTHING.
-                await InitConf();
-                await ReadConf();
-                await InitLang();
-                await ReadLang();
+                await InitConf().ConfigureAwait(false);
+                _ = await ReadConf().ConfigureAwait(false);
+                await InitLang().ConfigureAwait(false);
+                _ = await ReadLang().ConfigureAwait(false);
 
                 if (Vars.CurrentLang == null)
                 {
@@ -155,7 +155,7 @@ namespace pmcenter
                 {
                     Vars.Bot = new TelegramBotClient(Vars.CurrentConf.APIKey);
                 }
-                await Vars.Bot.TestApiAsync();
+                _ = await Vars.Bot.TestApiAsync().ConfigureAwait(false);
                 Log("Hooking event processors...");
                 Vars.Bot.OnUpdate += BotProcess.OnUpdate;
                 Log("Starting receiving...");
@@ -166,12 +166,12 @@ namespace pmcenter
                 {
                     if (!Vars.CurrentConf.NoStartupMessage)
                     {
-                        await Vars.Bot.SendTextMessageAsync(Vars.CurrentConf.OwnerUID,
+                        _ = await Vars.Bot.SendTextMessageAsync(Vars.CurrentConf.OwnerUID,
                                                             Vars.CurrentLang.Message_BotStarted
                                                                 .Replace("$1", Vars.StartSW.Elapsed.TotalMilliseconds + "ms"),
-                                                            Telegram.Bot.Types.Enums.ParseMode.Markdown,
+                                                            ParseMode.Markdown,
                                                             false,
-                                                            false);
+                                                            false).ConfigureAwait(false);
                     }
                 }
                 catch (Exception ex)
@@ -181,13 +181,13 @@ namespace pmcenter
                 if (Vars.CurrentLang.TargetVersion != Vars.AppVer.ToString())
                 {
                     Log("Language version mismatch detected.", "CORE", LogLevel.WARN);
-                    await Vars.Bot.SendTextMessageAsync(Vars.CurrentConf.OwnerUID,
+                    _ = await Vars.Bot.SendTextMessageAsync(Vars.CurrentConf.OwnerUID,
                                                    Vars.CurrentLang.Message_LangVerMismatch
                                                        .Replace("$1", Vars.CurrentLang.TargetVersion)
                                                        .Replace("$2", Vars.AppVer.ToString()),
-                                                   Telegram.Bot.Types.Enums.ParseMode.Markdown,
+                                                   ParseMode.Markdown,
                                                    false,
-                                                   false);
+                                                   false).ConfigureAwait(false);
                 }
                 Log("==> All finished!");
                 while (true)

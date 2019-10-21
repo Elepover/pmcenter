@@ -52,13 +52,13 @@ namespace pmcenter.Commands
                 .Replace("$d", GetThreadStatusString(Vars.RateLimiterStatus))
                 .Replace("$e", GetThreadStatusString(Vars.ConfResetTimerStatus));
 
-            await botClient.SendTextMessageAsync(
+            _ = await botClient.SendTextMessageAsync(
                 update.Message.From.Id,
                 MessageStr,
                 ParseMode.Markdown,
                 false,
                 Vars.CurrentConf.DisableNotifications,
-                update.Message.MessageId);
+                update.Message.MessageId).ConfigureAwait(false);
             return true;
         }
     }

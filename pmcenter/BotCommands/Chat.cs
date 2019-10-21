@@ -41,7 +41,7 @@ namespace pmcenter.Commands
 
                 Log("Continued Conversation enabled, target: " + RealTarget, "BOT");
                 Vars.CurrentConf.ContChatTarget = RealTarget;
-                await Conf.SaveConf(false, true);
+                _ = await Conf.SaveConf(false, true).ConfigureAwait(false);
 
                 string ReplaceText;
                 if (IsArgumentMode)
@@ -53,23 +53,23 @@ namespace pmcenter.Commands
                     ReplaceText = "[" + update.Message.ReplyToMessage.ForwardFrom.FirstName + " (@" + update.Message.ReplyToMessage.ForwardFrom.Username + ")](tg://user?id=" + RealTarget + ")";
                 }
 
-                await botClient.SendTextMessageAsync(update.Message.From.Id,
+                _ = await botClient.SendTextMessageAsync(update.Message.From.Id,
                                                     Vars.CurrentLang.Message_ContinuedChatEnabled.Replace("$1", ReplaceText),
                                                     ParseMode.Markdown,
                                                     false,
                                                     Vars.CurrentConf.DisableNotifications,
-                                                    update.Message.MessageId);
+                                                    update.Message.MessageId).ConfigureAwait(false);
                 return true;
             }
             catch (Exception ex)
             {
                 Log("Failed to enable Continued Conversation: " + ex.ToString(), "BOT", LogLevel.ERROR);
-                await botClient.SendTextMessageAsync(update.Message.From.Id,
+                _ = await botClient.SendTextMessageAsync(update.Message.From.Id,
                     Vars.CurrentLang.Message_GeneralFailure.Replace("$1", ex.ToString()),
                     ParseMode.Default,
                     false,
                     Vars.CurrentConf.DisableNotifications,
-                    update.Message.MessageId);
+                    update.Message.MessageId).ConfigureAwait(false);
                 return true;
             }
             

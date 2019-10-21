@@ -8,14 +8,7 @@ namespace pmcenter
         {
             try
             {
-                if (Thread.IsAlive)
-                {
-                    return ThreadStatus.Standby;
-                }
-                else
-                {
-                    return ThreadStatus.Stopped;
-                }
+                return Thread.IsAlive ? ThreadStatus.Standby : ThreadStatus.Stopped;
             }
             catch
             {

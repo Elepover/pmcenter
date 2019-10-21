@@ -18,9 +18,12 @@ namespace pmcenter.Commands
         public async Task<bool> ExecuteAsync(TelegramBotClient botClient, Update update)
         {
             string Reply;
+            string ListJSONString;
             // try to get locale list
-            WebClient ListDownloader = new WebClient();
-            var ListJSONString = await ListDownloader.DownloadStringTaskAsync(Vars.LocaleMapURL);
+            using (var ListDownloader = new WebClient())
+            {
+                ListJSONString = await ListDownloader.DownloadStringTaskAsync(Vars.LocaleMapURL).ConfigureAwait(false);
+            }
             Conf.LocaleList LocaleList = JsonConvert.DeserializeObject<Conf.LocaleList>(ListJSONString);
             if (!update.Message.Text.Contains(" "))
             {
@@ -39,28 +42,30 @@ namespace pmcenter.Commands
                     if (Mirror.LocaleCode == TargetCode)
                     {
                         // start downloading
-                        var Downloader = new WebClient();
-                        await Downloader.DownloadFileTaskAsync(
-                            new Uri(Mirror.LocaleFileURL),
-                            Path.Combine(Vars.AppDirectory, "pmcenter_locale.json")
-                        );
+                        using (var Downloader = new WebClient())
+                        {
+                            await Downloader.DownloadFileTaskAsync(
+                                            new Uri(Mirror.LocaleFileURL),
+                                            Path.Combine(Vars.AppDirectory, "pmcenter_locale.json")
+                                            ).ConfigureAwait(false);
+                        }
                         // reload configurations
-                        await Conf.ReadConf();
-                        await Lang.ReadLang();
-                        Reply = Vars.CurrentLang.Message_LangSwitched;
-                        goto SendMsg;
+                        _ = await Conf.ReadConf().ConfigureAwait(false);
+                            _ = await Lang.ReadLang().ConfigureAwait(false);
+                            Reply = Vars.CurrentLang.Message_LangSwitched;
+                            goto SendMsg;
                     }
                 }
                 throw new ArgumentException("Language not found.");
             }
 SendMsg:
-            await botClient.SendTextMessageAsync(
+            _ = await botClient.SendTextMessageAsync(
                 update.Message.From.Id,
                 Reply,
                 ParseMode.Markdown,
                 false,
                 Vars.CurrentConf.DisableNotifications,
-                update.Message.MessageId);
+                update.Message.MessageId).ConfigureAwait(false);
             return true;
         }
     }
