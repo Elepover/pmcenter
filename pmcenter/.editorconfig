@@ -35,3 +35,6 @@ dotnet_code_quality_unused_parameters = all:suggestion
 
 # CA2234: Pass system uri objects instead of strings
 dotnet_diagnostic.CA2234.severity = suggestion
+
+# CA2227: Collection properties should be read only
+dotnet_diagnostic.CA2227.severity = suggestion

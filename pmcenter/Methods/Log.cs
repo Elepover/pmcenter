@@ -1,4 +1,7 @@
 using System;
+using System.Globalization;
+using System.IO;
+using System.Runtime.CompilerServices;
 
 namespace pmcenter
 {
@@ -6,13 +9,19 @@ namespace pmcenter
     {
         public static void Log(string Text,
                                string Module = "CORE",
-                               LogLevel Type = LogLevel.INFO)
+                               LogLevel Type = LogLevel.INFO,
+                               [CallerFilePath] string filePath = "file?",
+                               [CallerMemberName] string callerName = "method?",
+                               [CallerLineNumber] int lineNumber = 0)
         {
-            if (Vars.CurrentConf?.LowPerformanceMode == true)
-            {
-                return;
-            }
-            var Output = "[" + DateTime.UtcNow.ToShortDateString() + " " + DateTime.UtcNow.ToShortTimeString() + "][" + Module + "]";
+            if (Vars.CurrentConf?.LowPerformanceMode == true) return;
+            var Output = 
+                "["
+                + DateTime.Now.ToString("o", CultureInfo.InvariantCulture)
+                + "]["
+                + Module
+                + (Vars.CurrentConf?.AdvancedLogging == true ? "/" + (new FileInfo(filePath)).Name + "/" + callerName + "()@L" + lineNumber : "")
+                + "]";
             Console.BackgroundColor = ConsoleColor.Black;
             switch (Type)
             {

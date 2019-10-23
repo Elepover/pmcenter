@@ -27,6 +27,7 @@
   "EnableMsgLink": false,
   "AllowUserRetraction": false,
   "ConfSyncInterval": 30000,
+  "AdvancedLogging":  false,
   "Statistics": {
     "TotalMessagesReceived": 0,
     "TotalCommandsReceived": 0,

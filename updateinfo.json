@@ -1,5 +1,5 @@
 {
-  "Latest": "1.7.93.230",
-  "Details": "[/] Improved memory efficiency.\n[+] Refined code structure.",
+  "Latest": "1.7.94.240",
+  "Details": "[+] Added advanced logging mode (disabled by default).\n[/] Time format in logging is now ISO 8601-compliant.",
   "UpdateLevel": 1
 }

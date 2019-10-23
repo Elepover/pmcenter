@@ -52,6 +52,7 @@ namespace pmcenter
                 EnableMsgLink = false;
                 AllowUserRetraction = false;
                 ConfSyncInterval = 30000;
+                AdvancedLogging = false;
                 Statistics = new Stats();
                 Socks5Proxies = new List<Socks5Proxy>();
                 BannedKeywords = new List<string>();
@@ -86,6 +87,7 @@ namespace pmcenter
             public bool EnableMsgLink { get; set; }
             public bool AllowUserRetraction { get; set; }
             public int ConfSyncInterval { get; set; }
+            public bool AdvancedLogging { get; set; }
             public Stats Statistics { get; set; }
             public List<Socks5Proxy> Socks5Proxies { get; set; }
             public List<string> BannedKeywords { get; set; }

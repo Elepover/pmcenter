@@ -166,6 +166,7 @@ That's all.
 | `EnableMsgLink` | `Boolean` | ✓ | 是否启用消息链接 |
 | `AllowUserRetraction` | `Boolean` | ✓ | 是否允许消息撤回 |
 | `ConfSyncInterval` | `Int` | ✓ | 指定自动保存间隔，单位毫秒 |
+| `AdvancedLogging` | `Boolean` | ✓ | 如果启用，pmcenter 会在日志消息中附加输出时的代码文件及行号信息 |
 | `Statistics` | `Stats` | ✕ | 统计数据 |
 | `Socks5Proxies` | `Array` | ✓ | SOCKS5 代理列表 |
 | `BannedKeywords` | `Array` | ✓ | 屏蔽的关键字存储 |

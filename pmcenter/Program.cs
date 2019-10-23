@@ -76,7 +76,7 @@ namespace pmcenter
                 Log("==> Using language file: " + Vars.LangFile);
                 
                 Log("==> Running start operations...");
-                Log("==> Initializing module - CONF"); // BY DEFAULT CONF & LANG ARE NULL! PROCEED BEFORE DOING ANYTHING.
+                Log("==> Initializing module - CONF"); // BY DEFAULT CONF & LANG ARE NULL! PROCEED BEFORE DOING ANYTHING. <- well anyway we have default values
                 await InitConf().ConfigureAwait(false);
                 _ = await ReadConf().ConfigureAwait(false);
                 await InitLang().ConfigureAwait(false);
