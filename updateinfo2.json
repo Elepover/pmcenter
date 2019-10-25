@@ -22,7 +22,7 @@
       ]
     },
     {
-      "Details": "[+] 新增高級模式（默認停用）\n[+] 現可於設定中停用日志時間展示，在搭配 systemd 之類守護進程運行時尤爲有益\n[/] 時間格式現已合規 ISO 8601\n[+] 升級了更新系統",
+      "Details": "[+] 新增高級模式（默認停用）\n[+] 現可於設定中停用日志時間展示，在搭配 systemd 運行時尤爲有益\n[/] 時間格式現已合規 ISO 8601\n[+] 升級了更新系統",
       "LangCode": [
         "zh.tw"
       ]
