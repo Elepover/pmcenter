@@ -325,7 +325,7 @@ namespace pmcenter
         {
             using (var Downloader = new WebClient())
             {
-                var Response = Downloader.DownloadString(new Uri(Vars.UpdateInfoURL));
+                var Response = Downloader.DownloadString(new Uri(Vars.UpdateInfo2URL));
                 return JsonConvert.DeserializeObject<Update2>(Response);
             }
         }
