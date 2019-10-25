@@ -6,7 +6,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Net;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
@@ -53,6 +52,7 @@ namespace pmcenter
                 AllowUserRetraction = false;
                 ConfSyncInterval = 30000;
                 AdvancedLogging = false;
+                DisableTimeDisplay = false;
                 Statistics = new Stats();
                 Socks5Proxies = new List<Socks5Proxy>();
                 BannedKeywords = new List<string>();
@@ -88,6 +88,7 @@ namespace pmcenter
             public bool AllowUserRetraction { get; set; }
             public int ConfSyncInterval { get; set; }
             public bool AdvancedLogging { get; set; }
+            public bool DisableTimeDisplay { get; set; }
             public Stats Statistics { get; set; }
             public List<Socks5Proxy> Socks5Proxies { get; set; }
             public List<string> BannedKeywords { get; set; }
@@ -116,13 +117,24 @@ namespace pmcenter
         {
             public Update()
             {
-                Latest = "0.0.0.0";
                 Details = "(Load failed.)";
+                LangCode = new List<string>() { "en.integrated" };
+            }
+            public string Details { get; set; }
+            public List<string> LangCode { get; set; }
+        }
+
+        public class Update2
+        {
+            public Update2()
+            {
+                Latest = "0.0.0.0";
                 UpdateLevel = UpdateLevel.Optional;
+                UpdateCollection = new List<Update>();
             }
             public string Latest { get; set; }
-            public string Details { get; set; }
             public UpdateLevel UpdateLevel { get; set; }
+            public List<Update> UpdateCollection { get; set; }
         }
         public class Socks5Proxy
         {
@@ -309,15 +321,15 @@ namespace pmcenter
                 return true;
             }
         }
-        public static Update CheckForUpdates()
+        public static Update2 CheckForUpdates()
         {
             using (var Downloader = new WebClient())
             {
                 var Response = Downloader.DownloadString(new Uri(Vars.UpdateInfoURL));
-                return JsonConvert.DeserializeObject<Update>(Response);
+                return JsonConvert.DeserializeObject<Update2>(Response);
             }
         }
-        public static bool IsNewerVersionAvailable(Update CurrentUpdate)
+        public static bool IsNewerVersionAvailable(Update2 CurrentUpdate)
         {
             var CurrentVersion = Vars.AppVer;
             var CurrentLatest = new Version(CurrentUpdate.Latest);
@@ -329,6 +341,14 @@ namespace pmcenter
             {
                 return false;
             }
+        }
+        public static int GetUpdateInfoIndexByLocale(Update2 Update, string Locale)
+        {
+            for (int i = 0; i < Update.UpdateCollection.Count; i++)
+            {
+                if (Update.UpdateCollection[i].LangCode.Contains(Locale)) return i;
+            }
+            return 0;
         }
     }
 }

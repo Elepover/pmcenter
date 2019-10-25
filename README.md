@@ -165,6 +165,7 @@ Or, use setup wizard:
 | `AllowUserRetraction` | `Boolean` | ✓ | Enable/Disable message retraction. |
 | `ConfSyncInterval` | `Int` | ✓ | Specifies the autosave interval, in milliseconds. |
 | `AdvancedLogging` | `Boolean` | ✓ | If enabled, pmcenter will display the code files and line number where the logging was triggered. |
+| `DisableTimeDisplay` | `Boolean` | ✓ | Don't display time in the logs. |
 | `Statistics` | `Stats` | ✕ | Statistics data. |
 | `Socks5Proxies` | `Array` | ✓ | List of SOCKS5 proxies. |
 | `BannedKeywords` | `Array` | ✓ | Storage of banned keywords. |

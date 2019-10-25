@@ -1,5 +1,5 @@
 {
-  "Latest": "1.7.94.240",
-  "Details": "[+] Added advanced logging mode (disabled by default).\n[/] Time format in logging is now ISO 8601-compliant.",
+  "Latest": "1.8.95.260",
+  "Details": "[+] Added advanced logging mode (disabled by default).\n[+] You can also disable the time display in logs, useful if you're using systemd, etc as daemons.\n[/] Time format in logging is now ISO 8601-compliant.\n[+] Upgraded updates system.`\n\n*WARNING*: If you're using pmcenter `1.7.93.230` or older, you would only see this update message in the future but you could still upgrade to the latest version at any time.`",
   "UpdateLevel": 1
 }

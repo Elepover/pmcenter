@@ -16,11 +16,19 @@ namespace pmcenter
         {
             if (Vars.CurrentConf?.LowPerformanceMode == true) return;
             var Output = 
-                "["
-                + DateTime.Now.ToString("o", CultureInfo.InvariantCulture)
-                + "]["
+                (Vars.CurrentConf?.DisableTimeDisplay != true ?
+                        "[" + DateTime.Now.ToString("o", CultureInfo.InvariantCulture) + "]"
+                        :
+                        ""
+                )
+                + "["
                 + Module
-                + (Vars.CurrentConf?.AdvancedLogging == true ? "/" + (new FileInfo(filePath)).Name + "/" + callerName + "()@L" + lineNumber : "")
+                + 
+                (Vars.CurrentConf?.AdvancedLogging == true ?
+                    "/" + (new FileInfo(filePath)).Name + "/" + callerName + "()@L" + lineNumber
+                    :
+                    ""
+                )
                 + "]";
             Console.BackgroundColor = ConsoleColor.Black;
             switch (Type)

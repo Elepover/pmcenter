@@ -16,6 +16,7 @@ namespace pmcenter
                 try
                 {
                     var Latest = Conf.CheckForUpdates();
+                    var CurrentLocalizedIndex = GetUpdateInfoIndexByLocale(Latest, Vars.CurrentLang.LangCode);
                     var DisNotif = Vars.CurrentConf.DisableNotifications;
                     // Identical with BotProcess.cs, L206.
                     if (Conf.IsNewerVersionAvailable(Latest))
@@ -25,7 +26,7 @@ namespace pmcenter
                         Vars.UpdateLevel = Latest.UpdateLevel;
                         var UpdateString = Vars.CurrentLang.Message_UpdateAvailable
                             .Replace("$1", Latest.Latest)
-                            .Replace("$2", Latest.Details)
+                            .Replace("$2", Latest.UpdateCollection[CurrentLocalizedIndex].Details)
                             .Replace("$3", GetUpdateLevel(Latest.UpdateLevel));
                         _ = await Vars.Bot.SendTextMessageAsync(Vars.CurrentConf.OwnerUID,
                                                             UpdateString,

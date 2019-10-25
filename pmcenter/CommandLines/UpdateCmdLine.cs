@@ -19,7 +19,7 @@ namespace pmcenter.CommandLines
             var Latest = Conf.CheckForUpdates();
             if (Conf.IsNewerVersionAvailable(Latest))
             {
-                Log("Newer version found: " + Latest.Latest + ", main changes:\n" + Latest.Details, "CMD");
+                Log("Newer version found: " + Latest.Latest + ", main changes:\n" + Latest.UpdateCollection[0].Details, "CMD");
                 Log("Updating...", "CMD");
                 Log("Starting update download... (pmcenter_update.zip)", "CMD");
                 using (var Downloader = new WebClient())

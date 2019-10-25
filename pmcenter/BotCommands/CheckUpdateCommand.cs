@@ -16,7 +16,8 @@ namespace pmcenter.Commands
         {
             try
             {
-                Conf.Update Latest = Conf.CheckForUpdates();
+                var  Latest = Conf.CheckForUpdates();
+                var CurrentLocalizedIndex = Conf.GetUpdateInfoIndexByLocale(Latest, Vars.CurrentLang.LangCode);
                 if (Conf.IsNewerVersionAvailable(Latest))
                 {
                     Vars.UpdatePending = true;
@@ -24,7 +25,7 @@ namespace pmcenter.Commands
                     Vars.UpdateLevel = Latest.UpdateLevel;
                     var UpdateString = Vars.CurrentLang.Message_UpdateAvailable
                         .Replace("$1", Latest.Latest)
-                        .Replace("$2", Latest.Details)
+                        .Replace("$2", Latest.UpdateCollection[CurrentLocalizedIndex].Details)
                         .Replace("$3", Methods.GetUpdateLevel(Latest.UpdateLevel));
                     _ = await botClient.SendTextMessageAsync(
                         update.Message.From.Id,
@@ -43,7 +44,7 @@ namespace pmcenter.Commands
                         Vars.CurrentLang.Message_AlreadyUpToDate
                             .Replace("$1", Latest.Latest)
                             .Replace("$2", Vars.AppVer.ToString())
-                            .Replace("$3", Latest.Details),
+                            .Replace("$3", Latest.UpdateCollection[CurrentLocalizedIndex].Details),
                         ParseMode.Markdown,
                         false,
                         Vars.CurrentConf.DisableNotifications,

@@ -1,0 +1,31 @@
+{
+  "Latest": "1.8.95.260",
+  "UpdateLevel": 1,
+  "UpdateCollection": [
+    {
+      "Details": "[+] Added advanced logging mode (disabled by default).\n[+] You can also disable the time display in logs, useful if you're using systemd, etc as daemons.\n[/] Time format in logging is now ISO 8601-compliant.\n[+] Upgraded updates system.",
+      "LangCode": [
+        "en.imported",
+        "en.integrated"
+      ]
+    },
+    {
+      "Details": "[+] 新增高级日志模式（默认禁用）\n[+] 现可在设置中禁用日志时间显示，在配合 systemd 之类守护进程运行时尤为有益\n[/] 时间格式现符合 ISO 8601 规范\n[+] 升级了更新系统",
+      "LangCode": [
+        "zh.simplified"
+      ]
+    },
+    {
+      "Details": "[+] 新的高级日志模式哦\n[+] 日志时间显示可以禁用掉啦\n[/] 时间格式输出格式也符合 ISO 8601 规范了呢\n[+] 更新系统也进行升级啦",
+      "LangCode": [
+        "zh.meow"
+      ]
+    },
+    {
+      "Details": "[+] 新增高級模式（默認停用）\n[+] 現可於設定中停用日志時間展示，在搭配 systemd 之類守護進程運行時尤爲有益\n[/] 時間格式現已合規 ISO 8601\n[+] 升級了更新系統",
+      "LangCode": [
+        "zh.tw"
+      ]
+    }
+  ]
+}
