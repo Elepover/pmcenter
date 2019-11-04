@@ -261,3 +261,6 @@ paket-files/
 __pycache__/
 *.pyc
 /pmcenter/Properties/launchSettings.json
+.DS_Store
+.vscode/launch.json
+.vscode/tasks.json

@@ -1,19 +1,6 @@
-/*
-// Lang.cs / pmcenter project / https://github.com/Elepover/pmcenter
-// Language system of pmcenter.
-// Almost the same as Conf.cs.
-// Copyright (C) 2018 Elepover. Licensed under the Apache License (Version 2.0).
-*/
-
-using System;
-using System.IO;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
-using static pmcenter.Methods;
-
 namespace pmcenter
 {
-    public class Lang
+    public partial class Lang
     {
         public class Language
         {
@@ -162,58 +149,6 @@ namespace pmcenter
             public string Message_Retracted { get; set; }
             public string Message_MsgLinksCleared { get; set; }
             public string Message_AvailableLang { get; set; }
-        }
-        public static string KillIllegalChars(string Input)
-        {
-            return Input.Replace("/", "-").Replace("<", "-").Replace(">", "-").Replace(":", "-").Replace("\"", "-").Replace("/", "-").Replace("\\", "-").Replace("|", "-").Replace("?", "-").Replace("*", "-");
-        }
-        public static async Task<bool> SaveLang(bool IsInvalid = false)
-        { // DO NOT HANDLE ERRORS HERE.
-            var Text = JsonConvert.SerializeObject(Vars.CurrentLang, Formatting.Indented);
-            var Writer = new StreamWriter(File.Create(Vars.LangFile), System.Text.Encoding.UTF8);
-            await Writer.WriteAsync(Text).ConfigureAwait(false);
-            await Writer.FlushAsync().ConfigureAwait(false);
-            Writer.Close();
-            if (IsInvalid)
-            {
-                Log("We've detected an invalid language file and have reset it.", "LANG", LogLevel.WARN);
-                Log("Please reconfigure it and try to start pmcenter again.", "LANG", LogLevel.WARN);
-                Vars.RestartRequired = true;
-            }
-            return true;
-        }
-        public static async Task<bool> ReadLang(bool Apply = true)
-        { // DO NOT HANDLE ERRORS HERE. THE CALLING METHOD WILL HANDLE THEM.
-            var SettingsText = await File.ReadAllTextAsync(Vars.LangFile).ConfigureAwait(false);
-            var Temp = JsonConvert.DeserializeObject<Language>(SettingsText);
-            if (Apply) { Vars.CurrentLang = Temp; }
-            return true;
-        }
-        public static async Task InitLang()
-        {
-            Log("Checking language file's integrity...", "LANG");
-            if (!File.Exists(Vars.LangFile))
-            { // STEP 1, DETECT EXISTENCE.
-                Log("Language file not found. Creating...", "LANG", LogLevel.WARN);
-                Vars.CurrentLang = new Language();
-                _ = await SaveLang(true).ConfigureAwait(false); // Then the app will exit, do nothing.
-            }
-            else
-            { // STEP 2, READ TEST.
-                try
-                {
-                    _ = await ReadLang(false).ConfigureAwait(false); // Read but don't apply.
-                }
-                catch (Exception ex)
-                {
-                    Log("Error! " + ex.ToString(), "LANG", LogLevel.ERROR);
-                    Log("Moving old language file to \"pmcenter_locale.json.bak\"...", "LANG", LogLevel.WARN);
-                    File.Move(Vars.LangFile, Vars.LangFile + ".bak");
-                    Vars.CurrentLang = new Language();
-                    _ = await SaveLang(true).ConfigureAwait(false); // Then the app will exit, do nothing.
-                }
-            }
-            Log("Integrity test finished!", "LANG");
         }
     }
 }
