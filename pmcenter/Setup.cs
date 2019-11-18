@@ -63,7 +63,6 @@ namespace pmcenter
             Say("");
             SetAutoBanPrefs();
 
-
             // finalization
             Say("");
             Say(">> Complete!");

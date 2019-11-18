@@ -25,7 +25,7 @@ namespace pmcenter
                 + Module
                 + 
                 (Vars.CurrentConf?.AdvancedLogging == true ?
-                    "/" + (new FileInfo(filePath)).Name + "/" + callerName + "()@L" + lineNumber
+                    "/" + Path.GetFileName(filePath) + "/" + callerName + "()@L" + lineNumber
                     :
                     ""
                 )

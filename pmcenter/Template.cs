@@ -10,6 +10,5 @@ namespace pmcenter
 {
     public class Template
     {
-
     }
 }

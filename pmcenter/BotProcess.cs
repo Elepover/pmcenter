@@ -92,7 +92,6 @@ namespace pmcenter
                 {
                     await UserLogic(update).ConfigureAwait(false);
                 }
-
             }
             catch (Exception ex)
             {
@@ -318,7 +317,6 @@ namespace pmcenter
                 false,
                 Vars.CurrentConf.DisableNotifications,
                 update.Message.MessageId).ConfigureAwait(false);
-
         }
 
         private static async Task OwnerReplying(Update update)
@@ -373,7 +371,6 @@ namespace pmcenter
                 _ = await Vars.Bot.SendTextMessageAsync(update.Message.From.Id, ReplyToMessage, ParseMode.Markdown, false, false, update.Message.MessageId).ConfigureAwait(false);
             }
             Log("Successfully passed owner's reply to " + update.Message.ReplyToMessage.ForwardFrom.FirstName + " (@" + update.Message.ReplyToMessage.ForwardFrom.Username + " / " + update.Message.ReplyToMessage.ForwardFrom.Id + ")", "BOT");
-
         }
     }
 }

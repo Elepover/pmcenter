@@ -33,7 +33,7 @@ namespace pmcenter.Commands
             Vars.PerformanceScore /= 1000000;
             _ = await botClient.SendTextMessageAsync(
                 update.Message.From.Id,
-                Vars.CurrentLang.Message_Performance_Results.Replace("$1", Vars.PerformanceScore / 5 + "Mop/s"),
+                Vars.CurrentLang.Message_Performance_Results.Replace("$1", (Vars.PerformanceScore / 5) + "Mop/s"),
                 ParseMode.Markdown,
                 false,
                 Vars.CurrentConf.DisableNotifications,

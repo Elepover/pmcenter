@@ -72,7 +72,6 @@ namespace pmcenter.Commands
                     update.Message.MessageId).ConfigureAwait(false);
                 return true;
             }
-            
         }
     }
 }

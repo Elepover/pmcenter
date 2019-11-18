@@ -34,7 +34,6 @@ namespace pmcenter.Commands
                         false,
                         Vars.CurrentConf.DisableNotifications,
                         update.Message.MessageId).ConfigureAwait(false);
-
                 }
                 else
                 {
