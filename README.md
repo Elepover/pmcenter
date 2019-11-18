@@ -12,6 +12,7 @@ A telegram bot helping you process private messages.
 
 ## Table of Contents
 
+> - [🌲 Branches](#branches)
 > - [🔨 Features](#features)
 > - [📻 Setting Up Your Own `pmcenter`](#setting-up-your-own-pmcenter)
 >   - [⚙️ Prerequisites](#prerequisites)
@@ -25,6 +26,13 @@ A telegram bot helping you process private messages.
 > - [🚀 Starting](#starting)
 > - [🔩 Commands](#commands)
 > - [🔺 Disclaimer](#disclaimer)
+
+## Branches
+
+Currently, there're 2 branches:
+
+- `pmcenter-lazer`: the freshest code with latest features, like Chrome Canary. **However, stability is NOT guaranteed**.
+- `master`: stable branch. The `pmcenter-lazer` branch will be merged into it once it's ready for an update.
 
 ## Features
 
