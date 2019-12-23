@@ -17,7 +17,7 @@ namespace pmcenter
             if (Vars.CurrentConf?.LowPerformanceMode == true) return;
             var Output = 
                 (Vars.CurrentConf?.DisableTimeDisplay != true ?
-                        "[" + DateTime.Now.ToString("o", CultureInfo.InvariantCulture) + "]"
+                        $"[{DateTime.Now.ToString("o", CultureInfo.InvariantCulture)}]"
                         :
                         ""
                 )
@@ -25,7 +25,7 @@ namespace pmcenter
                 + Module
                 + 
                 (Vars.CurrentConf?.AdvancedLogging == true ?
-                    "/" + Path.GetFileName(filePath) + "/" + callerName + "()@L" + lineNumber
+                    $"/{Path.GetFileName(filePath)}/{callerName}()@L{lineNumber}"
                     :
                     ""
                 )

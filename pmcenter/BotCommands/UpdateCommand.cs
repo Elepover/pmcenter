@@ -56,7 +56,7 @@ namespace pmcenter.Commands
                         {
                             foreach (ZipArchiveEntry Entry in Zip.Entries)
                             {
-                                Log("Extracting: " + Path.Combine(Vars.AppDirectory, Entry.FullName), "BOT");
+                                Log($"Extracting: {Path.Combine(Vars.AppDirectory, Entry.FullName)}", "BOT");
                                 Entry.ExtractToFile(Path.Combine(Vars.AppDirectory, Entry.FullName), true);
                             }
                         }
@@ -86,7 +86,7 @@ namespace pmcenter.Commands
                     }
                     catch (Exception ex)
                     {
-                        Log("Failed to execute restart command: " + ex.ToString(), "BOT", LogLevel.ERROR);
+                        Log($"Failed to execute restart command: {ex.ToString()}", "BOT", LogLevel.ERROR);
                         return true;
                     }
                     // end of difference

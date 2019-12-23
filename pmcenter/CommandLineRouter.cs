@@ -34,7 +34,7 @@ namespace pmcenter
         public void RegisterCommand(ICmdLine command)
         {
             if (commands.Any(x => x.Prefix == command.Prefix))
-            { throw new ArgumentException($@"A commandline with prefix ""{ command.Prefix }"" already exists.", nameof(command)); }
+            { throw new ArgumentException($"A commandline with prefix \"{command.Prefix}\" already exists.", nameof(command)); }
 
             commands.Add(command);
         }
@@ -51,14 +51,14 @@ namespace pmcenter
             {
                 if (cmdLine.Contains(globalPrefix + cmdProcess.Prefix))
                 {
-                    Log("HIT: executing: " + globalPrefix + cmdProcess.Prefix, "CMD");
+                    Log($"HIT: executing: {globalPrefix}{cmdProcess.Prefix}", "CMD");
                     try
                     {
                         _ = await cmdProcess.Process().ConfigureAwait(false);
                     }
                     catch (Exception ex)
                     {
-                        Log("Exception while executing commandline: " + ex.ToString(), "CMD", LogLevel.ERROR);
+                        Log($"Exception while executing commandline: {ex.ToString()}", "CMD", LogLevel.ERROR);
                         Environment.Exit(1);
                     }
                     Log("Command finished.", "CMD");

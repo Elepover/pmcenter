@@ -95,7 +95,7 @@ namespace pmcenter
             }
             catch (Exception ex)
             {
-                Log("General error while processing incoming update: " + ex.ToString(), "BOT", LogLevel.ERROR);
+                Log($"General error while processing incoming update: {ex.ToString()}", "BOT", LogLevel.ERROR);
                 if (Vars.CurrentConf.CatchAllExceptions)
                 {
                     try
@@ -108,7 +108,7 @@ namespace pmcenter
                     }
                     catch (Exception iEx)
                     {
-                        Log("Failed to catch exception to owner: "+ iEx.ToString(), "BOT", LogLevel.ERROR);
+                        Log($"Failed to catch exception to owner: {iEx.ToString()}", "BOT", LogLevel.ERROR);
                     }
                 }
             }
@@ -123,7 +123,7 @@ namespace pmcenter
                 return;
             }
 
-            Log("Received message from " + "\"" + update.Message.From.FirstName + "\" (@" + update.Message.From.Username + " / " + (long)update.Message.From.Id + ")" + ", forwarding...", "BOT");
+            Log($"Received message from \"{update.Message.From.FirstName}\" (@{update.Message.From.Username} / {update.Message.From.Id})" + ", forwarding...", "BOT");
 
             if (Vars.CurrentConf.ForwardingPaused)
             {
@@ -157,7 +157,7 @@ namespace pmcenter
             Vars.CurrentConf.Statistics.TotalForwardedToOwner += 1;
             if (Vars.CurrentConf.EnableMsgLink)
             {
-                Log("Recording message link: owner " + ForwardedMessage.MessageId + " <-> user " + update.Message.MessageId +  " user: " + update.Message.From.Id, "BOT");
+                Log($"Recording message link: owner {ForwardedMessage.MessageId} <-> user {update.Message.MessageId} user: {update.Message.From.Id}", "BOT");
                 Vars.CurrentConf.MessageLinks.Add(
                     new Conf.MessageIDLink()
                     { OwnerSessionMessageID = ForwardedMessage.MessageId, UserSessionMessageID = update.Message.MessageId, TGUser = update.Message.From, IsFromOwner = false }
@@ -255,7 +255,7 @@ namespace pmcenter
                 }
                 catch (Exception ex)
                 {
-                    Log("Unable to forward message to cc: " + Id + ", reason: " + ex.Message, "BOT", LogLevel.ERROR);
+                    Log($"Unable to forward message to cc: {Id}, reason: {ex.Message}", "BOT", LogLevel.ERROR);
                 }
             }
         }
@@ -292,7 +292,7 @@ namespace pmcenter
                                                                        Vars.CurrentConf.DisableNotifications).ConfigureAwait(false);
                 if (Vars.CurrentConf.EnableMsgLink)
                 {
-                    Log("Recording message link: " + Forwarded.MessageId + " -> " + update.Message.MessageId + " in " + update.Message.From.Id, "BOT");
+                    Log($"Recording message link: {Forwarded.MessageId} -> {update.Message.MessageId} in {update.Message.From.Id}", "BOT");
                     Vars.CurrentConf.MessageLinks.Add(
                         new Conf.MessageIDLink()
                         { OwnerSessionMessageID = Forwarded.MessageId, UserSessionMessageID = update.Message.MessageId, TGUser = update.Message.From, IsFromOwner = true }
@@ -306,7 +306,7 @@ namespace pmcenter
                     ReplyToMessage = ReplyToMessage.Replace("$1", "[" + Vars.CurrentConf.ContChatTarget + "](tg://user?id=" + Vars.CurrentConf.ContChatTarget + ")");
                     _ = await Vars.Bot.SendTextMessageAsync(update.Message.From.Id, ReplyToMessage, ParseMode.Markdown, false, false, update.Message.MessageId).ConfigureAwait(false);
                 }
-                Log("Successfully passed owner's reply to UID: " + Vars.CurrentConf.ContChatTarget, "BOT");
+                Log($"Successfully passed owner's reply to UID: {Vars.CurrentConf.ContChatTarget}", "BOT");
                 return;
             }
 
@@ -325,7 +325,7 @@ namespace pmcenter
             var Link = GetLinkByOwnerMsgID(update.Message.ReplyToMessage.MessageId);
             if (Link != null && !Link.IsFromOwner)
             {
-                Log("Selected message is forwarded anonymously from " + Link.TGUser.Id + ", fixing user information from database.", "BOT");
+                Log($"Selected message is forwarded anonymously from {Link.TGUser.Id}, fixing user information from database.", "BOT");
                 update.Message.ReplyToMessage.ForwardFrom = Link.TGUser;
             }
             if (update.Message.ReplyToMessage.ForwardFrom == null && update.Message.Text.ToLower() != "/retract")
@@ -355,7 +355,7 @@ namespace pmcenter
                     Vars.CurrentConf.DisableNotifications).ConfigureAwait(false);
             if (Vars.CurrentConf.EnableMsgLink)
             {
-                Log("Recording message link: user " + Forwarded.MessageId + " <-> owner " + update.Message.MessageId + ", user: " + update.Message.ReplyToMessage.ForwardFrom.Id, "BOT");
+                Log($"Recording message link: user {Forwarded.MessageId} <-> owner {update.Message.MessageId}, user: {update.Message.ReplyToMessage.ForwardFrom.Id}", "BOT");
                 Vars.CurrentConf.MessageLinks.Add(
                     new Conf.MessageIDLink()
                     { OwnerSessionMessageID = update.Message.MessageId, UserSessionMessageID = Forwarded.MessageId, TGUser = update.Message.ReplyToMessage.ForwardFrom, IsFromOwner = true }
@@ -367,10 +367,10 @@ namespace pmcenter
             if (Vars.CurrentConf.EnableRepliedConfirmation)
             {
                 var ReplyToMessage = Vars.CurrentLang.Message_ReplySuccessful;
-                ReplyToMessage = ReplyToMessage.Replace("$1", "[" + update.Message.ReplyToMessage.ForwardFrom.FirstName + " (@" + update.Message.ReplyToMessage.ForwardFrom.Username + ")](tg://user?id=" + update.Message.ReplyToMessage.ForwardFrom.Id + ")");
+                ReplyToMessage = ReplyToMessage.Replace("$1", $"[{update.Message.ReplyToMessage.ForwardFrom.FirstName} (@{update.Message.ReplyToMessage.ForwardFrom.Username})](tg://user?id={update.Message.ReplyToMessage.ForwardFrom.Id})");
                 _ = await Vars.Bot.SendTextMessageAsync(update.Message.From.Id, ReplyToMessage, ParseMode.Markdown, false, false, update.Message.MessageId).ConfigureAwait(false);
             }
-            Log("Successfully passed owner's reply to " + update.Message.ReplyToMessage.ForwardFrom.FirstName + " (@" + update.Message.ReplyToMessage.ForwardFrom.Username + " / " + update.Message.ReplyToMessage.ForwardFrom.Id + ")", "BOT");
+            Log($"Successfully passed owner's reply to {update.Message.ReplyToMessage.ForwardFrom.FirstName} (@{update.Message.ReplyToMessage.ForwardFrom.Username} / {update.Message.ReplyToMessage.ForwardFrom.Id})", "BOT");
         }
     }
 }

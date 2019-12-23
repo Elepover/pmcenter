@@ -30,7 +30,7 @@ namespace pmcenter.Commands
                 var ListString = "";
                 foreach (Conf.LocaleMirror Mirror in LocaleList.Locales)
                 {
-                    ListString += Mirror.LocaleCode + " - " + Mirror.LocaleNameNative + " (" + Mirror.LocaleNameEng + ")\n";
+                    ListString += $"{Mirror.LocaleCode} - {Mirror.LocaleNameNative} ({Mirror.LocaleNameEng})\n";
                 }
                 Reply = Vars.CurrentLang.Message_AvailableLang.Replace("$1", ListString);
             }

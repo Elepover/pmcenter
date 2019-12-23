@@ -17,14 +17,14 @@ namespace pmcenter.CommandLines
             var IsGitHubAccessible = await TestConnectivity("https://raw.githubusercontent.com/", true).ConfigureAwait(false);
             var IsCIAvailable = await TestConnectivity("https://ci.appveyor.com/", true).ConfigureAwait(false);
             Log("Application information", "CMD");
-            Log("CLR version: " + Environment.Version.ToString(), "CMD");
-            Log("Framework description: " + RuntimeInformation.FrameworkDescription, "CMD");
-            Log("Application version: " + Vars.AppVer.ToString(), "CMD");
-            Log("Configurations filename: " + Vars.ConfFile, "CMD");
-            Log("Language filename: " + Vars.LangFile, "CMD");
-            Log("Is Telegram API accessible? " + IsTelegramAPIAccessible, "CMD");
-            Log("Is GitHub accessible? " + IsGitHubAccessible, "CMD");
-            Log("Is CI accessible? " + IsCIAvailable, "CMD");
+            Log($"CLR version: {Environment.Version.ToString()}", "CMD");
+            Log($"Framework description: {RuntimeInformation.FrameworkDescription}", "CMD");
+            Log($"Application version: {Vars.AppVer.ToString()}", "CMD");
+            Log($"Configurations filename: {Vars.ConfFile}", "CMD");
+            Log($"Language filename: {Vars.LangFile}", "CMD");
+            Log($"Is Telegram API accessible? {IsTelegramAPIAccessible}", "CMD");
+            Log($"Is GitHub accessible? {IsGitHubAccessible}", "CMD");
+            Log($"Is CI accessible? {IsCIAvailable}", "CMD");
 
             return true;
         }

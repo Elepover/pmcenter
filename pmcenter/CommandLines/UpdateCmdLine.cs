@@ -14,12 +14,12 @@ namespace pmcenter.CommandLines
         public bool ExitAfterExecution => true;
         public async Task<bool> Process()
         {
-            Log("Application version: " + Vars.AppVer.ToString(), "CMD");
+            Log($"Application version: {Vars.AppVer.ToString()}", "CMD");
             Log("Checking for updates...", "CMD");
             var Latest = Conf.CheckForUpdates();
             if (Conf.IsNewerVersionAvailable(Latest))
             {
-                Log("Newer version found: " + Latest.Latest + ", main changes:\n" + Latest.UpdateCollection[0].Details, "CMD");
+                Log($"Newer version found: {Latest.Latest}, main changes:\n{Latest.UpdateCollection[0].Details}", "CMD");
                 Log("Updating...", "CMD");
                 Log("Starting update download... (pmcenter_update.zip)", "CMD");
                 using (var Downloader = new WebClient())
@@ -32,7 +32,7 @@ namespace pmcenter.CommandLines
                     {
                         foreach (ZipArchiveEntry Entry in Zip.Entries)
                         {
-                            Log("Extracting: " + Path.Combine(Vars.AppDirectory, Entry.FullName), "CMD");
+                            Log($"Extracting: {Path.Combine(Vars.AppDirectory, Entry.FullName)}", "CMD");
                             Entry.ExtractToFile(Path.Combine(Vars.AppDirectory, Entry.FullName), true);
                         }
                     }
@@ -48,7 +48,7 @@ namespace pmcenter.CommandLines
             }
             else
             {
-                Log("No newer version found.\nCurrently installed version: " + Vars.AppVer.ToString() + "\nThe latest version is: " + Latest.Latest, "CMD");
+                Log($"No newer version found.\nCurrently installed version: {Vars.AppVer.ToString()}\nThe latest version is: {Latest.Latest}", "CMD");
             }
             return true;
         }

@@ -42,7 +42,7 @@ namespace pmcenter.Commands
                 .Replace("$3", RuntimeInformation.OSDescription)
                 .Replace("$4", (new TimeSpan(0, 0, 0, 0, Environment.TickCount)).ToString())
                 .Replace("$5", Vars.StartSW.Elapsed.ToString())
-                .Replace("$6", DateTime.UtcNow.ToShortDateString() + " / " + DateTime.UtcNow.ToShortTimeString())
+                .Replace("$6", $"{DateTime.UtcNow.ToShortDateString()} / {DateTime.UtcNow.ToShortTimeString()}")
                 .Replace("$7", Environment.Version.ToString())
                 .Replace("$8", RuntimeInformation.FrameworkDescription)
                 .Replace("$9", Vars.AppVer.ToString())
