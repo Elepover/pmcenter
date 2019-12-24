@@ -40,7 +40,7 @@ namespace pmcenter.Commands
                 {
                     _ = await botClient.SendTextMessageAsync(
                         update.Message.From.Id,
-                        ("`" + texts[i] + "`"),
+                        ($"`{texts[i]}`"),
                         ParseMode.Markdown,
                         false,
                         Vars.CurrentConf.DisableNotifications,

@@ -64,13 +64,7 @@ namespace pmcenter
                 if (e == null) return;
                 if (Vars.CurrentConf.DetailedMsgLogging)
                 {
-                    Log("OnUpdate() triggered: UpdType: " + e.Update.Type.ToString()
-                        + " UpdID: " + e.Update.Id
-                        + " ChatId: " + e.Update.Message.Chat.Id
-                        + " Username: " + e.Update.Message.Chat.Username
-                        + " FromID: " + e.Update.Message.From.Id
-                        + " FromUsername: " + e.Update.Message.From.Username
-                        , "BOT-DETAILED", LogLevel.INFO);
+                    Log($"OnUpdate() triggered: UpdType: {e.Update.Type.ToString()} UpdID: {e.Update.Id} ChatId: {e.Update.Message.Chat.Id} Username: {e.Update.Message.Chat.Username} FromID: {e.Update.Message.From.Id} FromUsername: {e.Update.Message.From.Username}", "BOT-DETAILED", LogLevel.INFO);
                 }
                 var update = e.Update;
                 if (update.Type != UpdateType.Message) return;
@@ -79,7 +73,7 @@ namespace pmcenter
 
                 if (IsBanned(update.Message.From.Id))
                 {
-                    Log("Restricting banned user from sending messages: " + update.Message.From.FirstName + " (@" + update.Message.From.Username + " / " + (long)update.Message.From.Id + ")", "BOT");
+                    Log($"Restricting banned user from sending messages: {update.Message.From.FirstName} (@{update.Message.From.Username} / {(long)update.Message.From.Id})", "BOT");
                     return;
                 }
 
@@ -216,7 +210,7 @@ namespace pmcenter
             Log("Cc enabled, forwarding...", "BOT");
             foreach (long Id in Vars.CurrentConf.Cc)
             {
-                Log("Forwarding message to cc: " + Id, "BOT");
+                Log($"Forwarding message to cc: {Id}", "BOT");
                 try
                 {
                     var ForwardedMessageCc = await Vars.Bot.ForwardMessageAsync(Id,
@@ -303,7 +297,7 @@ namespace pmcenter
                 if (Vars.CurrentConf.EnableRepliedConfirmation)
                 {
                     var ReplyToMessage = Vars.CurrentLang.Message_ReplySuccessful;
-                    ReplyToMessage = ReplyToMessage.Replace("$1", "[" + Vars.CurrentConf.ContChatTarget + "](tg://user?id=" + Vars.CurrentConf.ContChatTarget + ")");
+                    ReplyToMessage = ReplyToMessage.Replace("$1", $"[{Vars.CurrentConf.ContChatTarget}](tg://user?id={Vars.CurrentConf.ContChatTarget})");
                     _ = await Vars.Bot.SendTextMessageAsync(update.Message.From.Id, ReplyToMessage, ParseMode.Markdown, false, false, update.Message.MessageId).ConfigureAwait(false);
                 }
                 Log($"Successfully passed owner's reply to UID: {Vars.CurrentConf.ContChatTarget}", "BOT");
