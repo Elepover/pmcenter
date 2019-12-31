@@ -117,7 +117,7 @@ namespace pmcenter
                 return;
             }
 
-            Log($"Received message from \"{update.Message.From.FirstName}\" (@{update.Message.From.Username} / {update.Message.From.Id})" + ", forwarding...", "BOT");
+            Log($"Received message from \"{update.Message.From.FirstName}\" (@{update.Message.From.Username} / {update.Message.From.Id}), forwarding...", "BOT");
 
             if (Vars.CurrentConf.ForwardingPaused)
             {
