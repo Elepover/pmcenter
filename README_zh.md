@@ -176,6 +176,7 @@ That's all.
 | `ConfSyncInterval` | `Int` | ✓ | 指定自动保存间隔，单位毫秒 |
 | `AdvancedLogging` | `Boolean` | ✓ | 如果启用，pmcenter 会在日志消息中附加输出时的代码文件及行号信息 |
 | `DisableTimeDisplay` | `Boolean` | ✓ | 不在日志中显示时间 |
+| `UpdateChannel` | `String` | ✓ | 选择更新频道 |
 | `Statistics` | `Stats` | ✕ | 统计数据 |
 | `Socks5Proxies` | `Array` | ✓ | SOCKS5 代理列表 |
 | `BannedKeywords` | `Array` | ✓ | 屏蔽的关键字存储 |

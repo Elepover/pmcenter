@@ -36,6 +36,7 @@ namespace pmcenter
             public int ConfSyncInterval;
             public bool AdvancedLogging;
             public bool DisableTimeDisplay;
+            public string UpdateChannel;
             public Stats Statistics;
             public List<Socks5Proxy> Socks5Proxies;
             public List<string> BannedKeywords;

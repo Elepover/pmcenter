@@ -10,9 +10,13 @@ namespace pmcenter
             {
                 Details = "(Load failed.)";
                 LangCode = new List<string>() { "en.integrated" };
+                UpdateChannel = "master";
+                UpdateArchiveAddress = "https://see.wtf/pmcenter-update";
             }
-            public string Details { get; set; }
-            public List<string> LangCode { get; set; }
+            public string Details;
+            public List<string> LangCode;
+            public string UpdateChannel;
+            public string UpdateArchiveAddress;
         }
     }
 }

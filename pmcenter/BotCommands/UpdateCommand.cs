@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Diagnostics;
 using System.IO;
 using System.IO.Compression;
 using System.Net;
-using System.Threading;
 using System.Threading.Tasks;
 using Telegram.Bot;
 using Telegram.Bot.Types;
@@ -46,10 +44,11 @@ namespace pmcenter.Commands
                         update.Message.MessageId).ConfigureAwait(false);
                     // download compiled package
                     Log("Starting update download... (pmcenter_update.zip)", "BOT");
+                    Log($"From address: {Latest.UpdateCollection[CurrentLocalizedIndex].UpdateArchiveAddress}", "BOT");
                     using (var Downloader = new WebClient())
                     {
                         await Downloader.DownloadFileTaskAsync(
-                            new Uri(Vars.UpdateArchiveURL),
+                            new Uri(Latest.UpdateCollection[CurrentLocalizedIndex].UpdateArchiveAddress),
                             Path.Combine(Vars.AppDirectory, "pmcenter_update.zip")).ConfigureAwait(false);
                         Log("Download complete. Extracting...", "BOT");
                         using (ZipArchive Zip = ZipFile.OpenRead(Path.Combine(Vars.AppDirectory, "pmcenter_update.zip")))
@@ -79,16 +78,8 @@ namespace pmcenter.Commands
                         Vars.CurrentConf.DisableNotifications,
                         update.Message.MessageId).ConfigureAwait(false);
                     Log("Exiting program... (Let the daemon do the restart job)", "BOT");
-                    try
-                    {
-                        Environment.Exit(0);
-                        return true;
-                    }
-                    catch (Exception ex)
-                    {
-                        Log($"Failed to execute restart command: {ex.ToString()}", "BOT", LogLevel.ERROR);
-                        return true;
-                    }
+                    Environment.Exit(0);
+                    return true;
                     // end of difference
                 }
                 else

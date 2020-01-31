@@ -16,6 +16,7 @@ namespace pmcenter.CommandLines
         {
             Log($"Application version: {Vars.AppVer.ToString()}", "CMD");
             Log("Checking for updates...", "CMD");
+            Log("Custom update channels and languages are currently unsupported in command line mode, will use \"master\" channel with English.", "CMD");
             var Latest = Conf.CheckForUpdates();
             if (Conf.IsNewerVersionAvailable(Latest))
             {

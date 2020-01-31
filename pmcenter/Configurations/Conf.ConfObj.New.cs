@@ -38,6 +38,7 @@ namespace pmcenter
                 ConfSyncInterval = 30000;
                 AdvancedLogging = false;
                 DisableTimeDisplay = false;
+                UpdateChannel = "master";
                 Statistics = new Stats();
                 Socks5Proxies = new List<Socks5Proxy>();
                 BannedKeywords = new List<string>();
