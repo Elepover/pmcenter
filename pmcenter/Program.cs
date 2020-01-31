@@ -168,7 +168,7 @@ namespace pmcenter
                     {
                         _ = await Vars.Bot.SendTextMessageAsync(Vars.CurrentConf.OwnerUID,
                                                             Vars.CurrentLang.Message_BotStarted
-                                                                .Replace("$1", Vars.StartSW.Elapsed.TotalMilliseconds + "ms"),
+                                                                .Replace("$1", Math.Round(Vars.StartSW.Elapsed.TotalSeconds, 2) + "ms"),
                                                             ParseMode.Markdown,
                                                             false,
                                                             false).ConfigureAwait(false);
@@ -176,7 +176,7 @@ namespace pmcenter
                 }
                 catch (Exception ex)
                 {
-                    Log($"Failed to send startup message to owner.\nDid you set the \"OwnerID\" key correctly? Otherwise pmcenter could not work correctly.\nYou can try to use setup wizard to update/get your OwnerID automatically, just run \"dotnet pmcenter.dll --setup\".\n\nError details: {ex.ToString()}", "BOT", LogLevel.ERROR);
+                    Log($"Failed to send startup message to owner.\nDid you set the \"OwnerID\" key correctly? Otherwise pmcenter could not work properly.\nYou can try to use setup wizard to update/get your OwnerID automatically, just run \"dotnet pmcenter.dll --setup\".\n\nError details: {ex.ToString()}", "BOT", LogLevel.ERROR);
                 }
                 if (Vars.CurrentLang.TargetVersion != Vars.AppVer.ToString())
                 {
