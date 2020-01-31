@@ -22,9 +22,9 @@ namespace pmcenter.CommandLines
             Log($"Application version: {Vars.AppVer.ToString()}", "CMD");
             Log($"Configurations filename: {Vars.ConfFile}", "CMD");
             Log($"Language filename: {Vars.LangFile}", "CMD");
-            Log($"Is Telegram API accessible? {IsTelegramAPIAccessible}", "CMD");
-            Log($"Is GitHub accessible? {IsGitHubAccessible}", "CMD");
-            Log($"Is CI accessible? {IsCIAvailable}", "CMD");
+            Log($"Is Telegram API accessible? {(IsTelegramAPIAccessible ? "yes" : "no")}", "CMD");
+            Log($"Is GitHub accessible? {(IsGitHubAccessible ? "yes" : "no")}", "CMD");
+            Log($"Is CI accessible? {(IsCIAvailable ? "yes" : "no")}", "CMD");
 
             return true;
         }
