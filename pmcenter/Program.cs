@@ -168,7 +168,7 @@ namespace pmcenter
                     {
                         _ = await Vars.Bot.SendTextMessageAsync(Vars.CurrentConf.OwnerUID,
                                                             Vars.CurrentLang.Message_BotStarted
-                                                                .Replace("$1", Math.Round(Vars.StartSW.Elapsed.TotalSeconds, 2) + "ms"),
+                                                                .Replace("$1", Math.Round(Vars.StartSW.Elapsed.TotalSeconds, 2) + "s"),
                                                             ParseMode.Markdown,
                                                             false,
                                                             false).ConfigureAwait(false);

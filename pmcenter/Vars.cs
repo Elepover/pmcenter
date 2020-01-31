@@ -26,7 +26,7 @@ namespace pmcenter
         public readonly static string UpdateArchiveURL = "https://see.wtf/pmcenter-update";
         public readonly static string UpdateInfoURL = "https://raw.githubusercontent.com/Elepover/pmcenter/$channel/updateinfo.json";
         public readonly static string UpdateInfo2URL = "https://raw.githubusercontent.com/Elepover/pmcenter/$channel/updateinfo2.json";
-        public readonly static string LocaleMapURL = "https://raw.githubusercontent.com/Elepover/pmcenter/master/locales/locale_map.json";
+        public readonly static string LocaleMapURL = "https://raw.githubusercontent.com/Elepover/pmcenter/$channel/locales/locale_map.json";
         // public readonly static long AnonymousChannelID = -1001228946795;
         // public readonly static string AnonymousChannelTitle = "a user";
         // public readonly static string AnonymousChannelUsername = "HiddenSender";

@@ -22,7 +22,7 @@ namespace pmcenter.Commands
             // try to get locale list
             using (var ListDownloader = new WebClient())
             {
-                ListJSONString = await ListDownloader.DownloadStringTaskAsync(Vars.LocaleMapURL).ConfigureAwait(false);
+                ListJSONString = await ListDownloader.DownloadStringTaskAsync(Vars.LocaleMapURL.Replace("$channel", Vars.CurrentConf.UpdateChannel)).ConfigureAwait(false);
             }
             Conf.LocaleList LocaleList = JsonConvert.DeserializeObject<Conf.LocaleList>(ListJSONString);
             if (!update.Message.Text.Contains(" "))
