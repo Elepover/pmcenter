@@ -15,6 +15,7 @@ namespace pmcenter
                                [CallerLineNumber] int lineNumber = 0)
         {
             if (Vars.CurrentConf?.LowPerformanceMode == true) return;
+            string file = $"/{((Environment.OSVersion.Platform == PlatformID.Unix) ? Path.GetFileName(filePath.Replace(@"\", "/")) : Path.GetFileName(filePath))}/{callerName}()@L{lineNumber}";
             var Output = 
                 (Vars.CurrentConf?.DisableTimeDisplay != true ?
                         $"[{DateTime.Now.ToString("o", CultureInfo.InvariantCulture)}]"
@@ -25,7 +26,7 @@ namespace pmcenter
                 + Module
                 + 
                 (Vars.CurrentConf?.AdvancedLogging == true ?
-                    $"/{Path.GetFileName(filePath)}/{callerName}()@L{lineNumber}"
+                    file
                     :
                     ""
                 )
