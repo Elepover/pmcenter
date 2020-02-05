@@ -1,25 +1,25 @@
 ﻿{
   "Locales": [
     {
-      "LocaleFileURL": "https://raw.githubusercontent.com/Elepover/pmcenter/master/locales/pmcenter_locale_en.json",
+      "LocaleFileURL": "https://raw.githubusercontent.com/Elepover/pmcenter/$channel/locales/pmcenter_locale_en.json",
       "LocaleCode": "en.imported",
       "LocaleNameEng": "English",
       "LocaleNameNative": "English"
     },
     {
-      "LocaleFileURL": "https://raw.githubusercontent.com/Elepover/pmcenter/master/locales/pmcenter_locale_zh.json",
+      "LocaleFileURL": "https://raw.githubusercontent.com/Elepover/pmcenter/$channel/locales/pmcenter_locale_zh.json",
       "LocaleCode": "zh.simplified",
       "LocaleNameEng": "Chinese (Simplified)",
       "LocaleNameNative": "简体中文"
     },
     {
-      "LocaleFileURL": "https://raw.githubusercontent.com/Elepover/pmcenter/master/locales/pmcenter_locale_zh.meow.json",
+      "LocaleFileURL": "https://raw.githubusercontent.com/Elepover/pmcenter/$channel/locales/pmcenter_locale_zh.meow.json",
       "LocaleCode": "zh.meow",
       "LocaleNameEng": "Chinese (Meow)",
       "LocaleNameNative": "喵体中文"
     },
     {
-      "LocaleFileURL": "https://raw.githubusercontent.com/Elepover/pmcenter/master/locales/pmcenter_locale_zh.tw.json",
+      "LocaleFileURL": "https://raw.githubusercontent.com/Elepover/pmcenter/$channel/locales/pmcenter_locale_zh.tw.json",
       "LocaleCode": "zh.tw",
       "LocaleNameEng": "Chinese (Traditional, Taiwan)",
       "LocaleNameNative": "繁體中文（台灣）"

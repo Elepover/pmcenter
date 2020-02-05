@@ -18,12 +18,12 @@ namespace pmcenter
             catch (WebException ex)
             {
                 if (ex.Status == WebExceptionStatus.ProtocolError && Ignore45) { return true; }
-                Log("Connectivity to " + Target + " is unavailable: " + ex.Message);
+                Log($"Connectivity to {Target} is unavailable: {ex.Message}");
                 return false;
             }
             catch (Exception ex)
             {
-                Log("Connectivity test failed: " + ex.Message);
+                Log($"Connectivity test failed: {ex.Message}");
                 return false;
             }
         }

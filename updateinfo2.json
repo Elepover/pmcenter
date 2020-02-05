@@ -1,31 +1,72 @@
 {
-  "Latest": "1.8.95.260",
+  "Latest": "1.9.1.271",
   "UpdateLevel": 1,
   "UpdateCollection": [
     {
-      "Details": "[+] Added advanced logging mode (disabled by default).\n[+] You can also disable the time display in logs, useful if you're using systemd, etc as daemons.\n[/] Time format in logging is now ISO 8601-compliant.\n[+] Upgraded updates system.",
+      "Details": "[+] Now pmcenter supports multi-channel updates.\nYou can choose the \"pmcenter-lazer\" channel for faster updates, or stay at \"master\" for a stabler user experience.",
       "LangCode": [
         "en.imported",
         "en.integrated"
-      ]
+      ],
+      "UpdateChannel": "master",
+      "UpdateArchiveAddress": "https://see.wtf/pmcenter-update"
     },
     {
-      "Details": "[+] 新增高级日志模式（默认禁用）\n[+] 现可在设置中禁用日志时间显示，在配合 systemd 之类守护进程运行时尤为有益\n[/] 时间格式现符合 ISO 8601 规范\n[+] 升级了更新系统",
+      "Details": "[+] pmcenter 现已支持多更新频道\n您可以使用 \"pmcenter-lazer\" 频道来更快速地获取更新，或停留在 \"master\" 频道以获得更稳定的使用体验。",
       "LangCode": [
         "zh.simplified"
-      ]
+      ],
+      "UpdateChannel": "master",
+      "UpdateArchiveAddress": "https://see.wtf/pmcenter-update"
     },
     {
-      "Details": "[+] 新的高级日志模式哦\n[+] 日志时间显示可以禁用掉啦\n[/] 时间格式输出格式也符合 ISO 8601 规范了呢\n[+] 更新系统也进行升级啦",
+      "Details": "[+] pmcenter 现在可以选择不同频道更新啦！\n\"pmcenter-lazer\" 频道更新速度更快，但是可能会翻车（\n\"master\" 频道的 pmcenter 就要更稳定一些（",
       "LangCode": [
         "zh.meow"
-      ]
+      ],
+      "UpdateChannel": "master",
+      "UpdateArchiveAddress": "https://see.wtf/pmcenter-update"
     },
     {
-      "Details": "[+] 新增高級模式（默認停用）\n[+] 現可於設定中停用日志時間展示，在搭配 systemd 等守護進程運行時尤爲有效\n[/] 時間格式現已合規 ISO 8601\n[+] 升級了更新系統",
+      "Details": "[+] pmcenter 現已支援多更新頻道\n您可透過 \"pmcenter-lazer\" 頻道來快速獲取更新，或留在 \"master\" 頻道以獲得更穩定的使用體驗。",
       "LangCode": [
         "zh.tw"
-      ]
+      ],
+      "UpdateChannel": "master",
+      "UpdateArchiveAddress": "https://see.wtf/pmcenter-update"
+    },
+    {
+      "Details": "[+] Now pmcenter supports multi-channel updates.\nYou can choose the \"pmcenter-lazer\" channel for faster updates, or stay at \"master\" for a stabler user experience.",
+      "LangCode": [
+        "en.imported",
+        "en.integrated"
+      ],
+      "UpdateChannel": "pmcenter-lazer",
+      "UpdateArchiveAddress": "https://see.wtf/pmcenter-lazer-update"
+    },
+    {
+      "Details": "[+] pmcenter 现已支持多更新频道\n您可以使用 \"pmcenter-lazer\" 频道来更快速地获取更新，或停留在 \"master\" 频道以获得更稳定的使用体验。",
+      "LangCode": [
+        "zh.simplified"
+      ],
+      "UpdateChannel": "pmcenter-lazer",
+      "UpdateArchiveAddress": "https://see.wtf/pmcenter-lazer-update"
+    },
+    {
+      "Details": "[+] pmcenter 现在可以选择不同频道更新啦！\n\"pmcenter-lazer\" 频道更新速度更快，但是可能会翻车（\n\"master\" 频道的 pmcenter 就要更稳定一些（",
+      "LangCode": [
+        "zh.meow"
+      ],
+      "UpdateChannel": "pmcenter-lazer",
+      "UpdateArchiveAddress": "https://see.wtf/pmcenter-lazer-update"
+    },
+    {
+      "Details": "[+] pmcenter 現已支援多更新頻道\n您可透過 \"pmcenter-lazer\" 頻道來快速獲取更新，或留在 \"master\" 頻道以獲得更穩定的使用體驗。",
+      "LangCode": [
+        "zh.tw"
+      ],
+      "UpdateChannel": "pmcenter-lazer",
+      "UpdateArchiveAddress": "https://see.wtf/pmcenter-lazer-update"
     }
   ]
 }

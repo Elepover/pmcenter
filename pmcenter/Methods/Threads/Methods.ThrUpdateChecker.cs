@@ -43,7 +43,7 @@ namespace pmcenter
                 }
                 catch (Exception ex)
                 {
-                    Log("Error during update check: " + ex.ToString(), "UPDATER", LogLevel.ERROR);
+                    Log($"Error during update check: {ex.ToString()}", "UPDATER", LogLevel.ERROR);
                 }
                 Vars.UpdateCheckerStatus = ThreadStatus.Standby;
                 Thread.Sleep(60000);

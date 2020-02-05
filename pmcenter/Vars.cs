@@ -18,15 +18,20 @@ namespace pmcenter
     {
 #pragma warning disable CA2211
         public readonly static string ASCII = "                                     __           \n    ____  ____ ___  ________  ____  / /____  _____\n   / __ \\/ __ `__ \\/ ___/ _ \\/ __ \\/ __/ _ \\/ ___/\n  / /_/ / / / / / / /__/  __/ / / / /_/  __/ /    \n / .___/_/ /_/ /_/\\___/\\___/_/ /_/\\__/\\___/_/     \n/_/                                               ";
-        public readonly static Version AppVer = new Version("1.8.95.260");
+        public readonly static Version AppVer = new Version("1.9.1.271");
         public readonly static string AppExecutable = Assembly.GetExecutingAssembly().Location;
         public readonly static string AppDirectory = (new FileInfo(AppExecutable)).DirectoryName;
         public static string ConfFile = Path.Combine(AppDirectory, "pmcenter.json");
         public static string LangFile = Path.Combine(AppDirectory, "pmcenter_locale.json");
-        public readonly static string UpdateArchiveURL = "https://ci.appveyor.com/api/projects/Elepover/pmcenter/artifacts/pmcenter.zip";
-        public readonly static string UpdateInfoURL = "https://raw.githubusercontent.com/Elepover/pmcenter/master/updateinfo.json";
-        public readonly static string UpdateInfo2URL = "https://raw.githubusercontent.com/Elepover/pmcenter/master/updateinfo2.json";
-        public readonly static string LocaleMapURL = "https://raw.githubusercontent.com/Elepover/pmcenter/master/locales/locale_map.json";
+        public readonly static string UpdateArchiveURL = "https://see.wtf/pmcenter-update";
+        public readonly static string UpdateInfoURL = "https://raw.githubusercontent.com/Elepover/pmcenter/$channel/updateinfo.json";
+        public readonly static string UpdateInfo2URL = "https://raw.githubusercontent.com/Elepover/pmcenter/$channel/updateinfo2.json";
+        public readonly static string LocaleMapURL = "https://raw.githubusercontent.com/Elepover/pmcenter/$channel/locales/locale_map.json";
+#if MASTER
+        public readonly static string CompileChannel = "master";
+#else
+        public readonly static string CompileChannel = "pmcenter-lazer";
+#endif
         // public readonly static long AnonymousChannelID = -1001228946795;
         // public readonly static string AnonymousChannelTitle = "a user";
         // public readonly static string AnonymousChannelUsername = "HiddenSender";

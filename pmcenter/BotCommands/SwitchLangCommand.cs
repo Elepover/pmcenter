@@ -29,6 +29,9 @@ namespace pmcenter.Commands
                 
             // download file
             var LangURL = update.Message.Text.Split(" ")[1];
+            Vars.CurrentConf.LangURL = LangURL;
+            // save conf
+            _ = await Conf.SaveConf(IsAutoSave: true);
             using (var Downloader = new WebClient())
             {
                 await Downloader.DownloadFileTaskAsync(

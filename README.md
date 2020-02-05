@@ -12,6 +12,7 @@ A telegram bot helping you process private messages.
 
 ## Table of Contents
 
+> - [🌲 Branches](#branches)
 > - [🔨 Features](#features)
 > - [📻 Setting Up Your Own `pmcenter`](#setting-up-your-own-pmcenter)
 >   - [⚙️ Prerequisites](#prerequisites)
@@ -25,6 +26,13 @@ A telegram bot helping you process private messages.
 > - [🚀 Starting](#starting)
 > - [🔩 Commands](#commands)
 > - [🔺 Disclaimer](#disclaimer)
+
+## Branches
+
+Currently, there're 2 branches:
+
+- `pmcenter-lazer`: the freshest code with latest features, like Chrome Canary. **However, stability is NOT guaranteed**.
+- `master`: stable branch. The `pmcenter-lazer` branch will be merged into it once it's ready for an update.
 
 ## Features
 
@@ -166,6 +174,7 @@ Or, use setup wizard:
 | `ConfSyncInterval` | `Int` | ✓ | Specifies the autosave interval, in milliseconds. |
 | `AdvancedLogging` | `Boolean` | ✓ | If enabled, pmcenter will display the code files and line number where the logging was triggered. |
 | `DisableTimeDisplay` | `Boolean` | ✓ | Don't display time in the logs. |
+| `UpdateChannel` | `String` | ✓ | Choose which update channel you prefer to. |
 | `Statistics` | `Stats` | ✕ | Statistics data. |
 | `Socks5Proxies` | `Array` | ✓ | List of SOCKS5 proxies. |
 | `BannedKeywords` | `Array` | ✓ | Storage of banned keywords. |

@@ -17,7 +17,7 @@ namespace pmcenter
                     {
                         BanUser(Data.UID);
                         _ = await SaveConf(false, true).ConfigureAwait(false);
-                        Log("Banning user: " + Data.UID, "RATELIMIT");
+                        Log($"Banning user: {Data.UID}", "RATELIMIT");
                     }
                     Data.MessageCount = 0;
                 }

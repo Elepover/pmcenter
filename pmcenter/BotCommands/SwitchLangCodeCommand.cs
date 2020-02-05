@@ -22,7 +22,7 @@ namespace pmcenter.Commands
             // try to get locale list
             using (var ListDownloader = new WebClient())
             {
-                ListJSONString = await ListDownloader.DownloadStringTaskAsync(Vars.LocaleMapURL).ConfigureAwait(false);
+                ListJSONString = await ListDownloader.DownloadStringTaskAsync(Vars.LocaleMapURL.Replace("$channel", Vars.CurrentConf.UpdateChannel)).ConfigureAwait(false);
             }
             Conf.LocaleList LocaleList = JsonConvert.DeserializeObject<Conf.LocaleList>(ListJSONString);
             if (!update.Message.Text.Contains(" "))
@@ -30,7 +30,7 @@ namespace pmcenter.Commands
                 var ListString = "";
                 foreach (Conf.LocaleMirror Mirror in LocaleList.Locales)
                 {
-                    ListString += Mirror.LocaleCode + " - " + Mirror.LocaleNameNative + " (" + Mirror.LocaleNameEng + ")\n";
+                    ListString += $"{Mirror.LocaleCode} - {Mirror.LocaleNameNative} ({Mirror.LocaleNameEng})\n";
                 }
                 Reply = Vars.CurrentLang.Message_AvailableLang.Replace("$1", ListString);
             }
@@ -41,19 +41,22 @@ namespace pmcenter.Commands
                 {
                     if (Mirror.LocaleCode == TargetCode)
                     {
+                        // update configurations
+                        Vars.CurrentConf.LangURL = Mirror.LocaleFileURL.Replace("$channel", Vars.CompileChannel);
                         // start downloading
                         using (var Downloader = new WebClient())
                         {
+                            _ = await Conf.SaveConf(IsAutoSave: true).ConfigureAwait(false);
                             await Downloader.DownloadFileTaskAsync(
-                                            new Uri(Mirror.LocaleFileURL),
+                                            new Uri(Vars.CurrentConf.LangURL),
                                             Path.Combine(Vars.AppDirectory, "pmcenter_locale.json")
                                             ).ConfigureAwait(false);
                         }
                         // reload configurations
                         _ = await Conf.ReadConf().ConfigureAwait(false);
-                            _ = await Lang.ReadLang().ConfigureAwait(false);
-                            Reply = Vars.CurrentLang.Message_LangSwitched;
-                            goto SendMsg;
+                        _ = await Lang.ReadLang().ConfigureAwait(false);
+                        Reply = Vars.CurrentLang.Message_LangSwitched;
+                        goto SendMsg;
                     }
                 }
                 throw new ArgumentException("Language not found.");

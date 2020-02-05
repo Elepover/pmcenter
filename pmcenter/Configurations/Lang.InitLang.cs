@@ -24,7 +24,7 @@ namespace pmcenter
                 }
                 catch (Exception ex)
                 {
-                    Log("Error! " + ex.ToString(), "LANG", LogLevel.ERROR);
+                    Log($"Error! {ex.ToString()}", "LANG", LogLevel.ERROR);
                     Log("Moving old language file to \"pmcenter_locale.json.bak\"...", "LANG", LogLevel.WARN);
                     File.Move(Vars.LangFile, Vars.LangFile + ".bak");
                     Vars.CurrentLang = new Language();

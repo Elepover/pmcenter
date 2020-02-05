@@ -25,7 +25,7 @@ namespace pmcenter
             }
             catch (Exception ex)
             {
-                Log("Latency test failed: " + ex.Message);
+                Log($"Latency test failed: {ex.Message}");
                 return new TimeSpan(0);
             }
         }

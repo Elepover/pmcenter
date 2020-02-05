@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Threading.Tasks;
 using Telegram.Bot;
 using Telegram.Bot.Types;
@@ -15,9 +16,8 @@ namespace pmcenter.Commands
 
         public async Task<bool> ExecuteAsync(TelegramBotClient botClient, Update update)
         {
-            var RandomFilename = "pmcenter." + DateTime.Now.ToString("yyyy-dd-M-HH-mm-ss") + "#" + GetRandomString(6) + ".json";
-            RandomFilename = System.IO.Path.Combine(Vars.AppDirectory, RandomFilename);
-            Log("Backing up configurations, filename: " + RandomFilename, "BOT");
+            var RandomFilename = $"pmcenter.{DateTime.Now.ToString("yyyy-dd-M-HH-mm-ss")}#{GetRandomString(6)}.json";
+            Log($"Backing up configurations, filename: {Path.Combine(Vars.AppDirectory, RandomFilename)}", "BOT");
             System.IO.File.Copy(Vars.ConfFile, RandomFilename);
             _ = await botClient.SendTextMessageAsync(
                 update.Message.From.Id,

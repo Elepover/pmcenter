@@ -25,7 +25,7 @@ namespace pmcenter
             Vars.StartSW.Start();
             Console.WriteLine(Vars.ASCII);
             Log("Main delegator activated!", "DELEGATOR");
-            Log("Starting pmcenter, version " + Vars.AppVer.ToString() + ".", "DELEGATOR");
+            Log($"Starting pmcenter, version {Vars.AppVer.ToString()}. Channel: \"{Vars.CompileChannel}\"", "DELEGATOR");
             Task MainAsyncTask = MainAsync(args);
             MainAsyncTask.Wait();
             Log("Main worker accidentally exited. Stopping...", "DELEGATOR", LogLevel.ERROR);
@@ -52,7 +52,7 @@ namespace pmcenter
                         }
                         else
                         {
-                            Log("==> The following file was not found: " + ConfByEnviVar, "CORE", LogLevel.INFO);
+                            Log($"==> The following file was not found: {ConfByEnviVar}", "CORE", LogLevel.INFO);
                         }
                     }
                     if (LangByEnviVar != null)
@@ -63,17 +63,17 @@ namespace pmcenter
                         }
                         else
                         {
-                            Log("==> The following file was not found: " + LangByEnviVar, "CORE", LogLevel.INFO);
+                            Log($"==> The following file was not found: {LangByEnviVar}", "CORE", LogLevel.INFO);
                         }
                     }
                 }
                 catch (Exception ex)
                 {
-                    Log("Failed to read environment variables: " + ex.ToString(), "CORE", LogLevel.WARN);
+                    Log($"Failed to read environment variables: {ex.ToString()}", "CORE", LogLevel.WARN);
                 }
                 
-                Log("==> Using configurations file: " + Vars.ConfFile);
-                Log("==> Using language file: " + Vars.LangFile);
+                Log($"==> Using configurations file: {Vars.ConfFile}");
+                Log($"==> Using language file: {Vars.LangFile}");
                 
                 Log("==> Running start operations...");
                 Log("==> Initializing module - CONF"); // BY DEFAULT CONF & LANG ARE NULL! PROCEED BEFORE DOING ANYTHING. <- well anyway we have default values
@@ -168,7 +168,7 @@ namespace pmcenter
                     {
                         _ = await Vars.Bot.SendTextMessageAsync(Vars.CurrentConf.OwnerUID,
                                                             Vars.CurrentLang.Message_BotStarted
-                                                                .Replace("$1", Vars.StartSW.Elapsed.TotalMilliseconds + "ms"),
+                                                                .Replace("$1", Math.Round(Vars.StartSW.Elapsed.TotalSeconds, 2) + "s"),
                                                             ParseMode.Markdown,
                                                             false,
                                                             false).ConfigureAwait(false);
@@ -176,7 +176,7 @@ namespace pmcenter
                 }
                 catch (Exception ex)
                 {
-                    Log("Failed to send startup message to owner.\nDid you set the \"OwnerID\" key correctly? Otherwise pmcenter could not work correctly.\nYou can try to use setup wizard to update/get your OwnerID automatically, just run \"dotnet pmcenter.dll --setup\".\n\nError details: " + ex.ToString(), "BOT", LogLevel.ERROR);
+                    Log($"Failed to send startup message to owner.\nDid you set the \"OwnerID\" key correctly? Otherwise pmcenter could not work properly.\nYou can try to use setup wizard to update/get your OwnerID automatically, just run \"dotnet pmcenter.dll --setup\".\n\nError details: {ex.ToString()}", "BOT", LogLevel.ERROR);
                 }
                 if (Vars.CurrentLang.TargetVersion != Vars.AppVer.ToString())
                 {
@@ -198,7 +198,7 @@ namespace pmcenter
             catch (Exception ex)
             {
                 CheckOpenSSLComp(ex);
-                Log("Unexpected error during startup: " + ex.ToString(), "CORE", LogLevel.ERROR);
+                Log($"Unexpected error during startup: {ex.ToString()}", "CORE", LogLevel.ERROR);
                 Environment.Exit(1);
             }
         }

@@ -14,7 +14,7 @@ namespace pmcenter.Commands
 
         public async Task<bool> ExecuteAsync(TelegramBotClient botClient, Update update)
         {
-            Log("Disabling Continued Conversation with: " + Vars.CurrentConf.ContChatTarget, "BOT");
+            Log($"Disabling Continued Conversation with: {Vars.CurrentConf.ContChatTarget}", "BOT");
             Vars.CurrentConf.ContChatTarget = -1;
             _ = await botClient.SendTextMessageAsync(update.Message.From.Id,
                 Vars.CurrentLang.Message_ContinuedChatDisabled,

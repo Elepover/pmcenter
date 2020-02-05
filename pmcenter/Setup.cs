@@ -29,7 +29,7 @@ namespace pmcenter
             {
                 IsUIDReceived = true;
                 ReceivedUID = e.Update.Message.From.Id;
-                Nickname = e.Update.Message.From.FirstName + " " + e.Update.Message.From.LastName;
+                Nickname = $"{e.Update.Message.From.FirstName} {e.Update.Message.From.LastName}";
                 TestBot.StopReceiving();
             }
         }
@@ -46,7 +46,7 @@ namespace pmcenter
         {
             Say(":) Welcome!");
             Say("   This is the pmcenter setup wizard.");
-            Say("   App version: " + Vars.AppVer.ToString());
+            Say($"   App version: {Vars.AppVer.ToString()}");
             Say("   Here to guide you through some *important* configurations of pmcenter.");
             SIn("=> Continue? [y/N]: ");
             if (Console.ReadLine().ToLower() != "y")
@@ -76,15 +76,15 @@ namespace pmcenter
                 {
                     Say("Warning: pmcenter.json already exists.");
                     SIn("..       Moving the existing one to pmcenter.json.bak...");
-                    if (File.Exists(Vars.ConfFile + ".bak"))
+                    if (File.Exists($"{Vars.ConfFile}.bak"))
                     {
                         SIn(" File exists, deleting...");
-                        File.Delete(Vars.ConfFile + ".bak");
+                        File.Delete($"{Vars.ConfFile}.bak");
                     }
-                    File.Move(Vars.ConfFile, Vars.ConfFile + ".bak");
+                    File.Move(Vars.ConfFile, $"{Vars.ConfFile}.bak");
                     Say(" Done!");
                 }
-                SIn("Saving configurations to " + Vars.ConfFile + "...");
+                SIn($"Saving configurations to {Vars.ConfFile}...");
                 Vars.CurrentConf = NewConf;
                 _ = await Conf.SaveConf().ConfigureAwait(false);
                 Say(" Done!");
@@ -92,15 +92,15 @@ namespace pmcenter
                 {
                     Say("Warning: pmcenter_locale.json already exists.");
                     SIn("..       Moving the existing one to pmcenter_locale.json.bak...");
-                    if (File.Exists(Vars.LangFile + ".bak"))
+                    if (File.Exists($"{Vars.LangFile}.bak"))
                     {
                         SIn(" File exists, deleting...");
-                        File.Delete(Vars.LangFile + ".bak");
+                        File.Delete($"{Vars.LangFile}.bak");
                     }
-                    File.Move(Vars.LangFile, Vars.LangFile + ".bak");
+                    File.Move(Vars.LangFile, $"{Vars.LangFile}.bak");
                     Say(" Done!");
                 }
-                SIn("Saving language file to " + Vars.LangFile + "...");
+                SIn($"Saving language file to {Vars.LangFile}...");
                 Vars.CurrentLang = new Lang.Language();
                 _ = await Lang.SaveLang().ConfigureAwait(false);
                 Say(" Done!");
@@ -130,7 +130,7 @@ namespace pmcenter
         EnterKey:
             SIn("=> Enter your API Key: ");
             string Key = Console.ReadLine();
-            SIn(".. Testing API Key: " + Key + " ...");
+            SIn($".. Testing API Key: {Key}...");
             try
             {
                 TestBot = new TelegramBotClient(Key);
@@ -142,7 +142,7 @@ namespace pmcenter
             catch (Exception ex)
             {
                 Methods.CheckOpenSSLComp(ex);
-                Say(" Invalid API Key: " + ex.Message);
+                Say($" Invalid API Key: {ex.Message}");
                 goto EnterKey;
             }
             NewConf.APIKey = Key;
@@ -167,8 +167,8 @@ namespace pmcenter
                 {
                     Thread.Sleep(200);
                 }
-                Say("Hello, " + Nickname + "! Your UID has been detected as " + ReceivedUID + ".");
-                SIn(".. Saving UID: " + ReceivedUID + " ...");
+                Say($"Hello, {Nickname}! Your UID has been detected as {ReceivedUID}.");
+                SIn($".. Saving UID: {ReceivedUID}...");
                 NewConf.OwnerUID = ReceivedUID;
                 Say(" Done!");
             }
@@ -177,13 +177,13 @@ namespace pmcenter
                 try
                 {
                     long NewUID = long.Parse(UID);
-                    SIn(".. Saving UID: " + NewUID + " ...");
+                    SIn($".. Saving UID: {NewUID}...");
                     NewConf.OwnerUID = NewUID;
                     Say(" Done!");
                 }
                 catch (Exception ex)
                 {
-                    Say("Error parsing UID: " + ex.Message);
+                    Say($"Error parsing UID: {ex.Message}");
                     goto EnterUID;
                 }
             }

@@ -10,7 +10,7 @@ namespace pmcenter
         {
             using (var Downloader = new WebClient())
             {
-                var Response = Downloader.DownloadString(new Uri(Vars.UpdateInfo2URL));
+                var Response = Downloader.DownloadString(new Uri(Vars.UpdateInfo2URL.Replace("$channel", Vars.CurrentConf == null ? "master" : Vars.CurrentConf.UpdateChannel)));
                 return JsonConvert.DeserializeObject<Update2>(Response);
             }
         }

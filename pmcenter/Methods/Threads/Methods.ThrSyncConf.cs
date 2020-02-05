@@ -16,7 +16,7 @@ namespace pmcenter
                 }
                 catch (Exception ex)
                 {
-                    Log("Failed to write configurations to local disk: " + ex.Message, "CONFSYNC", LogLevel.ERROR);
+                    Log($"Failed to write configurations to local disk: {ex.Message}", "CONFSYNC", LogLevel.ERROR);
                 }
                 if (Vars.CurrentConf.ConfSyncInterval == 0)
                 {

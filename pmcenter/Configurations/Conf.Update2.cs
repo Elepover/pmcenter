@@ -12,9 +12,9 @@ namespace pmcenter
                 UpdateLevel = UpdateLevel.Optional;
                 UpdateCollection = new List<Update>();
             }
-            public string Latest { get; set; }
-            public UpdateLevel UpdateLevel { get; set; }
-            public List<Update> UpdateCollection { get; set; }
+            public string Latest;
+            public UpdateLevel UpdateLevel;
+            public List<Update> UpdateCollection;
         }
     }
 }

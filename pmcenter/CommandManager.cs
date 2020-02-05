@@ -35,7 +35,7 @@ namespace pmcenter
         public void RegisterCommand(ICommand command)
         {
             if (commands.Any(x => x.Prefix == command.Prefix))
-            { throw new ArgumentException($@"A command with prefix ""{ command.Prefix }"" already exists.", nameof(command)); }
+            { throw new ArgumentException($"A command with prefix \"{ command.Prefix }\" already exists.", nameof(command)); }
 
             commands.Add(command);
         }

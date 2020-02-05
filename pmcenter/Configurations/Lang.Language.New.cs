@@ -46,7 +46,7 @@ namespace pmcenter
                 Message_SysStatus_UpdateLevel_Urgent = "⚠ Urgent";
                 Message_SysStatus_UpdateLevel_Unknown = "❓ Unknown";
                 Message_SysStatus_RestartRequired = "🔄 *Bot restart required to apply changes.*";
-                Message_SysStatus_Summary = "📝 *Device name*: `$1`\n💿 *Operating System*: `$2`\nℹ *OS description*: `$3`\n⌛ *Server uptime*: `$4`\n🕓 *Bot uptime*: `$5`\n📅 *Server time (UTC)*: `$6`\n📐 *Runtime version*: `$7`\nℹ *Runtime description*: `$8`\n📏 *Application version*: `$9`\n💠 *Processor count*: `$a`\n📖 *Language code*: `$b`\n🔄 *Update checker*: `$c`\n🔄 *Rate limit processor*: `$d`\n🔄 *Configuration reset verifier*: `$e`";
+                Message_SysStatus_Summary = "📝 *Device name*: `$1`\n💿 *Operating System*: `$2`\nℹ *OS description*: `$3`\n⌛ *Server uptime*: `$4`\n🕓 *Bot uptime*: `$5`\n📅 *Server time (UTC)*: `$6`\n📐 *Runtime version*: `$7`\nℹ *Runtime description*: `$8`\n📏 *Application version*: `$9`\n💠 *Processor count*: `$a`\n📖 *Language code*: `$b`\n🛫 *Update channel (current)*: `$f`\n🛬 *Update channel (target)*: `$g`\n🔄 *Update checker*: `$c`\n🔄 *Rate limit processor*: `$d`\n🔄 *Configuration reset verifier*: `$e`";
                 Message_Restarting = "🔄 Restarting...\n\n_It only works with systemd daemon._";
                 Message_NotificationsOff = "📳 Notifications are *OFF*.";
                 Message_NotificationsOn = "📲 Notifications are *ON*.";

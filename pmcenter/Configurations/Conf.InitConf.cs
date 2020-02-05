@@ -23,7 +23,7 @@ namespace pmcenter
                 }
                 catch (Exception ex)
                 {
-                    Log("Error! " + ex.ToString(), "CONF", LogLevel.ERROR);
+                    Log($"Error! {ex.ToString()}", "CONF", LogLevel.ERROR);
                     Log("Moving old configurations file to \"pmcenter.json.bak\"...", "CONF", LogLevel.WARN);
                     System.IO.File.Move(Vars.ConfFile, Vars.ConfFile + ".bak");
                     Vars.CurrentConf = new ConfObj();
