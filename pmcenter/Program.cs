@@ -25,7 +25,7 @@ namespace pmcenter
             Vars.StartSW.Start();
             Console.WriteLine(Vars.ASCII);
             Log("Main delegator activated!", "DELEGATOR");
-            Log($"Starting pmcenter, version {Vars.AppVer.ToString()}.", "DELEGATOR");
+            Log($"Starting pmcenter, version {Vars.AppVer.ToString()}. Channel: \"{Vars.CompileChannel}\"", "DELEGATOR");
             Task MainAsyncTask = MainAsync(args);
             MainAsyncTask.Wait();
             Log("Main worker accidentally exited. Stopping...", "DELEGATOR", LogLevel.ERROR);

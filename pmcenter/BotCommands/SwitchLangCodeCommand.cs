@@ -41,19 +41,22 @@ namespace pmcenter.Commands
                 {
                     if (Mirror.LocaleCode == TargetCode)
                     {
+                        // update configurations
+                        Vars.CurrentConf.LangURL = Mirror.LocaleFileURL.Replace("$channel", Vars.CompileChannel);
                         // start downloading
                         using (var Downloader = new WebClient())
                         {
+                            _ = await Conf.SaveConf(IsAutoSave: true).ConfigureAwait(false);
                             await Downloader.DownloadFileTaskAsync(
-                                            new Uri(Mirror.LocaleFileURL),
+                                            new Uri(Vars.CurrentConf.LangURL),
                                             Path.Combine(Vars.AppDirectory, "pmcenter_locale.json")
                                             ).ConfigureAwait(false);
                         }
                         // reload configurations
                         _ = await Conf.ReadConf().ConfigureAwait(false);
-                            _ = await Lang.ReadLang().ConfigureAwait(false);
-                            Reply = Vars.CurrentLang.Message_LangSwitched;
-                            goto SendMsg;
+                        _ = await Lang.ReadLang().ConfigureAwait(false);
+                        Reply = Vars.CurrentLang.Message_LangSwitched;
+                        goto SendMsg;
                     }
                 }
                 throw new ArgumentException("Language not found.");

@@ -39,7 +39,7 @@
   "Message_SysStatus_UpdateLevel_Urgent": "⚠ 是紧急更新！",
   "Message_SysStatus_UpdateLevel_Unknown": "❓ 不知道耶（",
   "Message_SysStatus_RestartRequired": "🔄 *机器喵需要重启一下才能应用配置呢~*",
-  "Message_SysStatus_Summary": "📝 *设备名*: `$1`\n💿 *操作系统*: `$2`\nℹ *系统描述信息*: `$3`\n⌛ *服务器在线时间*: `$4`\n🕓 *机器喵在线时间*: `$5`\n📅 *服务器时间 (UTC)*: `$6`\n📐 *运行时版本*: `$7`\nℹ *运行时描述信息*: `$8`\n📏 *应用版本*: `$9`\n💠 *处理器个数*: `$a`\n📖 *语言代码*: `$b`\n🔄 *自动更新检查*: `$c`\n🔄 *消息量限制处理器*: `$d`\n🔄 *设置重置验证工具*: `$e`",
+  "Message_SysStatus_Summary": "📝 *设备名*: `$1`\n💿 *操作系统*: `$2`\nℹ *系统描述信息*: `$3`\n⌛ *服务器在线时间*: `$4`\n🕓 *机器喵在线时间*: `$5`\n📅 *服务器时间 (UTC)*: `$6`\n📐 *运行时版本*: `$7`\nℹ *运行时描述信息*: `$8`\n📏 *应用版本*: `$9`\n💠 *处理器个数*: `$a`\n📖 *语言代码*: `$b`\n🛫 *当前更新频道*: `$f`\n🛬 *目标更新频道*: `$g`\n🔄 *自动更新检查*: `$c`\n🔄 *消息量限制处理器*: `$d`\n🔄 *设置重置验证工具*: `$e`",
   "Message_Restarting": "🔄 准备重启...\n\n_本喵的此项功能仅与 systemd 守护神哥哥一起工作呢。_",
   "Message_NotificationsOff": "📳 消息通知*关闭*了啦qwq",
   "Message_NotificationsOn": "📲 消息通知*启用*了啦qwq",

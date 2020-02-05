@@ -50,7 +50,9 @@ namespace pmcenter.Commands
                 .Replace("$b", Vars.CurrentLang.LangCode)
                 .Replace("$c", GetThreadStatusString(Vars.UpdateCheckerStatus))
                 .Replace("$d", GetThreadStatusString(Vars.RateLimiterStatus))
-                .Replace("$e", GetThreadStatusString(Vars.ConfResetTimerStatus));
+                .Replace("$e", GetThreadStatusString(Vars.ConfResetTimerStatus))
+                .Replace("$f", Vars.CompileChannel)
+                .Replace("$g", Vars.CurrentConf.UpdateChannel);
 
             _ = await botClient.SendTextMessageAsync(
                 update.Message.From.Id,

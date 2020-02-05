@@ -39,7 +39,7 @@
   "Message_SysStatus_UpdateLevel_Urgent": "⚠ 緊急",
   "Message_SysStatus_UpdateLevel_Unknown": "❓ 未知",
   "Message_SysStatus_RestartRequired": "🔄 *需重啟機器人以套用設置。*",
-  "Message_SysStatus_Summary": "📝 *設備名稱*: `$1`\n💿 *作業系統*: `$2`\nℹ *系統描述資訊*: `$3`\n⌛ *伺服器上線時間*: `$4`\n🕓 *機器人上線時間*: `$5`\n📅 *伺服器時間 (UTC)*: `$6`\n📐 *執行中的版本*: `$7`\nℹ *執行中的描述資訊*: `$8`\n📏 *應用版本*: `$9`\n💠 *處理器個數*: `$a`\n📖 *語言代碼*: `$b`\n🔄 *自動更新檢查*: `$c`\n🔄 *訊息量限制處理器*: `$d`\n🔄 *設置重置驗證工具*: `$e`",
+  "Message_SysStatus_Summary": "📝 *設備名稱*: `$1`\n💿 *作業系統*: `$2`\nℹ *系統描述資訊*: `$3`\n⌛ *伺服器上線時間*: `$4`\n🕓 *機器人上線時間*: `$5`\n📅 *伺服器時間 (UTC)*: `$6`\n📐 *執行中的版本*: `$7`\nℹ *執行中的描述資訊*: `$8`\n📏 *應用版本*: `$9`\n💠 *處理器個數*: `$a`\n📖 *語言代碼*: `$b`\n🛫 *當前更新頻道*: `$f`\n🛬 *目標更新頻道*: `$g`\n🔄 *自動更新檢查*: `$c`\n🔄 *訊息量限制處理器*: `$d`\n🔄 *設置重置驗證工具*: `$e`",
   "Message_Restarting": "🔄 準備重啟...\n\n_此功能僅與 systemd 守護程序工作。_",
   "Message_NotificationsOff": "📳 訊息通知*已關閉*.",
   "Message_NotificationsOn": "📲 訊息通知*已啟用*.",

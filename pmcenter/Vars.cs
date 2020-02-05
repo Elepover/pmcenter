@@ -27,6 +27,11 @@ namespace pmcenter
         public readonly static string UpdateInfoURL = "https://raw.githubusercontent.com/Elepover/pmcenter/$channel/updateinfo.json";
         public readonly static string UpdateInfo2URL = "https://raw.githubusercontent.com/Elepover/pmcenter/$channel/updateinfo2.json";
         public readonly static string LocaleMapURL = "https://raw.githubusercontent.com/Elepover/pmcenter/$channel/locales/locale_map.json";
+#if MASTER
+        public readonly static string CompileChannel = "master";
+#else
+        public readonly static string CompileChannel = "pmcenter-lazer";
+#endif
         // public readonly static long AnonymousChannelID = -1001228946795;
         // public readonly static string AnonymousChannelTitle = "a user";
         // public readonly static string AnonymousChannelUsername = "HiddenSender";
