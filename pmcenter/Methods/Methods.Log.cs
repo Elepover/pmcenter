@@ -52,7 +52,14 @@ namespace pmcenter
                     break;
             }
             Output += Text;
-            Console.WriteLine(Output);
+            if (Type == LogLevel.ERROR)
+            {
+                Console.Error.WriteLine(Output);
+            }
+            else
+            {
+                Console.WriteLine(Output);
+            }
             Console.ForegroundColor = ConsoleColor.White;
         }
     }

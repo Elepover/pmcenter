@@ -16,7 +16,6 @@ namespace pmcenter
 {
     public static class Vars
     {
-#pragma warning disable CA2211
         public readonly static string ASCII = "                                     __           \n    ____  ____ ___  ________  ____  / /____  _____\n   / __ \\/ __ `__ \\/ ___/ _ \\/ __ \\/ __/ _ \\/ ___/\n  / /_/ / / / / / / /__/  __/ / / / /_/  __/ /    \n / .___/_/ /_/ /_/\\___/\\___/_/ /_/\\__/\\___/_/     \n/_/                                               ";
         public readonly static Version AppVer = new Version("1.9.1.271");
         public readonly static string AppExecutable = Assembly.GetExecutingAssembly().Location;
@@ -60,6 +59,5 @@ namespace pmcenter
         public static Thread UpdateChecker;
         public static Methods.ThreadStatus UpdateCheckerStatus = Methods.ThreadStatus.Stopped;
         public static Thread SyncConf;
-#pragma warning restore CA2211
     }
 }

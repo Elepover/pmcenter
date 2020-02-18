@@ -18,7 +18,6 @@ A telegram bot helping you process private messages.
 >   - [⚙️ Prerequisites](#prerequisites)
 >   - [📥 Build `pmcenter` Yourself](#build-pmcenter-yourself)
 >   - [📩 Use Pre-compiled Binaries](#use-pre-compiled-binaries)
->   - [🐠 Use Docker](#use-docker)
 > - [🔧 Configuring](#configuring)
 >   - [⚒️ `pmcenter` Settings](#pmcenter-settings)
 >     - [📄 Note](#note)
@@ -119,15 +118,13 @@ dotnet pmcenter.dll
 
 ### Use Docker
 
-DO NOT COPY & PASTE. You need to edit it before executing.
+The following snippet will help you download sample configurations for the pmcenter in docker to use.
 
 ```bash
 wget https://raw.githubusercontent.com/Elepover/pmcenter/master/pmcenter.json
 vim pmcenter.json # Edit the config
 docker run -d -v $(pwd)/pmcenter.json:/opt/pmcenter/pmcenter.json --restart always elep0ver/pmcenter
 ```
-
-That's all.
 
 ## Configuring
 

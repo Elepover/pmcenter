@@ -18,7 +18,6 @@
 >   - [⚙️ 环境要求](#环境要求)
 >   - [📥 自行编译 `pmcenter`](#自行编译-pmcenter)
 >   - [📩 使用 CI 预编译二进制文件](#使用-ci-预编译二进制文件)
->   - [🐠 使用 Docker](#使用-docker)
 > - [🔧 配置](#配置)
 >   - [⚒️ `pmcenter` 设置](#pmcenter-设置)
 >     - [📄 注意事项](#注意事项)
@@ -121,15 +120,13 @@ dotnet pmcenter.dll
 
 ### 使用 Docker
 
-请勿复制粘贴，您需要在运行命令前进行修改。
+下方的命令将帮助您下载示例配置以供 docker 内的 pmcenter 使用。
 
 ```bash
 wget https://raw.githubusercontent.com/Elepover/pmcenter/master/pmcenter.json
 vim pmcenter.json # 编辑配置
 docker run -d -v $(pwd)/pmcenter.json:/opt/pmcenter/pmcenter.json --restart always elep0ver/pmcenter
 ```
-
-That's all.
 
 ## 配置
 

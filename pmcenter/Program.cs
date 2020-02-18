@@ -18,7 +18,7 @@ using static pmcenter.Methods;
 
 namespace pmcenter
 {
-    public class Program
+    public partial class Program
     {
         public static void Main(string[] args)
         {
@@ -36,6 +36,9 @@ namespace pmcenter
             try
             {
                 Log("==> Running pre-start operations...");
+                // hook global errors (final failsafe)
+                AppDomain.CurrentDomain.UnhandledException += GlobalErrorHandler;
+                // process commandlines
                 await CmdLineProcess.RunCommand(Environment.CommandLine).ConfigureAwait(false);
                 // everything (exits and/or errors) are handled above, please do not process.
                 // detect environment variables

@@ -62,6 +62,8 @@ namespace pmcenter
             SetNotifPrefs();
             Say("");
             SetAutoBanPrefs();
+            Say("");
+            SetMessageLinks();
 
             // finalization
             Say("");
@@ -121,7 +123,7 @@ namespace pmcenter
             }
             Environment.Exit(0);
         }
-        public static async Task SetAPIKey()
+        private static async Task SetAPIKey()
         {
             Say("1> API Key");
             Say("   API Key is necessary for any Telegram bot to contact with Telegram servers.");
@@ -148,7 +150,7 @@ namespace pmcenter
             NewConf.APIKey = Key;
             Say(" Done!");
         }
-        public static void SetUID()
+        private static void SetUID()
         {
             Say("2> Owner ID");
             Say("   Your Telegram UID is your unique and permanent identifier.");
@@ -183,45 +185,44 @@ namespace pmcenter
                 }
                 catch (Exception ex)
                 {
-                    Say($"Error parsing UID: {ex.Message}");
+                    Say($"Error parsing UID: {ex.Message}, will try again.");
                     goto EnterUID;
                 }
             }
         }
-        public static void SetNotifPrefs()
+        private static void SetNotifPrefs()
         {
             Say("3> Notification preferences");
             Say("   Sometimes you just want everyone to shhhh...");
             Say("");
             SIn("=> Mute notifications? [y/N]: ");
-            string MuteNotif = Console.ReadLine();
+            string muteNotif = Console.ReadLine();
             SIn(".. Saving...");
-            if (MuteNotif.ToLower() != "y")
-            {
-                NewConf.DisableNotifications = true;
-            }
-            else
-            {
-                NewConf.DisableNotifications = false;
-            }
+            NewConf.DisableNotifications = muteNotif.ToLower() != "y" ? true : false;
             Say(" Done!");
         }
-        public static void SetAutoBanPrefs()
+        private static void SetAutoBanPrefs()
         {
             Say("4> Anti-flood preferences");
             Say("   Your pmcenter is absolutely not a spambox.");
             Say("");
-            SIn("=> Auto ban flooding users? [Y/n]: ");
-            string AutoBan = Console.ReadLine();
+            SIn("=> Automatically ban flooding users? [Y/n]: ");
+            string autoBan = Console.ReadLine();
             SIn(".. Saving...");
-            if (AutoBan.ToLower() != "n")
-            {
-                NewConf.AutoBan = true;
-            }
-            else
-            {
-                NewConf.AutoBan = false;
-            }
+            NewConf.AutoBan = autoBan.ToLower() != "n" ? true : false;
+            Say(" Done!");
+        }
+        private static void SetMessageLinks()
+        {
+            Say("4> Message links preferences");
+            Say("   Should pmcenter create and remember message links?");
+            Say("   This enables you to get details of and reply to \"anonymously forwarded messages\".");
+            Say("   However, it will increase pmcenter's configurations size and RAM usage.");
+            Say("");
+            SIn("=> Enable message links? [Y/n]: ");
+            string enableMsgLinks = Console.ReadLine();
+            SIn(".. Saving...");
+            NewConf.EnableMsgLink = enableMsgLinks.ToLower() != "n" ? true : false;
             Say(" Done!");
         }
     }
