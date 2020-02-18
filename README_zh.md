@@ -124,9 +124,9 @@ dotnet pmcenter.dll
 请勿复制粘贴，您需要在运行命令前进行修改。
 
 ```bash
-wget https://raw.githubusercontent.com/Elepover/pmcenter/master/Dockerfile
-docker build . -t pmcenter
-docker run -v PATH_OF_YOUR_pmcenter.json:/opt/pmcenter/pmcenter.json pmcenter
+wget https://raw.githubusercontent.com/Elepover/pmcenter/master/pmcenter.json
+vim pmcenter.json # 编辑配置
+docker run -d -v $(pwd)/pmcenter.json:/opt/pmcenter/pmcenter.json --restart always elep0ver/pmcenter
 ```
 
 That's all.
