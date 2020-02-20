@@ -25,6 +25,7 @@
 >     - [⛵ 改变文件位置](#改变文件位置)
 > - [🚀 启动](#启动)
 > - [🔩 命令](#命令)
+> - [❔ 常见问题](#常见问题)
 > - [🔺 免责声明](#免责声明)
 
 ## 分支
@@ -264,9 +265,9 @@ pmcenter_lang: pmcenter 语言文件路径。
 
 请注意: `/restart` 命令仅在有有效的守护进程，且其能在 pmcenter 退出后自动将其重启的情况下工作。pmcenter 无法自行重新启动。
 
-# 已知问题
+## 已知问题
 
-## OpenSSL 1.1 兼容性问题
+### OpenSSL 1.1 兼容性问题
 
 此问题仅在 Linux 环境下出现，与 Windows 无关。
 
@@ -287,7 +288,35 @@ System.Net.Http.HttpRequestException: The SSL connection could not be establishe
 2. 更新 (新于 #34443) 的 .NET Core 2.1 运行时。
 3. 安装 OpenSSL 1.0.
 
-# 免责声明
+## 常见问题
+
+### 为什么 pmcenter 的目标框架仍然是 .NET Core 2.1?
+
+根据 [.NET Core 支持政策](https://dotnet.microsoft.com/platform/support/policy/dotnet-core)，.NET Core 2.2 已停止支持，.NET Core 3.0 也即将达到“终止支持日期”，至于有长期支持的 .NET Core 3.1，其支持范围可能不如同样为长期支持的 .NET Core 2.1，所以我们最终选择了 .NET Core 2.1.
+
+现有的 pmcenter 代码与 .NET Core 3.1 完全兼容，但无法利用其新特性 (如提前编译及 TLS 1.3 支持)。
+
+pmcenter 正在准备转向 .NET Core 3.1，请参考 [issue #25](https://github.com/Elepover/pmcenter/issues/25).
+
+### 为什么我无法回复匿名转发的消息?
+
+请在 pmcenter 设置文件中启用 `EnableMsgLink` 选项。只有在 `EnableMsgLink` 选项启用后的转发的消息可以被回复。
+
+如需更多信息，请参见[配置](#pmcenter-设置)部分。
+
+### 为什么 pmcenter.json 这么大?
+
+可能您的 pmcenter 实例保存了太多的消息链接，请尝试使用以下命令:
+
+`/clearmessagelinks`
+
+### 为什么 pmcenter 在我使用 `/restart` 命令时并未重启?
+
+`/restart` 命令需要一个守护进程或服务管理器 (比如在一些 Linux 发行版中的 `systemd`)，其无法自行重启，请检查您的系统设置。
+
+我们也[在此](https://github.com/Elepover/pmcenter/blob/master/pmcenter.service)为您提供了一份示例 `systemd` 服务文件。
+
+## 免责声明
 
 很抱歉，但鉴于某些事件，我们实在不得不加入这个章节，以至于独立成一个 commit 来提交。
 

@@ -25,6 +25,7 @@ A telegram bot helping you process private messages.
 >     - [⛵ Changing File Location](#changing-file-location)
 > - [🚀 Starting](#starting)
 > - [🔩 Commands](#commands)
+> - [❔ FAQ](#faq)
 > - [🔺 Disclaimer](#disclaimer)
 
 ## Branches
@@ -261,9 +262,9 @@ You can write a `systemd service` to keep it running, even after the host machin
 
 Please note: `/restart` command only works with a daemon that auto-restarts pmcenter when it exits. pmcenter cannot restart by itself.
 
-# Known Problems
+## Known Problems
 
-## OpenSSL Compatibility Problem
+### OpenSSL Compatibility Problem
 
 This problem only occurs on Linux, and will not occur on Windows.
 
@@ -284,6 +285,34 @@ As is mentioned in issue [#33179](https://github.com/dotnet/corefx/issues/33179)
 2. Upgrade to a newer (later than #34443) .NET Core 2.1 runtime.
 3. Install OpenSSL 1.0.
 
-# Disclaimer
+## FAQ
+
+### Why are you still targeting to .NET Core 2.1?
+
+According to [.NET Core Support Policy](https://dotnet.microsoft.com/platform/support/policy/dotnet-core), the .NET Core 2.2 is now EOL, .NET Core 3.0 is also approaching its _End of Support Date_. As for .NET Core 3.1, which has LTS support level, it may not be as widely supported as .NET Core 2.1 (which also has LTS support level). So we finally chose .NET Core 2.1.
+
+The existing pmcenter code is completely compatible with .NET Core 3.1, but will not take advantage of the new features (like AOT compilation and TLS 1.3 support).
+
+pmcenter is planning to move to .NET Core 3.1, see [issue #25](https://github.com/Elepover/pmcenter/issues/25).
+
+### Why cannot I reply to anonymously forwarded messages?
+
+Please enable the `EnableMsgLink` option in pmcenter's configurations file. Only messages forwarded when `EnableMsgLink` option is turned on can be replied.
+
+For more information, refer to the [configurations](#pmcenter-settings) part.
+
+### Why pmcenter.json is too large?
+
+Maybe your pmcenter instance has saved too many Message Links, try this following command:
+
+`/clearmessagelinks`
+
+### Why pmcenter didn't restart when I use the `/restart` command?
+
+The `/restart` command requires a daemon process or service manager (like `systemd` in some Linux distros), it cannot be restarted by itself. Check your system's configurations.
+
+We also have a sample `systemd` service for you [here](https://github.com/Elepover/pmcenter/blob/master/pmcenter.service).
+
+## Disclaimer
 
 The program is licensed under Apache License _(Version 2.0. Dependencies are licensed under MIT License)_ and comes with **ABSOLUTELY NO WARRANTY**. By using the program in any way, you acknowledge and confirm that the developer of the program is **NOT RESPONSIBLE** for service outage, data loss or any other rare unlisted incident caused by the program.
