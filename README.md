@@ -18,6 +18,7 @@ A telegram bot helping you process private messages.
 >   - [⚙️ Prerequisites](#prerequisites)
 >   - [📥 Build `pmcenter` Yourself](#build-pmcenter-yourself)
 >   - [📩 Use Pre-compiled Binaries](#use-pre-compiled-binaries)
+>   - [🐋 Use Docker](#use-docker)
 > - [🔧 Configuring](#configuring)
 >   - [⚒️ `pmcenter` Settings](#pmcenter-settings)
 >     - [📄 Note](#note)
