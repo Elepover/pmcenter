@@ -38,6 +38,7 @@ namespace pmcenter
                 Log("==> Running pre-start operations...");
                 // hook global errors (final failsafe)
                 AppDomain.CurrentDomain.UnhandledException += GlobalErrorHandler;
+                Log("Global error handler is armed and ready!");
                 // process commandlines
                 await CmdLineProcess.RunCommand(Environment.CommandLine).ConfigureAwait(false);
                 // everything (exits and/or errors) are handled above, please do not process.
