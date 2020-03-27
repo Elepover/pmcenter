@@ -10,7 +10,7 @@ namespace pmcenter
         public static async void ThrUpdateChecker()
         {
             Log("Started!", "UPDATER");
-            while (true)
+            while (!Vars.IsShuttingDown)
             {
                 Vars.UpdateCheckerStatus = ThreadStatus.Working;
                 try
@@ -46,7 +46,7 @@ namespace pmcenter
                     Log($"Error during update check: {ex.ToString()}", "UPDATER", LogLevel.ERROR);
                 }
                 Vars.UpdateCheckerStatus = ThreadStatus.Standby;
-                Thread.Sleep(60000);
+                try { Thread.Sleep(60000); } catch { }
             }
         }
     }

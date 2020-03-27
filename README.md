@@ -174,6 +174,7 @@ Or, use setup wizard:
 | `AdvancedLogging` | `Boolean` | ✓ | If enabled, pmcenter will display the code files and line number where the logging was triggered. |
 | `DisableTimeDisplay` | `Boolean` | ✓ | Don't display time in the logs. |
 | `UpdateChannel` | `String` | ✓ | Choose which update channel you prefer to. |
+| `IgnoreKeyboardInterrupt` | `Boolean` | ✓ | Choose whether pmcenter should ignore Ctrl-C interrupts or not. |
 | `Statistics` | `Stats` | ✕ | Statistics data. |
 | `Socks5Proxies` | `Array` | ✓ | List of SOCKS5 proxies. |
 | `BannedKeywords` | `Array` | ✓ | Storage of banned keywords. |

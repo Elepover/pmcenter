@@ -8,7 +8,7 @@ namespace pmcenter
         public static async void ThrRateLimiter()
         {
             Log("Started!", "RATELIMIT");
-            while (true)
+            while (!Vars.IsShuttingDown)
             {
                 Vars.RateLimiterStatus = ThreadStatus.Working;
                 foreach (RateData Data in Vars.RateLimits)
@@ -22,7 +22,7 @@ namespace pmcenter
                     Data.MessageCount = 0;
                 }
                 Vars.RateLimiterStatus = ThreadStatus.Standby;
-                Thread.Sleep(30000);
+                try { Thread.Sleep(30000); } catch { }
             }
         }
     }

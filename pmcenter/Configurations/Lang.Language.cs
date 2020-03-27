@@ -75,6 +75,7 @@ namespace pmcenter
             public string Message_Retracted;
             public string Message_MsgLinksCleared;
             public string Message_AvailableLang;
+            public string Message_NetCore31Required;
         }
     }
 }

@@ -7,7 +7,7 @@ namespace pmcenter
     {
         public static async void ThrSyncConf()
         {
-            while (true)
+            while (!Vars.IsShuttingDown)
             {
                 try
                 {
@@ -23,7 +23,7 @@ namespace pmcenter
                     Log("ConfSync disabled, stopping...", "CONFSYNC", LogLevel.WARN);
                     return;
                 }
-                Thread.Sleep(Vars.CurrentConf.ConfSyncInterval);
+                try { Thread.Sleep(Vars.CurrentConf.ConfSyncInterval); } catch { }
             }
         }
     }

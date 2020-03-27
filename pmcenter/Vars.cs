@@ -39,6 +39,8 @@ namespace pmcenter
         public static bool NonEmergRestartRequired = false;
         public static bool UpdatePending = false;
         public static bool IsResetConfAvailable = false;
+        public static bool IsCtrlCHandled = false;
+        public static bool IsShuttingDown = false;
         public static Conf.UpdateLevel UpdateLevel;
         public static Version UpdateVersion;
         public static Stopwatch StartSW = new Stopwatch();
@@ -53,6 +55,7 @@ namespace pmcenter
         public static double PerformanceScore = 0;
 
         public static Thread BannedSweepper;
+        public static Thread ConfValidator;
         public static Methods.ThreadStatus ConfResetTimerStatus = Methods.ThreadStatus.Stopped;
         public static Thread RateLimiter;
         public static Methods.ThreadStatus RateLimiterStatus = Methods.ThreadStatus.Stopped;

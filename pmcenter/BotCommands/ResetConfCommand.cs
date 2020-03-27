@@ -39,7 +39,7 @@ namespace pmcenter.Commands
                     false,
                     Vars.CurrentConf.DisableNotifications,
                     update.Message.MessageId).ConfigureAwait(false);
-                Environment.Exit(0);
+                Methods.ExitApp(0);
                 return true;
             }
             else
@@ -51,8 +51,8 @@ namespace pmcenter.Commands
                     false,
                     Vars.CurrentConf.DisableNotifications,
                     update.Message.MessageId).ConfigureAwait(false);
-                Thread ConfValidator = new Thread(() => Methods.ThrDoResetConfCount());
-                ConfValidator.Start();
+                Vars.ConfValidator = new Thread(() => Methods.ThrDoResetConfCount());
+                Vars.ConfValidator.Start();
                 return true;
             }
         }

@@ -37,6 +37,7 @@ namespace pmcenter
             public bool AdvancedLogging;
             public bool DisableTimeDisplay;
             public string UpdateChannel;
+            public bool IgnoreKeyboardInterrupt;
             public Stats Statistics;
             public List<Socks5Proxy> Socks5Proxies;
             public List<string> BannedKeywords;

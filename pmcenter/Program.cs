@@ -26,7 +26,7 @@ namespace pmcenter
             Console.WriteLine(Vars.ASCII);
             Log("Main delegator activated!", "DELEGATOR");
             Log($"Starting pmcenter, version {Vars.AppVer.ToString()}. Channel: \"{Vars.CompileChannel}\"", "DELEGATOR");
-            Task MainAsyncTask = MainAsync(args);
+            var MainAsyncTask = MainAsync(args);
             MainAsyncTask.Wait();
             Log("Main worker accidentally exited. Stopping...", "DELEGATOR", LogLevel.ERROR);
             Environment.Exit(1);
@@ -39,6 +39,8 @@ namespace pmcenter
                 // hook global errors (final failsafe)
                 AppDomain.CurrentDomain.UnhandledException += GlobalErrorHandler;
                 Log("Global error handler is armed and ready!");
+                // hook ctrl-c events
+                Console.CancelKeyPress += CtrlCHandler;
                 // process commandlines
                 await CmdLineProcess.RunCommand(Environment.CommandLine).ConfigureAwait(false);
                 // everything (exits and/or errors) are handled above, please do not process.
@@ -180,7 +182,24 @@ namespace pmcenter
                 }
                 catch (Exception ex)
                 {
-                    Log($"Failed to send startup message to owner.\nDid you set the \"OwnerID\" key correctly? Otherwise pmcenter could not work properly.\nYou can try to use setup wizard to update/get your OwnerID automatically, just run \"dotnet pmcenter.dll --setup\".\n\nError details: {ex.ToString()}", "BOT", LogLevel.ERROR);
+                    Log($"Failed to send startup message to owner.\nDid you set the \"OwnerID\" key correctly? Otherwise pmcenter could not work properly.\nYou can try to use setup wizard to update/get your OwnerID automatically, just run \"dotnet pmcenter.dll --setup\".\n\nError details: {ex.ToString()}", "BOT", LogLevel.WARN);
+                }
+                try
+                {
+                    var netCoreVersion = GetNetCoreVersion();
+                    if (!CheckNetCoreVersion(netCoreVersion))
+                    {
+                        _ = await Vars.Bot.SendTextMessageAsync(Vars.CurrentConf.OwnerUID,
+                                                                Vars.CurrentLang.Message_NetCore31Required
+                                                                    .Replace("$1", netCoreVersion.ToString()),
+                                                                ParseMode.Markdown,
+                                                                false,
+                                                                false).ConfigureAwait(false);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Log($".NET Core runtime version warning wasn't delivered to the owner: {ex.Message}, did you set the \"OwnerID\" key correctly?", "BOT", LogLevel.WARN);
                 }
                 if (Vars.CurrentLang.TargetVersion != Vars.AppVer.ToString())
                 {
@@ -196,7 +215,7 @@ namespace pmcenter
                 Log("==> All finished!");
                 while (true)
                 {
-                    Thread.Sleep(60000);
+                    Console.ReadKey(true);
                 }
             }
             catch (Exception ex)

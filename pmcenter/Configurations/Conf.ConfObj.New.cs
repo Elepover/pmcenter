@@ -39,6 +39,7 @@ namespace pmcenter
                 AdvancedLogging = false;
                 DisableTimeDisplay = false;
                 UpdateChannel = "master";
+                IgnoreKeyboardInterrupt = false;
                 Statistics = new Stats();
                 Socks5Proxies = new List<Socks5Proxy>();
                 BannedKeywords = new List<string>();

@@ -1,4 +1,4 @@
-/*
+﻿/*
 // Setup.cs / pmcenter project / https://github.com/Elepover/pmcenter
 // Methods & functions for Setup Wizard.
 // Copyright (C) 2018 Elepover. Licensed under the Apache License (Version 2.0).
@@ -29,7 +29,7 @@ namespace pmcenter
             {
                 IsUIDReceived = true;
                 ReceivedUID = e.Update.Message.From.Id;
-                Nickname = $"{e.Update.Message.From.FirstName} {e.Update.Message.From.LastName}";
+                Nickname = string.IsNullOrEmpty(e.Update.Message.From.LastName) ? e.Update.Message.From.FirstName : $"{e.Update.Message.From.FirstName} {e.Update.Message.From.LastName}";
                 TestBot.StopReceiving();
             }
         }
@@ -57,7 +57,7 @@ namespace pmcenter
             Say("");
             await SetAPIKey().ConfigureAwait(false);
             Say("");
-            SetUID();
+            await SetUID();
             Say("");
             SetNotifPrefs();
             Say("");
@@ -150,7 +150,7 @@ namespace pmcenter
             NewConf.APIKey = Key;
             Say(" Done!");
         }
-        private static void SetUID()
+        private static async Task SetUID()
         {
             Say("2> Owner ID");
             Say("   Your Telegram UID is your unique and permanent identifier.");
@@ -169,7 +169,8 @@ namespace pmcenter
                 {
                     Thread.Sleep(200);
                 }
-                Say($"Hello, {Nickname}! Your UID has been detected as {ReceivedUID}.");
+                _ = await TestBot.SendTextMessageAsync(ReceivedUID, $"👋 *Hello my owner!* Your UID `{ReceivedUID}` is now being saved.", ParseMode.Markdown);
+                Say($"Hello, [{Nickname}]! Your UID has been detected as {ReceivedUID}.");
                 SIn($".. Saving UID: {ReceivedUID}...");
                 NewConf.OwnerUID = ReceivedUID;
                 Say(" Done!");
