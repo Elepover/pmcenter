@@ -16,6 +16,7 @@ namespace pmcenter
         {
             CmdLineRouter.RegisterCommand(new CommandLines.HelpCmdLine());
             CmdLineRouter.RegisterCommand(new CommandLines.InfoCmdLine());
+            CmdLineRouter.RegisterCommand(new CommandLines.NonServiceModeCmdLine());
             CmdLineRouter.RegisterCommand(new CommandLines.SetupWizardCmdLine());
             CmdLineRouter.RegisterCommand(new CommandLines.ResetCmdLine());
             CmdLineRouter.RegisterCommand(new CommandLines.BackupCmdLine());

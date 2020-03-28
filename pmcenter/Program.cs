@@ -214,10 +214,21 @@ namespace pmcenter
                                                    false).ConfigureAwait(false);
                 }
                 Log("==> All finished!");
-                while (true)
+                if (Vars.ServiceMode)
                 {
-                    Console.ReadKey(true);
+                    while (true)
+                    {
+                        Thread.Sleep(int.MaxValue);
+                    }
                 }
+                else
+                {
+                    while (true)
+                    {
+                        Console.ReadKey(true);
+                    }
+                }
+                
             }
             catch (Exception ex)
             {

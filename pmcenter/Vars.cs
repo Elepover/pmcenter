@@ -42,6 +42,7 @@ namespace pmcenter
         public static bool IsCtrlCHandled = false;
         public static int CtrlCCounter = 0;
         public static bool IsShuttingDown = false;
+        public static bool ServiceMode = true;
         public static Conf.UpdateLevel UpdateLevel;
         public static Version UpdateVersion;
         public static Stopwatch StartSW = new Stopwatch();
