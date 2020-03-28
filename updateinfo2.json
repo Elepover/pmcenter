@@ -1,9 +1,9 @@
 {
-  "Latest": "1.9.1.271",
+  "Latest": "1.9.280.15",
   "UpdateLevel": 1,
   "UpdateCollection": [
     {
-      "Details": "[+] Now pmcenter supports multi-channel updates.\nYou can choose the \"pmcenter-lazer\" channel for faster updates, or stay at \"master\" for a stabler user experience.",
+      "Details": "[i] This is the final update before pmcenter v2 arrives.\n[+] Added .NET Core Runtime version check.\n[+] Added Ctrl-C event handler.\n[/] Updated Setup Wizard.\n[+] Updated exiting mechanism.",
       "LangCode": [
         "en.imported",
         "en.integrated"
@@ -12,7 +12,7 @@
       "UpdateArchiveAddress": "https://see.wtf/pmcenter-update"
     },
     {
-      "Details": "[+] pmcenter 现已支持多更新频道\n您可以使用 \"pmcenter-lazer\" 频道来更快速地获取更新，或停留在 \"master\" 频道以获得更稳定的使用体验。",
+      "Details": "[i] 这是 pmcenter v2 更新前的最后一次更新。\n[+] 添加 .NET Core 运行时版本检查。\n[+] 添加 Ctrl-C 事件处理器。\n[/] 更新了设置向导。\n[+] 全新的退出机制。",
       "LangCode": [
         "zh.simplified"
       ],
@@ -20,7 +20,7 @@
       "UpdateArchiveAddress": "https://see.wtf/pmcenter-update"
     },
     {
-      "Details": "[+] pmcenter 现在可以选择不同频道更新啦！\n\"pmcenter-lazer\" 频道更新速度更快，但是可能会翻车（\n\"master\" 频道的 pmcenter 就要更稳定一些（",
+      "Details": "[i] 这是 pmcenter v2 更新前的最后一次更新。\n[+] 添加 .NET Core 运行时版本检查。\n[+] 添加 Ctrl-C 事件处理器。\n[/] 更新了设置向导。\n[+] 全新的退出机制。",
       "LangCode": [
         "zh.meow"
       ],
@@ -28,7 +28,7 @@
       "UpdateArchiveAddress": "https://see.wtf/pmcenter-update"
     },
     {
-      "Details": "[+] pmcenter 現已支援多更新頻道\n您可透過 \"pmcenter-lazer\" 頻道來快速獲取更新，或留在 \"master\" 頻道以獲得更穩定的使用體驗。",
+      "Details": "[i] 這是 pmcenter v2 更新前的最後一次更新。\n[+] 新增 .NET Core 運行時版本檢查。\n[+] 新增 Ctrl-C 事件處理器。\n[/] 更新了設置向導。\n[+] 全新的退出機制。",
       "LangCode": [
         "zh.tw"
       ],
@@ -36,7 +36,7 @@
       "UpdateArchiveAddress": "https://see.wtf/pmcenter-update"
     },
     {
-      "Details": "[+] Now pmcenter supports multi-channel updates.\nYou can choose the \"pmcenter-lazer\" channel for faster updates, or stay at \"master\" for a stabler user experience.",
+      "Details": "[i] This is the final update before pmcenter v2 arrives.\n[+] Added .NET Core Runtime version check.\n[+] Added Ctrl-C event handler.\n[/] Updated Setup Wizard.\n[+] Updated exiting mechanism.",
       "LangCode": [
         "en.imported",
         "en.integrated"
@@ -45,7 +45,7 @@
       "UpdateArchiveAddress": "https://see.wtf/pmcenter-lazer-update"
     },
     {
-      "Details": "[+] pmcenter 现已支持多更新频道\n您可以使用 \"pmcenter-lazer\" 频道来更快速地获取更新，或停留在 \"master\" 频道以获得更稳定的使用体验。",
+      "Details": "[i] 这是 pmcenter v2 更新前的最后一次更新。\n[+] 添加 .NET Core 运行时版本检查。\n[+] 添加 Ctrl-C 事件处理器。\n[/] 更新了设置向导。\n[+] 全新的退出机制。",
       "LangCode": [
         "zh.simplified"
       ],
@@ -53,7 +53,7 @@
       "UpdateArchiveAddress": "https://see.wtf/pmcenter-lazer-update"
     },
     {
-      "Details": "[+] pmcenter 现在可以选择不同频道更新啦！\n\"pmcenter-lazer\" 频道更新速度更快，但是可能会翻车（\n\"master\" 频道的 pmcenter 就要更稳定一些（",
+      "Details": "[i] 这是 pmcenter v2 更新前的最后一次更新。\n[+] 添加 .NET Core 运行时版本检查。\n[+] 添加 Ctrl-C 事件处理器。\n[/] 更新了设置向导。\n[+] 全新的退出机制。",
       "LangCode": [
         "zh.meow"
       ],
@@ -61,7 +61,7 @@
       "UpdateArchiveAddress": "https://see.wtf/pmcenter-lazer-update"
     },
     {
-      "Details": "[+] pmcenter 現已支援多更新頻道\n您可透過 \"pmcenter-lazer\" 頻道來快速獲取更新，或留在 \"master\" 頻道以獲得更穩定的使用體驗。",
+      "Details": "[i] 這是 pmcenter v2 更新前的最後一次更新。\n[+] 新增 .NET Core 運行時版本檢查。\n[+] 新增 Ctrl-C 事件處理器。\n[/] 更新了設置向導。\n[+] 全新的退出機制。",
       "LangCode": [
         "zh.tw"
       ],

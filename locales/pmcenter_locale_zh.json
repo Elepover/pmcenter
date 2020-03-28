@@ -1,5 +1,5 @@
 ﻿{
-  "TargetVersion": "1.9.1.271",
+  "TargetVersion": "1.9.280.15",
   "LangCode": "zh.simplified",
   "LanguageNameInEnglish": "Chinese (Simplified)",
   "LanguageNameInNative": "简体中文",
@@ -46,7 +46,7 @@
   "Message_SupportTextMessagesOnly": "📋 抱歉，匿名转发模式下仅能转发纯文本消息。",
   "Message_ForwarderNotReal": "ℹ 实际消息发送者为: $1, 其 UID 为: `$2`.\n\n您也可以发送以下命令来屏蔽该用户:\n\n`/banid $2`\n\n若要撤销操作，请发送:\n\n`/pardonid $2`",
   "Message_GeneralFailure": "✖ 处理请求时出错: $1",
-  "Message_LangVerMismatch": "⚠ 语言文件 ($1) 不适用于当前版本 ($2), 请考虑升级。",
+  "Message_LangVerMismatch": "⚠ 语言文件 (`$1`) 不适用于当前版本 (`$2`), 请考虑升级。",
   "Message_SwitchingLang": "💠 正在切换语言...",
   "Message_LangSwitched": "🚀 语言已切换！",
   "Message_ThreadStatus_Unknown": "未知",
@@ -69,5 +69,6 @@
   "Message_Stats": "📝 *统计数据*\n\n💬 接收到的消息: `$1`\n🔄 已转发给所有者: `$2`\n🔄 从所有者处转发: `$3`\n🚀 接收到的命令: `$4`",
   "Message_Retracted": "✅ 消息已撤回。",
   "Message_MsgLinksCleared": "✅ 所有消息链接已清空。",
-  "Message_AvailableLang": "ℹ *可用语言*\n\n`$1`"
+  "Message_AvailableLang": "ℹ *可用语言*\n\n`$1`",
+  "Message_NetCore31Required": "⚠ 您的设备上需要安装 `.NET Core 3.1` (运行时) 以获取 pmcenter v2 或未来版本的更新。\n\n在您设备上检测到的最新 .NET Core 运行时版本为: `$1`\n\n此警告只会出现一次。"
 }

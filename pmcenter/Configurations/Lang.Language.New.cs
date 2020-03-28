@@ -53,7 +53,7 @@ namespace pmcenter
                 Message_SupportTextMessagesOnly = "📋 Sorry... Only text messages can be forwarded in Anonymous Forward mode.";
                 Message_ForwarderNotReal = "ℹ The actual sender of this message is $1, whose UID is `$2`.\n\nYou can also ban this user by sending this following command:\n\n`/banid $2`\n\nTo undo this, send this command:\n\n`/pardonid $2`";
                 Message_GeneralFailure = "✖ Error processing request: $1";
-                Message_LangVerMismatch = "⚠ Language file ($1) is not for current version ($2), consider updating language file?";
+                Message_LangVerMismatch = "⚠ Language file (`$1`) is not for current version (`$2`), consider updating language file?";
                 Message_SwitchingLang = "💠 Switching language...";
                 Message_LangSwitched = "🚀 Language switched!";
                 Message_ThreadStatus_Unknown = "Unknown";

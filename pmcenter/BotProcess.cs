@@ -1,7 +1,7 @@
 /*
 // BotProcess.cs / pmcenter project / https://github.com/Elepover/pmcenter
 // Main processing logic of pmcenter.
-// Copyright (C) 2018 Elepover. Licensed under the Apache License (Version 2.0).
+// Copyright (C) The pmcenter authors. Licensed under the Apache License (Version 2.0).
 */
 
 using pmcenter.Commands;
@@ -16,7 +16,7 @@ namespace pmcenter
 {
     public static class BotProcess
     {
-        private static readonly CommandManager commandManager = new CommandManager();
+        private static readonly CommandRouter commandManager = new CommandRouter();
 
         static BotProcess()
         {

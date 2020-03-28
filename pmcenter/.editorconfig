@@ -30,7 +30,7 @@ dotnet_diagnostic.CA1062.severity = suggestion
 # CA1707: Identifiers should not contain underscores
 dotnet_diagnostic.CA1707.severity = suggestion
 
-# IDE0060: 删除未使用的参数
+# IDE0060: Delete unused arguments
 dotnet_code_quality_unused_parameters = all:suggestion
 
 # CA2234: Pass system uri objects instead of strings

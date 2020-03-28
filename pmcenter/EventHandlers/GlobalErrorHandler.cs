@@ -6,9 +6,9 @@ using static pmcenter.Methods;
 
 namespace pmcenter
 {
-    public partial class Program
+    public partial class EventHandlers
     {
-        private static void GlobalErrorHandler(object sender, UnhandledExceptionEventArgs e)
+        public static void GlobalErrorHandler(object sender, UnhandledExceptionEventArgs e)
         {
             L("[!] Critical error occurred, falling back to basic logging.");
             L("pmcenter's global error handler has captured a critical error.");

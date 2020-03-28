@@ -1,7 +1,7 @@
 ﻿/*
 // CommandManager.cs / pmcenter project / https://github.com/Elepover/pmcenter
 // Command routing processor.
-// Copyright (C) 2018 Genteure. Licensed under the Apache License (Version 2.0).
+// Copyright (C) The pmcenter authors. Licensed under the Apache License (Version 2.0).
 */
 
 using System;
@@ -14,13 +14,13 @@ using Telegram.Bot.Types.Enums;
 
 namespace pmcenter
 {
-    internal class CommandManager
+    internal class CommandRouter
     {
         private const char globalPrefix = '/';
 
         private readonly List<ICommand> commands = new List<ICommand>();
 
-        public CommandManager()
+        public CommandRouter()
         {
         }
 
