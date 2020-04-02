@@ -14,6 +14,7 @@ namespace pmcenter
             Log("Waiting for background workers to exit (timeout: 10s)...");
             var sw = new Stopwatch();
             sw.Start();
+
             Vars.IsShuttingDown = true;
             if (Vars.IsPerformanceTestExecuting)
             {
@@ -25,61 +26,39 @@ namespace pmcenter
             }
             Log("[OK] Shut down performance tester.");
 
-            if (Vars.ConfValidator != null && Vars.ConfValidator.IsAlive)
+            Thread[] threads =
             {
-                Vars.ConfValidator.Interrupt();
-                while (Vars.ConfValidator.IsAlive)
-                {
-                    if (sw.ElapsedMilliseconds >= 10000) Environment.Exit(16);
-                    Thread.Sleep(50);
-                }
-            }
-            Log("[OK] Shut down reset timer.");
+                Vars.ConfValidator,
+                Vars.UpdateChecker,
+                Vars.RateLimiter,
+                Vars.BannedSweepper,
+                Vars.SyncConf
+            };
 
-            if (Vars.UpdateChecker != null && Vars.UpdateChecker.IsAlive)
+            string[] threadNames =
             {
-                Vars.UpdateChecker.Interrupt();
-                while (Vars.UpdateChecker.IsAlive)
-                {
-                    if (sw.ElapsedMilliseconds >= 10000) Environment.Exit(16);
-                    Thread.Sleep(50);
-                }
-            }
-            Log("[OK] Shut down update checker.");
+                "reset timer",
+                "update checker",
+                "rate limiter",
+                "banned sweeper",
+                "configurations autosaver"
+            };
 
-
-            if (Vars.RateLimiter != null && Vars.RateLimiter.IsAlive)
+            for (int i = 0; i < threads.Length; i++)
             {
-                Vars.RateLimiter.Interrupt();
-                while (Vars.RateLimiter.IsAlive)
+                var thread = threads[i];
+                if (thread != null && thread.IsAlive)
                 {
-                    if (sw.ElapsedMilliseconds >= 10000) Environment.Exit(16);
-                    Thread.Sleep(50);
+                    thread.Interrupt();
+                    while (thread.IsAlive)
+                    {
+                        if (sw.ElapsedMilliseconds >= 10000) Environment.Exit(16);
+                        Thread.Sleep(50);
+                    }
                 }
+                Log($"[OK] Shut down {threadNames[i]}.");
             }
-            Log("[OK] Shut down rate limiter.");
 
-            if (Vars.BannedSweepper != null && Vars.BannedSweepper.IsAlive)
-            {
-                Vars.BannedSweepper.Interrupt();
-                while (Vars.BannedSweepper.IsAlive)
-                {
-                    if (sw.ElapsedMilliseconds >= 10000) Environment.Exit(16);
-                    Thread.Sleep(50);
-                }
-            }
-            Log("[OK] Shut down banned sweeper.");
-
-            if (Vars.SyncConf != null && Vars.SyncConf.IsAlive)
-            {
-                Vars.SyncConf.Interrupt();
-                while (Vars.SyncConf.IsAlive)
-                {
-                    if (sw.ElapsedMilliseconds >= 10000) Environment.Exit(16);
-                    Thread.Sleep(50);
-                }
-            }
-            Log("[OK] Shut down configurations autosaver.");
             sw.Stop();
             Log($"pmcenter has stopped in {Math.Round(sw.Elapsed.TotalSeconds, 2)}s.");
             Environment.Exit(code);

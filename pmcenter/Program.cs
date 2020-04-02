@@ -162,6 +162,7 @@ namespace pmcenter
                 {
                     Vars.Bot = new TelegramBotClient(Vars.CurrentConf.APIKey);
                 }
+                Log("Validating API Key...");
                 _ = await Vars.Bot.TestApiAsync().ConfigureAwait(false);
                 Log("Hooking event processors...");
                 Vars.Bot.OnUpdate += BotProcess.OnUpdate;
