@@ -38,6 +38,7 @@ namespace pmcenter
             public bool DisableTimeDisplay;
             public string UpdateChannel;
             public bool IgnoreKeyboardInterrupt;
+            public bool DisableNetCore3Check;
             public Stats Statistics;
             public List<Socks5Proxy> Socks5Proxies;
             public List<string> BannedKeywords;

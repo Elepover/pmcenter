@@ -177,6 +177,7 @@ docker run -d -v $(pwd)/pmcenter.json:/opt/pmcenter/pmcenter.json --restart alwa
 | `DisableTimeDisplay` | `Boolean` | ✓ | 不在日志中显示时间 |
 | `UpdateChannel` | `String` | ✓ | 选择更新频道 |
 | `IgnoreKeyboardInterrupt` | `Boolean` | ✓ | 是否忽略 Ctrl-C 中断 |
+| `DisableNetCore3Check` | `Boolean` | ✓ | 启用以忽略 .NET Core 运行时版本检查 |
 | `Statistics` | `Stats` | ✕ | 统计数据 |
 | `Socks5Proxies` | `Array` | ✓ | SOCKS5 代理列表 |
 | `BannedKeywords` | `Array` | ✓ | 屏蔽的关键字存储 |

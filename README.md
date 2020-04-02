@@ -175,6 +175,7 @@ Or, use setup wizard:
 | `DisableTimeDisplay` | `Boolean` | ✓ | Don't display time in the logs. |
 | `UpdateChannel` | `String` | ✓ | Choose which update channel you prefer to. |
 | `IgnoreKeyboardInterrupt` | `Boolean` | ✓ | Choose whether pmcenter should ignore Ctrl-C interrupts or not. |
+| `DisableNetCore3Check` | `Boolean` | ✓ | Turn this on to hide .NET Core Runtime version warnings. |
 | `Statistics` | `Stats` | ✕ | Statistics data. |
 | `Socks5Proxies` | `Array` | ✓ | List of SOCKS5 proxies. |
 | `BannedKeywords` | `Array` | ✓ | Storage of banned keywords. |

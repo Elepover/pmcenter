@@ -188,7 +188,7 @@ namespace pmcenter
                 try
                 {
                     var netCoreVersion = GetNetCoreVersion();
-                    if (!CheckNetCoreVersion(netCoreVersion))
+                    if (!CheckNetCoreVersion(netCoreVersion) && !Vars.CurrentConf.DisableNetCore3Check)
                     {
                         _ = await Vars.Bot.SendTextMessageAsync(Vars.CurrentConf.OwnerUID,
                                                                 Vars.CurrentLang.Message_NetCore31Required
@@ -196,6 +196,7 @@ namespace pmcenter
                                                                 ParseMode.Markdown,
                                                                 false,
                                                                 false).ConfigureAwait(false);
+                        Vars.CurrentConf.DisableNetCore3Check = true;
                     }
                 }
                 catch (Exception ex)
