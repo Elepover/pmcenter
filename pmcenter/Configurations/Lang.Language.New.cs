@@ -47,13 +47,13 @@ namespace pmcenter
                 Message_SysStatus_UpdateLevel_Unknown = "❓ Unknown";
                 Message_SysStatus_RestartRequired = "🔄 *Bot restart required to apply changes.*";
                 Message_SysStatus_Summary = "📝 *Device name*: `$1`\n💿 *Operating System*: `$2`\nℹ *OS description*: `$3`\n⌛ *Server uptime*: `$4`\n🕓 *Bot uptime*: `$5`\n📅 *Server time (UTC)*: `$6`\n📐 *Runtime version*: `$7`\nℹ *Runtime description*: `$8`\n📏 *Application version*: `$9`\n💠 *Processor count*: `$a`\n📖 *Language code*: `$b`\n🛫 *Update channel (current)*: `$f`\n🛬 *Update channel (target)*: `$g`\n🔄 *Update checker*: `$c`\n🔄 *Rate limit processor*: `$d`\n🔄 *Configuration reset verifier*: `$e`";
-                Message_Restarting = "🔄 Restarting...\n\n_It only works with systemd daemon._";
+                Message_Restarting = "🔄 Restarting...\n\n_It only works with systemd-like daemons._";
                 Message_NotificationsOff = "📳 Notifications are *OFF*.";
                 Message_NotificationsOn = "📲 Notifications are *ON*.";
                 Message_SupportTextMessagesOnly = "📋 Sorry... Only text messages can be forwarded in Anonymous Forward mode.";
                 Message_ForwarderNotReal = "ℹ The actual sender of this message is $1, whose UID is `$2`.\n\nYou can also ban this user by sending this following command:\n\n`/banid $2`\n\nTo undo this, send this command:\n\n`/pardonid $2`";
                 Message_GeneralFailure = "✖ Error processing request: $1";
-                Message_LangVerMismatch = "⚠ Language file ($1) is not for current version ($2), consider updating language file?";
+                Message_LangVerMismatch = "⚠ Language file (`$1`) is not for current version (`$2`), consider updating language file?";
                 Message_SwitchingLang = "💠 Switching language...";
                 Message_LangSwitched = "🚀 Language switched!";
                 Message_ThreadStatus_Unknown = "Unknown";
@@ -72,11 +72,12 @@ namespace pmcenter
                 Message_Connectivity = "📡 *Connectivity Information*\n\nLatency to GitHub: $1\nLatency to Telegram API: $2\nLatency to CI (updates): $3";
                 Message_ContinuedChatEnabled = "💬 *Continued Conversation* mode is now `active`! All your messages (except commands and replys) will be forwarded to $1";
                 Message_ContinuedChatDisabled = "✅ *Continued Conversation* is now `disabled`.";
-                Message_FeatureNotAvailable = "⚠ This feature is unavailable or disabled.";
+                Message_FeatureNotAvailable = "⚠ *This feature is unavailable or disabled*.";
                 Message_Stats = "📝 *Statistics*\n\n💬 Received messages: `$1`\n🔄 Forwarded to owner: `$2`\n🔄 Forwarded from owner: `$3`\n🚀 Commands received: `$4`";
                 Message_Retracted = "✅ This message has been retracted.";
                 Message_MsgLinksCleared = "✅ All message links have been cleared.";
                 Message_AvailableLang = "ℹ *Available languages*\n\n`$1`";
+                Message_NetCore31Required = "⚠ You need `.NET Core 3.1` (runtime) installed in order to receive pmcenter v2 and further updates.\n\nLatest .NET Core runtime version detected on your device: `$1`\n\nThis warning will only show once.";
             }
         }
     }

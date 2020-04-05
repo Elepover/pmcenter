@@ -78,7 +78,7 @@ namespace pmcenter.Commands
                         Vars.CurrentConf.DisableNotifications,
                         update.Message.MessageId).ConfigureAwait(false);
                     Log("Exiting program... (Let the daemon do the restart job)", "BOT");
-                    Environment.Exit(0);
+                    ExitApp(0);
                     return true;
                     // end of difference
                 }
