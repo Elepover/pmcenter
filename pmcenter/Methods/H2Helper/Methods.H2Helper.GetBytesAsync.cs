@@ -9,7 +9,10 @@ namespace pmcenter
         {
             public static async Task<byte[]> GetBytesAsync(Uri uri)
             {
-                return await (await GetHttpContentAsync(uri).ConfigureAwait(false)).ReadAsByteArrayAsync().ConfigureAwait(false);
+                using (var content = await GetHttpContentAsync(uri).ConfigureAwait(false))
+                {
+                    return await content.ReadAsByteArrayAsync().ConfigureAwait(false);
+                }
             }
         }
     }

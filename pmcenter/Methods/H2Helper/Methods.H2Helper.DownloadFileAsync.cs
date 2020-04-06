@@ -13,6 +13,8 @@ namespace pmcenter
                 var bytes = await GetBytesAsync(uri).ConfigureAwait(false);
                 var fileStream = File.OpenWrite(filename);
                 await fileStream.WriteAsync(bytes).ConfigureAwait(false);
+                await fileStream.FlushAsync();
+                fileStream.Close();
             }
         }
     }

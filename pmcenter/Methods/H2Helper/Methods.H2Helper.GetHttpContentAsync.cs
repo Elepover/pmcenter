@@ -11,10 +11,8 @@ namespace pmcenter
             private static async Task<HttpContent> GetHttpContentAsync(Uri uri)
             {
                 var client = new HttpClient() { DefaultRequestVersion = new Version(2, 0) };
-                using (var response = await client.GetAsync(uri).ConfigureAwait(false))
-                {
-                    return response.Content;
-                }
+                var response = await client.GetAsync(uri).ConfigureAwait(false);
+                return response.Content;
             }
         }
     }
