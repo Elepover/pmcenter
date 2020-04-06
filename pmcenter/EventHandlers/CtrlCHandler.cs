@@ -21,7 +21,7 @@ namespace pmcenter
                 return;
             }
             Vars.IsCtrlCHandled = true;
-            Log("Interrupt! pmcenter is exiting...");
+            Log("Interrupt! pmcenter is exiting...", Type: LogLevel.WARN);
             Log("If pmcenter was unresponsive, press Ctrl-C 3 more times.");
             ExitApp(130);
         }

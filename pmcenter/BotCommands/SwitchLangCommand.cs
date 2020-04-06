@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Telegram.Bot;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
-using static pmcenter.Methods;
+using static pmcenter.Methods.H2Helper;
 
 namespace pmcenter.Commands
 {
@@ -32,13 +32,10 @@ namespace pmcenter.Commands
             Vars.CurrentConf.LangURL = LangURL;
             // save conf
             _ = await Conf.SaveConf(IsAutoSave: true);
-            using (var Downloader = new WebClient())
-            {
-                await Downloader.DownloadFileTaskAsync(
+            await DownloadFileAsync(
                 new Uri(LangURL),
                 Path.Combine(Vars.AppDirectory, "pmcenter_locale.json")
-                ).ConfigureAwait(false);
-            }
+            ).ConfigureAwait(false);
 
             // reload configurations
             _ = await Conf.ReadConf().ConfigureAwait(false);

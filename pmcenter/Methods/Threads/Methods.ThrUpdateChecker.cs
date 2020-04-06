@@ -15,7 +15,7 @@ namespace pmcenter
                 Vars.UpdateCheckerStatus = ThreadStatus.Working;
                 try
                 {
-                    var Latest = Conf.CheckForUpdates();
+                    var Latest = await Conf.CheckForUpdatesAsync().ConfigureAwait(false);
                     var CurrentLocalizedIndex = GetUpdateInfoIndexByLocale(Latest, Vars.CurrentLang.LangCode);
                     var DisNotif = Vars.CurrentConf.DisableNotifications;
                     // Identical with BotProcess.cs, L206.

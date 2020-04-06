@@ -4,6 +4,8 @@
 // Copyright (C) The pmcenter authors. Licensed under the Apache License (Version 2.0).
 */
 
+//#define BUILT_FOR_GITHUB_RELEASES
+
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -30,6 +32,11 @@ namespace pmcenter
         public readonly static string CompileChannel = "master";
 #else
         public readonly static string CompileChannel = "pmcenter-lazer";
+#endif
+#if BUILT_FOR_GITHUB_RELEASES
+        public readonly static bool GitHubReleases = true;
+#else
+        public readonly static bool GitHubReleases = false;
 #endif
         // public readonly static long AnonymousChannelID = -1001228946795;
         // public readonly static string AnonymousChannelTitle = "a user";

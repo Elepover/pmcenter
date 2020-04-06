@@ -7,25 +7,26 @@ namespace pmcenter
 {
     public partial class Methods
     {
-        public static async Task<TimeSpan> TestLatency(string Target)
+        public static async Task<TimeSpan> TestLatency(string target)
         {
-            var ReqSW = new Stopwatch();
+            var reqSw = new Stopwatch();
             try
             {
-                var Req = WebRequest.CreateHttp(Target);
-                ReqSW.Start();
-                _ = await Req.GetResponseAsync().ConfigureAwait(false);
-                ReqSW.Stop();
-                return ReqSW.Elapsed;
+                var req = WebRequest.CreateHttp(target);
+                reqSw.Start();
+                _ = await req.GetResponseAsync().ConfigureAwait(false);
+                reqSw.Stop();
+                return reqSw.Elapsed;
             }
             catch (WebException)
             {
-                ReqSW.Stop();
-                return ReqSW.Elapsed;
+                reqSw.Stop();
+                return reqSw.Elapsed;
             }
             catch (Exception ex)
             {
                 Log($"Latency test failed: {ex.Message}");
+                reqSw.Reset();
                 return new TimeSpan(0);
             }
         }

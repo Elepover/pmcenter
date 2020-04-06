@@ -16,7 +16,7 @@ namespace pmcenter.Commands
         {
             try
             {
-                var Latest = Conf.CheckForUpdates();
+                var Latest = await Conf.CheckForUpdatesAsync().ConfigureAwait(false);
                 var CurrentLocalizedIndex = Conf.GetUpdateInfoIndexByLocale(Latest, Vars.CurrentLang.LangCode);
                 if (Conf.IsNewerVersionAvailable(Latest))
                 {

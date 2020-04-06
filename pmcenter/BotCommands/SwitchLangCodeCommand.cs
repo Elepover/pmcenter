@@ -1,11 +1,11 @@
 using Newtonsoft.Json;
 using System;
 using System.IO;
-using System.Net;
 using System.Threading.Tasks;
 using Telegram.Bot;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
+using static pmcenter.Methods.H2Helper;
 
 namespace pmcenter.Commands
 {
@@ -19,12 +19,10 @@ namespace pmcenter.Commands
         {
             string Reply;
             string ListJSONString;
+            Conf.LocaleList LocaleList;
             // try to get locale list
-            using (var ListDownloader = new WebClient())
-            {
-                ListJSONString = await ListDownloader.DownloadStringTaskAsync(Vars.LocaleMapURL.Replace("$channel", Vars.CurrentConf.UpdateChannel)).ConfigureAwait(false);
-            }
-            Conf.LocaleList LocaleList = JsonConvert.DeserializeObject<Conf.LocaleList>(ListJSONString);
+            ListJSONString = await GetStringAsync(new Uri(Vars.LocaleMapURL.Replace("$channel", Vars.CurrentConf.UpdateChannel))).ConfigureAwait(false);
+            LocaleList = JsonConvert.DeserializeObject<Conf.LocaleList>(ListJSONString);
             if (!update.Message.Text.Contains(" "))
             {
                 var ListString = "";
@@ -44,14 +42,14 @@ namespace pmcenter.Commands
                         // update configurations
                         Vars.CurrentConf.LangURL = Mirror.LocaleFileURL.Replace("$channel", Vars.CompileChannel);
                         // start downloading
-                        using (var Downloader = new WebClient())
-                        {
-                            _ = await Conf.SaveConf(IsAutoSave: true).ConfigureAwait(false);
-                            await Downloader.DownloadFileTaskAsync(
-                                            new Uri(Vars.CurrentConf.LangURL),
-                                            Path.Combine(Vars.AppDirectory, "pmcenter_locale.json")
-                                            ).ConfigureAwait(false);
-                        }
+                        _ = await Conf.SaveConf(IsAutoSave: true).ConfigureAwait(false);
+                        await DownloadFileAsync(
+                            new Uri(Vars.CurrentConf.LangURL),
+                            Path.Combine(
+                                Vars.AppDirectory,
+                                "pmcenter_locale.json"
+                            )
+                        ).ConfigureAwait(false);
                         // reload configurations
                         _ = await Conf.ReadConf().ConfigureAwait(false);
                         _ = await Lang.ReadLang().ConfigureAwait(false);

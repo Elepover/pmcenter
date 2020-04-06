@@ -7,6 +7,7 @@ using Telegram.Bot;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
 using static pmcenter.Methods;
+using static pmcenter.Methods.H2Helper;
 
 namespace pmcenter.Commands
 {
@@ -20,7 +21,7 @@ namespace pmcenter.Commands
         {
             try
             {
-                var Latest = Conf.CheckForUpdates();
+                var Latest = await Conf.CheckForUpdatesAsync().ConfigureAwait(false);
                 var CurrentLocalizedIndex = Conf.GetUpdateInfoIndexByLocale(Latest, Vars.CurrentLang.LangCode);
                 if (Conf.IsNewerVersionAvailable(Latest))
                 {
@@ -45,28 +46,26 @@ namespace pmcenter.Commands
                     // download compiled package
                     Log("Starting update download... (pmcenter_update.zip)", "BOT");
                     Log($"From address: {Latest.UpdateCollection[CurrentLocalizedIndex].UpdateArchiveAddress}", "BOT");
-                    using (var Downloader = new WebClient())
+                    await DownloadFileAsync(
+                        new Uri(Latest.UpdateCollection[CurrentLocalizedIndex].UpdateArchiveAddress),
+                        Path.Combine(Vars.AppDirectory, "pmcenter_update.zip")
+                    ).ConfigureAwait(false);
+                    Log("Download complete. Extracting...", "BOT");
+                    using (ZipArchive Zip = ZipFile.OpenRead(Path.Combine(Vars.AppDirectory, "pmcenter_update.zip")))
                     {
-                        await Downloader.DownloadFileTaskAsync(
-                            new Uri(Latest.UpdateCollection[CurrentLocalizedIndex].UpdateArchiveAddress),
-                            Path.Combine(Vars.AppDirectory, "pmcenter_update.zip")).ConfigureAwait(false);
-                        Log("Download complete. Extracting...", "BOT");
-                        using (ZipArchive Zip = ZipFile.OpenRead(Path.Combine(Vars.AppDirectory, "pmcenter_update.zip")))
+                        foreach (ZipArchiveEntry Entry in Zip.Entries)
                         {
-                            foreach (ZipArchiveEntry Entry in Zip.Entries)
-                            {
-                                Log($"Extracting: {Path.Combine(Vars.AppDirectory, Entry.FullName)}", "BOT");
-                                Entry.ExtractToFile(Path.Combine(Vars.AppDirectory, Entry.FullName), true);
-                            }
+                            Log($"Extracting: {Path.Combine(Vars.AppDirectory, Entry.FullName)}", "BOT");
+                            Entry.ExtractToFile(Path.Combine(Vars.AppDirectory, Entry.FullName), true);
                         }
-                        if (Vars.CurrentConf.AutoLangUpdate)
-                        {
-                            Log("Starting automatic language file update...", "BOT");
-                            await Downloader.DownloadFileTaskAsync(
-                                new Uri(Vars.CurrentConf.LangURL),
-                                Path.Combine(Vars.AppDirectory, "pmcenter_locale.json")
-                            ).ConfigureAwait(false);
-                        }
+                    }
+                    if (Vars.CurrentConf.AutoLangUpdate)
+                    {
+                        Log("Starting automatic language file update...", "BOT");
+                        await DownloadFileAsync(
+                            new Uri(Vars.CurrentConf.LangURL),
+                            Path.Combine(Vars.AppDirectory, "pmcenter_locale.json")
+                        ).ConfigureAwait(false);
                     }
                     Log("Cleaning up temporary files...", "BOT");
                     System.IO.File.Delete(Path.Combine(Vars.AppDirectory, "pmcenter_update.zip"));
