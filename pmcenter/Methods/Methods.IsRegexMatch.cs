@@ -5,11 +5,11 @@ namespace pmcenter
 {
     public partial class Methods
     {
-        public static bool IsRegexMatch(string Source, string Expression)
+        public static bool IsRegexMatch(string source, string expression)
         {
             try
             {
-                if (Regex.IsMatch(Source, Expression, RegexOptions.None))
+                if (Regex.IsMatch(source, expression, RegexOptions.None))
                 {
                     return true;
                 }

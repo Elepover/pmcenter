@@ -31,7 +31,7 @@ namespace pmcenter.Commands
             var LangURL = update.Message.Text.Split(" ")[1];
             Vars.CurrentConf.LangURL = LangURL;
             // save conf
-            _ = await Conf.SaveConf(IsAutoSave: true);
+            _ = await Conf.SaveConf(isAutoSave: true);
             await DownloadFileAsync(
                 new Uri(LangURL),
                 Path.Combine(Vars.AppDirectory, "pmcenter_locale.json")

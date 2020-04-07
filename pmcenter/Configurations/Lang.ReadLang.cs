@@ -6,11 +6,11 @@ namespace pmcenter
 {
     public partial class Lang
     {
-        public static async Task<bool> ReadLang(bool Apply = true)
+        public static async Task<bool> ReadLang(bool apply = true)
         { // DO NOT HANDLE ERRORS HERE. THE CALLING METHOD WILL HANDLE THEM.
             var SettingsText = await File.ReadAllTextAsync(Vars.LangFile).ConfigureAwait(false);
             var Temp = JsonConvert.DeserializeObject<Language>(SettingsText);
-            if (Apply) { Vars.CurrentLang = Temp; }
+            if (apply) { Vars.CurrentLang = Temp; }
             return true;
         }
     }
