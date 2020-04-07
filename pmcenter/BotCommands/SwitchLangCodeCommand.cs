@@ -42,7 +42,7 @@ namespace pmcenter.Commands
                         // update configurations
                         Vars.CurrentConf.LangURL = Mirror.LocaleFileURL.Replace("$channel", Vars.CompileChannel);
                         // start downloading
-                        _ = await Conf.SaveConf(IsAutoSave: true).ConfigureAwait(false);
+                        _ = await Conf.SaveConf(isAutoSave: true).ConfigureAwait(false);
                         await DownloadFileAsync(
                             new Uri(Vars.CurrentConf.LangURL),
                             Path.Combine(
