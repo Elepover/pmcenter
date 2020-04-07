@@ -35,8 +35,8 @@ namespace pmcenter
             Output += $"[{module}{(Vars.CurrentConf?.AdvancedLogging == true ? file : "")}]";
             Output += LogTable[type].Prefix;
             Output += text;
-            Console.ForegroundColor = LogTable[type].Color;
             Console.BackgroundColor = ConsoleColor.Black;
+            Console.ForegroundColor = LogTable[type].Color;
             LogTable[type].Func(Output);
             Console.ForegroundColor = ConsoleColor.White;
         }
