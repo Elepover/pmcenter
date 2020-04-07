@@ -6,7 +6,7 @@ using static pmcenter.Methods.H2Helper;
 
 namespace pmcenter
 {
-    public static partial class Methods
+    public partial class Methods
     {
         public static partial class UpdateHelper
         {
