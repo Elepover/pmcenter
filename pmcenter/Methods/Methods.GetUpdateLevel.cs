@@ -1,4 +1,4 @@
-using static pmcenter.Conf;
+using static pmcenter.Methods.UpdateHelper;
 
 namespace pmcenter
 {

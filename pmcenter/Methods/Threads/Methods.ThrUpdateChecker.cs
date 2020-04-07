@@ -1,7 +1,7 @@
 using System;
 using System.Threading;
 using Telegram.Bot.Types.Enums;
-using static pmcenter.Conf;
+using static pmcenter.Methods.UpdateHelper;
 
 namespace pmcenter
 {
@@ -15,11 +15,11 @@ namespace pmcenter
                 Vars.UpdateCheckerStatus = ThreadStatus.Working;
                 try
                 {
-                    var Latest = await Conf.CheckForUpdatesAsync().ConfigureAwait(false);
+                    var Latest = await CheckForUpdatesAsync().ConfigureAwait(false);
                     var CurrentLocalizedIndex = GetUpdateInfoIndexByLocale(Latest, Vars.CurrentLang.LangCode);
                     var DisNotif = Vars.CurrentConf.DisableNotifications;
                     // Identical with BotProcess.cs, L206.
-                    if (Conf.IsNewerVersionAvailable(Latest))
+                    if (IsNewerVersionAvailable(Latest))
                     {
                         Vars.UpdatePending = true;
                         Vars.UpdateVersion = new Version(Latest.Latest);
@@ -43,7 +43,7 @@ namespace pmcenter
                 }
                 catch (Exception ex)
                 {
-                    Log($"Error during update check: {ex.ToString()}", "UPDATER", LogLevel.ERROR);
+                    Log($"Error during update check: {ex}", "UPDATER", LogLevel.ERROR);
                 }
                 Vars.UpdateCheckerStatus = ThreadStatus.Standby;
                 try { Thread.Sleep(60000); } catch { }

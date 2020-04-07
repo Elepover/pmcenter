@@ -50,7 +50,7 @@ namespace pmcenter
         public static int CtrlCCounter = 0;
         public static bool IsShuttingDown = false;
         public static bool ServiceMode = true;
-        public static Conf.UpdateLevel UpdateLevel;
+        public static Methods.UpdateHelper.UpdateLevel UpdateLevel;
         public static Version UpdateVersion;
         public static Stopwatch StartSW = new Stopwatch();
         public static List<Conf.RateData> RateLimits = new List<Conf.RateData>();

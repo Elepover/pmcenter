@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Telegram.Bot;
-using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
+using static pmcenter.Methods.UpdateHelper;
 
 namespace pmcenter.Commands
 {
@@ -12,21 +12,21 @@ namespace pmcenter.Commands
 
         public string Prefix => "chkupdate";
 
-        public async Task<bool> ExecuteAsync(TelegramBotClient botClient, Update update)
+        public async Task<bool> ExecuteAsync(TelegramBotClient botClient, Telegram.Bot.Types.Update update)
         {
             try
             {
-                var Latest = await Conf.CheckForUpdatesAsync().ConfigureAwait(false);
-                var CurrentLocalizedIndex = Conf.GetUpdateInfoIndexByLocale(Latest, Vars.CurrentLang.LangCode);
-                if (Conf.IsNewerVersionAvailable(Latest))
+                var latest = await CheckForUpdatesAsync().ConfigureAwait(false);
+                var CurrentLocalizedIndex = GetUpdateInfoIndexByLocale(latest, Vars.CurrentLang.LangCode);
+                if (IsNewerVersionAvailable(latest))
                 {
                     Vars.UpdatePending = true;
-                    Vars.UpdateVersion = new Version(Latest.Latest);
-                    Vars.UpdateLevel = Latest.UpdateLevel;
+                    Vars.UpdateVersion = new Version(latest.Latest);
+                    Vars.UpdateLevel = latest.UpdateLevel;
                     var UpdateString = Vars.CurrentLang.Message_UpdateAvailable
-                        .Replace("$1", Latest.Latest)
-                        .Replace("$2", Latest.UpdateCollection[CurrentLocalizedIndex].Details)
-                        .Replace("$3", Methods.GetUpdateLevel(Latest.UpdateLevel));
+                        .Replace("$1", latest.Latest)
+                        .Replace("$2", latest.UpdateCollection[CurrentLocalizedIndex].Details)
+                        .Replace("$3", Methods.GetUpdateLevel(latest.UpdateLevel));
                     _ = await botClient.SendTextMessageAsync(
                         update.Message.From.Id,
                         UpdateString,
@@ -41,9 +41,9 @@ namespace pmcenter.Commands
                     _ = await botClient.SendTextMessageAsync(
                         update.Message.From.Id,
                         Vars.CurrentLang.Message_AlreadyUpToDate
-                            .Replace("$1", Latest.Latest)
+                            .Replace("$1", latest.Latest)
                             .Replace("$2", Vars.AppVer.ToString())
-                            .Replace("$3", Latest.UpdateCollection[CurrentLocalizedIndex].Details),
+                            .Replace("$3", latest.UpdateCollection[CurrentLocalizedIndex].Details),
                         ParseMode.Markdown,
                         false,
                         Vars.CurrentConf.DisableNotifications,

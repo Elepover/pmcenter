@@ -9,10 +9,8 @@ namespace pmcenter
         {
             public static async Task<string> GetStringAsync(Uri uri)
             {
-                using (var content = await GetHttpContentAsync(uri).ConfigureAwait(false))
-                {
-                    return await content.ReadAsStringAsync().ConfigureAwait(false);
-                }
+                using var content = await GetHttpContentAsync(uri).ConfigureAwait(false);
+                return await content.ReadAsStringAsync().ConfigureAwait(false);
             }
         }
     }
