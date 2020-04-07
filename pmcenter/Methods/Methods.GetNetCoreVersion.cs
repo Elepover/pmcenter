@@ -37,7 +37,7 @@ namespace pmcenter
             }
             catch (Exception ex)
             {
-                Log($"pmcenter is unable to detect your .NET Core installation: {ex.Message}, you need to have .NET Core 3.1 (runtime) installed in order to run pmcenter v2 or up.", Type: LogLevel.WARN);
+                Log($"pmcenter is unable to detect your .NET Core installation: {ex.Message}, you need to have .NET Core 3.1 (runtime) installed in order to run pmcenter v2 or up.", LogLevel.WARN);
                 return new Version("0.0.0.0");
             }
         }

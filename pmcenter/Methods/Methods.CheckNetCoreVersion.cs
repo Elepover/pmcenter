@@ -8,9 +8,9 @@ namespace pmcenter
         {
             if (version.Major != 3 || version.Minor != 1)
             {
-                Log("pmcenter v2 or up wouldn't run on devices without .NET Core 3.1 (runtime) installed.", Type: LogLevel.WARN);
-                Log($"pmcenter has detected that the latest version installed on your device is .NET Core runtime {version.ToString()}.", Type: LogLevel.WARN);
-                Log("Consider updating your .NET Core runtime in order to run pmcenter v2 and receive further updates.", Type: LogLevel.WARN);
+                Log("pmcenter v2 or up wouldn't run on devices without .NET Core 3.1 (runtime) installed.", LogLevel.WARN);
+                Log($"pmcenter has detected that the latest version installed on your device is .NET Core runtime {version.ToString()}.", LogLevel.WARN);
+                Log("Consider updating your .NET Core runtime in order to run pmcenter v2 and receive further updates.", LogLevel.WARN);
                 return false;
             }
             return true;
