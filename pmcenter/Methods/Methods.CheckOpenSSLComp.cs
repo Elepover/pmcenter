@@ -1,13 +1,15 @@
 using System;
 using System.Net.Http;
 using System.Security.Authentication;
+using static pmcenter.Methods.Logging;
 
 namespace pmcenter
 {
-    public partial class Methods
+    public sealed partial class Methods
     {
         public static void CheckOpenSSLComp(Exception ex)
         {
+            if (ex == null) return;
             try
             {
                 if (ex.GetType() == typeof(HttpRequestException))

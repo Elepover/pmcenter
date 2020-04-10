@@ -8,8 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
-using static pmcenter.Methods;
+using static pmcenter.Methods.Logging;
 
 namespace pmcenter
 {
@@ -58,7 +57,7 @@ namespace pmcenter
                     }
                     catch (Exception ex)
                     {
-                        Log($"Exception while executing commandline: {ex.ToString()}", "CMD", LogLevel.ERROR);
+                        Log($"Exception while executing commandline: {ex}", "CMD", LogLevel.ERROR);
                         Environment.Exit(1);
                     }
                     Log("Command finished.", "CMD");

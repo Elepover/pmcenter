@@ -1,6 +1,6 @@
 namespace pmcenter
 {
-    public partial class Conf
+    public sealed partial class Conf
     {
         /// <summary>
         /// Switch 'blocking' status, returning current status.

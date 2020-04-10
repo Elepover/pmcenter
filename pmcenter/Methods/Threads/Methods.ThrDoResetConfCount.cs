@@ -2,7 +2,7 @@ using System.Threading;
 
 namespace pmcenter
 {
-    public partial class Methods
+    public sealed partial class Methods
     {
         public static void ThrDoResetConfCount()
         {

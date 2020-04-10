@@ -16,6 +16,7 @@ using static pmcenter.Conf;
 using static pmcenter.EventHandlers;
 using static pmcenter.Lang;
 using static pmcenter.Methods;
+using static pmcenter.Methods.Logging;
 
 namespace pmcenter
 {
@@ -26,7 +27,7 @@ namespace pmcenter
             Vars.StartSW.Start();
             Console.WriteLine(Vars.ASCII);
             Log("Main delegator activated!", "DELEGATOR");
-            Log($"Starting pmcenter, version {Vars.AppVer.ToString()}. Channel: \"{Vars.CompileChannel}\"", "DELEGATOR");
+            Log($"Starting pmcenter, version {Vars.AppVer}. Channel: \"{Vars.CompileChannel}\"", "DELEGATOR");
             var MainAsyncTask = MainAsync(args);
             MainAsyncTask.Wait();
             Log("Main worker accidentally exited. Stopping...", "DELEGATOR", LogLevel.ERROR);
@@ -76,7 +77,7 @@ namespace pmcenter
                 }
                 catch (Exception ex)
                 {
-                    Log($"Failed to read environment variables: {ex.ToString()}", "CORE", LogLevel.WARN);
+                    Log($"Failed to read environment variables: {ex}", "CORE", LogLevel.WARN);
                 }
                 
                 Log($"==> Using configurations file: {Vars.ConfFile}");
@@ -184,7 +185,7 @@ namespace pmcenter
                 }
                 catch (Exception ex)
                 {
-                    Log($"Failed to send startup message to owner.\nDid you set the \"OwnerID\" key correctly? Otherwise pmcenter could not work properly.\nYou can try to use setup wizard to update/get your OwnerID automatically, just run \"dotnet pmcenter.dll --setup\".\n\nError details: {ex.ToString()}", "BOT", LogLevel.WARN);
+                    Log($"Failed to send startup message to owner.\nDid you set the \"OwnerID\" key correctly? Otherwise pmcenter could not work properly.\nYou can try to use setup wizard to update/get your OwnerID automatically, just run \"dotnet pmcenter.dll --setup\".\n\nError details: {ex}", "BOT", LogLevel.WARN);
                 }
                 try
                 {
@@ -235,7 +236,7 @@ namespace pmcenter
             catch (Exception ex)
             {
                 CheckOpenSSLComp(ex);
-                Log($"Unexpected error during startup: {ex.ToString()}", "CORE", LogLevel.ERROR);
+                Log($"Unexpected error during startup: {ex}", "CORE", LogLevel.ERROR);
                 Environment.Exit(1);
             }
         }

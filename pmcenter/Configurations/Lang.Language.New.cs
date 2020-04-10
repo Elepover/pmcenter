@@ -1,8 +1,8 @@
 namespace pmcenter
 {
-    public partial class Lang
+    public sealed partial class Lang
     {
-        public partial class Language
+        public sealed partial class Language
         {
             public Language()
             {

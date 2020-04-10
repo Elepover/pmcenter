@@ -26,9 +26,11 @@ namespace pmcenter.Commands
                     update.Message.MessageId).ConfigureAwait(false);
                 var OwnerID = Vars.CurrentConf.OwnerUID;
                 var APIKey = Vars.CurrentConf.APIKey;
-                Vars.CurrentConf = new Conf.ConfObj();
-                Vars.CurrentConf.OwnerUID = OwnerID;
-                Vars.CurrentConf.APIKey = APIKey;
+                Vars.CurrentConf = new Conf.ConfObj
+                {
+                    OwnerUID = OwnerID,
+                    APIKey = APIKey
+                };
                 _ = await Conf.SaveConf(false, true).ConfigureAwait(false);
                 Vars.CurrentLang = new Lang.Language();
                 _ = await Lang.SaveLang().ConfigureAwait(false);

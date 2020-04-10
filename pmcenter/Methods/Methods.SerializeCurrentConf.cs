@@ -2,7 +2,7 @@ using Newtonsoft.Json;
 
 namespace pmcenter
 {
-    public partial class Methods
+    public sealed partial class Methods
     {
         public static string SerializeCurrentConf()
         {

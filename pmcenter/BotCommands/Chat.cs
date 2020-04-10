@@ -4,6 +4,7 @@ using Telegram.Bot;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
 using static pmcenter.Methods;
+using static pmcenter.Methods.Logging;
 
 namespace pmcenter.Commands
 {
@@ -63,7 +64,7 @@ namespace pmcenter.Commands
             }
             catch (Exception ex)
             {
-                Log($"Failed to enable Continued Conversation: {ex.ToString()}", "BOT", LogLevel.ERROR);
+                Log($"Failed to enable Continued Conversation: {ex}", "BOT", LogLevel.ERROR);
                 _ = await botClient.SendTextMessageAsync(update.Message.From.Id,
                     Vars.CurrentLang.Message_GeneralFailure.Replace("$1", ex.ToString()),
                     ParseMode.Default,

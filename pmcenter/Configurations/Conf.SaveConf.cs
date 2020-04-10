@@ -1,11 +1,10 @@
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
-using static pmcenter.Methods;
+using static pmcenter.Methods.Logging;
 
 namespace pmcenter
 {
-    public partial class Conf
+    public sealed partial class Conf
     {
         public static async Task<bool> SaveConf(bool isInvalid = false, bool isAutoSave = false)
         { // DO NOT HANDLE ERRORS HERE.

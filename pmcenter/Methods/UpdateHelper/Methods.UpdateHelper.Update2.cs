@@ -2,9 +2,9 @@ using System.Collections.Generic;
 
 namespace pmcenter
 {
-    public partial class Methods
+    public sealed partial class Methods
     {
-        public partial class UpdateHelper
+        public sealed partial class UpdateHelper
         {
             public class Update2
             {

@@ -1,6 +1,6 @@
 namespace pmcenter
 {
-    public partial class Methods
+    public sealed partial class Methods
     {
         public static bool FlipBool(bool Input)
         {

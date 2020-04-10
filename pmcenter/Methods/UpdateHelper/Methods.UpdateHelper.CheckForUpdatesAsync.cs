@@ -5,9 +5,9 @@ using static pmcenter.Methods.H2Helper;
 
 namespace pmcenter
 {
-    public partial class Methods
+    public sealed partial class Methods
     {
-        public static partial class UpdateHelper
+        public sealed partial class UpdateHelper
         {
             public static async Task<Update2> CheckForUpdatesAsync()
             {

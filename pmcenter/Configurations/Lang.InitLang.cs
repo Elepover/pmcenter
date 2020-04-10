@@ -2,10 +2,11 @@ using System;
 using System.IO;
 using System.Threading.Tasks;
 using static pmcenter.Methods;
+using static pmcenter.Methods.Logging;
 
 namespace pmcenter
 {
-    public partial class Lang
+    public sealed partial class Lang
     {
         public static async Task InitLang()
         {
@@ -24,7 +25,7 @@ namespace pmcenter
                 }
                 catch (Exception ex)
                 {
-                    Log($"Error! {ex.ToString()}", "LANG", LogLevel.ERROR);
+                    Log($"Error! {ex}", "LANG", LogLevel.ERROR);
                     Log("Moving old language file to \"pmcenter_locale.json.bak\"...", "LANG", LogLevel.WARN);
                     File.Move(Vars.LangFile, Vars.LangFile + ".bak");
                     Vars.CurrentLang = new Language();

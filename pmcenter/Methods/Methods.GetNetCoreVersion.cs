@@ -1,10 +1,10 @@
 using System;
 using System.Diagnostics;
-using System.Text;
+using static pmcenter.Methods.Logging;
 
 namespace pmcenter
 {
-    public partial class Methods
+    public sealed partial class Methods
     {
         public static Version GetNetCoreVersion()
         {

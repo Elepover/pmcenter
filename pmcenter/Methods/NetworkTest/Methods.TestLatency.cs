@@ -2,10 +2,11 @@ using System;
 using System.Diagnostics;
 using System.Net;
 using System.Threading.Tasks;
+using static pmcenter.Methods.Logging;
 
 namespace pmcenter
 {
-    public partial class Methods
+    public sealed partial class Methods
     {
         public static async Task<TimeSpan> TestLatency(string target)
         {

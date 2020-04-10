@@ -3,12 +3,13 @@ using System.IO;
 using System.IO.Compression;
 using System.Threading.Tasks;
 using static pmcenter.Methods.H2Helper;
+using static pmcenter.Methods.Logging;
 
 namespace pmcenter
 {
-    public partial class Methods
+    public sealed partial class Methods
     {
-        public static partial class UpdateHelper
+        public sealed partial class UpdateHelper
         {
             /// <summary>
             /// Download update to filesystem and extract.
@@ -20,7 +21,9 @@ namespace pmcenter
             public static async Task DownloadUpdatesAsync(Update2 latestUpdate, int localizationIndex = 0)
             {
                 Log("Starting update download... (pmcenter_update.zip)");
+#pragma warning disable CA1062 // Validate arguments of public methods
                 Log($"From address: {latestUpdate.UpdateCollection[localizationIndex].UpdateArchiveAddress}");
+#pragma warning restore CA1062
                 await DownloadFileAsync(
                     new Uri(latestUpdate.UpdateCollection[localizationIndex].UpdateArchiveAddress),
                     Path.Combine(Vars.AppDirectory, "pmcenter_update.zip")

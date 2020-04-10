@@ -1,10 +1,11 @@
 using System;
 using System.Diagnostics;
 using System.Threading;
+using static pmcenter.Methods.Logging;
 
 namespace pmcenter
 {
-    public partial class Methods
+    public sealed partial class Methods
     {
         public static void ExitApp(int code)
         {

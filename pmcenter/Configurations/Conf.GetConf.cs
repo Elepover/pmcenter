@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace pmcenter
 {
-    public partial class Conf
+    public sealed partial class Conf
     {
         public static async Task<ConfObj> GetConf(string Filename)
         {

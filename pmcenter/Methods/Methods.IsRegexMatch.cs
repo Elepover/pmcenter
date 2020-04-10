@@ -1,9 +1,10 @@
 using System;
 using System.Text.RegularExpressions;
+using static pmcenter.Methods.Logging;
 
 namespace pmcenter
 {
-    public partial class Methods
+    public sealed partial class Methods
     {
         public static bool IsRegexMatch(string source, string expression)
         {

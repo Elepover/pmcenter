@@ -1,11 +1,11 @@
 using System.IO;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
-using static pmcenter.Methods;
+using static pmcenter.Methods.Logging;
 
 namespace pmcenter
 {
-    public partial class Lang
+    public sealed partial class Lang
     {
         public static async Task<bool> SaveLang(bool isInvalid = false)
         { // DO NOT HANDLE ERRORS HERE.

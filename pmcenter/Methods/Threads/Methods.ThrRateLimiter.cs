@@ -1,9 +1,10 @@
 using System.Threading;
 using static pmcenter.Conf;
+using static pmcenter.Methods.Logging;
 
 namespace pmcenter
 {
-    public partial class Methods
+    public sealed partial class Methods
     {
         public static async void ThrRateLimiter()
         {

@@ -3,9 +3,9 @@ using System.Threading.Tasks;
 
 namespace pmcenter
 {
-    public partial class Methods
+    public sealed partial class Methods
     {
-        public partial class H2Helper
+        public sealed partial class H2Helper
         {
             public static async Task<byte[]> GetBytesAsync(Uri uri)
             {

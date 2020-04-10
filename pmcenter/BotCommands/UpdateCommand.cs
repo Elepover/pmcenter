@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Telegram.Bot;
 using Telegram.Bot.Types.Enums;
 using static pmcenter.Methods;
+using static pmcenter.Methods.Logging;
 using static pmcenter.Methods.UpdateHelper;
 
 namespace pmcenter.Commands

@@ -14,9 +14,9 @@ using Telegram.Bot.Types.Enums;
 
 namespace pmcenter
 {
-    public class Setup
+    public sealed class Setup
     {
-        private static Conf.ConfObj NewConf = new Conf.ConfObj();
+        private static readonly Conf.ConfObj NewConf = new Conf.ConfObj();
         private static TelegramBotClient TestBot;
         private static bool IsUIDReceived = false;
         private static long ReceivedUID = -1;
@@ -46,7 +46,7 @@ namespace pmcenter
         {
             Say(":) Welcome!");
             Say("   This is the pmcenter setup wizard.");
-            Say($"   App version: {Vars.AppVer.ToString()}");
+            Say($"   App version: {Vars.AppVer}");
             Say("   Here to guide you through some *important* configurations of pmcenter.");
             SIn("=> Continue? [y/N]: ");
             if (Console.ReadLine().ToLower() != "y")

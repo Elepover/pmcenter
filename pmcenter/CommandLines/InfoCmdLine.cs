@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
-
 using static pmcenter.Methods;
+using static pmcenter.Methods.Logging;
 
 namespace pmcenter.CommandLines
 {
@@ -17,9 +17,9 @@ namespace pmcenter.CommandLines
             var IsGitHubAccessible = await TestConnectivity("https://raw.githubusercontent.com/", true).ConfigureAwait(false);
             var IsCIAvailable = await TestConnectivity("https://ci.appveyor.com/", true).ConfigureAwait(false);
             Log("Application information", "CMD");
-            Log($"CLR version: {Environment.Version.ToString()}", "CMD");
+            Log($"CLR version: {Environment.Version}", "CMD");
             Log($"Framework description: {RuntimeInformation.FrameworkDescription}", "CMD");
-            Log($"Application version: {Vars.AppVer.ToString()}", "CMD");
+            Log($"Application version: {Vars.AppVer}", "CMD");
             Log($"Configurations filename: {Vars.ConfFile}", "CMD");
             Log($"Language filename: {Vars.LangFile}", "CMD");
             Log($"Is Telegram API accessible? {(IsTelegramAPIAccessible ? "yes" : "no")}", "CMD");

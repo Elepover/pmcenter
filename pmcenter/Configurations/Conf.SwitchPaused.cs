@@ -1,6 +1,6 @@
 namespace pmcenter
 {
-    public partial class Conf
+    public sealed partial class Conf
     {
         /// <summary>
         /// Switch 'forwarding' status, returning current status.

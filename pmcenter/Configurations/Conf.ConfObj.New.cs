@@ -2,9 +2,9 @@ using System.Collections.Generic;
 
 namespace pmcenter
 {
-    public partial class Conf
+    public sealed partial class Conf
     {
-        public partial class ConfObj
+        public sealed partial class ConfObj
         {
             public ConfObj()
             {

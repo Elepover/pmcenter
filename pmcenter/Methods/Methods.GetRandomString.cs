@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace pmcenter
 {
-    public partial class Methods
+    public sealed partial class Methods
     {
         public static string GetRandomString(int length = 8)
         {

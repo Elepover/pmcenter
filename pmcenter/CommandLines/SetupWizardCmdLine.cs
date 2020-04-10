@@ -1,8 +1,5 @@
-﻿using System;
-using System.Runtime.InteropServices;
-using System.Threading.Tasks;
-
-using static pmcenter.Methods;
+﻿using System.Threading.Tasks;
+using static pmcenter.Methods.Logging;
 
 namespace pmcenter.CommandLines
 {

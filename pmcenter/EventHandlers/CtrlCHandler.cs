@@ -1,9 +1,10 @@
 ﻿using System;
 using static pmcenter.Methods;
+using static pmcenter.Methods.Logging;
 
 namespace pmcenter
 {
-    public partial class EventHandlers
+    public sealed partial class EventHandlers
     {
         public static void CtrlCHandler(object sender, ConsoleCancelEventArgs e)
         {
@@ -17,7 +18,7 @@ namespace pmcenter
             if (Vars.CurrentConf.IgnoreKeyboardInterrupt)
             {
                 Log("Keyboard interrupt is currently being ignored. To change this behavior, set \"IgnoreKeyboardInterrupt\" key to \"false\" in pmcenter configurations.", LogLevel.WARN);
-                e.Cancel = true;
+                if (e != null) e.Cancel = true;
                 return;
             }
             Vars.IsCtrlCHandled = true;

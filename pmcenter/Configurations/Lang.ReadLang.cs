@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 
 namespace pmcenter
 {
-    public partial class Lang
+    public sealed partial class Lang
     {
         public static async Task<bool> ReadLang(bool apply = true)
         { // DO NOT HANDLE ERRORS HERE. THE CALLING METHOD WILL HANDLE THEM.

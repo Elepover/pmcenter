@@ -4,6 +4,7 @@ using Telegram.Bot;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
 using static pmcenter.Methods;
+using static pmcenter.Methods.Logging;
 
 namespace pmcenter.Commands
 {

@@ -1,10 +1,11 @@
 using System;
 using System.Net;
 using System.Threading.Tasks;
+using static pmcenter.Methods.Logging;
 
 namespace pmcenter
 {
-    public partial class Methods
+    public sealed partial class Methods
     {
         public static async Task<bool> TestConnectivity(string target, bool ignore45 = false)
         {

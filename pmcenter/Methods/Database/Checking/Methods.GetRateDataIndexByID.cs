@@ -2,7 +2,7 @@ using static pmcenter.Conf;
 
 namespace pmcenter
 {
-    public partial class Methods
+    public sealed partial class Methods
     {
         public static int GetRateDataIndexByID(long UID)
         {

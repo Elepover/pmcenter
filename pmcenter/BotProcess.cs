@@ -11,6 +11,7 @@ using Telegram.Bot.Args;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
 using static pmcenter.Methods;
+using static pmcenter.Methods.Logging;
 
 namespace pmcenter
 {
@@ -64,7 +65,7 @@ namespace pmcenter
                 if (e == null) return;
                 if (Vars.CurrentConf.DetailedMsgLogging)
                 {
-                    Log($"OnUpdate() triggered: UpdType: {e.Update.Type.ToString()} UpdID: {e.Update.Id} ChatId: {e.Update.Message.Chat.Id} Username: {e.Update.Message.Chat.Username} FromID: {e.Update.Message.From.Id} FromUsername: {e.Update.Message.From.Username}", "BOT-DETAILED", LogLevel.INFO);
+                    Log($"OnUpdate() triggered: UpdType: {e.Update.Type} UpdID: {e.Update.Id} ChatId: {e.Update.Message.Chat.Id} Username: {e.Update.Message.Chat.Username} FromID: {e.Update.Message.From.Id} FromUsername: {e.Update.Message.From.Username}", "BOT-DETAILED", LogLevel.INFO);
                 }
                 var update = e.Update;
                 if (update.Type != UpdateType.Message) return;
@@ -89,7 +90,7 @@ namespace pmcenter
             }
             catch (Exception ex)
             {
-                Log($"General error while processing incoming update: {ex.ToString()}", "BOT", LogLevel.ERROR);
+                Log($"General error while processing incoming update: {ex}", "BOT", LogLevel.ERROR);
                 if (Vars.CurrentConf.CatchAllExceptions)
                 {
                     try
@@ -102,7 +103,7 @@ namespace pmcenter
                     }
                     catch (Exception iEx)
                     {
-                        Log($"Failed to catch exception to owner: {iEx.ToString()}", "BOT", LogLevel.ERROR);
+                        Log($"Failed to catch exception to owner: {iEx}", "BOT", LogLevel.ERROR);
                     }
                 }
             }

@@ -1,11 +1,12 @@
 using System;
 using System.Threading;
 using Telegram.Bot.Types.Enums;
+using static pmcenter.Methods.Logging;
 using static pmcenter.Methods.UpdateHelper;
 
 namespace pmcenter
 {
-    public partial class Methods
+    public sealed partial class Methods
     {
         public static async void ThrUpdateChecker()
         {
