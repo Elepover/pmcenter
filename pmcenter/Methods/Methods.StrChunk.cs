@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace pmcenter
 {
-    public sealed partial class Methods
+    public static partial class Methods
     {
         public static List<string> StrChunk(string str, int chunkSize)
         {

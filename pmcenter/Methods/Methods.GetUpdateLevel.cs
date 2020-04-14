@@ -2,7 +2,7 @@ using static pmcenter.Methods.UpdateHelper;
 
 namespace pmcenter
 {
-    public sealed partial class Methods
+    public static partial class Methods
     {
         public static string GetUpdateLevel(UpdateLevel Level)
         {

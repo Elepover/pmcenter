@@ -4,7 +4,7 @@ using static pmcenter.Methods.Logging;
 
 namespace pmcenter
 {
-    public sealed partial class Methods
+    public static partial class Methods
     {
         public static bool IsRegexMatch(string source, string expression)
         {

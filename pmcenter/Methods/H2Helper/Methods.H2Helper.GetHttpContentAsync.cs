@@ -4,9 +4,9 @@ using System.Threading.Tasks;
 
 namespace pmcenter
 {
-    public sealed partial class Methods
+    public static partial class Methods
     {
-        public sealed partial class H2Helper
+        public static partial class H2Helper
         {
             private static async Task<HttpContent> GetHttpContentAsync(Uri uri)
             {

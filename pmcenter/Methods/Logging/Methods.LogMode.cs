@@ -2,9 +2,9 @@
 
 namespace pmcenter
 {
-    public sealed partial class Methods
+    public static partial class Methods
     {
-        public sealed partial class Logging
+        public static partial class Logging
         {
             public class LogMode
             {

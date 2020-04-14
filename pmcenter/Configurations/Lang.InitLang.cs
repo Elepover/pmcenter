@@ -1,12 +1,11 @@
 using System;
 using System.IO;
 using System.Threading.Tasks;
-using static pmcenter.Methods;
 using static pmcenter.Methods.Logging;
 
 namespace pmcenter
 {
-    public sealed partial class Lang
+    public static partial class Lang
     {
         public static async Task InitLang()
         {

@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace pmcenter
 {
-    public sealed partial class Conf
+    public static partial class Conf
     {
         public sealed partial class ConfObj
         {
@@ -39,6 +39,7 @@ namespace pmcenter
             public string UpdateChannel { get; set; }
             public bool IgnoreKeyboardInterrupt { get; set; }
             public bool DisableNetCore3Check { get; set; }
+            public bool EnableActions { get; set; }
             public Stats Statistics { get; set; }
             public List<Socks5Proxy> Socks5Proxies { get; set; }
             public List<string> BannedKeywords { get; set; }

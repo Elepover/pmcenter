@@ -4,7 +4,7 @@ using static pmcenter.Methods.Logging;
 
 namespace pmcenter
 {
-    public sealed partial class EventHandlers
+    public static partial class EventHandlers
     {
         public static void CtrlCHandler(object sender, ConsoleCancelEventArgs e)
         {

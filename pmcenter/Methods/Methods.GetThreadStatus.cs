@@ -2,7 +2,7 @@ using System.Threading;
 
 namespace pmcenter
 {
-    public sealed partial class Methods
+    public static partial class Methods
     {
         public static ThreadStatus GetThreadStatus(Thread Thread)
         {

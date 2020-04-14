@@ -5,9 +5,9 @@ using System.Runtime.CompilerServices;
 
 namespace pmcenter
 {
-    public sealed partial class Methods
+    public static partial class Methods
     {
-        public sealed partial class Logging
+        public static partial class Logging
         {
             public static void Log(string text, LogLevel type)
             {

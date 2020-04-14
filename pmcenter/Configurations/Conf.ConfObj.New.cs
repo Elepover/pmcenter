@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace pmcenter
 {
-    public sealed partial class Conf
+    public static partial class Conf
     {
         public sealed partial class ConfObj
         {
@@ -41,6 +41,7 @@ namespace pmcenter
                 UpdateChannel = "master";
                 IgnoreKeyboardInterrupt = false;
                 DisableNetCore3Check = false;
+                EnableActions = false;
                 Statistics = new Stats();
                 Socks5Proxies = new List<Socks5Proxy>();
                 BannedKeywords = new List<string>();

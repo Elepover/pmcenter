@@ -6,7 +6,7 @@ using static pmcenter.Methods;
 
 namespace pmcenter
 {
-    public sealed partial class EventHandlers
+    public static partial class EventHandlers
     {
         public static void GlobalErrorHandler(object sender, UnhandledExceptionEventArgs e)
         {

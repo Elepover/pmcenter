@@ -3,7 +3,7 @@ using static pmcenter.Methods.Logging;
 
 namespace pmcenter
 {
-    public sealed partial class Methods
+    public static partial class Methods
     {
         public static bool CheckNetCoreVersion(Version version)
         {

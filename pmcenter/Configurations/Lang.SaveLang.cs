@@ -5,7 +5,7 @@ using static pmcenter.Methods.Logging;
 
 namespace pmcenter
 {
-    public sealed partial class Lang
+    public static partial class Lang
     {
         public static async Task<bool> SaveLang(bool isInvalid = false)
         { // DO NOT HANDLE ERRORS HERE.

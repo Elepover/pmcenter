@@ -14,7 +14,7 @@ using Telegram.Bot.Types.Enums;
 
 namespace pmcenter
 {
-    public sealed class Setup
+    public static class Setup
     {
         private static readonly Conf.ConfObj NewConf = new Conf.ConfObj();
         private static TelegramBotClient TestBot;

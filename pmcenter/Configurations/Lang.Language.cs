@@ -1,6 +1,6 @@
 namespace pmcenter
 {
-    public sealed partial class Lang
+    public static partial class Lang
     {
         public sealed partial class Language
         {
@@ -76,6 +76,16 @@ namespace pmcenter
             public string Message_MsgLinksCleared { get; set; }
             public string Message_AvailableLang { get; set; }
             public string Message_NetCore31Required { get; set; }
+            public string Message_Action_Banned { get; set; }
+            public string Message_Action_Pardoned { get; set; }
+            public string Message_Action_ContChatEnabled { get; set; }
+            public string Message_Action_ContChatDisabled { get; set; }
+            public string Message_Action_Error { get; set; }
+            public string Message_Action_ChooseAction { get; set; }
+            public string Message_Action_Ban { get; set; }
+            public string Message_Action_Pardon { get; set; }
+            public string Message_Action_Chat { get; set; }
+            public string Message_Action_StopChat { get; set; }
         }
     }
 }

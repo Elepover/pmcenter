@@ -1,6 +1,6 @@
 namespace pmcenter
 {
-    public sealed partial class Methods
+    public static partial class Methods
     {
         public static string GetThreadStatusString(ThreadStatus Status)
         {

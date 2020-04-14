@@ -28,6 +28,8 @@ namespace pmcenter
             Console.WriteLine(Vars.ASCII);
             Log("Main delegator activated!", "DELEGATOR");
             Log($"Starting pmcenter, version {Vars.AppVer}. Channel: \"{Vars.CompileChannel}\"", "DELEGATOR");
+            if (Vars.GitHubReleases)
+                Log("This image of pmcenter is built for GitHub releases. Will use a different updating mechanism.", "DELEGATOR");
             var MainAsyncTask = MainAsync(args);
             MainAsyncTask.Wait();
             Log("Main worker accidentally exited. Stopping...", "DELEGATOR", LogLevel.ERROR);
@@ -47,7 +49,9 @@ namespace pmcenter
                 await CmdLineProcess.RunCommand(Environment.CommandLine).ConfigureAwait(false);
                 // everything (exits and/or errors) are handled above, please do not process.
                 // detect environment variables
-                // including: $pmcenter_conf, $pmcenter_lang
+                // including:
+                // $pmcenter_conf
+                // $pmcenter_lang
                 try
                 {
                     var ConfByEnviVar = Environment.GetEnvironmentVariable("pmcenter_conf");
@@ -168,7 +172,11 @@ namespace pmcenter
                 Log("Hooking event processors...");
                 Vars.Bot.OnUpdate += BotProcess.OnUpdate;
                 Log("Starting receiving...");
-                Vars.Bot.StartReceiving(new[] { UpdateType.Message });
+                Vars.Bot.StartReceiving(new[]
+                {
+                    UpdateType.Message,
+                    UpdateType.CallbackQuery
+                });
                 Log("==> Startup complete!");
                 Log("==> Running post-start operations...");
                 try

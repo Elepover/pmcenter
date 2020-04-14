@@ -46,7 +46,7 @@ namespace pmcenter
         public async Task<bool> Execute(string cmdLine)
         {
             Log("Processing commandlines...", "CMD");
-            foreach (ICmdLine cmdProcess in commands)
+            foreach (var cmdProcess in commands)
             {
                 if (cmdLine.Contains(globalPrefix + cmdProcess.Prefix))
                 {

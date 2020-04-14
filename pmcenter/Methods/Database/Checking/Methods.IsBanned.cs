@@ -2,7 +2,7 @@ using static pmcenter.Conf;
 
 namespace pmcenter
 {
-    public sealed partial class Methods
+    public static partial class Methods
     {
         public static bool IsBanned(long UID)
         {

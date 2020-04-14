@@ -5,7 +5,7 @@ using static pmcenter.Methods.Logging;
 
 namespace pmcenter
 {
-    public sealed partial class Methods
+    public static partial class Methods
     {
         public static async Task<bool> TestConnectivity(string target, bool ignore45 = false)
         {

@@ -4,7 +4,7 @@ using static pmcenter.Methods.Logging;
 
 namespace pmcenter
 {
-    public sealed partial class Conf
+    public static partial class Conf
     {
         public static async Task InitConf()
         {

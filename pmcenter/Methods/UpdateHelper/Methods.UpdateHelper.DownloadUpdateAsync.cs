@@ -7,9 +7,9 @@ using static pmcenter.Methods.Logging;
 
 namespace pmcenter
 {
-    public sealed partial class Methods
+    public static partial class Methods
     {
-        public sealed partial class UpdateHelper
+        public static partial class UpdateHelper
         {
             /// <summary>
             /// Download update to filesystem and extract.

@@ -2,9 +2,9 @@ using System.Collections.Generic;
 
 namespace pmcenter
 {
-    public sealed partial class Methods
+    public static partial class Methods
     {
-        public sealed partial class UpdateHelper
+        public static partial class UpdateHelper
         {
             public static int GetUpdateInfoIndexByLocale(Update2 Update, string Locale)
             {

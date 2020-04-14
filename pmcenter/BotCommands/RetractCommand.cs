@@ -22,7 +22,7 @@ namespace pmcenter.Commands
             { // owner retracting
                 if (Methods.IsOwnerRetractionAvailable(SelectedMsgID))
                 {
-                    Conf.MessageIDLink Link = Methods.GetLinkByOwnerMsgID(SelectedMsgID);
+                    var Link = Methods.GetLinkByOwnerMsgID(SelectedMsgID);
                     await botClient.DeleteMessageAsync(Link.TGUser.Id, Link.UserSessionMessageID).ConfigureAwait(false);
                 }
                 else
@@ -40,8 +40,10 @@ namespace pmcenter.Commands
             {
                 if (Methods.IsUserRetractionAvailable(SelectedMsgID))
                 {
-                    Conf.MessageIDLink Link = Methods.GetLinkByUserMsgID(SelectedMsgID);
+                    var Link = Methods.GetLinkByUserMsgID(SelectedMsgID);
                     await botClient.DeleteMessageAsync(Vars.CurrentConf.OwnerUID, Link.OwnerSessionMessageID).ConfigureAwait(false);
+                    if (Vars.CurrentConf.EnableActions && Link.OwnerSessionActionMessageID != -1)
+                        await botClient.DeleteMessageAsync(Vars.CurrentConf.OwnerUID, Link.OwnerSessionActionMessageID).ConfigureAwait(false);
                 }
                 else
                 {

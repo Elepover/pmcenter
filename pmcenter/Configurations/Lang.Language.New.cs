@@ -1,6 +1,6 @@
 namespace pmcenter
 {
-    public sealed partial class Lang
+    public static partial class Lang
     {
         public sealed partial class Language
         {
@@ -78,6 +78,16 @@ namespace pmcenter
                 Message_MsgLinksCleared = "✅ All message links have been cleared.";
                 Message_AvailableLang = "ℹ *Available languages*\n\n`$1`";
                 Message_NetCore31Required = "⚠ You need `.NET Core 3.1` (runtime) installed in order to receive pmcenter v2 and further updates.\n\nLatest .NET Core runtime version detected on your device: `$1`\n\nThis warning will only show once.";
+                Message_Action_Banned = "✅ User $1 has been banned!";
+                Message_Action_Pardoned = "✅ User $1 has been pardoned!";
+                Message_Action_ContChatEnabled = "✅ You're now chatting with $1!";
+                Message_Action_ContChatDisabled = "✅ Continued chat disabled!";
+                Message_Action_Error = "✖ Action failed. Check logs.";
+                Message_Action_ChooseAction = "❓ *What do you want to do with this message?*";
+                Message_Action_Ban = "✖ Ban the user";
+                Message_Action_Pardon = "✅ Pardon the user";
+                Message_Action_Chat = "💬 Enter continued conversation";
+                Message_Action_StopChat = "💬 Stop continued conversation";
             }
         }
     }
