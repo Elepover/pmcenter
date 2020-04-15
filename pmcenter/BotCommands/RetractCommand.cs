@@ -7,7 +7,7 @@ using static pmcenter.Methods.Logging;
 
 namespace pmcenter.Commands
 {
-    internal class RetractCommand : ICommand
+    internal class RetractCommand : IBotCommand
     {
         public bool OwnerOnly => false;
 

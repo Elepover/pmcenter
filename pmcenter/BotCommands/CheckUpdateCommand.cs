@@ -6,7 +6,7 @@ using static pmcenter.Methods.UpdateHelper;
 
 namespace pmcenter.Commands
 {
-    internal class CheckUpdateCommand : ICommand
+    internal class CheckUpdateCommand : IBotCommand
     {
         public bool OwnerOnly => true;
 

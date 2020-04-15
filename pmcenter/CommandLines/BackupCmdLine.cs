@@ -6,7 +6,7 @@ using static pmcenter.Methods.Logging;
 
 namespace pmcenter.CommandLines
 {
-    internal class BackupCmdLine : ICmdLine
+    internal class BackupCmdLine : ICommandLine
     {
         public string Prefix => "backup";
         public bool ExitAfterExecution => true;

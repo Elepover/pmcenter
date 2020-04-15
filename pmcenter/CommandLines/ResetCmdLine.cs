@@ -3,7 +3,7 @@ using static pmcenter.Methods.Logging;
 
 namespace pmcenter.CommandLines
 {
-    internal class ResetCmdLine : ICmdLine
+    internal class ResetCmdLine : ICommandLine
     {
         public string Prefix => "reset";
         public bool ExitAfterExecution => true;

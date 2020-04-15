@@ -9,7 +9,7 @@ using static pmcenter.Methods.H2Helper;
 
 namespace pmcenter.Commands
 {
-    internal class SwitchLangCodeCommand : ICommand
+    internal class SwitchLangCodeCommand : IBotCommand
     {
         public bool OwnerOnly => true;
 

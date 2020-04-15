@@ -10,7 +10,7 @@ using static pmcenter.Methods.Logging;
 
 namespace pmcenter.Commands
 {
-    internal class EditConfCommand : ICommand
+    internal class EditConfCommand : IBotCommand
     {
         public bool OwnerOnly => true;
 

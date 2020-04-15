@@ -4,7 +4,7 @@ using static pmcenter.Methods.Logging;
 
 namespace pmcenter.CommandLines
 {
-    internal class UpdateCmdLine : ICmdLine
+    internal class UpdateCmdLine : ICommandLine
     {
         public string Prefix => "update";
         public bool ExitAfterExecution => true;

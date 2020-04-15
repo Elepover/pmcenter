@@ -8,7 +8,7 @@ using static pmcenter.Methods.Logging;
 
 namespace pmcenter.Commands
 {
-    internal class TestNetworkCommand : ICommand
+    internal class TestNetworkCommand : IBotCommand
     {
         public bool OwnerOnly => true;
 

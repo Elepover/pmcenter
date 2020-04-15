@@ -7,7 +7,7 @@ using static pmcenter.Methods.Logging;
 
 namespace pmcenter.Commands
 {
-    internal class ClearMessageLinksCommand : ICommand
+    internal class ClearMessageLinksCommand : IBotCommand
     {
         public bool OwnerOnly => true;
 

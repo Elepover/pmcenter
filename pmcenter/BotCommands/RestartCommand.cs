@@ -6,7 +6,7 @@ using Telegram.Bot.Types.Enums;
 
 namespace pmcenter.Commands
 {
-    internal class RestartCommand : ICommand
+    internal class RestartCommand : IBotCommand
     {
         public bool OwnerOnly => true;
 

@@ -7,7 +7,7 @@ using static pmcenter.Methods;
 
 namespace pmcenter.Commands
 {
-    internal class DetectPermissionCommand : ICommand
+    internal class DetectPermissionCommand : IBotCommand
     {
         public bool OwnerOnly => true;
 

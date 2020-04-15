@@ -16,13 +16,13 @@ namespace pmcenter
     {
         private const string globalPrefix = "--";
 
-        private readonly List<ICmdLine> commands = new List<ICmdLine>();
+        private readonly List<ICommandLine> commands = new List<ICommandLine>();
 
         public CommandLineRouter()
         {
         }
 
-        public ICmdLine this[string prefix] => commands.FirstOrDefault(command => command.Prefix == prefix);
+        public ICommandLine this[string prefix] => commands.FirstOrDefault(command => command.Prefix == prefix);
 
         /// <summary>
         /// Add a command to manager.
@@ -30,7 +30,7 @@ namespace pmcenter
         /// </summary>
         /// <param name="command">the command</param>
         /// <exception cref="ArgumentException"/>
-        public void RegisterCommand(ICmdLine command)
+        public void RegisterCommand(ICommandLine command)
         {
             if (commands.Any(x => x.Prefix == command.Prefix))
             { throw new ArgumentException($"A commandline with prefix \"{command.Prefix}\" already exists.", nameof(command)); }

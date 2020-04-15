@@ -7,7 +7,7 @@ using static pmcenter.Methods.Logging;
 
 namespace pmcenter.Commands
 {
-    internal class ChatCommand : ICommand
+    internal class ChatCommand : IBotCommand
     {
         public bool OwnerOnly => true;
 

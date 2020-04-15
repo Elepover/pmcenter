@@ -8,7 +8,7 @@ using static pmcenter.Methods;
 
 namespace pmcenter.Commands
 {
-    internal class StatusCommand : ICommand
+    internal class StatusCommand : IBotCommand
     {
         public bool OwnerOnly => true;
 

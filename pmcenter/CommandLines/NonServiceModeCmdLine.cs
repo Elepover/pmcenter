@@ -3,7 +3,7 @@ using static pmcenter.Methods.Logging;
 
 namespace pmcenter.CommandLines
 {
-    internal class NonServiceModeCmdLine : ICmdLine
+    internal class NonServiceModeCmdLine : ICommandLine
     {
         public string Prefix => "noservice";
         public bool ExitAfterExecution => false;

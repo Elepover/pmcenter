@@ -5,7 +5,7 @@ using Telegram.Bot.Types.Enums;
 
 namespace pmcenter.Commands
 {
-    internal class SwitchBwCommand : ICommand
+    internal class SwitchBwCommand : IBotCommand
     {
         public bool OwnerOnly => true;
 

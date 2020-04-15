@@ -9,7 +9,7 @@ using static pmcenter.Methods.Logging;
 
 namespace pmcenter.Commands
 {
-    internal class BackupConfCommand : ICommand
+    internal class BackupConfCommand : IBotCommand
     {
         public bool OwnerOnly => true;
 

@@ -3,7 +3,7 @@ using static pmcenter.Methods.Logging;
 
 namespace pmcenter.CommandLines
 {
-    internal class SetupWizardCmdLine : ICmdLine
+    internal class SetupWizardCmdLine : ICommandLine
     {
         public string Prefix => "setup";
         public bool ExitAfterExecution => true;

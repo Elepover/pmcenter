@@ -7,7 +7,7 @@ using static pmcenter.Methods;
 
 namespace pmcenter.Commands
 {
-    internal class PardonIdCommand : ICommand
+    internal class PardonIdCommand : IBotCommand
     {
         public bool OwnerOnly => true;
 

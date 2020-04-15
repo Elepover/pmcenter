@@ -6,7 +6,7 @@ using static pmcenter.Methods.Logging;
 
 namespace pmcenter.CommandLines
 {
-    internal class InfoCmdLine : ICmdLine
+    internal class InfoCmdLine : ICommandLine
     {
         public string Prefix => "info";
         public bool ExitAfterExecution => true;
