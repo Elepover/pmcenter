@@ -6,11 +6,11 @@ namespace pmcenter
 {
     public static partial class Methods
     {
-        public static bool IsBanned(long UID)
+        public static bool IsBanned(long uid)
         {
-            foreach (BanObj Banned in Vars.CurrentConf.Banned)
+            foreach (var banned in Vars.CurrentConf.Banned)
             {
-                if (Banned.UID == UID) { return true; }
+                if (banned.UID == uid) return true;
             }
             return false;
         }

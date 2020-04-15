@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Telegram.Bot;
 using Telegram.Bot.Types;
@@ -15,7 +16,7 @@ namespace pmcenter.Commands
         public async Task<bool> ExecuteAsync(TelegramBotClient botClient, Update update)
         {
             Log("Clearing message links...", "BOT");
-            Vars.CurrentConf.MessageLinks = new System.Collections.Generic.List<Conf.MessageIDLink>();
+            Vars.CurrentConf.MessageLinks = new List<Conf.MessageIDLink>();
             _ = await botClient.SendTextMessageAsync(
                 update.Message.From.Id,
                 Vars.CurrentLang.Message_MsgLinksCleared,

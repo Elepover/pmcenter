@@ -7,7 +7,7 @@ namespace pmcenter
         public static void ThrDoResetConfCount()
         {
             Vars.ConfResetTimerStatus = ThreadStatus.Working;
-            if (Vars.IsResetConfAvailable) { return; }
+            if (Vars.IsResetConfAvailable) return;
             Vars.IsResetConfAvailable = true;
             Thread.Sleep(30000);
             Vars.IsResetConfAvailable = false;

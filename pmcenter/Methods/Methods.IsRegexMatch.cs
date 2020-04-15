@@ -10,18 +10,12 @@ namespace pmcenter
         {
             try
             {
-                if (Regex.IsMatch(source, expression, RegexOptions.None))
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
+                if (Regex.IsMatch(source, expression, RegexOptions.None)) return true;
+                return false;
             }
             catch (Exception ex)
             {
-                Log($"Regex match failed: {ex.Message}, did you use a wrong regex?", "BOT", LogLevel.ERROR);
+                Log($"Regex match failed: {ex.Message}, did you use a wrong regex?", "BOT", LogLevel.Error);
                 return false;
             }
         }

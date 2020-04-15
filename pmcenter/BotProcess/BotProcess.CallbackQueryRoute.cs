@@ -22,14 +22,14 @@ namespace pmcenter
                 await Vars.Bot.AnswerCallbackQueryAsync(update.CallbackQuery.Id, result.Status);
                 // update existing buttons
                 if (result.Succeeded)
-                    await Vars.Bot.EditMessageReplyMarkupAsync(
+                    _ = await Vars.Bot.EditMessageReplyMarkupAsync(
                         update.CallbackQuery.Message.Chat.Id,
                         update.CallbackQuery.Message.MessageId,
                         new InlineKeyboardMarkup(CallbackProcess.GetAvailableButtons(update)));
             }
             catch (Exception ex)
             {
-                Log($"Unable to process action {update.CallbackQuery.Data}: {ex}", "BOT", LogLevel.ERROR);
+                Log($"Unable to process action {update.CallbackQuery.Data}: {ex}", "BOT", LogLevel.Error);
             }
         }
     }

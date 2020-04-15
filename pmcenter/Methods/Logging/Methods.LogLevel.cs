@@ -6,9 +6,9 @@ namespace pmcenter
         {
             public enum LogLevel
             {
-                INFO = 0,
-                WARN = 1,
-                ERROR = 2,
+                Info = 0,
+                Warning = 1,
+                Error = 2,
             }
         }
     }

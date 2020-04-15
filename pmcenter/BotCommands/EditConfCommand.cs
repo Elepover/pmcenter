@@ -20,12 +20,12 @@ namespace pmcenter.Commands
         {
             try
             {
-                Log("Configurations received, applying...", "BOT", LogLevel.INFO);
-                var ConfStr = update.Message.Text.Split(" ", 2)[1];
-                var Temp = JsonConvert.DeserializeObject<Conf.ConfObj>(ConfStr);
-                if (Temp.APIKey != Vars.CurrentConf.APIKey)
+                Log("Configurations received, applying...", "BOT", LogLevel.Info);
+                var confStr = update.Message.Text.Split(" ", 2)[1];
+                var temp = JsonConvert.DeserializeObject<Conf.ConfObj>(confStr);
+                if (temp.APIKey != Vars.CurrentConf.APIKey)
                 {
-                    Log("API Key has changed! Please restart pmcenter to apply the change.", "BOT", LogLevel.WARN);
+                    Log("API Key has changed! Please restart pmcenter to apply the change.", "BOT", LogLevel.Warning);
                     _ = await botClient.SendTextMessageAsync(
                         update.Message.From.Id,
                         Vars.CurrentLang.Message_APIKeyChanged,
@@ -35,9 +35,9 @@ namespace pmcenter.Commands
                         update.Message.MessageId).ConfigureAwait(false);
                     Vars.RestartRequired = true;
                 }
-                if (Temp.ConfSyncInterval == 0)
+                if (temp.ConfSyncInterval == 0)
                 {
-                    Log("ConfSync has been disabled, the worker thread will exit soon.", "BOT", LogLevel.WARN);
+                    Log("ConfSync has been disabled, the worker thread will exit soon.", "BOT", LogLevel.Warning);
                 }
                 else if (Vars.CurrentConf.ConfSyncInterval == 0)
                 {
@@ -46,8 +46,8 @@ namespace pmcenter.Commands
                     Vars.SyncConf = new Thread(() => ThrSyncConf());
                     Vars.SyncConf.Start();
                 }
-                Vars.CurrentConf = Temp;
-                Log("Applied! Saving to local disk...", "BOT", LogLevel.INFO);
+                Vars.CurrentConf = temp;
+                Log("Applied! Saving to local disk...", "BOT", LogLevel.Info);
                 _ = await Conf.SaveConf(false, true).ConfigureAwait(false);
                 _ = await botClient.SendTextMessageAsync(
                     update.Message.From.Id,

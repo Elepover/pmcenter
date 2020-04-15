@@ -17,19 +17,19 @@ namespace pmcenter.Commands
             try
             {
                 var latest = await CheckForUpdatesAsync().ConfigureAwait(false);
-                var CurrentLocalizedIndex = GetUpdateInfoIndexByLocale(latest, Vars.CurrentLang.LangCode);
+                var currentLocalizedIndex = GetUpdateInfoIndexByLocale(latest, Vars.CurrentLang.LangCode);
                 if (IsNewerVersionAvailable(latest))
                 {
                     Vars.UpdatePending = true;
                     Vars.UpdateVersion = new Version(latest.Latest);
                     Vars.UpdateLevel = latest.UpdateLevel;
-                    var UpdateString = Vars.CurrentLang.Message_UpdateAvailable
+                    var updateString = Vars.CurrentLang.Message_UpdateAvailable
                         .Replace("$1", latest.Latest)
-                        .Replace("$2", latest.UpdateCollection[CurrentLocalizedIndex].Details)
+                        .Replace("$2", latest.UpdateCollection[currentLocalizedIndex].Details)
                         .Replace("$3", Methods.GetUpdateLevel(latest.UpdateLevel));
                     _ = await botClient.SendTextMessageAsync(
                         update.Message.From.Id,
-                        UpdateString,
+                        updateString,
                         ParseMode.Markdown,
                         false,
                         Vars.CurrentConf.DisableNotifications,
@@ -43,7 +43,7 @@ namespace pmcenter.Commands
                         Vars.CurrentLang.Message_AlreadyUpToDate
                             .Replace("$1", latest.Latest)
                             .Replace("$2", Vars.AppVer.ToString())
-                            .Replace("$3", latest.UpdateCollection[CurrentLocalizedIndex].Details),
+                            .Replace("$3", latest.UpdateCollection[currentLocalizedIndex].Details),
                         ParseMode.Markdown,
                         false,
                         Vars.CurrentConf.DisableNotifications,
@@ -53,10 +53,11 @@ namespace pmcenter.Commands
             }
             catch (Exception ex)
             {
-                var ErrorString = Vars.CurrentLang.Message_UpdateCheckFailed.Replace("$1", ex.Message);
+                var errorString = Vars.CurrentLang.Message_UpdateCheckFailed.Replace("$1", ex.Message);
                 _ = await botClient.SendTextMessageAsync(
                     update.Message.From.Id,
-                    ErrorString, ParseMode.Markdown,
+                    errorString,
+                    ParseMode.Markdown,
                     false,
                     Vars.CurrentConf.DisableNotifications,
                     update.Message.MessageId).ConfigureAwait(false);

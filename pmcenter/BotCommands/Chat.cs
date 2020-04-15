@@ -19,42 +19,42 @@ namespace pmcenter.Commands
             {
                 Log("Enabling Continued Conversation...", "BOT");
 
-                long RealTarget;
-                bool IsArgumentMode;
+                long realTarget;
+                bool isArgumentMode;
                 // try to use argument
                 if (update.Message.Text.Contains(" "))
                 {
-                    IsArgumentMode = true;
+                    isArgumentMode = true;
                     Log("Resolving arguments...", "BOT");
-                    RealTarget = long.Parse(update.Message.Text.Split(" ", 2)[1]);
+                    realTarget = long.Parse(update.Message.Text.Split(" ", 2)[1]);
                 }
                 else
                 {
-                    IsArgumentMode = false;
+                    isArgumentMode = false;
                     // no argument detected / use reply message instead
                     if (update.Message.ReplyToMessage.ForwardFrom == null)
                     {
                         throw (new ArgumentException("Cannot initiate Continued Conversation by channel posts."));
                     }
-                    RealTarget = update.Message.ReplyToMessage.ForwardFrom.Id;
+                    realTarget = update.Message.ReplyToMessage.ForwardFrom.Id;
                 }
 
-                Log($"Continued Conversation enabled, target: {RealTarget}", "BOT");
-                Vars.CurrentConf.ContChatTarget = RealTarget;
+                Log($"Continued Conversation enabled, target: {realTarget}", "BOT");
+                Vars.CurrentConf.ContChatTarget = realTarget;
                 _ = await Conf.SaveConf(false, true).ConfigureAwait(false);
 
-                string ReplaceText;
-                if (IsArgumentMode)
+                string replacementText;
+                if (isArgumentMode)
                 {
-                    ReplaceText = $"[{RealTarget}](tg://user?id={RealTarget})";
+                    replacementText = $"[{realTarget}](tg://user?id={realTarget})";
                 }
                 else
                 {
-                    ReplaceText = $"[{update.Message.ReplyToMessage.ForwardFrom.FirstName} (@{update.Message.ReplyToMessage.ForwardFrom.Username})](tg://user?id={RealTarget})";
+                    replacementText = $"[{update.Message.ReplyToMessage.ForwardFrom.FirstName} (@{update.Message.ReplyToMessage.ForwardFrom.Username})](tg://user?id={realTarget})";
                 }
 
                 _ = await botClient.SendTextMessageAsync(update.Message.From.Id,
-                                                    Vars.CurrentLang.Message_ContinuedChatEnabled.Replace("$1", ReplaceText),
+                                                    Vars.CurrentLang.Message_ContinuedChatEnabled.Replace("$1", replacementText),
                                                     ParseMode.Markdown,
                                                     false,
                                                     Vars.CurrentConf.DisableNotifications,
@@ -63,7 +63,7 @@ namespace pmcenter.Commands
             }
             catch (Exception ex)
             {
-                Log($"Failed to enable Continued Conversation: {ex}", "BOT", LogLevel.ERROR);
+                Log($"Failed to enable Continued Conversation: {ex}", "BOT", LogLevel.Error);
                 _ = await botClient.SendTextMessageAsync(update.Message.From.Id,
                     Vars.CurrentLang.Message_GeneralFailure.Replace("$1", ex.ToString()),
                     ParseMode.Default,

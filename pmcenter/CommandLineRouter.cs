@@ -57,7 +57,7 @@ namespace pmcenter
                     }
                     catch (Exception ex)
                     {
-                        Log($"Exception while executing commandline: {ex}", "CMD", LogLevel.ERROR);
+                        Log($"Exception while executing commandline: {ex}", "CMD", LogLevel.Error);
                         Environment.Exit(1);
                     }
                     Log("Command finished.", "CMD");

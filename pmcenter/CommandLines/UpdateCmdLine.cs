@@ -13,18 +13,18 @@ namespace pmcenter.CommandLines
             Log($"Application version: {Vars.AppVer}", "CMD");
             Log("Checking for updates...", "CMD");
             Log("Custom update channels and languages are currently unsupported in command line mode, will use \"master\" channel with English.", "CMD");
-            var Latest = await CheckForUpdatesAsync().ConfigureAwait(false);
-            if (IsNewerVersionAvailable(Latest))
+            var latest = await CheckForUpdatesAsync().ConfigureAwait(false);
+            if (IsNewerVersionAvailable(latest))
             {
-                Log($"Newer version found: {Latest.Latest}, main changes:\n{Latest.UpdateCollection[0].Details}", "CMD");
+                Log($"Newer version found: {latest.Latest}, main changes:\n{latest.UpdateCollection[0].Details}", "CMD");
                 Log("Updating...", "CMD");
-                await DownloadUpdatesAsync(Latest).ConfigureAwait(false);
+                await DownloadUpdatesAsync(latest).ConfigureAwait(false);
                 await DownloadLangAsync().ConfigureAwait(false);
                 Log("Update complete.", "CMD");
             }
             else
             {
-                Log($"No newer version found.\nCurrently installed version: {Vars.AppVer}\nThe latest version is: {Latest.Latest}", "CMD");
+                Log($"No newer version found.\nCurrently installed version: {Vars.AppVer}\nThe latest version is: {latest.Latest}", "CMD");
             }
             return true;
         }

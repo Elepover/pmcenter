@@ -15,7 +15,7 @@ namespace pmcenter
             }
             public static void Log(string text,
                                    string module = "CORE",
-                                   LogLevel type = LogLevel.INFO,
+                                   LogLevel type = LogLevel.Info,
                                    [CallerFilePath] string filePath = "file?",
                                    [CallerMemberName] string callerName = "method?",
                                    [CallerLineNumber] int lineNumber = 0)
@@ -23,15 +23,15 @@ namespace pmcenter
                 if (Vars.CurrentConf?.LowPerformanceMode == true) return;
 
                 var file = $"/{(Path.GetFileName((Environment.OSVersion.Platform == PlatformID.Unix) ? filePath.Replace(@"\", "/") : filePath))}/{callerName}()@L{lineNumber}";
-                var Output = Vars.CurrentConf?.DisableTimeDisplay != true
+                var output = Vars.CurrentConf?.DisableTimeDisplay != true
                            ? $"[{DateTime.Now.ToString("o", CultureInfo.InvariantCulture)}]"
                            : "";
-                Output += $"[{module}{(Vars.CurrentConf?.AdvancedLogging == true ? file : "")}]";
-                Output += LogTable[type].Prefix;
-                Output += text;
+                output += $"[{module}{(Vars.CurrentConf?.AdvancedLogging == true ? file : "")}]";
+                output += LogTable[type].Prefix;
+                output += text;
                 Console.BackgroundColor = ConsoleColor.Black;
                 Console.ForegroundColor = LogTable[type].Color;
-                LogTable[type].Func(Output);
+                LogTable[type].Func(output);
                 Console.ForegroundColor = ConsoleColor.White;
             }
         }

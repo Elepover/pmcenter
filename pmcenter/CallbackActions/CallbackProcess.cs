@@ -32,12 +32,12 @@ namespace pmcenter.CallbackActions
             {
                 var result = await callbackManager.Execute(actionName, user, msg);
                 if (result == null)
-                    Log($"Callback {actionName} from user {user.Id} cannot be found.", "BOT", LogLevel.WARN);
+                    Log($"Callback {actionName} from user {user.Id} cannot be found.", "BOT", LogLevel.Warning);
                 return new CallbackActionResult(result, result != null);
             }
             catch (Exception ex)
             {
-                Log($"Callback {actionName} could not be executed: {ex}", "BOT", LogLevel.ERROR);
+                Log($"Callback {actionName} could not be executed: {ex}", "BOT", LogLevel.Error);
                 return new CallbackActionResult(Vars.CurrentLang.Message_Action_Error, false);
             }
         }

@@ -17,13 +17,13 @@ namespace pmcenter.Commands
             {
                 return false;
             }
-            var SelectedMsgID = update.Message.ReplyToMessage.MessageId;
+            var selectedMsgId = update.Message.ReplyToMessage.MessageId;
             if (update.Message.From.Id == Vars.CurrentConf.OwnerUID)
             { // owner retracting
-                if (Methods.IsOwnerRetractionAvailable(SelectedMsgID))
+                if (Methods.IsOwnerRetractionAvailable(selectedMsgId))
                 {
-                    var Link = Methods.GetLinkByOwnerMsgID(SelectedMsgID);
-                    await botClient.DeleteMessageAsync(Link.TGUser.Id, Link.UserSessionMessageID).ConfigureAwait(false);
+                    var link = Methods.GetLinkByOwnerMsgID(selectedMsgId);
+                    await botClient.DeleteMessageAsync(link.TGUser.Id, link.UserSessionMessageID).ConfigureAwait(false);
                 }
                 else
                 {
@@ -38,12 +38,12 @@ namespace pmcenter.Commands
             }
             else // user retracting
             {
-                if (Methods.IsUserRetractionAvailable(SelectedMsgID))
+                if (Methods.IsUserRetractionAvailable(selectedMsgId))
                 {
-                    var Link = Methods.GetLinkByUserMsgID(SelectedMsgID);
-                    await botClient.DeleteMessageAsync(Vars.CurrentConf.OwnerUID, Link.OwnerSessionMessageID).ConfigureAwait(false);
-                    if (Vars.CurrentConf.EnableActions && Link.OwnerSessionActionMessageID != -1)
-                        await botClient.DeleteMessageAsync(Vars.CurrentConf.OwnerUID, Link.OwnerSessionActionMessageID).ConfigureAwait(false);
+                    var link = Methods.GetLinkByUserMsgID(selectedMsgId);
+                    await botClient.DeleteMessageAsync(Vars.CurrentConf.OwnerUID, link.OwnerSessionMessageID).ConfigureAwait(false);
+                    if (Vars.CurrentConf.EnableActions && link.OwnerSessionActionMessageID != -1)
+                        await botClient.DeleteMessageAsync(Vars.CurrentConf.OwnerUID, link.OwnerSessionActionMessageID).ConfigureAwait(false);
                 }
                 else
                 {

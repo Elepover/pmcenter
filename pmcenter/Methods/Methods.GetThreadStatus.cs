@@ -4,11 +4,11 @@ namespace pmcenter
 {
     public static partial class Methods
     {
-        public static ThreadStatus GetThreadStatus(Thread Thread)
+        public static ThreadStatus GetThreadStatus(Thread thread)
         {
             try
             {
-                return Thread.IsAlive ? ThreadStatus.Standby : ThreadStatus.Stopped;
+                return thread.IsAlive ? ThreadStatus.Standby : ThreadStatus.Stopped;
             }
             catch
             {

@@ -8,9 +8,9 @@ namespace pmcenter
     {
         public static async Task<bool> ReadLang(bool apply = true)
         { // DO NOT HANDLE ERRORS HERE. THE CALLING METHOD WILL HANDLE THEM.
-            var SettingsText = await File.ReadAllTextAsync(Vars.LangFile).ConfigureAwait(false);
-            var Temp = JsonConvert.DeserializeObject<Language>(SettingsText);
-            if (apply) { Vars.CurrentLang = Temp; }
+            var langText = await File.ReadAllTextAsync(Vars.LangFile).ConfigureAwait(false);
+            var temp = JsonConvert.DeserializeObject<Language>(langText);
+            if (apply) { Vars.CurrentLang = temp; }
             return true;
         }
     }

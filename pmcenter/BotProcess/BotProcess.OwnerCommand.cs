@@ -20,17 +20,17 @@ namespace pmcenter
             if (Vars.CurrentConf.ContChatTarget != -1)
             {
                 // Is replying, replying to forwarded message AND not command.
-                var Forwarded = await Vars.Bot.ForwardMessageAsync(
+                var forwarded = await Vars.Bot.ForwardMessageAsync(
                                                                        Vars.CurrentConf.ContChatTarget,
                                                                        update.Message.Chat.Id,
                                                                        update.Message.MessageId,
                                                                        Vars.CurrentConf.DisableNotifications).ConfigureAwait(false);
                 if (Vars.CurrentConf.EnableMsgLink)
                 {
-                    Log($"Recording message link: {Forwarded.MessageId} -> {update.Message.MessageId} in {update.Message.From.Id}", "BOT");
+                    Log($"Recording message link: {forwarded.MessageId} -> {update.Message.MessageId} in {update.Message.From.Id}", "BOT");
                     Vars.CurrentConf.MessageLinks.Add(
                         new Conf.MessageIDLink()
-                        { OwnerSessionMessageID = Forwarded.MessageId, UserSessionMessageID = update.Message.MessageId, TGUser = update.Message.From, IsFromOwner = true }
+                        { OwnerSessionMessageID = forwarded.MessageId, UserSessionMessageID = update.Message.MessageId, TGUser = update.Message.From, IsFromOwner = true }
                     );
                     // Conf.SaveConf(false, true);
                 }

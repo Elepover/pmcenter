@@ -48,8 +48,8 @@ namespace pmcenter
         /// <returns>processed by one command</returns>
         public async Task<bool> Execute(TelegramBotClient botClient, Update update)
         {
-            if (update.Message.Type != MessageType.Text) { return false; }
-            if (!update.Message.Text.StartsWith(globalPrefix)) { return false; }
+            if (update.Message.Type != MessageType.Text) return false;
+            if (!update.Message.Text.StartsWith(globalPrefix)) return false;
 
             var command = commands.FirstOrDefault(cmd =>
             {

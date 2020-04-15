@@ -11,18 +11,18 @@ namespace pmcenter
             Vars.CtrlCCounter++;
             if (Vars.CtrlCCounter > 3)
             {
-                Log("More than 3 interrupts has received, terminating...", LogLevel.WARN);
+                Log("More than 3 interrupts has received, terminating...", LogLevel.Warning);
                 Environment.Exit(137);
             }
             if (Vars.IsCtrlCHandled) return;
             if (Vars.CurrentConf.IgnoreKeyboardInterrupt)
             {
-                Log("Keyboard interrupt is currently being ignored. To change this behavior, set \"IgnoreKeyboardInterrupt\" key to \"false\" in pmcenter configurations.", LogLevel.WARN);
+                Log("Keyboard interrupt is currently being ignored. To change this behavior, set \"IgnoreKeyboardInterrupt\" key to \"false\" in pmcenter configurations.", LogLevel.Warning);
                 if (e != null) e.Cancel = true;
                 return;
             }
             Vars.IsCtrlCHandled = true;
-            Log("Interrupt! pmcenter is exiting...", LogLevel.WARN);
+            Log("Interrupt! pmcenter is exiting...", LogLevel.Warning);
             Log("If pmcenter was unresponsive, press Ctrl-C 3 more times.");
             ExitApp(130);
         }

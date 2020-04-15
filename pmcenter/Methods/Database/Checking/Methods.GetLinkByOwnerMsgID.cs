@@ -4,13 +4,13 @@ namespace pmcenter
 {
     public static partial class Methods
     {
-        public static MessageIDLink GetLinkByOwnerMsgID(long OwnerSessionMsgID)
+        public static MessageIDLink GetLinkByOwnerMsgID(long ownerSessionMsgId)
         {
             lock (Vars.CurrentConf.MessageLinks)
             {
-                foreach (MessageIDLink Link in Vars.CurrentConf.MessageLinks)
+                foreach (var link in Vars.CurrentConf.MessageLinks)
                 {
-                    if (Link.OwnerSessionMessageID == OwnerSessionMsgID) { return Link; }
+                    if (link.OwnerSessionMessageID == ownerSessionMsgId) return link;
                 }
             }
             return null;

@@ -4,11 +4,11 @@ namespace pmcenter
 {
     public static partial class Methods
     {
-        public static bool IsRateDataTracking(long UID)
+        public static bool IsRateDataTracking(long uid)
         {
-            foreach (RateData Data in Vars.RateLimits)
+            foreach (var data in Vars.RateLimits)
             {
-                if (Data.UID == UID) { return true; }
+                if (data.UID == uid) return true;
             }
             return false;
         }

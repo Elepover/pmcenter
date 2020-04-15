@@ -23,12 +23,12 @@ namespace pmcenter.Commands
                     false,
                     Vars.CurrentConf.DisableNotifications,
                     update.Message.MessageId).ConfigureAwait(false);
-                var OwnerID = Vars.CurrentConf.OwnerUID;
-                var APIKey = Vars.CurrentConf.APIKey;
+                var ownerId = Vars.CurrentConf.OwnerUID;
+                var apiKey = Vars.CurrentConf.APIKey;
                 Vars.CurrentConf = new Conf.ConfObj
                 {
-                    OwnerUID = OwnerID,
-                    APIKey = APIKey
+                    OwnerUID = ownerId,
+                    APIKey = apiKey
                 };
                 _ = await Conf.SaveConf(false, true).ConfigureAwait(false);
                 Vars.CurrentLang = new Lang.Language();

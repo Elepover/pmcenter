@@ -7,8 +7,8 @@ namespace pmcenter
     {
         public static string GetRandomString(int length = 8)
         {
-            const string Chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-            return new string(Enumerable.Repeat(Chars, length).Select(s => s[(new Random()).Next(s.Length)]).ToArray());
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            return new string(Enumerable.Repeat(chars, length).Select(s => s[(new Random()).Next(s.Length)]).ToArray());
         }
     }
 }

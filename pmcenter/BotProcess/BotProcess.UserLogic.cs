@@ -24,7 +24,7 @@ namespace pmcenter
 
             if (Vars.CurrentConf.ForwardingPaused)
             {
-                Log("Stopped: forwarding is currently paused.", "BOT", LogLevel.INFO);
+                Log("Stopped: forwarding is currently paused.", "BOT", LogLevel.Info);
                 _ = await Vars.Bot.SendTextMessageAsync(update.Message.From.Id,
                                                     Vars.CurrentLang.Message_UserServicePaused,
                                                     ParseMode.Markdown,
@@ -37,7 +37,7 @@ namespace pmcenter
             // test text blacklist
             if (!string.IsNullOrEmpty(update.Message.Text) && IsKeywordBanned(update.Message.Text))
             {
-                Log("Stopped: sentence contains blocked words.", "BOT", LogLevel.INFO);
+                Log("Stopped: sentence contains blocked words.", "BOT", LogLevel.Info);
                 if (Vars.CurrentConf.KeywordAutoBan)
                 {
                     BanUser(update.Message.From.Id);
@@ -47,7 +47,7 @@ namespace pmcenter
 
             // process owner
             Log("Forwarding message to owner...", "BOT");
-            var ForwardedMessage = await Vars.Bot.ForwardMessageAsync(Vars.CurrentConf.OwnerUID,
+            var forwardedMessage = await Vars.Bot.ForwardMessageAsync(Vars.CurrentConf.OwnerUID,
                                                                           update.Message.From.Id,
                                                                           update.Message.MessageId,
                                                                           Vars.CurrentConf.DisableNotifications).ConfigureAwait(false);
@@ -55,7 +55,7 @@ namespace pmcenter
             // preprocess message link
             var link = new Conf.MessageIDLink()
             {
-                OwnerSessionMessageID = ForwardedMessage.MessageId,
+                OwnerSessionMessageID = forwardedMessage.MessageId,
                 UserSessionMessageID = update.Message.MessageId,
                 TGUser = update.Message.From,
                 IsFromOwner = false
@@ -70,14 +70,14 @@ namespace pmcenter
                     ParseMode.Markdown,
                     false,
                     true,
-                    ForwardedMessage.MessageId,
+                    forwardedMessage.MessageId,
                     markup
                     ).ConfigureAwait(false)).MessageId;
             }
             // process message links
             if (Vars.CurrentConf.EnableMsgLink)
             {
-                Log($"Recording message link: owner {ForwardedMessage.MessageId} <-> user {update.Message.MessageId} user: {update.Message.From.Id}", "BOT");
+                Log($"Recording message link: owner {forwardedMessage.MessageId} <-> user {update.Message.MessageId} user: {update.Message.From.Id}", "BOT");
                 Vars.CurrentConf.MessageLinks.Add(link);
                 // Conf.SaveConf(false, true);
             }
@@ -93,7 +93,7 @@ namespace pmcenter
                                                     ParseMode.Markdown,
                                                     false,
                                                     Vars.CurrentConf.DisableNotifications,
-                                                    ForwardedMessage.MessageId).ConfigureAwait(false);
+                                                    forwardedMessage.MessageId).ConfigureAwait(false);
             }
             if (update.Message.ForwardFrom != null && update.Message.ForwardFromChat == null)
             {
@@ -107,7 +107,7 @@ namespace pmcenter
                                                         ParseMode.Markdown,
                                                         false,
                                                         Vars.CurrentConf.DisableNotifications,
-                                                        ForwardedMessage.MessageId).ConfigureAwait(false);
+                                                        forwardedMessage.MessageId).ConfigureAwait(false);
                 }
             }
 

@@ -13,10 +13,10 @@ namespace pmcenter.CommandLines
         public Task<bool> Process()
         {
             Log("Backing up...", "CMD");
-            var RandomFilename = $"pmcenter.{DateTime.Now:yyyy-dd-M-HH-mm-ss}#{GetRandomString(6)}.json";
-            RandomFilename = Path.Combine(Vars.AppDirectory, RandomFilename);
-            File.Copy(Vars.ConfFile, RandomFilename);
-            Log($"Backup complete. Filename: {RandomFilename}", "CMD");
+            var randomFilename = $"pmcenter.{DateTime.Now:yyyy-dd-M-HH-mm-ss}#{GetRandomString(6)}.json";
+            randomFilename = Path.Combine(Vars.AppDirectory, randomFilename);
+            File.Copy(Vars.ConfFile, randomFilename);
+            Log($"Backup complete. Filename: {randomFilename}", "CMD");
             return Task.FromResult(true);
         }
     }

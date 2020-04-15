@@ -16,27 +16,27 @@ namespace pmcenter.Commands
 
         public async Task<bool> ExecuteAsync(TelegramBotClient botClient, Update update)
         {
-            var MessageStr = Vars.CurrentLang.Message_SysStatus_Header + "\n\n";
+            var messageStr = Vars.CurrentLang.Message_SysStatus_Header + "\n\n";
             // process other headers
-            var NoActionRequired = true;
+            var noActionRequired = true;
             if (Vars.UpdatePending)
             {
-                MessageStr += Vars.CurrentLang.Message_SysStatus_PendingUpdate.Replace("$1", Vars.UpdateVersion.ToString()) + "\n";
-                MessageStr += GetUpdateLevel(Vars.UpdateLevel) + "\n";
-                NoActionRequired = false;
+                messageStr += Vars.CurrentLang.Message_SysStatus_PendingUpdate.Replace("$1", Vars.UpdateVersion.ToString()) + "\n";
+                messageStr += GetUpdateLevel(Vars.UpdateLevel) + "\n";
+                noActionRequired = false;
             }
             if (Vars.NonEmergRestartRequired)
             {
-                MessageStr += Vars.CurrentLang.Message_SysStatus_RestartRequired + "\n";
-                NoActionRequired = false;
+                messageStr += Vars.CurrentLang.Message_SysStatus_RestartRequired + "\n";
+                noActionRequired = false;
             }
-            if (NoActionRequired)
+            if (noActionRequired)
             {
-                MessageStr += Vars.CurrentLang.Message_SysStatus_NoOperationRequired + "\n";
+                messageStr += Vars.CurrentLang.Message_SysStatus_NoOperationRequired + "\n";
             }
-            MessageStr += "\n";
+            messageStr += "\n";
             // process summary
-            MessageStr += Vars.CurrentLang.Message_SysStatus_Summary
+            messageStr += Vars.CurrentLang.Message_SysStatus_Summary
                 .Replace("$1", Environment.MachineName)
                 .Replace("$2", Environment.OSVersion.ToString())
                 .Replace("$3", RuntimeInformation.OSDescription)
@@ -56,7 +56,7 @@ namespace pmcenter.Commands
 
             _ = await botClient.SendTextMessageAsync(
                 update.Message.From.Id,
-                MessageStr,
+                messageStr,
                 ParseMode.Markdown,
                 false,
                 Vars.CurrentConf.DisableNotifications,

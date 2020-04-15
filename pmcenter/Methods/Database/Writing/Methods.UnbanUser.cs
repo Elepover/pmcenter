@@ -2,11 +2,11 @@ namespace pmcenter
 {
     public static partial class Methods
     {
-        public static void UnbanUser(long UID)
+        public static void UnbanUser(long uid)
         {
-            if (IsBanned(UID))
+            if (IsBanned(uid))
             {
-                _ = Vars.CurrentConf.Banned.Remove(GetBanObjByID(UID));
+                _ = Vars.CurrentConf.Banned.Remove(GetBanObjByID(uid));
             }
         }
     }

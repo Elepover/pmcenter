@@ -61,7 +61,7 @@ namespace pmcenter
             {
                 if (e == null) return;
                 if (Vars.CurrentConf.DetailedMsgLogging)
-                    Log($"OnUpdate() triggered: UpdType: {e.Update.Type}, UpdID: {e.Update.Id}, ChatId: {e.Update.Message.Chat.Id}, Username: {e.Update.Message.Chat.Username}, FromID: {e.Update.Message.From.Id}, FromUsername: {e.Update.Message.From.Username}", "BOT-DETAILED", LogLevel.INFO);
+                    Log($"OnUpdate() triggered: UpdType: {e.Update.Type}, UpdID: {e.Update.Id}, ChatId: {e.Update.Message.Chat.Id}, Username: {e.Update.Message.Chat.Username}, FromID: {e.Update.Message.From.Id}, FromUsername: {e.Update.Message.From.Username}", "BOT-DETAILED", LogLevel.Info);
                 
                 switch (e.Update.Type)
                 {
@@ -75,7 +75,7 @@ namespace pmcenter
             }
             catch (Exception ex)
             {
-                Log($"General error while processing incoming update: {ex}", "BOT", LogLevel.ERROR);
+                Log($"General error while processing incoming update: {ex}", "BOT", LogLevel.Error);
                 if (Vars.CurrentConf.CatchAllExceptions)
                 {
                     try
@@ -88,7 +88,7 @@ namespace pmcenter
                     }
                     catch (Exception iEx)
                     {
-                        Log($"Failed to catch exception to owner: {iEx}", "BOT", LogLevel.ERROR);
+                        Log($"Failed to catch exception to owner: {iEx}", "BOT", LogLevel.Error);
                     }
                 }
             }

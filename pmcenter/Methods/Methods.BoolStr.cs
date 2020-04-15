@@ -2,9 +2,9 @@ namespace pmcenter
 {
     public static partial class Methods
     {
-        public static string BoolStr(bool Input)
+        public static string BoolStr(bool input)
         {
-            return Input ? "true" : "false";
+            return input ? "true" : "false";
         }
     }
 }

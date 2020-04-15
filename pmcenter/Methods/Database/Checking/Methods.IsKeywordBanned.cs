@@ -2,19 +2,19 @@ namespace pmcenter
 {
     public static partial class Methods
     {
-        public static bool IsKeywordBanned(string Sentence)
+        public static bool IsKeywordBanned(string sentence)
         {
-            if (!Vars.CurrentConf.KeywordBanning) { return false; }
+            if (!Vars.CurrentConf.KeywordBanning) return false;
 
-            foreach (string Blocked in Vars.CurrentConf.BannedKeywords)
+            foreach (var blocked in Vars.CurrentConf.BannedKeywords)
             {
                 if (Vars.CurrentConf.EnableRegex)
                 {
-                    if (IsRegexMatch(Sentence, Blocked)) { return true; }
+                    if (IsRegexMatch(sentence, blocked)) return true;
                 }
                 else
                 {
-                    if (Sentence.Contains(Blocked)) { return true; }
+                    if (sentence.Contains(blocked)) return true;
                 }
             }
             return false;

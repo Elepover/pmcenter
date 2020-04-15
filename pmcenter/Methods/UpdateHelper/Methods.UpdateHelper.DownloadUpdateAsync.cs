@@ -29,12 +29,12 @@ namespace pmcenter
                     Path.Combine(Vars.AppDirectory, "pmcenter_update.zip")
                 ).ConfigureAwait(false);
                 Log("Download complete. Extracting...");
-                using (ZipArchive Zip = ZipFile.OpenRead(Path.Combine(Vars.AppDirectory, "pmcenter_update.zip")))
+                using (var zip = ZipFile.OpenRead(Path.Combine(Vars.AppDirectory, "pmcenter_update.zip")))
                 {
-                    foreach (ZipArchiveEntry Entry in Zip.Entries)
+                    foreach (var entry in zip.Entries)
                     {
-                        Log($"Extracting: {Path.Combine(Vars.AppDirectory, Entry.FullName)}");
-                        Entry.ExtractToFile(Path.Combine(Vars.AppDirectory, Entry.FullName), true);
+                        Log($"Extracting: {Path.Combine(Vars.AppDirectory, entry.FullName)}");
+                        entry.ExtractToFile(Path.Combine(Vars.AppDirectory, entry.FullName), true);
                     }
                 }
                 Log("Cleaning up temporary files...");

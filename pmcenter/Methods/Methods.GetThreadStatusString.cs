@@ -2,9 +2,9 @@ namespace pmcenter
 {
     public static partial class Methods
     {
-        public static string GetThreadStatusString(ThreadStatus Status)
+        public static string GetThreadStatusString(ThreadStatus status)
         {
-            return Status switch
+            return status switch
             {
                 ThreadStatus.Working => Vars.CurrentLang.Message_ThreadStatus_Working,
                 ThreadStatus.Standby => Vars.CurrentLang.Message_ThreadStatus_Standby,

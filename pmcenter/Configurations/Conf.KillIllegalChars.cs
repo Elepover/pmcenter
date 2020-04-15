@@ -2,9 +2,9 @@ namespace pmcenter
 {
     public static partial class Conf
     {
-        public static string KillIllegalChars(string Input)
+        public static string KillIllegalChars(string input)
         {
-            return Input.Replace("/", "-").Replace("<", "-").Replace(">", "-").Replace(":", "-").Replace("\"", "-").Replace("/", "-").Replace("\\", "-").Replace("|", "-").Replace("?", "-").Replace("*", "-");
+            return input.Replace("/", "-").Replace("<", "-").Replace(">", "-").Replace(":", "-").Replace("\"", "-").Replace("/", "-").Replace("\\", "-").Replace("|", "-").Replace("?", "-").Replace("*", "-");
         }
     }
 }

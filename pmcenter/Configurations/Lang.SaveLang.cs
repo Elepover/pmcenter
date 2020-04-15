@@ -9,15 +9,15 @@ namespace pmcenter
     {
         public static async Task<bool> SaveLang(bool isInvalid = false)
         { // DO NOT HANDLE ERRORS HERE.
-            var Text = JsonConvert.SerializeObject(Vars.CurrentLang, Formatting.Indented);
-            var Writer = new StreamWriter(File.Create(Vars.LangFile), System.Text.Encoding.UTF8);
-            await Writer.WriteAsync(Text).ConfigureAwait(false);
-            await Writer.FlushAsync().ConfigureAwait(false);
-            Writer.Close();
+            var text = JsonConvert.SerializeObject(Vars.CurrentLang, Formatting.Indented);
+            var writer = new StreamWriter(File.Create(Vars.LangFile), System.Text.Encoding.UTF8);
+            await writer.WriteAsync(text).ConfigureAwait(false);
+            await writer.FlushAsync().ConfigureAwait(false);
+            writer.Close();
             if (isInvalid)
             {
-                Log("We've detected an invalid language file and have reset it.", "LANG", LogLevel.WARN);
-                Log("Please reconfigure it and try to start pmcenter again.", "LANG", LogLevel.WARN);
+                Log("We've detected an invalid language file and have reset it.", "LANG", LogLevel.Warning);
+                Log("Please reconfigure it and try to start pmcenter again.", "LANG", LogLevel.Warning);
                 Vars.RestartRequired = true;
             }
             return true;

@@ -11,27 +11,27 @@ namespace pmcenter
         private static async Task RunCc(Update update)
         {
             Log("Cc enabled, forwarding...", "BOT");
-            foreach (long Id in Vars.CurrentConf.Cc)
+            foreach (var id in Vars.CurrentConf.Cc)
             {
-                Log($"Forwarding message to cc: {Id}", "BOT");
+                Log($"Forwarding message to cc: {id}", "BOT");
                 try
                 {
-                    var ForwardedMessageCc = await Vars.Bot.ForwardMessageAsync(Id,
-                                                                                                       update.Message.From.Id,
-                                                                                                       update.Message.MessageId,
-                                                                                                       Vars.CurrentConf.DisableNotifications).ConfigureAwait(false);
+                    var forwardedMessageCc = await Vars.Bot.ForwardMessageAsync(id,
+                        update.Message.From.Id,
+                        update.Message.MessageId,
+                        Vars.CurrentConf.DisableNotifications).ConfigureAwait(false);
                     // check if forwarded from channels
                     if (update.Message.ForwardFrom == null && update.Message.ForwardFromChat != null)
                     {
                         // is forwarded from channel
-                        _ = await Vars.Bot.SendTextMessageAsync(Id,
+                        _ = await Vars.Bot.SendTextMessageAsync(id,
                                                             Vars.CurrentLang.Message_ForwarderNotReal
                                                                 .Replace("$2", update.Message.From.Id.ToString())
                                                                 .Replace("$1", "[" + update.Message.From.FirstName + " " + update.Message.From.LastName + "](tg://user?id=" + update.Message.From.Id + ")"),
                                                             ParseMode.Markdown,
                                                             false,
                                                             Vars.CurrentConf.DisableNotifications,
-                                                            ForwardedMessageCc.MessageId).ConfigureAwait(false);
+                                                            forwardedMessageCc.MessageId).ConfigureAwait(false);
                     }
                     if (update.Message.ForwardFrom != null && update.Message.ForwardFromChat == null)
                     {
@@ -39,20 +39,20 @@ namespace pmcenter
                         // check real message sender
                         if (update.Message.ForwardFrom.Id != update.Message.From.Id)
                         {
-                            _ = await Vars.Bot.SendTextMessageAsync(Id,
+                            _ = await Vars.Bot.SendTextMessageAsync(id,
                                                                 Vars.CurrentLang.Message_ForwarderNotReal
                                                                     .Replace("$2", update.Message.From.Id.ToString())
                                                                     .Replace("$1", "[" + update.Message.From.FirstName + " " + update.Message.From.LastName + "](tg://user?id=" + update.Message.From.Id + ")"),
                                                                 ParseMode.Markdown,
                                                                 false,
                                                                 Vars.CurrentConf.DisableNotifications,
-                                                                ForwardedMessageCc.MessageId).ConfigureAwait(false);
+                                                                forwardedMessageCc.MessageId).ConfigureAwait(false);
                         }
                     }
                 }
                 catch (Exception ex)
                 {
-                    Log($"Unable to forward message to cc: {Id}, reason: {ex.Message}", "BOT", LogLevel.ERROR);
+                    Log($"Unable to forward message to cc: {id}, reason: {ex.Message}", "BOT", LogLevel.Error);
                 }
             }
         }

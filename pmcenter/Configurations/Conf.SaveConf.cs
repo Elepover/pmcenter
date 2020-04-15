@@ -8,16 +8,16 @@ namespace pmcenter
     {
         public static async Task<bool> SaveConf(bool isInvalid = false, bool isAutoSave = false)
         { // DO NOT HANDLE ERRORS HERE.
-            string Text = JsonConvert.SerializeObject(Vars.CurrentConf, Formatting.Indented);
-            await System.IO.File.WriteAllTextAsync(Vars.ConfFile, Text).ConfigureAwait(false);
+            string text = JsonConvert.SerializeObject(Vars.CurrentConf, Formatting.Indented);
+            await System.IO.File.WriteAllTextAsync(Vars.ConfFile, text).ConfigureAwait(false);
             if (isAutoSave)
             {
                 Log("Autosave complete.", "CONF");
             }
             if (isInvalid)
             {
-                Log("We've detected an invalid configurations file and have reset it.", "CONF", LogLevel.WARN);
-                Log("Please reconfigure it and try to start pmcenter again.", "CONF", LogLevel.WARN);
+                Log("We've detected an invalid configurations file and have reset it.", "CONF", LogLevel.Warning);
+                Log("Please reconfigure it and try to start pmcenter again.", "CONF", LogLevel.Warning);
                 Vars.RestartRequired = true;
             }
             return true;

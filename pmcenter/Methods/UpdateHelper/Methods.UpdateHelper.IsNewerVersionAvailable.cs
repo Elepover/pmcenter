@@ -8,9 +8,9 @@ namespace pmcenter
         {
             public static bool IsNewerVersionAvailable(Update2 CurrentUpdate)
             {
-                var CurrentVersion = Vars.AppVer;
-                var CurrentLatest = new Version(CurrentUpdate.Latest);
-                if (CurrentLatest > CurrentVersion)
+                var currentVersion = Vars.AppVer;
+                var currentLatest = new Version(CurrentUpdate.Latest);
+                if (currentLatest > currentVersion)
                 {
                     return true;
                 }
