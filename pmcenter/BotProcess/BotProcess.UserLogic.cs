@@ -63,7 +63,7 @@ namespace pmcenter
             // process actions
             if (Vars.CurrentConf.EnableActions && Vars.CurrentConf.EnableMsgLink)
             {
-                var markup = GetKeyboardMarkup(update);
+                var markup = new InlineKeyboardMarkup(CallbackProcess.GetAvailableButtons(update));
                 link.OwnerSessionActionMessageID = (await Vars.Bot.SendTextMessageAsync(
                     Vars.CurrentConf.OwnerUID,
                     Vars.CurrentLang.Message_Action_ChooseAction,

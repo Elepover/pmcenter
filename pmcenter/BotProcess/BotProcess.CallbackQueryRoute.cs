@@ -2,6 +2,7 @@
 using System;
 using System.Threading.Tasks;
 using Telegram.Bot.Args;
+using Telegram.Bot.Types.ReplyMarkups;
 using static pmcenter.Methods;
 using static pmcenter.Methods.Logging;
 
@@ -21,7 +22,10 @@ namespace pmcenter
                 await Vars.Bot.AnswerCallbackQueryAsync(update.CallbackQuery.Id, result.Status);
                 // update existing buttons
                 if (result.Succeeded)
-                    await Vars.Bot.EditMessageReplyMarkupAsync(update.CallbackQuery.Message.Chat.Id, update.CallbackQuery.Message.MessageId, GetKeyboardMarkup(update));
+                    await Vars.Bot.EditMessageReplyMarkupAsync(
+                        update.CallbackQuery.Message.Chat.Id,
+                        update.CallbackQuery.Message.MessageId,
+                        new InlineKeyboardMarkup(CallbackProcess.GetAvailableButtons(update)));
             }
             catch (Exception ex)
             {

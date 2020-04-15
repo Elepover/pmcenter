@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Telegram.Bot.Types;
+using Telegram.Bot.Types.ReplyMarkups;
 using static pmcenter.Methods.Logging;
 
 namespace pmcenter.CallbackActions
@@ -39,5 +41,7 @@ namespace pmcenter.CallbackActions
                 return new CallbackActionResult(Vars.CurrentLang.Message_Action_Error, false);
             }
         }
+
+        public static List<List<InlineKeyboardButton>> GetAvailableButtons(Update update) => callbackManager.GetAvailableButtons(update);
     }
 }

@@ -7,6 +7,7 @@ namespace pmcenter.CallbackActions
     internal class DisableContinuedChatAction : ICallbackAction
     {
         public string Name => "disablechat";
+        public string ButtonName => Vars.CurrentLang.Message_Action_StopChat;
         public ICallbackAction Replacement => new ContinuedChatAction();
 
 #pragma warning disable CS1998
@@ -16,7 +17,13 @@ namespace pmcenter.CallbackActions
             Log("Disabling continued conversation via actions...", "BOT");
             Vars.CurrentConf.ContChatTarget = -1;
             _ = await Conf.SaveConf(false, true).ConfigureAwait(false);
+            Log("Continued conversation disabled via actions.", "BOT");
             return Vars.CurrentLang.Message_Action_ContChatDisabled;
+        }
+
+        public bool IsAvailable(Update update)
+        {
+            return Vars.CurrentConf.ContChatTarget != -1;
         }
     }
 }

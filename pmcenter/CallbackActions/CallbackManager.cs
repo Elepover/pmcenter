@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Telegram.Bot.Types;
+using Telegram.Bot.Types.ReplyMarkups;
 
 namespace pmcenter.CallbackActions
 {
@@ -32,6 +33,19 @@ namespace pmcenter.CallbackActions
                 }
             }
             return null;
+        }
+
+        public List<List<InlineKeyboardButton>> GetAvailableButtons(Update update)
+        {
+            var result = new List<List<InlineKeyboardButton>>();
+            foreach (var action in callbacks)
+                if (action.IsAvailable(update))
+                {
+                    var oneLineKeyboard = new List<InlineKeyboardButton>();
+                    oneLineKeyboard.Add(new InlineKeyboardButton() { CallbackData = action.Name, Text = action.ButtonName });
+                    result.Add(oneLineKeyboard);
+                }
+            return result;
         }
     }
 }

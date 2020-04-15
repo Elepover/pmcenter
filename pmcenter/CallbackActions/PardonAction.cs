@@ -8,6 +8,7 @@ namespace pmcenter.CallbackActions
     internal class PardonAction : ICallbackAction
     {
         public string Name => "pardon";
+        public string ButtonName => Vars.CurrentLang.Message_Action_Pardon;
         public ICallbackAction Replacement => new BanAction();
 
 #pragma warning disable CS1998
@@ -17,7 +18,14 @@ namespace pmcenter.CallbackActions
             // attempt to pardon the user
             Log($"Attempting to pardon {user.Id} via callback actions...", "BOT");
             UnbanUser(user.Id);
+            Log($"User {user.Id} pardoned via callback actions...", "BOT");
             return Vars.CurrentLang.Message_Action_Pardoned.Replace("$1", GetComposedUsername(user, false));
+        }
+
+        public bool IsAvailable(Update update)
+        {
+            if (IsBanned(update)) return true;
+            return false;
         }
     }
 }
