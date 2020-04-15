@@ -41,6 +41,7 @@ namespace pmcenter
             public bool DisableNetCore3Check { get; set; }
             public bool EnableActions { get; set; }
             public Stats Statistics { get; set; }
+            public List<string> IgnoredLogModules { get; set; }
             public List<Socks5Proxy> Socks5Proxies { get; set; }
             public List<string> BannedKeywords { get; set; }
             public List<BanObj> Banned { get; set; }

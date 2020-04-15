@@ -20,6 +20,7 @@ namespace pmcenter
                                    [CallerMemberName] string callerName = "method?",
                                    [CallerLineNumber] int lineNumber = 0)
             {
+                if (Vars.CurrentConf?.IgnoredLogModules.Contains(module) == true) return;
                 if (Vars.CurrentConf?.LowPerformanceMode == true) return;
 
                 var file = $"/{(Path.GetFileName((Environment.OSVersion.Platform == PlatformID.Unix) ? filePath.Replace(@"\", "/") : filePath))}/{callerName}()@L{lineNumber}";

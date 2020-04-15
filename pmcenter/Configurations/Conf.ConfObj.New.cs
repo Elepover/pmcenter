@@ -43,6 +43,7 @@ namespace pmcenter
                 DisableNetCore3Check = false;
                 EnableActions = false;
                 Statistics = new Stats();
+                IgnoredLogModules = new List<string>();
                 Socks5Proxies = new List<Socks5Proxy>();
                 BannedKeywords = new List<string>();
                 Banned = new List<BanObj>();

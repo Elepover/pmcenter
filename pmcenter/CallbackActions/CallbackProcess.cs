@@ -9,6 +9,7 @@ namespace pmcenter.CallbackActions
 {
     public static class CallbackProcess
     {
+        private static readonly int callbackOutputThreshold = 50;
         private static readonly CallbackManager callbackManager = new CallbackManager();
 
         static CallbackProcess()
@@ -32,13 +33,24 @@ namespace pmcenter.CallbackActions
             {
                 var result = await callbackManager.Execute(actionName, user, msg);
                 if (result == null)
+                {
                     Log($"Callback {actionName} from user {user.Id} cannot be found.", "BOT", LogLevel.Warning);
-                return new CallbackActionResult(result, result != null);
+                    result = Vars.CurrentLang.Message_Action_Error;
+                }
+                var useAlert = result.Length > callbackOutputThreshold;
+                if (useAlert)
+                    Log($"Callback query result length {result.Length} exceeded limit ({callbackOutputThreshold}), using alert instead.", "BOT");
+                return new CallbackActionResult
+                (
+                    result,
+                    useAlert,
+                    result != null
+                );
             }
             catch (Exception ex)
             {
                 Log($"Callback {actionName} could not be executed: {ex}", "BOT", LogLevel.Error);
-                return new CallbackActionResult(Vars.CurrentLang.Message_Action_Error, false);
+                return new CallbackActionResult(Vars.CurrentLang.Message_Action_Error, true, false);
             }
         }
 

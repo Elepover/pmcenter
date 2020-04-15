@@ -83,11 +83,13 @@ namespace pmcenter
                 Message_Action_ContChatEnabled = "✅ You're now chatting with $1!";
                 Message_Action_ContChatDisabled = "✅ Continued chat disabled!";
                 Message_Action_Error = "✖ Action failed. Check logs.";
+                Message_Action_ErrorWithDetails = "✖ Action failed: $1";
                 Message_Action_ChooseAction = "❓ *What do you want to do with this message?*";
                 Message_Action_Ban = "✖ Ban the user";
                 Message_Action_Pardon = "✅ Pardon the user";
                 Message_Action_Chat = "💬 Enter continued conversation";
                 Message_Action_StopChat = "💬 Stop continued conversation";
+                Message_Action_LinkNotFound = "Cannot find the corresponding message link, did you just clear the message links, or was the message links feature disabled?";
             }
         }
     }

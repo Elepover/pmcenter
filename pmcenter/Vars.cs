@@ -38,6 +38,11 @@ namespace pmcenter
 #else
         public readonly static bool GitHubReleases = false;
 #endif
+#if SELFCONTAINED
+        public readonly static bool SelfContained = true;
+#else
+        public readonly static bool SelfContained = false;
+#endif
         // public readonly static long AnonymousChannelID = -1001228946795;
         // public readonly static string AnonymousChannelTitle = "a user";
         // public readonly static string AnonymousChannelUsername = "HiddenSender";

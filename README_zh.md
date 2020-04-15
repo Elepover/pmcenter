@@ -179,6 +179,7 @@ docker run -d -v $(pwd)/pmcenter.json:/opt/pmcenter/pmcenter.json --restart alwa
 | `IgnoreKeyboardInterrupt` | `Boolean` | ✓ | 是否忽略 Ctrl-C 中断 |
 | `DisableNetCore3Check` | `Boolean` | ✓ | 启用以忽略 .NET Core 运行时版本检查 |
 | `Statistics` | `Stats` | ✕ | 统计数据 |
+| `IgnoredLogModules` | `Array` | ✓ | 忽略的日志模块列表，这些模块将不会输出信息到控制台 |
 | `Socks5Proxies` | `Array` | ✓ | SOCKS5 代理列表 |
 | `BannedKeywords` | `Array` | ✓ | 屏蔽的关键字存储 |
 | `Banned` | `Array` | ✓ | 封禁用户存储 |

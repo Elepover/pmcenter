@@ -41,8 +41,14 @@ namespace pmcenter.CallbackActions
             foreach (var action in callbacks)
                 if (action.IsAvailable(update))
                 {
-                    var oneLineKeyboard = new List<InlineKeyboardButton>();
-                    oneLineKeyboard.Add(new InlineKeyboardButton() { CallbackData = action.Name, Text = action.ButtonName });
+                    var oneLineKeyboard = new List<InlineKeyboardButton>
+                    {
+                        new InlineKeyboardButton()
+                        {
+                            CallbackData = action.Name,
+                            Text = action.ButtonName
+                        }
+                    };
                     result.Add(oneLineKeyboard);
                 }
             return result;

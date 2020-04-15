@@ -177,6 +177,7 @@ Or, use setup wizard:
 | `IgnoreKeyboardInterrupt` | `Boolean` | ✓ | Choose whether pmcenter should ignore Ctrl-C interrupts or not. |
 | `DisableNetCore3Check` | `Boolean` | ✓ | Turn this on to hide .NET Core Runtime version warnings. |
 | `Statistics` | `Stats` | ✕ | Statistics data. |
+| `IgnoredLogModules` | `Array` | ✓ | List of ignored log modules. Selected modules will not generate output to console. |
 | `Socks5Proxies` | `Array` | ✓ | List of SOCKS5 proxies. |
 | `BannedKeywords` | `Array` | ✓ | Storage of banned keywords. |
 | `Banned` | `Array` | ✓ | Storage of banned users. |

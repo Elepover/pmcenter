@@ -17,9 +17,11 @@ namespace pmcenter
             if (update.CallbackQuery.From.IsBot) return;
             try
             {
-                var result = await CallbackProcess.DoCallback(update.CallbackQuery.Data, GetLinkByOwnerMsgID(update.CallbackQuery.Message.ReplyToMessage.MessageId).TGUser, update.CallbackQuery.Message);
-                // prompt
-                await Vars.Bot.AnswerCallbackQueryAsync(update.CallbackQuery.Id, result.Status);
+                var link = GetLinkByOwnerMsgID(update.CallbackQuery.Message.ReplyToMessage.MessageId);
+                if (link == null) throw new NullReferenceException(Vars.CurrentLang.Message_Action_LinkNotFound);
+                var result = await CallbackProcess.DoCallback(update.CallbackQuery.Data, link.TGUser, update.CallbackQuery.Message);
+                // prompt result
+                await Vars.Bot.AnswerCallbackQueryAsync(update.CallbackQuery.Id, result.Status, result.ShowAsAlert);
                 // update existing buttons
                 if (result.Succeeded)
                     _ = await Vars.Bot.EditMessageReplyMarkupAsync(
@@ -30,6 +32,12 @@ namespace pmcenter
             catch (Exception ex)
             {
                 Log($"Unable to process action {update.CallbackQuery.Data}: {ex}", "BOT", LogLevel.Error);
+                await Vars.Bot.AnswerCallbackQueryAsync
+                (
+                    update.CallbackQuery.Id,
+                    Vars.CurrentLang.Message_Action_ErrorWithDetails.Replace("$1", ex.Message),
+                    true
+                );
             }
         }
     }

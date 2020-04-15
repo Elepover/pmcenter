@@ -20,7 +20,7 @@ using static pmcenter.Methods.Logging;
 
 namespace pmcenter
 {
-    public partial class Program
+    public sealed partial class Program
     {
         public static void Main(string[] args)
         {
@@ -108,6 +108,18 @@ namespace pmcenter
                     Environment.Exit(1);
                 }
 
+                // check if logs are being omitted
+                if (Vars.CurrentConf.IgnoredLogModules.Count > 0)
+                {
+                    var tmp = Console.ForegroundColor;
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.WriteLine("!!!!!!!!!! SOME LOG ENTRIES ARE HIDDEN ACCORDING TO CURRENT SETTINGS !!!!!!!!!!");
+                    Console.WriteLine("To revert this, clear the \"IgnoredLogModules\" field in pmcenter.json.");
+                    Console.WriteLine("To disable all log output, turn on \"LowPerformanceMode\".");
+                    Console.WriteLine("This warning will appear every time pmcenter starts up with \"IgnoredLogModules\" set.");
+                    Console.ForegroundColor = tmp;
+                }
+
                 Log("==> Initializing module - THREADS");
                 Log("Starting RateLimiter...");
                 Vars.RateLimiter = new Thread(() => ThrRateLimiter());
@@ -181,6 +193,7 @@ namespace pmcenter
                 Log("==> Running post-start operations...");
                 try
                 {
+                    // prompt startup success
                     if (!Vars.CurrentConf.NoStartupMessage)
                     {
                         _ = await Vars.Bot.SendTextMessageAsync(Vars.CurrentConf.OwnerUID,
@@ -197,6 +210,7 @@ namespace pmcenter
                 }
                 try
                 {
+                    // check .net core runtime version
                     var netCoreVersion = GetNetCoreVersion();
                     if (!CheckNetCoreVersion(netCoreVersion) && !Vars.CurrentConf.DisableNetCore3Check)
                     {
@@ -213,6 +227,7 @@ namespace pmcenter
                 {
                     Log($".NET Core runtime version warning wasn't delivered to the owner: {ex.Message}, did you set the \"OwnerID\" key correctly?", "BOT", LogLevel.Warning);
                 }
+                // check language mismatch
                 if (Vars.CurrentLang.TargetVersion != Vars.AppVer.ToString())
                 {
                     Log("Language version mismatch detected.", "CORE", LogLevel.Warning);

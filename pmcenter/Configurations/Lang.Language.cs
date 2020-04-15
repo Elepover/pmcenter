@@ -81,11 +81,13 @@ namespace pmcenter
             public string Message_Action_ContChatEnabled { get; set; }
             public string Message_Action_ContChatDisabled { get; set; }
             public string Message_Action_Error { get; set; }
+            public string Message_Action_ErrorWithDetails { get; set; }
             public string Message_Action_ChooseAction { get; set; }
             public string Message_Action_Ban { get; set; }
             public string Message_Action_Pardon { get; set; }
             public string Message_Action_Chat { get; set; }
             public string Message_Action_StopChat { get; set; }
+            public string Message_Action_LinkNotFound { get; set; }
         }
     }
 }
