@@ -16,7 +16,7 @@ namespace pmcenter
                 Log($"Selected message is forwarded anonymously from {link.TGUser.Id}, fixing user information from database.", "BOT");
                 update.Message.ReplyToMessage.ForwardFrom = link.TGUser;
             }
-            if (update.Message.ReplyToMessage.ForwardFrom == null && update.Message.Text.ToLower() != "/retract")
+            if ((update.Message.ReplyToMessage.ForwardFrom == null) && (update.Message.Text.ToLower() != "/retract"))
             {
                 // The owner is replying to bot messages. (no forwardfrom)
                 _ = await Vars.Bot.SendTextMessageAsync(
@@ -26,6 +26,18 @@ namespace pmcenter
                     false,
                     Vars.CurrentConf.DisableNotifications,
                     update.Message.MessageId).ConfigureAwait(false);
+                // The message is forwarded anonymously
+                if ((update.Message.ReplyToMessage.ForwardFromChat?.Id == Vars.AnonymousChannelId) && !Vars.CurrentConf.DisableMessageLinkTip)
+                {
+                    _ = await Vars.Bot.SendTextMessageAsync(
+                        update.Message.From.Id,
+                        Vars.CurrentLang.Message_MsgLinkTip,
+                        ParseMode.Markdown,
+                        false,
+                        Vars.CurrentConf.DisableNotifications,
+                        update.Message.MessageId).ConfigureAwait(false);
+                    Vars.CurrentConf.DisableMessageLinkTip = true;
+                }
                 return;
             }
 

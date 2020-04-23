@@ -22,6 +22,15 @@ namespace pmcenter
 {
     public sealed partial class Program
     {
+        private static readonly List<CheckPoint> _checkPoints = new List<CheckPoint>();
+        private static void Check(string name) => _checkPoints.Add(new CheckPoint(Vars.StartSW.ElapsedTicks, name));
+        private static void PrintCheckPoints()
+        {
+            Log("Check points recorded during startup:");
+            for (int i = 1; i < _checkPoints.Count; i++)
+                Log($"#{i}: {(double)(_checkPoints[i].Tick - _checkPoints[i - 1].Tick) / 10000}ms: {_checkPoints[i].Name} at {(double)_checkPoints[i].Tick / 10000}ms");
+        }
+
         public static void Main(string[] args)
         {
             Vars.StartSW.Start();
@@ -39,14 +48,17 @@ namespace pmcenter
         {
             try
             {
+                Check("Initial checkpoint"); // mark initial checkpoint
                 Log("==> Running pre-start operations...");
                 // hook global errors (final failsafe)
                 AppDomain.CurrentDomain.UnhandledException += GlobalErrorHandler;
                 Log("Global error handler is armed and ready!");
                 // hook ctrl-c events
                 Console.CancelKeyPress += CtrlCHandler;
+                Check("Event handlers armed");
                 // process commandlines
                 await CmdLineProcess.RunCommand(Environment.CommandLine).ConfigureAwait(false);
+                Check("Command line arguments processed");
                 // everything (exits and/or errors) are handled above, please do not process.
                 // detect environment variables
                 // including:
@@ -83,7 +95,8 @@ namespace pmcenter
                 {
                     Log($"Failed to read environment variables: {ex}", "CORE", LogLevel.Warning);
                 }
-                
+                Check("Environment variables processed");
+
                 Log($"==> Using configurations file: {Vars.ConfFile}");
                 Log($"==> Using language file: {Vars.LangFile}");
                 
@@ -91,8 +104,10 @@ namespace pmcenter
                 Log("==> Initializing module - CONF"); // BY DEFAULT CONF & LANG ARE NULL! PROCEED BEFORE DOING ANYTHING. <- well anyway we have default values
                 await InitConf().ConfigureAwait(false);
                 _ = await ReadConf().ConfigureAwait(false);
+                Check("Configurations loaded");
                 await InitLang().ConfigureAwait(false);
                 _ = await ReadLang().ConfigureAwait(false);
+                Check("Custom locale loaded");
 
                 if (Vars.CurrentLang == null)
                 {
@@ -119,6 +134,7 @@ namespace pmcenter
                     Console.WriteLine("This warning will appear every time pmcenter starts up with \"IgnoredLogModules\" set.");
                     Console.ForegroundColor = tmp;
                 }
+                Check("Warnings displayed");
 
                 Log("==> Initializing module - THREADS");
                 Log("Starting RateLimiter...");
@@ -129,6 +145,8 @@ namespace pmcenter
                 {
                     Thread.Sleep(100);
                 }
+                Check("Rate limiter online");
+
                 Log("Starting UpdateChecker...");
                 if (Vars.CurrentConf.EnableAutoUpdateCheck)
                 {
@@ -145,6 +163,8 @@ namespace pmcenter
                     Vars.UpdateCheckerStatus = ThreadStatus.Stopped;
                     Log("Skipped.");
                 }
+                Check("Update checker ready");
+
                 Log("Starting SyncConf...");
                 Vars.SyncConf = new Thread(() => ThrSyncConf());
                 Vars.SyncConf.Start();
@@ -153,6 +173,7 @@ namespace pmcenter
                 {
                     Thread.Sleep(100);
                 }
+                Check("Configurations autosaver online");
 
                 Log("==> Initializing module - BOT");
                 Log("Initializing bot instance...");
@@ -179,8 +200,12 @@ namespace pmcenter
                 {
                     Vars.Bot = new TelegramBotClient(Vars.CurrentConf.APIKey);
                 }
+                Check("Bot initialized");
+
                 Log("Validating API Key...");
-                _ = await Vars.Bot.TestApiAsync().ConfigureAwait(false);
+                if (!Vars.CurrentConf.SkipAPIKeyVerification) _ = await Vars.Bot.TestApiAsync().ConfigureAwait(false);
+                Check("API Key test passed");
+
                 Log("Hooking event processors...");
                 Vars.Bot.OnUpdate += BotProcess.OnUpdate;
                 Log("Starting receiving...");
@@ -189,6 +214,8 @@ namespace pmcenter
                     UpdateType.Message,
                     UpdateType.CallbackQuery
                 });
+                Check("Update receiving started");
+
                 Log("==> Startup complete!");
                 Log("==> Running post-start operations...");
                 try
@@ -208,6 +235,8 @@ namespace pmcenter
                 {
                     Log($"Failed to send startup message to owner.\nDid you set the \"OwnerID\" key correctly? Otherwise pmcenter could not work properly.\nYou can try to use setup wizard to update/get your OwnerID automatically, just run \"dotnet pmcenter.dll --setup\".\n\nError details: {ex}", "BOT", LogLevel.Warning);
                 }
+                Check("Startup message sent");
+
                 try
                 {
                     // check .net core runtime version
@@ -227,6 +256,8 @@ namespace pmcenter
                 {
                     Log($".NET Core runtime version warning wasn't delivered to the owner: {ex.Message}, did you set the \"OwnerID\" key correctly?", "BOT", LogLevel.Warning);
                 }
+                Check(".NET Core version check complete");
+
                 // check language mismatch
                 if (Vars.CurrentLang.TargetVersion != Vars.AppVer.ToString())
                 {
@@ -239,6 +270,14 @@ namespace pmcenter
                                                    false,
                                                    false).ConfigureAwait(false);
                 }
+                Check("Language version mismatch checked");
+                Check("Complete");
+                if (Vars.CurrentConf.AnalyzeStartupTime)
+                {
+                    Log("Advanced startup time analysis is on, printing startup checkpoints...");
+                    PrintCheckPoints();
+                }
+
                 Log("==> All finished!");
                 if (Vars.ServiceMode)
                     while (true)

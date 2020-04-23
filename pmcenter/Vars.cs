@@ -43,7 +43,7 @@ namespace pmcenter
 #else
         public readonly static bool SelfContained = false;
 #endif
-        // public readonly static long AnonymousChannelID = -1001228946795;
+        public readonly static long AnonymousChannelId = -1001228946795;
         // public readonly static string AnonymousChannelTitle = "a user";
         // public readonly static string AnonymousChannelUsername = "HiddenSender";
 
@@ -68,7 +68,7 @@ namespace pmcenter
         public static bool IsPerformanceTestEndRequested = false;
         public static double PerformanceScore = 0;
 
-        public static Thread BannedSweepper;
+        public static Thread BannedSweeper;
         public static Thread ConfValidator;
         public static Methods.ThreadStatus ConfResetTimerStatus = Methods.ThreadStatus.Stopped;
         public static Thread RateLimiter;

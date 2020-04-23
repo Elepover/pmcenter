@@ -41,6 +41,9 @@ namespace pmcenter
                 UpdateChannel = "master";
                 IgnoreKeyboardInterrupt = false;
                 DisableNetCore3Check = false;
+                DisableMessageLinkTip = false;
+                AnalyzeStartupTime = false;
+                SkipAPIKeyVerification = false;
                 EnableActions = false;
                 Statistics = new Stats();
                 IgnoredLogModules = new List<string>();

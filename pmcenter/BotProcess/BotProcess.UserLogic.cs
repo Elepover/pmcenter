@@ -15,10 +15,7 @@ namespace pmcenter
         {
             // is user
 
-            if (await commandManager.Execute(Vars.Bot, update).ConfigureAwait(false))
-            {
-                return;
-            }
+            if (await commandManager.Execute(Vars.Bot, update).ConfigureAwait(false)) return;
 
             Log($"Received message from \"{update.Message.From.FirstName}\" (@{update.Message.From.Username} / {update.Message.From.Id}), forwarding...", "BOT");
 

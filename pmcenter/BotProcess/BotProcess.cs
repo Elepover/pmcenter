@@ -25,6 +25,7 @@ namespace pmcenter
             commandManager.RegisterCommand(new BanCommand());
             commandManager.RegisterCommand(new PardonCommand());
 
+            commandManager.RegisterCommand(new AutoSaveCommand());
             commandManager.RegisterCommand(new BackupConfCommand());
             commandManager.RegisterCommand(new BanIdCommand());
             commandManager.RegisterCommand(new CatConfigCommand());

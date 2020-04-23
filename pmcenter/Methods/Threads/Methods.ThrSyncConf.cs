@@ -8,6 +8,7 @@ namespace pmcenter
     {
         public static async void ThrSyncConf()
         {
+            Log("Autosave thread online!", "CONFSYNC");
             while (!Vars.IsShuttingDown)
             {
                 try

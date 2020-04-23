@@ -178,6 +178,10 @@ docker run -d -v $(pwd)/pmcenter.json:/opt/pmcenter/pmcenter.json --restart alwa
 | `UpdateChannel` | `String` | ✓ | 选择更新频道 |
 | `IgnoreKeyboardInterrupt` | `Boolean` | ✓ | 是否忽略 Ctrl-C 中断 |
 | `DisableNetCore3Check` | `Boolean` | ✓ | 启用以忽略 .NET Core 运行时版本检查 |
+| `DisableMessageLinkTip` | `Boolean` | ✓ | 启用以忽略消息链接提示 |
+| `AnalyzeStartupTime` | `Boolean` | ✓ | 启用以显示细化的启动时间分析 |
+| `SkipAPIKeyVerification` | `Boolean` | ✓ | 启用以跳过启动时的 API 密钥校验 |
+| `EnableActions` | `Boolean` | ✓ | 启动以启用消息操作面版 |
 | `Statistics` | `Stats` | ✕ | 统计数据 |
 | `IgnoredLogModules` | `Array` | ✓ | 忽略的日志模块列表，这些模块将不会输出信息到控制台 |
 | `Socks5Proxies` | `Array` | ✓ | SOCKS5 代理列表 |
@@ -250,6 +254,7 @@ pmcenter_lang: pmcenter 语言文件路径。
 | `/backup` | 所有者 | 备份配置文件 |
 | `/editconf <CONF>` | 所有者 | 手动保存 JSON 格式的配置及翻译 |
 | `/saveconf` | 所有者 | 手动保存配置及翻译，可用于更新后补齐缺少的配置项 |
+| `/autosave [off/时间间隔]` | 所有者 | 启用或停用自动保存，时间间隔单位为毫秒（1/1000 秒） |
 | `/readconf` | 所有者 | 在不重启机器人的情况下，重新载入配置 |
 | `/resetconf` | 所有者 | 重置配置文件 |
 | `/uptime` | 所有者 | 获取系统在线时间信息 |
@@ -304,6 +309,8 @@ pmcenter 正在准备转向 .NET Core 3.1，请参考 [issue #25](https://github
 ### 为什么我无法回复匿名转发的消息?
 
 请在 pmcenter 设置文件中启用 `EnableMsgLink` 选项。只有在 `EnableMsgLink` 选项启用后的转发的消息可以被回复。
+
+您无法回复在此选项处于禁用状态时被转发的消息，因为对应的消息链接不存在。
 
 如需更多信息，请参见[配置](#pmcenter-设置)部分。
 

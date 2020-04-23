@@ -32,7 +32,7 @@ namespace pmcenter
                 Vars.ConfValidator,
                 Vars.UpdateChecker,
                 Vars.RateLimiter,
-                Vars.BannedSweepper,
+                Vars.BannedSweeper,
                 Vars.SyncConf
             };
 

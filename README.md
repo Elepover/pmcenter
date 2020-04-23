@@ -176,6 +176,10 @@ Or, use setup wizard:
 | `UpdateChannel` | `String` | ✓ | Choose which update channel you prefer to. |
 | `IgnoreKeyboardInterrupt` | `Boolean` | ✓ | Choose whether pmcenter should ignore Ctrl-C interrupts or not. |
 | `DisableNetCore3Check` | `Boolean` | ✓ | Turn this on to hide .NET Core Runtime version warnings. |
+| `DisableMessageLinkTip` | `Boolean` | ✓ | Turn this on to hide message link tip prompts. |
+| `AnalyzeStartupTime` | `Boolean` | ✓ | Turn this on to show detailed analysis of startup time. |
+| `SkipAPIKeyVerification` | `Boolean` | ✓ | Turn this on to skip API Key verification on startup. |
+| `EnableActions` | `Boolean` | ✓ | Turn this on to enable message actions. |
 | `Statistics` | `Stats` | ✕ | Statistics data. |
 | `IgnoredLogModules` | `Array` | ✓ | List of ignored log modules. Selected modules will not generate output to console. |
 | `Socks5Proxies` | `Array` | ✓ | List of SOCKS5 proxies. |
@@ -247,6 +251,7 @@ You can write a `systemd service` to keep it running, even after the host machin
 | `/backup` | Owner | Backup configurations. |
 | `/editconf <CONF>` | Owner | Manually edit configurations and translations w/ JSON-formatted text. |
 | `/saveconf` | Owner | Manually save configurations and translations. Useful after upgrades. |
+| `/autosave [off/interval]` | Owner | Enable/Disable autosave. Intervals are in milliseconds (1/1000 of a second). |
 | `/readconf` | Owner | Reload configurations without restarting bot. |
 | `/resetconf` | Owner | Reset configurations. |
 | `/uptime` | Owner | Get system uptime info. |
@@ -301,6 +306,8 @@ pmcenter is planning to move to .NET Core 3.1, see [issue #25](https://github.co
 ### Why cannot I reply to anonymously forwarded messages?
 
 Please enable the `EnableMsgLink` option in pmcenter's configurations file. Only messages forwarded when `EnableMsgLink` option is turned on can be replied.
+
+You can NOT reply to the messages that were forwarded when `EnableMsgLink` option was disabled since their corresponding message links were missing.
 
 For more information, refer to the [configurations](#pmcenter-settings) part.
 

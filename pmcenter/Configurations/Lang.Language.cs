@@ -76,6 +76,10 @@ namespace pmcenter
             public string Message_MsgLinksCleared { get; set; }
             public string Message_AvailableLang { get; set; }
             public string Message_NetCore31Required { get; set; }
+            public string Message_MsgLinkTip { get; set; }
+            public string Message_AutoSaveEnabled { get; set; }
+            public string Message_AutoSaveIntervalTooShort { get; set; }
+            public string Message_AutoSaveDisabled { get; set; }
             public string Message_Action_Banned { get; set; }
             public string Message_Action_Pardoned { get; set; }
             public string Message_Action_ContChatEnabled { get; set; }

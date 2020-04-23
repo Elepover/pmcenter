@@ -39,6 +39,9 @@ namespace pmcenter
             public string UpdateChannel { get; set; }
             public bool IgnoreKeyboardInterrupt { get; set; }
             public bool DisableNetCore3Check { get; set; }
+            public bool DisableMessageLinkTip { get; set; }
+            public bool AnalyzeStartupTime { get; set; }
+            public bool SkipAPIKeyVerification { get; set; }
             public bool EnableActions { get; set; }
             public Stats Statistics { get; set; }
             public List<string> IgnoredLogModules { get; set; }
