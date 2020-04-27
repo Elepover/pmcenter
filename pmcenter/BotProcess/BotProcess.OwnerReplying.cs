@@ -27,7 +27,7 @@ namespace pmcenter
                     Vars.CurrentConf.DisableNotifications,
                     update.Message.MessageId).ConfigureAwait(false);
                 // The message is forwarded anonymously
-                if ((update.Message.ReplyToMessage.ForwardFromChat?.Id == Vars.AnonymousChannelId) && !Vars.CurrentConf.DisableMessageLinkTip)
+                if (!string.IsNullOrEmpty(update.Message.ReplyToMessage.ForwardSenderName) && !Vars.CurrentConf.DisableMessageLinkTip)
                 {
                     _ = await Vars.Bot.SendTextMessageAsync(
                         update.Message.From.Id,
@@ -67,10 +67,10 @@ namespace pmcenter
             if (Vars.CurrentConf.EnableRepliedConfirmation)
             {
                 var replyToMessage = Vars.CurrentLang.Message_ReplySuccessful;
-                replyToMessage = replyToMessage.Replace("$1", $"[{update.Message.ReplyToMessage.ForwardFrom.FirstName} (@{update.Message.ReplyToMessage.ForwardFrom.Username})](tg://user?id={update.Message.ReplyToMessage.ForwardFrom.Id})");
+                replyToMessage = replyToMessage.Replace("$1", $"[{Methods.GetComposedUsername(update.Message.ReplyToMessage.ForwardFrom)}](tg://user?id={update.Message.ReplyToMessage.ForwardFrom.Id})");
                 _ = await Vars.Bot.SendTextMessageAsync(update.Message.From.Id, replyToMessage, ParseMode.Markdown, false, false, update.Message.MessageId).ConfigureAwait(false);
             }
-            Log($"Successfully passed owner's reply to {update.Message.ReplyToMessage.ForwardFrom.FirstName} (@{update.Message.ReplyToMessage.ForwardFrom.Username} / {update.Message.ReplyToMessage.ForwardFrom.Id})", "BOT");
+            Log($"Successfully passed owner's reply to {Methods.GetComposedUsername(update.Message.ReplyToMessage.ForwardFrom, true, true)}", "BOT");
         }
     }
 }

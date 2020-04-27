@@ -6,7 +6,7 @@ namespace pmcenter
 {
     public static partial class EventHandlers
     {
-        public static void CtrlCHandler(object sender, ConsoleCancelEventArgs e)
+        public static async void CtrlCHandler(object sender, ConsoleCancelEventArgs e)
         {
             Vars.CtrlCCounter++;
             if (Vars.CtrlCCounter > 3)
@@ -24,7 +24,7 @@ namespace pmcenter
             Vars.IsCtrlCHandled = true;
             Log("Interrupt! pmcenter is exiting...", LogLevel.Warning);
             Log("If pmcenter was unresponsive, press Ctrl-C 3 more times.");
-            ExitApp(130);
+            await ExitApp(130);
         }
     }
 }

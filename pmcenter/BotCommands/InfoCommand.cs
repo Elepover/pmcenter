@@ -94,7 +94,7 @@ namespace pmcenter.Commands
             }
             else if (targetMessage.Dice != null)
             {
-                sb.Append("\n🎲 Dice: `");
+                sb.Append("\n🎲 Dice/Dart: `");
                 sb.Append(targetMessage.Dice.Value);
                 sb.Append("`");
             }

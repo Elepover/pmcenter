@@ -33,7 +33,7 @@ namespace pmcenter
                 CatchAllExceptions = false;
                 NoStartupMessage = false;
                 ContChatTarget = -1;
-                EnableMsgLink = false;
+                EnableMsgLink = true;
                 AllowUserRetraction = false;
                 ConfSyncInterval = 30000;
                 AdvancedLogging = false;

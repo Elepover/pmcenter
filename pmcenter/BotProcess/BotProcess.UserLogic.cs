@@ -80,33 +80,29 @@ namespace pmcenter
             }
             // check for real message sender
             // check if forwarded from channels
+            bool forwarderNotReal = false;
             if (update.Message.ForwardFrom == null && update.Message.ForwardFromChat != null)
-            {
                 // is forwarded from channel
+                forwarderNotReal = true;
+
+            if (update.Message.ForwardFrom != null && update.Message.ForwardFromChat == null)
+                // is forwarded from chats, but the forwarder is not the message sender
+                if (update.Message.ForwardFrom.Id != update.Message.From.Id)
+                    forwarderNotReal = true;
+
+            if (!string.IsNullOrEmpty(update.Message.ForwardSenderName) || !string.IsNullOrEmpty(forwardedMessage.ForwardSenderName))
+                // is anonymously forwarded
+                forwarderNotReal = true;
+
+            if (forwarderNotReal)
                 _ = await Vars.Bot.SendTextMessageAsync(Vars.CurrentConf.OwnerUID,
                                                     Vars.CurrentLang.Message_ForwarderNotReal
                                                         .Replace("$2", update.Message.From.Id.ToString())
-                                                        .Replace("$1", "[" + update.Message.From.FirstName + " " + update.Message.From.LastName + "](tg://user?id=" + update.Message.From.Id + ")"),
+                                                        .Replace("$1", $"[{GetComposedUsername(update.Message.From)}](tg://user?id={update.Message.From.Id})"),
                                                     ParseMode.Markdown,
                                                     false,
                                                     Vars.CurrentConf.DisableNotifications,
                                                     forwardedMessage.MessageId).ConfigureAwait(false);
-            }
-            if (update.Message.ForwardFrom != null && update.Message.ForwardFromChat == null)
-            {
-                // is forwarded from chats
-                if (update.Message.ForwardFrom.Id != update.Message.From.Id)
-                {
-                    _ = await Vars.Bot.SendTextMessageAsync(Vars.CurrentConf.OwnerUID,
-                                                        Vars.CurrentLang.Message_ForwarderNotReal
-                                                            .Replace("$2", update.Message.From.Id.ToString())
-                                                            .Replace("$1", "[" + update.Message.From.FirstName + " " + update.Message.From.LastName + "](tg://user?id=" + update.Message.From.Id + ")"),
-                                                        ParseMode.Markdown,
-                                                        false,
-                                                        Vars.CurrentConf.DisableNotifications,
-                                                        forwardedMessage.MessageId).ConfigureAwait(false);
-                }
-            }
 
             // process cc
             if (Vars.CurrentConf.EnableCc)

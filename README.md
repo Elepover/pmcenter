@@ -204,7 +204,8 @@ Tip: After upgrades, you can send `/saveconf` command to the bot to fix missing 
 - **Emojis** are supported, and were used by default.
 - Currently the response of the `/info` command is unchangeable.
 - Familiar with another language? Pull requests are welcome!
-- Please think twice before turning on `EnableMsgLink`, it makes it possible for you to reply to messages that are forwarded anonymously or from channels, however, it will cost more and more of your storage space and memory as the storage grows and makes it slower for pmcenter to process configuration files.
+- ~~Please think twice before turning on `EnableMsgLink`, it makes it possible for you to reply to messages that are forwarded anonymously or from channels, however, it will cost more and more of your storage space and memory as the storage grows and makes it slower for pmcenter to process configuration files.~~
+- Now Message Links play an important role in pmcenter's basic functions. Turning it off is NOT recommended.
 
 #### Changing File Location
 

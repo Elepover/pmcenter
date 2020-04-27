@@ -207,7 +207,8 @@ docker run -d -v $(pwd)/pmcenter.json:/opt/pmcenter/pmcenter.json --restart alwa
 - 目前 `/info` 命令的回复尚且无法更改。
 - 欢迎 Pull Requests.
 - 切换中文语言包，只需发送 `/switchlang https://raw.githubusercontent.com/Elepover/pmcenter/master/locales/pmcenter_locale_zh.json`
-- 在启用 `EnableMsgLink` 前请三思：虽然此功能允许您回复匿名转发消息及频道消息，但 pmcenter 的存储和内存占用将随消息量增长而增加，并将拖慢 pmcenter 操作配置文件时的速度。
+- ~~在启用 `EnableMsgLink` 前请三思：虽然此功能允许您回复匿名转发消息及频道消息，但 pmcenter 的存储和内存占用将随消息量增长而增加，并将拖慢 pmcenter 操作配置文件时的速度。~~
+- 现在消息链接在 pmcenter 正常功能中起着重要作用，我们不推荐将其禁用。
 
 #### 改变文件位置
 

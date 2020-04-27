@@ -1,13 +1,14 @@
 using System;
 using System.Diagnostics;
 using System.Threading;
+using System.Threading.Tasks;
 using static pmcenter.Methods.Logging;
 
 namespace pmcenter
 {
     public static partial class Methods
     {
-        public static void ExitApp(int code)
+        public static async Task ExitApp(int code)
         {
             Log("Attempting to exit gracefully...");
             Log("Stopping bot message receiving...");
@@ -17,6 +18,8 @@ namespace pmcenter
             sw.Start();
 
             Vars.IsShuttingDown = true;
+            Log("Saving configurations...");
+            await Conf.SaveConf();
             if (Vars.IsPerformanceTestExecuting)
             {
                 while (!Vars.IsPerformanceTestExecuting)
