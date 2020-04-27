@@ -40,7 +40,7 @@ namespace pmcenter.Commands
                     false,
                     Vars.CurrentConf.DisableNotifications,
                     update.Message.MessageId).ConfigureAwait(false);
-                Methods.ExitApp(0);
+                await Methods.ExitApp(0);
                 return true;
             }
             else

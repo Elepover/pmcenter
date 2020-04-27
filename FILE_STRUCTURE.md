@@ -33,8 +33,6 @@ File structure of pmcenter's source code:
    |  |- UpdateHelper - pmcenter updates helper
    |  |  |- ...
    |  |- ...
-   |- CommandLineProcess.cs - Loading commandlines to memory
-   |- CommandLineRouter.cs - Commandlines' router
    |- Program.cs - Main entry of pmcenter
    |- Setup.cs - Setup wizard's processing logic
    |- Template.cs - As its name

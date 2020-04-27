@@ -22,7 +22,7 @@ namespace pmcenter.Commands
                 Vars.CurrentConf.DisableNotifications,
                 update.Message.MessageId).ConfigureAwait(false);
             Thread.Sleep(5000);
-            Methods.ExitApp(0);
+            await Methods.ExitApp(0);
             return true;
         }
     }
