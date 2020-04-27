@@ -8,7 +8,7 @@ namespace pmcenter
     {
         public static async Task<bool> SaveConf(bool isInvalid = false, bool isAutoSave = false)
         { // DO NOT HANDLE ERRORS HERE.
-            string text = JsonConvert.SerializeObject(Vars.CurrentConf, Formatting.Indented);
+            string text = JsonConvert.SerializeObject(Vars.CurrentConf, Vars.CurrentConf.Minify ? Formatting.None : Formatting.Indented);
             await System.IO.File.WriteAllTextAsync(Vars.ConfFile, text).ConfigureAwait(false);
             if (isAutoSave)
             {

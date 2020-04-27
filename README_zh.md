@@ -144,6 +144,7 @@ docker run -d -v $(pwd)/pmcenter.json:/opt/pmcenter/pmcenter.json --restart alwa
 
 | 项目 | 类型 | 用户可编辑 | 描述 |
 | :---- | :---- | :---- | ----:|
+| `Minify` | `Boolean`| ✓ | 是否精简化 pmcenter 配置 |
 | `APIKey` | `String` | ✓ | 你的 Telegram 机器人 API 密钥 |
 | `OwnerID` | `Long` | ✓ | 使用者的 Telegram ID |
 | `EnableCc` | `Boolean` | ✓ | 是否启用 Cc 功能 |

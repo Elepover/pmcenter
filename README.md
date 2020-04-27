@@ -142,6 +142,7 @@ Or, use setup wizard:
 
 | Key | Type | User Editable | Description |
 | :---- | :---- | :---- | ----:|
+| `Minify` | `Boolean`| ✓ | To minify pmcenter configurations or not. |
 | `APIKey` | `String`| ✓ | Your Telegram bot's API key. |
 | `OwnerID` | `Long` | ✓ | The owner's Telegram user ID. |
 | `EnableCc` | `Boolean` | ✓ | Decides whether cc feature is enabled or not. |

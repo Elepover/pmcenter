@@ -8,6 +8,7 @@ namespace pmcenter
         {
             public ConfObj()
             {
+                Minify = false;
                 APIKey = "";
                 OwnerUID = -1;
                 EnableCc = false;

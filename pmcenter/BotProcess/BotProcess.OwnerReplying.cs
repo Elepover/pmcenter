@@ -13,7 +13,7 @@ namespace pmcenter
             var link = Methods.GetLinkByOwnerMsgID(update.Message.ReplyToMessage.MessageId);
             if (link != null && !link.IsFromOwner)
             {
-                Log($"Selected message is forwarded anonymously from {link.TGUser.Id}, fixing user information from database.", "BOT");
+                Log($"Found corresponding message link for message #{update.Message.ReplyToMessage.MessageId}, which was actually forwarded from {link.TGUser.Id}, patching user information from database...", "BOT");
                 update.Message.ReplyToMessage.ForwardFrom = link.TGUser;
             }
             if ((update.Message.ReplyToMessage.ForwardFrom == null) && (update.Message.Text.ToLower() != "/retract"))

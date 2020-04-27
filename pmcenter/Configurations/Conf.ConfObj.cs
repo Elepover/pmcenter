@@ -6,6 +6,7 @@ namespace pmcenter
     {
         public sealed partial class ConfObj
         {
+            public bool Minify { get; set; }
             public string APIKey { get; set; }
             public long OwnerUID { get; set; }
             public bool EnableCc { get; set; }
