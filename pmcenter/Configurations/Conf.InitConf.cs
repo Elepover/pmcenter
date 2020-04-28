@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using System.Threading.Tasks;
 using static pmcenter.Methods.Logging;
 
@@ -9,7 +10,7 @@ namespace pmcenter
         public static async Task InitConf()
         {
             Log("Checking configurations file's integrity...", "CONF");
-            if (!System.IO.File.Exists(Vars.ConfFile))
+            if (!File.Exists(Vars.ConfFile))
             { // STEP 1, DETECT EXISTENCE.
                 Log("Configurations file not found. Creating...", "CONF", LogLevel.Warning);
                 Vars.CurrentConf = new ConfObj();
@@ -25,7 +26,7 @@ namespace pmcenter
                 {
                     Log($"Error! {ex}", "CONF", LogLevel.Error);
                     Log("Moving old configurations file to \"pmcenter.json.bak\"...", "CONF", LogLevel.Warning);
-                    System.IO.File.Move(Vars.ConfFile, Vars.ConfFile + ".bak");
+                    File.Move(Vars.ConfFile, Vars.ConfFile + ".bak");
                     Vars.CurrentConf = new ConfObj();
                     _ = await SaveConf(true).ConfigureAwait(false); // Then the app will exit, do nothing.
                 }

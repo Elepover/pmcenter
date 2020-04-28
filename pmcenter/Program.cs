@@ -183,11 +183,11 @@ namespace pmcenter
                     List<ProxyInfo> proxyInfoList = new List<ProxyInfo>();
                     foreach (var proxyInfo in Vars.CurrentConf.Socks5Proxies)
                     {
-                        ProxyInfo ProxyInfo = new ProxyInfo(proxyInfo.ServerName,
+                        var newProxyInfo = new ProxyInfo(proxyInfo.ServerName,
                                                             proxyInfo.ServerPort,
                                                             proxyInfo.Username,
                                                             proxyInfo.ProxyPass);
-                        proxyInfoList.Add(ProxyInfo);
+                        proxyInfoList.Add(newProxyInfo);
                     }
                     var proxy = new HttpToSocks5Proxy(proxyInfoList.ToArray())
                     {
@@ -225,7 +225,7 @@ namespace pmcenter
                     {
                         _ = await Vars.Bot.SendTextMessageAsync(Vars.CurrentConf.OwnerUID,
                                                             Vars.CurrentLang.Message_BotStarted
-                                                                .Replace("$1", Math.Round(Vars.StartSW.Elapsed.TotalSeconds, 2) + "s"),
+                                                                .Replace("$1", $"{Math.Round(Vars.StartSW.Elapsed.TotalSeconds, 2)}s"),
                                                             ParseMode.Markdown,
                                                             false,
                                                             false).ConfigureAwait(false);
@@ -250,6 +250,7 @@ namespace pmcenter
                                                                 false,
                                                                 false).ConfigureAwait(false);
                         Vars.CurrentConf.DisableNetCore3Check = true;
+                        _ = await SaveConf(false, true);
                     }
                 }
                 catch (Exception ex)
@@ -276,6 +277,7 @@ namespace pmcenter
                 {
                     Log("Advanced startup time analysis is on, printing startup checkpoints...");
                     PrintCheckPoints();
+                    _checkPoints.Clear();
                 }
 
                 Log("==> All finished!");

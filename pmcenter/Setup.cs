@@ -16,21 +16,21 @@ namespace pmcenter
 {
     public static class Setup
     {
-        private static readonly Conf.ConfObj NewConf = new Conf.ConfObj();
-        private static TelegramBotClient TestBot;
-        private static bool IsUIDReceived = false;
-        private static long ReceivedUID = -1;
-        private static string Nickname = "";
+        private static readonly Conf.ConfObj newConf = new Conf.ConfObj();
+        private static TelegramBotClient testBot;
+        private static bool isUidReceived = false;
+        private static long receivedUid = -1;
+        private static string nickname = "";
         private static void OnUpdate(object sender, UpdateEventArgs e)
         {
             Say("Update received.");
             Say(".. Processing...");
-            if (!IsUIDReceived)
+            if (!isUidReceived)
             {
-                IsUIDReceived = true;
-                ReceivedUID = e.Update.Message.From.Id;
-                Nickname = string.IsNullOrEmpty(e.Update.Message.From.LastName) ? e.Update.Message.From.FirstName : $"{e.Update.Message.From.FirstName} {e.Update.Message.From.LastName}";
-                TestBot.StopReceiving();
+                isUidReceived = true;
+                receivedUid = e.Update.Message.From.Id;
+                nickname = string.IsNullOrEmpty(e.Update.Message.From.LastName) ? e.Update.Message.From.FirstName : $"{e.Update.Message.From.FirstName} {e.Update.Message.From.LastName}";
+                testBot.StopReceiving();
             }
         }
 
@@ -87,7 +87,7 @@ namespace pmcenter
                     Say(" Done!");
                 }
                 SIn($"Saving configurations to {Vars.ConfFile}...");
-                Vars.CurrentConf = NewConf;
+                Vars.CurrentConf = newConf;
                 _ = await Conf.SaveConf().ConfigureAwait(false);
                 Say(" Done!");
                 if (File.Exists(Vars.LangFile))
@@ -135,8 +135,8 @@ namespace pmcenter
             SIn($".. Testing API Key: {key}...");
             try
             {
-                TestBot = new TelegramBotClient(key);
-                if (!await TestBot.TestApiAsync().ConfigureAwait(false))
+                testBot = new TelegramBotClient(key);
+                if (!await testBot.TestApiAsync().ConfigureAwait(false))
                 {
                     throw (new ArgumentException("API Key is not valid."));
                 }
@@ -147,7 +147,7 @@ namespace pmcenter
                 Say($" Invalid API Key: {ex.Message}");
                 goto EnterKey;
             }
-            NewConf.APIKey = key;
+            newConf.APIKey = key;
             Say(" Done!");
         }
         private static async Task SetUID()
@@ -162,17 +162,17 @@ namespace pmcenter
             if (uid.ToLower() == "auto")
             {
                 Say(".. Preparing for automatic UID detection...");
-                TestBot.OnUpdate += OnUpdate;
-                TestBot.StartReceiving(new UpdateType[] { UpdateType.Message });
+                testBot.OnUpdate += OnUpdate;
+                testBot.StartReceiving(new UpdateType[] { UpdateType.Message });
                 Say("Say something to your bot on Telegram. We'll detect your UID automatically.");
-                while (!IsUIDReceived)
+                while (!isUidReceived)
                 {
                     Thread.Sleep(200);
                 }
-                _ = await TestBot.SendTextMessageAsync(ReceivedUID, $"👋 *Hello my owner!* Your UID `{ReceivedUID}` is now being saved.", ParseMode.Markdown);
-                Say($"Hello, [{Nickname}]! Your UID has been detected as {ReceivedUID}.");
-                SIn($".. Saving UID: {ReceivedUID}...");
-                NewConf.OwnerUID = ReceivedUID;
+                _ = await testBot.SendTextMessageAsync(receivedUid, $"👋 *Hello my owner!* Your UID `{receivedUid}` is now being saved.", ParseMode.Markdown);
+                Say($"Hello, [{nickname}]! Your UID has been detected as {receivedUid}.");
+                SIn($".. Saving UID: {receivedUid}...");
+                newConf.OwnerUID = receivedUid;
                 Say(" Done!");
             }
             else
@@ -181,7 +181,7 @@ namespace pmcenter
                 {
                     long newUid = long.Parse(uid);
                     SIn($".. Saving UID: {newUid}...");
-                    NewConf.OwnerUID = newUid;
+                    newConf.OwnerUID = newUid;
                     Say(" Done!");
                 }
                 catch (Exception ex)
@@ -199,7 +199,7 @@ namespace pmcenter
             SIn("=> Mute notifications? [y/N]: ");
             string muteNotif = Console.ReadLine();
             SIn(".. Saving...");
-            NewConf.DisableNotifications = muteNotif.ToLower() != "y" ? true : false;
+            newConf.DisableNotifications = muteNotif.ToLower() != "y" ? true : false;
             Say(" Done!");
         }
         private static void SetAutoBanPrefs()
@@ -210,7 +210,7 @@ namespace pmcenter
             SIn("=> Automatically ban flooding users? [Y/n]: ");
             string autoBan = Console.ReadLine();
             SIn(".. Saving...");
-            NewConf.AutoBan = autoBan.ToLower() != "n" ? true : false;
+            newConf.AutoBan = autoBan.ToLower() != "n" ? true : false;
             Say(" Done!");
         }
         private static void SetMessageLinks()
@@ -223,7 +223,7 @@ namespace pmcenter
             SIn("=> Enable message links? [Y/n]: ");
             string enableMsgLinks = Console.ReadLine();
             SIn(".. Saving...");
-            NewConf.EnableMsgLink = enableMsgLinks.ToLower() != "n" ? true : false;
+            newConf.EnableMsgLink = enableMsgLinks.ToLower() != "n" ? true : false;
             Say(" Done!");
         }
     }

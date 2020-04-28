@@ -16,7 +16,7 @@ namespace pmcenter
                 Log($"Found corresponding message link for message #{update.Message.ReplyToMessage.MessageId}, which was actually forwarded from {link.TGUser.Id}, patching user information from database...", "BOT");
                 update.Message.ReplyToMessage.ForwardFrom = link.TGUser;
             }
-            if ((update.Message.ReplyToMessage.ForwardFrom == null) && (update.Message.Text.ToLower() != "/retract"))
+            if ((update.Message.ReplyToMessage.ForwardFrom == null) && (update.Message.Text.ToLowerInvariant() != "/retract"))
             {
                 // The owner is replying to bot messages. (no forwardfrom)
                 _ = await Vars.Bot.SendTextMessageAsync(
