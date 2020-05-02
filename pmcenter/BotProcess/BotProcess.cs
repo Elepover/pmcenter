@@ -61,7 +61,7 @@ namespace pmcenter
             try
             {
                 if (e == null) return;
-                if (Vars.CurrentConf.DetailedMsgLogging)
+                if (Vars.CurrentConf.DetailedMsgLogging && e.Update.Type == UpdateType.Message)
                     Log($"OnUpdate() triggered: UpdType: {e.Update.Type}, UpdID: {e.Update.Id}, ChatId: {e.Update.Message.Chat.Id}, Username: {e.Update.Message.Chat.Username}, FromID: {e.Update.Message.From.Id}, FromUsername: {e.Update.Message.From.Username}", "BOT-DETAILED", LogLevel.Info);
                 
                 switch (e.Update.Type)
