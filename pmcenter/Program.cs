@@ -28,7 +28,7 @@ namespace pmcenter
         {
             Log("Check points recorded during startup:");
             for (int i = 1; i < _checkPoints.Count; i++)
-                Log($"#{i}: {(double)(_checkPoints[i].Tick - _checkPoints[i - 1].Tick) / 10000}ms: {_checkPoints[i].Name} at {(double)_checkPoints[i].Tick / 10000}ms");
+                Log($"#{i}: {new TimeSpan(_checkPoints[i].Tick - _checkPoints[i - 1].Tick).TotalMilliseconds}ms: {_checkPoints[i].Name} at {new TimeSpan(_checkPoints[i].Tick).TotalMilliseconds}ms");
         }
 
         public static void Main(string[] args)
