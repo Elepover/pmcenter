@@ -5,6 +5,7 @@
 */
 
 //#define BUILT_FOR_GITHUB_RELEASES
+//#define SELFCONTAINED
 
 using System;
 using System.Collections.Generic;
@@ -43,7 +44,7 @@ namespace pmcenter
 #else
         public readonly static bool SelfContained = false;
 #endif
-        public readonly static long AnonymousChannelId = -1001228946795;
+        // public readonly static long AnonymousChannelId = -1001228946795;
         // public readonly static string AnonymousChannelTitle = "a user";
         // public readonly static string AnonymousChannelUsername = "HiddenSender";
 
