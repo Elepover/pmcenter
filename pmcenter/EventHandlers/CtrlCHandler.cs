@@ -8,6 +8,7 @@ namespace pmcenter
     {
         public static async void CtrlCHandler(object sender, ConsoleCancelEventArgs e)
         {
+            if (e != null) e.Cancel = true;
             Vars.CtrlCCounter++;
             if (Vars.CtrlCCounter > 3)
             {
@@ -18,7 +19,6 @@ namespace pmcenter
             if (Vars.CurrentConf.IgnoreKeyboardInterrupt)
             {
                 Log("Keyboard interrupt is currently being ignored. To change this behavior, set \"IgnoreKeyboardInterrupt\" key to \"false\" in pmcenter configurations.", LogLevel.Warning);
-                if (e != null) e.Cancel = true;
                 return;
             }
             Vars.IsCtrlCHandled = true;

@@ -20,13 +20,10 @@ namespace pmcenter
             Vars.IsShuttingDown = true;
             Log("Saving configurations...");
             await Conf.SaveConf();
-            if (Vars.IsPerformanceTestExecuting)
+            while (Vars.IsPerformanceTestExecuting)
             {
-                while (!Vars.IsPerformanceTestExecuting)
-                {
-                    if (sw.ElapsedMilliseconds >= 10000) Environment.Exit(16);
-                    Thread.Sleep(50);
-                }
+                if (sw.ElapsedMilliseconds >= 10000) Environment.Exit(16);
+                Thread.Sleep(50);
             }
             Log("[OK] Shut down performance tester.");
 
