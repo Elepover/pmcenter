@@ -31,6 +31,12 @@ namespace pmcenter
                 return;
             }
 
+            if (Methods.IsBanned(update.Message.From.Id))
+            {
+                Log($"Restricting banned user from sending messages: {update.Message.From.FirstName} (@{update.Message.From.Username} / {(long)update.Message.From.Id})", "BOT");
+                return;
+            }
+
             // test text blacklist
             if (!string.IsNullOrEmpty(update.Message.Text) && IsKeywordBanned(update.Message.Text))
             {

@@ -14,12 +14,6 @@ namespace pmcenter
             if (update.Message.From.IsBot) return;
             if (update.Message.Chat.Type != ChatType.Private) return;
 
-            if (Methods.IsBanned(update.Message.From.Id))
-            {
-                Log($"Restricting banned user from sending messages: {update.Message.From.FirstName} (@{update.Message.From.Username} / {(long)update.Message.From.Id})", "BOT");
-                return;
-            }
-
             Vars.CurrentConf.Statistics.TotalMessagesReceived += 1;
             if (update.Message.From.Id == Vars.CurrentConf.OwnerUID)
             {
