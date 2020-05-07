@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
-using static pmcenter.Methods.UpdateHelper;
 using static pmcenter.Methods.Logging;
+using static pmcenter.Methods.UpdateHelper;
 
 namespace pmcenter.CommandLines
 {

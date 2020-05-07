@@ -4,12 +4,12 @@
 // Copyright (C) The pmcenter authors. Licensed under the Apache License (Version 2.0).
 */
 
+using MihaZupan;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
-using MihaZupan;
 using Telegram.Bot;
 using Telegram.Bot.Types.Enums;
 using static pmcenter.Conf;
@@ -34,7 +34,7 @@ namespace pmcenter
         public static void Main(string[] args)
         {
             Vars.StartSW.Start();
-            Console.WriteLine(Vars.ASCII);
+            Console.WriteLine(Vars.AsciiArt);
             Log("Main delegator activated!", "DELEGATOR");
             Log($"Starting pmcenter, version {Vars.AppVer}. Channel: \"{Vars.CompileChannel}\"", "DELEGATOR");
             if (Vars.GitHubReleases)

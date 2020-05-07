@@ -1,7 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Telegram.Bot.Args;
 using Telegram.Bot.Types.Enums;
-using static pmcenter.Methods.Logging;
 
 namespace pmcenter
 {

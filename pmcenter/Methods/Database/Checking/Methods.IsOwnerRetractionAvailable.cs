@@ -1,5 +1,3 @@
-using static pmcenter.Conf;
-
 namespace pmcenter
 {
     public static partial class Methods
