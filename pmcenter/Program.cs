@@ -110,9 +110,7 @@ namespace pmcenter
                 Check("Custom locale loaded");
 
                 if (Vars.CurrentLang == null)
-                {
                     throw new InvalidOperationException("Language file is empty.");
-                }
 
                 if (Vars.RestartRequired)
                 {
@@ -203,10 +201,13 @@ namespace pmcenter
                 Check("Bot initialized");
 
                 Log("Validating API Key...");
-                if (!Vars.CurrentConf.SkipAPIKeyVerification) _ = await Vars.Bot.TestApiAsync().ConfigureAwait(false);
+                if (Vars.CurrentConf.SkipAPIKeyVerification)
+                    Log("API Key validation skipped", LogLevel.Warning);
+                else
+                    _ = await Vars.Bot.TestApiAsync().ConfigureAwait(false);
                 Check("API Key test passed");
 
-                Log("Hooking event processors...");
+                Log("Hooking message processors...");
                 Vars.Bot.OnUpdate += BotProcess.OnUpdate;
                 Log("Starting receiving...");
                 Vars.Bot.StartReceiving(new[]
@@ -257,19 +258,20 @@ namespace pmcenter
                 {
                     Log($".NET Core runtime version warning wasn't delivered to the owner: {ex.Message}, did you set the \"OwnerID\" key correctly?", "BOT", LogLevel.Warning);
                 }
-                Check(".NET Core version check complete");
+                Check(".NET Core runtime version check complete");
 
                 // check language mismatch
                 if (Vars.CurrentLang.TargetVersion != Vars.AppVer.ToString())
                 {
-                    Log("Language version mismatch detected.", "CORE", LogLevel.Warning);
-                    _ = await Vars.Bot.SendTextMessageAsync(Vars.CurrentConf.OwnerUID,
-                                                   Vars.CurrentLang.Message_LangVerMismatch
-                                                       .Replace("$1", Vars.CurrentLang.TargetVersion)
-                                                       .Replace("$2", Vars.AppVer.ToString()),
-                                                   ParseMode.Markdown,
-                                                   false,
-                                                   false).ConfigureAwait(false);
+                    Log("Language version mismatch detected", "CORE", LogLevel.Warning);
+                    if (Vars.CurrentConf.CheckLangVersionMismatch)
+                        _ = await Vars.Bot.SendTextMessageAsync(Vars.CurrentConf.OwnerUID,
+                                                       Vars.CurrentLang.Message_LangVerMismatch
+                                                           .Replace("$1", Vars.CurrentLang.TargetVersion)
+                                                           .Replace("$2", Vars.AppVer.ToString()),
+                                                       ParseMode.Markdown,
+                                                       false,
+                                                       false).ConfigureAwait(false);
                 }
                 Check("Language version mismatch checked");
                 Check("Complete");

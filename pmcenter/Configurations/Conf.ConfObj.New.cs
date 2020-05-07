@@ -46,6 +46,7 @@ namespace pmcenter
                 AnalyzeStartupTime = false;
                 SkipAPIKeyVerification = false;
                 EnableActions = false;
+                CheckLangVersionMismatch = true;
                 Statistics = new Stats();
                 IgnoredLogModules = new List<string>();
                 Socks5Proxies = new List<Socks5Proxy>();

@@ -181,6 +181,7 @@ Or, use setup wizard:
 | `AnalyzeStartupTime` | `Boolean` | ✓ | Turn this on to show detailed analysis of startup time. |
 | `SkipAPIKeyVerification` | `Boolean` | ✓ | Turn this on to skip API Key verification on startup. |
 | `EnableActions` | `Boolean` | ✓ | Turn this on to enable message actions. |
+| `CheckLangVersionMismatch` | `Boolean` | ✓ | Check language version and send alert on startup. |
 | `Statistics` | `Stats` | ✕ | Statistics data. |
 | `IgnoredLogModules` | `Array` | ✓ | List of ignored log modules. Selected modules will not generate output to console. |
 | `Socks5Proxies` | `Array` | ✓ | List of SOCKS5 proxies. |

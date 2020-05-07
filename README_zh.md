@@ -183,6 +183,7 @@ docker run -d -v $(pwd)/pmcenter.json:/opt/pmcenter/pmcenter.json --restart alwa
 | `AnalyzeStartupTime` | `Boolean` | ✓ | 启用以显示细化的启动时间分析 |
 | `SkipAPIKeyVerification` | `Boolean` | ✓ | 启用以跳过启动时的 API 密钥校验 |
 | `EnableActions` | `Boolean` | ✓ | 启动以启用消息操作面版 |
+| `CheckLangVersionMismatch` | `Boolean` | ✓ | 在启动时检测语言文件版本 |
 | `Statistics` | `Stats` | ✕ | 统计数据 |
 | `IgnoredLogModules` | `Array` | ✓ | 忽略的日志模块列表，这些模块将不会输出信息到控制台 |
 | `Socks5Proxies` | `Array` | ✓ | SOCKS5 代理列表 |

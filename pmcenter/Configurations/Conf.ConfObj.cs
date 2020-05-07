@@ -44,6 +44,7 @@ namespace pmcenter
             public bool AnalyzeStartupTime { get; set; }
             public bool SkipAPIKeyVerification { get; set; }
             public bool EnableActions { get; set; }
+            public bool CheckLangVersionMismatch { get; set; }
             public Stats Statistics { get; set; }
             public List<string> IgnoredLogModules { get; set; }
             public List<Socks5Proxy> Socks5Proxies { get; set; }
