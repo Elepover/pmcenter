@@ -37,9 +37,9 @@ namespace pmcenter
                 // Process locale.
                 if (Vars.CurrentConf.EnableRepliedConfirmation)
                 {
-                    var ReplyToMessage = Vars.CurrentLang.Message_ReplySuccessful;
-                    ReplyToMessage = ReplyToMessage.Replace("$1", $"[{Vars.CurrentConf.ContChatTarget}](tg://user?id={Vars.CurrentConf.ContChatTarget})");
-                    _ = await Vars.Bot.SendTextMessageAsync(update.Message.From.Id, ReplyToMessage, ParseMode.Markdown, false, false, update.Message.MessageId).ConfigureAwait(false);
+                    var replyToMessage = Vars.CurrentLang.Message_ReplySuccessful;
+                    replyToMessage = replyToMessage.Replace("$1", $"[{Vars.CurrentConf.ContChatTarget}](tg://user?id={Vars.CurrentConf.ContChatTarget})");
+                    _ = await Vars.Bot.SendTextMessageAsync(update.Message.From.Id, replyToMessage, ParseMode.Markdown, false, false, update.Message.MessageId).ConfigureAwait(false);
                 }
                 Log($"Successfully passed owner's reply to UID: {Vars.CurrentConf.ContChatTarget}", "BOT");
                 return;
