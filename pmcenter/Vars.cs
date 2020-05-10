@@ -20,7 +20,7 @@ namespace pmcenter
     public static class Vars
     {
         public readonly static string AsciiArt = "                                     __           \n    ____  ____ ___  ________  ____  / /____  _____\n   / __ \\/ __ `__ \\/ ___/ _ \\/ __ \\/ __/ _ \\/ ___/\n  / /_/ / / / / / / /__/  __/ / / / /_/  __/ /    \n / .___/_/ /_/ /_/\\___/\\___/_/ /_/\\__/\\___/_/     \n/_/                                               ";
-        public readonly static Version AppVer = new Version("2.0.721.35");
+        public readonly static Version AppVer = new Version("2.0.2.0");
         public readonly static string AppExecutable = Assembly.GetExecutingAssembly().Location;
         public readonly static string AppDirectory = Path.GetDirectoryName(AppExecutable);
         public static string ConfFile = Path.Combine(AppDirectory, "pmcenter.json");
