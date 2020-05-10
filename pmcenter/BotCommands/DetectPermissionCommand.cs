@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Threading.Tasks;
 using Telegram.Bot;
 using Telegram.Bot.Types;
@@ -15,13 +16,13 @@ namespace pmcenter.Commands
 
         public async Task<bool> ExecuteAsync(TelegramBotClient botClient, Update update)
         {
-            var confWritable = FlipBool((new FileInfo(Vars.ConfFile)).IsReadOnly);
-            var langWritable = FlipBool((new FileInfo(Vars.LangFile)).IsReadOnly);
+            var confWritable = !(new FileInfo(Vars.ConfFile)).IsReadOnly;
+            var langWritable = !(new FileInfo(Vars.LangFile)).IsReadOnly;
             _ = await botClient.SendTextMessageAsync(
                 update.Message.From.Id,
                 Vars.CurrentLang.Message_ConfAccess
-                    .Replace("$1", BoolStr(confWritable))
-                    .Replace("$2", BoolStr(langWritable))
+                    .Replace("$1", confWritable.ToString())
+                    .Replace("$2", langWritable.ToString())
                 ,
                 ParseMode.Markdown,
                 false,
