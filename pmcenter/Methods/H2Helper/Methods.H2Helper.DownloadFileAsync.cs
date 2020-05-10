@@ -11,7 +11,7 @@ namespace pmcenter
             public static async Task DownloadFileAsync(Uri uri, string filename)
             {
                 var bytes = await GetBytesAsync(uri).ConfigureAwait(false);
-                var fileStream = File.OpenWrite(filename);
+                var fileStream = File.Create(filename);
                 await fileStream.WriteAsync(bytes).ConfigureAwait(false);
                 await fileStream.FlushAsync();
                 fileStream.Close();
