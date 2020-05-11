@@ -5,7 +5,7 @@ WORKDIR /opt
 
 RUN mkdir pmcenter \
     && cd pmcenter \
-    && wget https://see.wtf/pmcenter-update -O pmcenter.zip \
+    && wget https://see.wtf/pmcenter-lazer-update -O pmcenter.zip \
     && unzip pmcenter.zip \
     && rm pmcenter.zip
 ADD locales/pmcenter_locale_$LOCALE.json /opt/pmcenter/pmcenter_locale.json
