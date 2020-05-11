@@ -1,9 +1,10 @@
 using System.Threading;
 using static pmcenter.Conf;
+using static pmcenter.Methods.Logging;
 
 namespace pmcenter
 {
-    public partial class Methods
+    public static partial class Methods
     {
         public static async void ThrRateLimiter()
         {
@@ -11,15 +12,15 @@ namespace pmcenter
             while (!Vars.IsShuttingDown)
             {
                 Vars.RateLimiterStatus = ThreadStatus.Working;
-                foreach (RateData Data in Vars.RateLimits)
+                foreach (var data in Vars.RateLimits)
                 {
-                    if (Data.MessageCount > Vars.CurrentConf.AutoBanThreshold && Vars.CurrentConf.AutoBan)
+                    if (data.MessageCount > Vars.CurrentConf.AutoBanThreshold && Vars.CurrentConf.AutoBan)
                     {
-                        BanUser(Data.UID);
+                        BanUser(data.UID);
                         _ = await SaveConf(false, true).ConfigureAwait(false);
-                        Log($"Banning user: {Data.UID}", "RATELIMIT");
+                        Log($"Banning user: {data.UID}", "RATELIMIT");
                     }
-                    Data.MessageCount = 0;
+                    data.MessageCount = 0;
                 }
                 Vars.RateLimiterStatus = ThreadStatus.Standby;
                 try { Thread.Sleep(30000); } catch { }

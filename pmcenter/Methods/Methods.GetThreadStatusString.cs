@@ -1,22 +1,17 @@
 namespace pmcenter
 {
-    public partial class Methods
+    public static partial class Methods
     {
-        public static string GetThreadStatusString(ThreadStatus Status)
+        public static string GetThreadStatusString(ThreadStatus status)
         {
-            switch (Status)
+            return status switch
             {
-                case ThreadStatus.Working:
-                    return Vars.CurrentLang.Message_ThreadStatus_Working;
-                case ThreadStatus.Standby:
-                    return Vars.CurrentLang.Message_ThreadStatus_Standby;
-                case ThreadStatus.Stopped:
-                    return Vars.CurrentLang.Message_ThreadStatus_Stopped;
-                case ThreadStatus.Error:
-                    return Vars.CurrentLang.Message_ThreadStatus_Error;
-                default:
-                    return Vars.CurrentLang.Message_ThreadStatus_Unknown;
-            }
+                ThreadStatus.Working => Vars.CurrentLang.Message_ThreadStatus_Working,
+                ThreadStatus.Standby => Vars.CurrentLang.Message_ThreadStatus_Standby,
+                ThreadStatus.Stopped => Vars.CurrentLang.Message_ThreadStatus_Stopped,
+                ThreadStatus.Error => Vars.CurrentLang.Message_ThreadStatus_Error,
+                _ => Vars.CurrentLang.Message_ThreadStatus_Unknown,
+            };
         }
     }
 }

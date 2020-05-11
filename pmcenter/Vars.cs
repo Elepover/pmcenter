@@ -4,6 +4,9 @@
 // Copyright (C) The pmcenter authors. Licensed under the Apache License (Version 2.0).
 */
 
+//#define BUILT_FOR_GITHUB_RELEASES
+//#define SELFCONTAINED
+
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -16,10 +19,10 @@ namespace pmcenter
 {
     public static class Vars
     {
-        public readonly static string ASCII = "                                     __           \n    ____  ____ ___  ________  ____  / /____  _____\n   / __ \\/ __ `__ \\/ ___/ _ \\/ __ \\/ __/ _ \\/ ___/\n  / /_/ / / / / / / /__/  __/ / / / /_/  __/ /    \n / .___/_/ /_/ /_/\\___/\\___/_/ /_/\\__/\\___/_/     \n/_/                                               ";
-        public readonly static Version AppVer = new Version("1.9.280.15");
+        public readonly static string AsciiArt = "                                     __           \n    ____  ____ ___  ________  ____  / /____  _____\n   / __ \\/ __ `__ \\/ ___/ _ \\/ __ \\/ __/ _ \\/ ___/\n  / /_/ / / / / / / /__/  __/ / / / /_/  __/ /    \n / .___/_/ /_/ /_/\\___/\\___/_/ /_/\\__/\\___/_/     \n/_/                                               ";
+        public readonly static Version AppVer = new Version("2.0.2.0");
         public readonly static string AppExecutable = Assembly.GetExecutingAssembly().Location;
-        public readonly static string AppDirectory = (new FileInfo(AppExecutable)).DirectoryName;
+        public readonly static string AppDirectory = Path.GetDirectoryName(AppExecutable);
         public static string ConfFile = Path.Combine(AppDirectory, "pmcenter.json");
         public static string LangFile = Path.Combine(AppDirectory, "pmcenter_locale.json");
         public readonly static string UpdateArchiveURL = "https://see.wtf/pmcenter-update";
@@ -31,7 +34,17 @@ namespace pmcenter
 #else
         public readonly static string CompileChannel = "pmcenter-lazer";
 #endif
-        // public readonly static long AnonymousChannelID = -1001228946795;
+#if BUILT_FOR_GITHUB_RELEASES
+        public readonly static bool GitHubReleases = true;
+#else
+        public readonly static bool GitHubReleases = false;
+#endif
+#if SELFCONTAINED
+        public readonly static bool SelfContained = true;
+#else
+        public readonly static bool SelfContained = false;
+#endif
+        // public readonly static long AnonymousChannelId = -1001228946795;
         // public readonly static string AnonymousChannelTitle = "a user";
         // public readonly static string AnonymousChannelUsername = "HiddenSender";
 
@@ -43,7 +56,7 @@ namespace pmcenter
         public static int CtrlCCounter = 0;
         public static bool IsShuttingDown = false;
         public static bool ServiceMode = true;
-        public static Conf.UpdateLevel UpdateLevel;
+        public static Methods.UpdateHelper.UpdateLevel UpdateLevel;
         public static Version UpdateVersion;
         public static Stopwatch StartSW = new Stopwatch();
         public static List<Conf.RateData> RateLimits = new List<Conf.RateData>();
@@ -56,7 +69,7 @@ namespace pmcenter
         public static bool IsPerformanceTestEndRequested = false;
         public static double PerformanceScore = 0;
 
-        public static Thread BannedSweepper;
+        public static Thread BannedSweeper;
         public static Thread ConfValidator;
         public static Methods.ThreadStatus ConfResetTimerStatus = Methods.ThreadStatus.Stopped;
         public static Thread RateLimiter;

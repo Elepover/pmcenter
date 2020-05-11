@@ -1,6 +1,6 @@
 namespace pmcenter
 {
-    public partial class Conf
+    public static partial class Conf
     {
         /// <summary>
         /// Switch 'disablenotifications' status, returning current status.

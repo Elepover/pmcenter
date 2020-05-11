@@ -10,7 +10,7 @@ using Telegram.Bot.Types;
 
 namespace pmcenter
 {
-    internal interface ICommand
+    internal interface IBotCommand
     {
         bool OwnerOnly { get; }
         string Prefix { get; }

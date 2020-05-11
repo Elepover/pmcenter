@@ -1,14 +1,15 @@
-using System.Threading.Tasks;
 using Newtonsoft.Json;
+using System.IO;
+using System.Threading.Tasks;
 
 namespace pmcenter
 {
-    public partial class Conf
+    public static partial class Conf
     {
-        public static async Task<ConfObj> GetConf(string Filename)
+        public static async Task<ConfObj> GetConf(string filename)
         {
-            var SettingsText = await System.IO.File.ReadAllTextAsync(Filename).ConfigureAwait(false);
-            return JsonConvert.DeserializeObject<ConfObj>(SettingsText);
+            var settingsText = await File.ReadAllTextAsync(filename).ConfigureAwait(false);
+            return JsonConvert.DeserializeObject<ConfObj>(settingsText);
         }
     }
 }

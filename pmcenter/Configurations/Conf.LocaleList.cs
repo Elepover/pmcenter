@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace pmcenter
 {
-    public partial class Conf
+    public static partial class Conf
     {
         public class LocaleList
         {

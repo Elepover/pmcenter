@@ -1,16 +1,25 @@
-using static pmcenter.Conf;
+using Telegram.Bot.Types;
+using Telegram.Bot.Types.Enums;
 
 namespace pmcenter
 {
-    public partial class Methods
+    public static partial class Methods
     {
-        public static bool IsBanned(long UID)
+        public static bool IsBanned(long uid)
         {
-            foreach (BanObj Banned in Vars.CurrentConf.Banned)
+            foreach (var banned in Vars.CurrentConf.Banned)
             {
-                if (Banned.UID == UID) { return true; }
+                if (banned.UID == uid) return true;
             }
             return false;
+        }
+
+        public static bool IsBanned(Update update)
+        {
+            bool isBanned = true;
+            if (update.Type == UpdateType.CallbackQuery) isBanned = IsBanned(GetLinkByOwnerMsgID(update.CallbackQuery.Message.ReplyToMessage.MessageId).TGUser.Id);
+            if (update.Type == UpdateType.Message) isBanned = IsBanned(update.Message.From.Id);
+            return isBanned;
         }
     }
 }

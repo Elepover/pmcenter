@@ -2,13 +2,13 @@ using static pmcenter.Conf;
 
 namespace pmcenter
 {
-    public partial class Methods
+    public static partial class Methods
     {
-        public static BanObj GetBanObjByID(long UID)
+        public static BanObj GetBanObjByID(long uid)
         {
-            foreach (BanObj Banned in Vars.CurrentConf.Banned)
+            foreach (var banned in Vars.CurrentConf.Banned)
             {
-                if (Banned.UID == UID) { return Banned; }
+                if (banned.UID == uid) return banned;
             }
             return null;
         }

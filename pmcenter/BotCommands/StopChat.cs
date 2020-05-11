@@ -2,11 +2,11 @@
 using Telegram.Bot;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
-using static pmcenter.Methods;
+using static pmcenter.Methods.Logging;
 
 namespace pmcenter.Commands
 {
-    internal class StopChatCommand : ICommand
+    internal class StopChatCommand : IBotCommand
     {
         public bool OwnerOnly => true;
 

@@ -8,8 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
-using static pmcenter.Methods;
+using static pmcenter.Methods.Logging;
 
 namespace pmcenter
 {
@@ -17,13 +16,13 @@ namespace pmcenter
     {
         private const string globalPrefix = "--";
 
-        private readonly List<ICmdLine> commands = new List<ICmdLine>();
+        private readonly List<ICommandLine> commands = new List<ICommandLine>();
 
         public CommandLineRouter()
         {
         }
 
-        public ICmdLine this[string prefix] => commands.FirstOrDefault(command => command.Prefix == prefix);
+        public ICommandLine this[string prefix] => commands.FirstOrDefault(command => command.Prefix == prefix);
 
         /// <summary>
         /// Add a command to manager.
@@ -31,7 +30,7 @@ namespace pmcenter
         /// </summary>
         /// <param name="command">the command</param>
         /// <exception cref="ArgumentException"/>
-        public void RegisterCommand(ICmdLine command)
+        public void RegisterCommand(ICommandLine command)
         {
             if (commands.Any(x => x.Prefix == command.Prefix))
             { throw new ArgumentException($"A commandline with prefix \"{command.Prefix}\" already exists.", nameof(command)); }
@@ -47,7 +46,7 @@ namespace pmcenter
         public async Task<bool> Execute(string cmdLine)
         {
             Log("Processing commandlines...", "CMD");
-            foreach (ICmdLine cmdProcess in commands)
+            foreach (var cmdProcess in commands)
             {
                 if (cmdLine.Contains(globalPrefix + cmdProcess.Prefix))
                 {
@@ -58,7 +57,7 @@ namespace pmcenter
                     }
                     catch (Exception ex)
                     {
-                        Log($"Exception while executing commandline: {ex.ToString()}", "CMD", LogLevel.ERROR);
+                        Log($"Exception while executing commandline: {ex}", "CMD", LogLevel.Error);
                         Environment.Exit(1);
                     }
                     Log("Command finished.", "CMD");

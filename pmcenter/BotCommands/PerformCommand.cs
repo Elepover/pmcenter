@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using Telegram.Bot;
 using Telegram.Bot.Types;
@@ -7,7 +6,7 @@ using Telegram.Bot.Types.Enums;
 
 namespace pmcenter.Commands
 {
-    internal class PerformCommand : ICommand
+    internal class PerformCommand : IBotCommand
     {
         public bool OwnerOnly => true;
 
@@ -22,8 +21,8 @@ namespace pmcenter.Commands
                 false,
                 Vars.CurrentConf.DisableNotifications,
                 update.Message.MessageId).ConfigureAwait(false);
-            var PerformanceChecker = new Thread(() => Methods.ThrPerform());
-            PerformanceChecker.Start();
+            var performanceChecker = new Thread(() => Methods.ThrPerform());
+            performanceChecker.Start();
             Thread.Sleep(1000);
             Vars.IsPerformanceTestEndRequested = true;
             while (Vars.IsPerformanceTestExecuting)

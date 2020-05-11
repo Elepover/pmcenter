@@ -2,10 +2,12 @@ using System.Threading.Tasks;
 using Telegram.Bot;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
+using static pmcenter.Methods;
+using static pmcenter.Methods.Logging;
 
 namespace pmcenter.Commands
 {
-    internal class RetractCommand : ICommand
+    internal class RetractCommand : IBotCommand
     {
         public bool OwnerOnly => false;
 
@@ -17,13 +19,15 @@ namespace pmcenter.Commands
             {
                 return false;
             }
-            var SelectedMsgID = update.Message.ReplyToMessage.MessageId;
+            var selectedMsgId = update.Message.ReplyToMessage.MessageId;
+            Log($"Retracting message for user {update.Message.From.Id}", "BOT");
             if (update.Message.From.Id == Vars.CurrentConf.OwnerUID)
             { // owner retracting
-                if (Methods.IsOwnerRetractionAvailable(SelectedMsgID))
+                if (IsOwnerRetractionAvailable(selectedMsgId))
                 {
-                    Conf.MessageIDLink Link = Methods.GetLinkByOwnerMsgID(SelectedMsgID);
-                    await botClient.DeleteMessageAsync(Link.TGUser.Id, Link.UserSessionMessageID).ConfigureAwait(false);
+                    var link = GetLinkByOwnerMsgID(selectedMsgId);
+                    await botClient.DeleteMessageAsync(link.TGUser.Id, link.UserSessionMessageID).ConfigureAwait(false);
+                    Log($"Successfully retracted message from {GetComposedUsername(link.TGUser, true, true)}.", "BOT");
                 }
                 else
                 {
@@ -38,10 +42,13 @@ namespace pmcenter.Commands
             }
             else // user retracting
             {
-                if (Methods.IsUserRetractionAvailable(SelectedMsgID))
+                if (IsUserRetractionAvailable(selectedMsgId))
                 {
-                    Conf.MessageIDLink Link = Methods.GetLinkByUserMsgID(SelectedMsgID);
-                    await botClient.DeleteMessageAsync(Vars.CurrentConf.OwnerUID, Link.OwnerSessionMessageID).ConfigureAwait(false);
+                    var link = GetLinkByUserMsgID(selectedMsgId);
+                    await botClient.DeleteMessageAsync(Vars.CurrentConf.OwnerUID, link.OwnerSessionMessageID).ConfigureAwait(false);
+                    Log($"Successfully retracted message from owner.", "BOT");
+                    if (Vars.CurrentConf.EnableActions && link.OwnerSessionActionMessageID != -1)
+                        await botClient.DeleteMessageAsync(Vars.CurrentConf.OwnerUID, link.OwnerSessionActionMessageID).ConfigureAwait(false);
                 }
                 else
                 {

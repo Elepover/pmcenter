@@ -2,16 +2,16 @@ using static pmcenter.Conf;
 
 namespace pmcenter
 {
-    public partial class Methods
+    public static partial class Methods
     {
-        public static bool IsUserRetractionAvailable(int UserSessionMsgID)
+        public static bool IsUserRetractionAvailable(int userSessionMsgId)
         {
-            if (!Vars.CurrentConf.EnableMsgLink) { return false; }
+            if (!Vars.CurrentConf.EnableMsgLink) return false;
             lock (Vars.CurrentConf.MessageLinks)
             {
-                foreach (MessageIDLink Link in Vars.CurrentConf.MessageLinks)
+                foreach (var link in Vars.CurrentConf.MessageLinks)
                 {
-                    if (Link.UserSessionMessageID == UserSessionMsgID) { return true; }
+                    if (link.UserSessionMessageID == userSessionMsgId) return true;
                 }
             }
             return false;

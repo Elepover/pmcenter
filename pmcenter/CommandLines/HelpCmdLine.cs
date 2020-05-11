@@ -1,11 +1,9 @@
-﻿using System;
-using System.Threading.Tasks;
-
-using static pmcenter.Methods;
+﻿using System.Threading.Tasks;
+using static pmcenter.Methods.Logging;
 
 namespace pmcenter.CommandLines
 {
-    internal class HelpCmdLine : ICmdLine
+    internal class HelpCmdLine : ICommandLine
     {
         public string Prefix => "help";
         public bool ExitAfterExecution => true;

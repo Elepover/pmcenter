@@ -1,24 +1,24 @@
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using Newtonsoft.Json;
-using static pmcenter.Methods;
+using System.IO;
+using System.Threading.Tasks;
+using static pmcenter.Methods.Logging;
 
 namespace pmcenter
 {
-    public partial class Conf
+    public static partial class Conf
     {
-        public static async Task<bool> SaveConf(bool IsInvalid = false, bool IsAutoSave = false)
+        public static async Task<bool> SaveConf(bool isInvalid = false, bool isAutoSave = false)
         { // DO NOT HANDLE ERRORS HERE.
-            string Text = JsonConvert.SerializeObject(Vars.CurrentConf, Formatting.Indented);
-            await System.IO.File.WriteAllTextAsync(Vars.ConfFile, Text).ConfigureAwait(false);
-            if (IsAutoSave)
+            string text = JsonConvert.SerializeObject(Vars.CurrentConf, Vars.CurrentConf.Minify ? Formatting.None : Formatting.Indented);
+            await File.WriteAllTextAsync(Vars.ConfFile, text).ConfigureAwait(false);
+            if (isAutoSave)
             {
                 Log("Autosave complete.", "CONF");
             }
-            if (IsInvalid)
+            if (isInvalid)
             {
-                Log("We've detected an invalid configurations file and have reset it.", "CONF", LogLevel.WARN);
-                Log("Please reconfigure it and try to start pmcenter again.", "CONF", LogLevel.WARN);
+                Log("We've detected an invalid configurations file and have reset it.", "CONF", LogLevel.Warning);
+                Log("Please reconfigure it and try to start pmcenter again.", "CONF", LogLevel.Warning);
                 Vars.RestartRequired = true;
             }
             return true;

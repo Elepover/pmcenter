@@ -6,7 +6,7 @@ using Telegram.Bot.Types.Enums;
 
 namespace pmcenter.Commands
 {
-    internal class UptimeCommand : ICommand
+    internal class UptimeCommand : IBotCommand
     {
         public bool OwnerOnly => true;
 
@@ -14,13 +14,13 @@ namespace pmcenter.Commands
 
         public async Task<bool> ExecuteAsync(TelegramBotClient botClient, Update update)
         {
-            var UptimeString =
+            var uptimeString =
                 Vars.CurrentLang.Message_UptimeInfo
                 .Replace("$1", (new TimeSpan(0, 0, 0, 0, Environment.TickCount)).ToString())
                 .Replace("$2", Vars.StartSW.Elapsed.ToString());
             _ = await botClient.SendTextMessageAsync(
                 update.Message.From.Id,
-                UptimeString,
+                uptimeString,
                 ParseMode.Markdown,
                 false,
                 Vars.CurrentConf.DisableNotifications,

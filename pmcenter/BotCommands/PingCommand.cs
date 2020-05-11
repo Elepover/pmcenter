@@ -5,7 +5,7 @@ using Telegram.Bot.Types.Enums;
 
 namespace pmcenter.Commands
 {
-    internal class PingCommand : ICommand
+    internal class PingCommand : IBotCommand
     {
         public bool OwnerOnly => true;
 

@@ -2,10 +2,11 @@
 using Telegram.Bot;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
+using static pmcenter.Methods.Logging;
 
 namespace pmcenter.Commands
 {
-    internal class ReadConfigCommand : ICommand
+    internal class ReadConfigCommand : IBotCommand
     {
         public bool OwnerOnly => true;
 
@@ -15,6 +16,7 @@ namespace pmcenter.Commands
         {
             _ = await Conf.ReadConf().ConfigureAwait(false);
             _ = await Lang.ReadLang().ConfigureAwait(false);
+            Log("Configurations and locale files have been reloaded from disk", "BOT");
             _ = await botClient.SendTextMessageAsync(
                 update.Message.From.Id,
                 Vars.CurrentLang.Message_ConfigReloaded,

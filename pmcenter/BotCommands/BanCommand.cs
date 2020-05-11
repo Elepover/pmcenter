@@ -6,7 +6,7 @@ using static pmcenter.Methods;
 
 namespace pmcenter.Commands
 {
-    internal class BanCommand : ICommand
+    internal class BanCommand : IBotCommand
     {
         public bool OwnerOnly => true;
 

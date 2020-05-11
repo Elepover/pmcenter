@@ -18,13 +18,13 @@ namespace pmcenter
     {
         private const char globalPrefix = '/';
 
-        private readonly List<ICommand> commands = new List<ICommand>();
+        private readonly List<IBotCommand> commands = new List<IBotCommand>();
 
         public CommandRouter()
         {
         }
 
-        public ICommand this[string prefix] => commands.FirstOrDefault(command => command.Prefix == prefix);
+        public IBotCommand this[string prefix] => commands.FirstOrDefault(command => command.Prefix == prefix);
 
         /// <summary>
         /// Add a command to manager.
@@ -32,7 +32,7 @@ namespace pmcenter
         /// </summary>
         /// <param name="command">the command</param>
         /// <exception cref="ArgumentException"/>
-        public void RegisterCommand(ICommand command)
+        public void RegisterCommand(IBotCommand command)
         {
             if (commands.Any(x => x.Prefix == command.Prefix))
             { throw new ArgumentException($"A command with prefix \"{ command.Prefix }\" already exists.", nameof(command)); }
@@ -48,8 +48,8 @@ namespace pmcenter
         /// <returns>processed by one command</returns>
         public async Task<bool> Execute(TelegramBotClient botClient, Update update)
         {
-            if (update.Message.Type != MessageType.Text) { return false; }
-            if (!update.Message.Text.StartsWith(globalPrefix)) { return false; }
+            if (update.Message.Type != MessageType.Text) return false;
+            if (!update.Message.Text.StartsWith(globalPrefix)) return false;
 
             var command = commands.FirstOrDefault(cmd =>
             {

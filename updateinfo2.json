@@ -1,9 +1,9 @@
 {
-  "Latest": "1.9.280.15",
+  "Latest": "2.0.2.0",
   "UpdateLevel": 1,
   "UpdateCollection": [
     {
-      "Details": "[i] This is the final update before pmcenter v2 arrives.\n[+] Added .NET Core Runtime version check.\n[+] Added Ctrl-C event handler.\n[/] Updated Setup Wizard.\n[+] Updated exiting mechanism.",
+      "Details": "Welcome to pmcenter 2.0!\n\npmcenter now depends on .NET Core 3.1, with these enhancements and new features:\n[/] Backend code refactor\n[/] Now pmcenter turns on Message Links by default\n[+] NuGet package updates\n[+] HTTP/2 protocol support\n[+] Dices & darts support\n[+] Inline keyboard actions support\n[+] R2R + AOT packages available via GitHub releases\n[+] Startup time analysis\n[+] Toggleable autosave\n[+] Better forwarding logics\n[+] JSON configuration files can be minified\n[+] Language version mismatch check is now toggleable",
       "LangCode": [
         "en.imported",
         "en.integrated"
@@ -12,7 +12,7 @@
       "UpdateArchiveAddress": "https://see.wtf/pmcenter-update"
     },
     {
-      "Details": "[i] 这是 pmcenter v2 更新前的最后一次更新。\n[+] 添加 .NET Core 运行时版本检查。\n[+] 添加 Ctrl-C 事件处理器。\n[/] 更新了设置向导。\n[+] 全新的退出机制。",
+      "Details": "欢迎使用 pmcenter 2.0!\n\npmcenter 现依赖于 .NET Core 3.1，伴有以下更新内容:\n[/] 后端代码重构\n[/] 现在 pmcenter 默认启用消息链接\n[+] NuGet 包更新\n[+] HTTP/2 协议支持\n[+] 骰子 & 飞镖支持\n[+] 内联键盘操作支持\n[+] R2R + AOT 包现可通过 GitHub releases 获取\n[+] 启动时间分析\n[+] 自动保存命令\n[+] 优化的转发逻辑\n[+] JSON 配置文件现可最小化\n[+] 可开关语言文件版本匹配警告",
       "LangCode": [
         "zh.simplified"
       ],
@@ -20,7 +20,7 @@
       "UpdateArchiveAddress": "https://see.wtf/pmcenter-update"
     },
     {
-      "Details": "[i] 这是 pmcenter v2 更新前的最后一次更新。\n[+] 添加 .NET Core 运行时版本检查。\n[+] 添加 Ctrl-C 事件处理器。\n[/] 更新了设置向导。\n[+] 全新的退出机制。",
+      "Details": "欢迎使用 pmcenter 2.0!\n\npmcenter 现依赖于 .NET Core 3.1，伴有以下更新内容:\n[/] 后端代码重构\n[/] 现在 pmcenter 默认启用消息链接\n[+] NuGet 包更新\n[+] HTTP/2 协议支持\n[+] 骰子 & 飞镖支持\n[+] 内联键盘操作支持\n[+] R2R + AOT 包现可通过 GitHub releases 获取\n[+] 启动时间分析\n[+] 自动保存命令\n[+] 优化的转发逻辑\n[+] JSON 配置文件现可最小化\n[+] 可开关语言文件版本匹配警告",
       "LangCode": [
         "zh.meow"
       ],
@@ -28,7 +28,7 @@
       "UpdateArchiveAddress": "https://see.wtf/pmcenter-update"
     },
     {
-      "Details": "[i] 這是 pmcenter v2 更新前的最後一次更新。\n[+] 新增 .NET Core 運行時版本檢查。\n[+] 新增 Ctrl-C 事件處理器。\n[/] 更新了設置向導。\n[+] 全新的退出機制。",
+      "Details": "歡迎使用 pmcenter 2.0!\n\npmcenter 現依賴於 .NET Core 3.1，隨附以下更新內容:\n[/] 後端程式碼重構\n[/] 默認啟用訊息連結\n[+] NuGet 軟件包更新\n[+] HTTP/2 協議支援\n[+] 骰子 & 飛鏢支援\n[+] 內聯鍵盤操作支援\n[+] R2R + AOT 包可透過 GitHub releases 獲取\n[+] 啟動時間分析\n[+] 自動儲存命令\n[+] 優化的轉發邏輯\n[+] JSON 配置文件現可最小化\n[+] 可開關語言文件版本匹配警告",
       "LangCode": [
         "zh.tw"
       ],
@@ -36,7 +36,7 @@
       "UpdateArchiveAddress": "https://see.wtf/pmcenter-update"
     },
     {
-      "Details": "[i] This is the final update before pmcenter v2 arrives.\n[+] Added .NET Core Runtime version check.\n[+] Added Ctrl-C event handler.\n[/] Updated Setup Wizard.\n[+] Updated exiting mechanism.",
+      "Details": "Welcome to pmcenter 2.0!\n\npmcenter now depends on .NET Core 3.1, with these enhancements and new features:\n[/] Backend code refactor\n[/] Now pmcenter turns on Message Links by default\n[+] NuGet package updates\n[+] HTTP/2 protocol support\n[+] Dices & darts support\n[+] Inline keyboard actions support\n[+] R2R + AOT packages available via GitHub releases\n[+] Startup time analysis\n[+] Toggleable autosave\n[+] Better forwarding logics\n[+] JSON configuration files can be minified\n[+] Language version mismatch check is now toggleable",
       "LangCode": [
         "en.imported",
         "en.integrated"
@@ -45,7 +45,7 @@
       "UpdateArchiveAddress": "https://see.wtf/pmcenter-lazer-update"
     },
     {
-      "Details": "[i] 这是 pmcenter v2 更新前的最后一次更新。\n[+] 添加 .NET Core 运行时版本检查。\n[+] 添加 Ctrl-C 事件处理器。\n[/] 更新了设置向导。\n[+] 全新的退出机制。",
+      "Details": "欢迎使用 pmcenter 2.0!\n\npmcenter 现依赖于 .NET Core 3.1，伴有以下更新内容:\n[/] 后端代码重构\n[/] 现在 pmcenter 默认启用消息链接\n[+] NuGet 包更新\n[+] HTTP/2 协议支持\n[+] 骰子 & 飞镖支持\n[+] 内联键盘操作支持\n[+] R2R + AOT 包现可通过 GitHub releases 获取\n[+] 启动时间分析\n[+] 自动保存命令\n[+] 优化的转发逻辑\n[+] JSON 配置文件现可最小化\n[+] 可开关语言文件版本匹配警告",
       "LangCode": [
         "zh.simplified"
       ],
@@ -53,7 +53,7 @@
       "UpdateArchiveAddress": "https://see.wtf/pmcenter-lazer-update"
     },
     {
-      "Details": "[i] 这是 pmcenter v2 更新前的最后一次更新。\n[+] 添加 .NET Core 运行时版本检查。\n[+] 添加 Ctrl-C 事件处理器。\n[/] 更新了设置向导。\n[+] 全新的退出机制。",
+      "Details": "欢迎使用 pmcenter 2.0!\n\npmcenter 现依赖于 .NET Core 3.1，伴有以下更新内容:\n[/] 后端代码重构\n[/] 现在 pmcenter 默认启用消息链接\n[+] NuGet 包更新\n[+] HTTP/2 协议支持\n[+] 骰子 & 飞镖支持\n[+] 内联键盘操作支持\n[+] R2R + AOT 包现可通过 GitHub releases 获取\n[+] 启动时间分析\n[+] 自动保存命令\n[+] 优化的转发逻辑\n[+] JSON 配置文件现可最小化\n[+] 可开关语言文件版本匹配警告",
       "LangCode": [
         "zh.meow"
       ],
@@ -61,7 +61,7 @@
       "UpdateArchiveAddress": "https://see.wtf/pmcenter-lazer-update"
     },
     {
-      "Details": "[i] 這是 pmcenter v2 更新前的最後一次更新。\n[+] 新增 .NET Core 運行時版本檢查。\n[+] 新增 Ctrl-C 事件處理器。\n[/] 更新了設置向導。\n[+] 全新的退出機制。",
+      "Details": "歡迎使用 pmcenter 2.0!\n\npmcenter 現依賴於 .NET Core 3.1，隨附以下更新內容:\n[/] 後端程式碼重構\n[/] 默認啟用訊息連結\n[+] NuGet 軟件包更新\n[+] HTTP/2 協議支援\n[+] 骰子 & 飛鏢支援\n[+] 內聯鍵盤操作支援\n[+] R2R + AOT 包可透過 GitHub releases 獲取\n[+] 啟動時間分析\n[+] 自動儲存命令\n[+] 優化的轉發邏輯\n[+] JSON 配置文件現可最小化\n[+] 可開關語言文件版本匹配警告",
       "LangCode": [
         "zh.tw"
       ],

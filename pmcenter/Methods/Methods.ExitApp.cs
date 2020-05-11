@@ -1,12 +1,14 @@
 using System;
 using System.Diagnostics;
 using System.Threading;
+using System.Threading.Tasks;
+using static pmcenter.Methods.Logging;
 
 namespace pmcenter
 {
-    public partial class Methods
+    public static partial class Methods
     {
-        public static void ExitApp(int code)
+        public static async Task ExitApp(int code)
         {
             Log("Attempting to exit gracefully...");
             Log("Stopping bot message receiving...");
@@ -16,13 +18,12 @@ namespace pmcenter
             sw.Start();
 
             Vars.IsShuttingDown = true;
-            if (Vars.IsPerformanceTestExecuting)
+            Log("Saving configurations...");
+            await Conf.SaveConf();
+            while (Vars.IsPerformanceTestExecuting)
             {
-                while (!Vars.IsPerformanceTestExecuting)
-                {
-                    if (sw.ElapsedMilliseconds >= 10000) Environment.Exit(16);
-                    Thread.Sleep(50);
-                }
+                if (sw.ElapsedMilliseconds >= 10000) Environment.Exit(16);
+                Thread.Sleep(50);
             }
             Log("[OK] Shut down performance tester.");
 
@@ -31,7 +32,7 @@ namespace pmcenter
                 Vars.ConfValidator,
                 Vars.UpdateChecker,
                 Vars.RateLimiter,
-                Vars.BannedSweepper,
+                Vars.BannedSweeper,
                 Vars.SyncConf
             };
 

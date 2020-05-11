@@ -1,10 +1,10 @@
 namespace pmcenter
 {
-    public partial class Methods
+    public static partial class Methods
     {
         public static void ThrPerform()
         {
-            if (Vars.IsPerformanceTestExecuting) { return; }
+            if (Vars.IsPerformanceTestExecuting) return;
             Vars.IsPerformanceTestExecuting = true;
             Vars.PerformanceScore = 0;
             while (!(Vars.IsPerformanceTestEndRequested || Vars.IsShuttingDown))

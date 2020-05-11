@@ -3,7 +3,7 @@ using System.IO;
 
 namespace pmcenter
 {
-    public partial class Methods
+    public static partial class Methods
     {
         public static string GetDateTimeString(bool removeInvalidChar = false)
         {

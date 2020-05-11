@@ -5,12 +5,10 @@
 */
 
 using System.Threading.Tasks;
-using Telegram.Bot;
-using Telegram.Bot.Types;
 
 namespace pmcenter
 {
-    internal interface ICmdLine
+    internal interface ICommandLine
     {
         string Prefix { get; }
         bool ExitAfterExecution { get; }

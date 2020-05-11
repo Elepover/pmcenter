@@ -2,17 +2,17 @@ using static pmcenter.Conf;
 
 namespace pmcenter
 {
-    public partial class Methods
+    public static partial class Methods
     {
-        public static void BanUser(long UID)
+        public static void BanUser(long uid)
         {
-            if (!IsBanned(UID))
+            if (!IsBanned(uid))
             {
-                var Banned = new BanObj
+                var banned = new BanObj
                 {
-                    UID = UID
+                    UID = uid
                 };
-                Vars.CurrentConf.Banned.Add(Banned);
+                Vars.CurrentConf.Banned.Add(banned);
             }
         }
     }

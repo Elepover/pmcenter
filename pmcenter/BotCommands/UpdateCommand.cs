@@ -1,40 +1,39 @@
 ﻿using System;
-using System.IO;
-using System.IO.Compression;
-using System.Net;
 using System.Threading.Tasks;
 using Telegram.Bot;
-using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
 using static pmcenter.Methods;
+using static pmcenter.Methods.Logging;
+using static pmcenter.Methods.UpdateHelper;
 
 namespace pmcenter.Commands
 {
-    internal class UpdateCommand : ICommand
+    internal class UpdateCommand : IBotCommand
     {
         public bool OwnerOnly => true;
 
         public string Prefix => "update";
 
-        public async Task<bool> ExecuteAsync(TelegramBotClient botClient, Update update)
+        public async Task<bool> ExecuteAsync(TelegramBotClient botClient, Telegram.Bot.Types.Update update)
         {
             try
             {
-                var Latest = Conf.CheckForUpdates();
-                var CurrentLocalizedIndex = Conf.GetUpdateInfoIndexByLocale(Latest, Vars.CurrentLang.LangCode);
-                if (Conf.IsNewerVersionAvailable(Latest))
+                var latest = await CheckForUpdatesAsync().ConfigureAwait(false);
+                var currentLocalizedIndex = GetUpdateInfoIndexByLocale(latest, Vars.CurrentLang.LangCode);
+                if (IsNewerVersionAvailable(latest))
                 {
-                    var UpdateString = Vars.CurrentLang.Message_UpdateAvailable
-                        .Replace("$1", Latest.Latest)
-                        .Replace("$2", Latest.UpdateCollection[CurrentLocalizedIndex].Details)
-                        .Replace("$3", Methods.GetUpdateLevel(Latest.UpdateLevel));
+                    var updateString = Vars.CurrentLang.Message_UpdateAvailable
+                        .Replace("$1", latest.Latest)
+                        .Replace("$2", latest.UpdateCollection[currentLocalizedIndex].Details)
+                        .Replace("$3", GetUpdateLevel(latest.UpdateLevel));
+                    // \ update available! /
                     _ = await botClient.SendTextMessageAsync(
                         update.Message.From.Id,
-                        UpdateString, ParseMode.Markdown,
+                        updateString, ParseMode.Markdown,
                         false,
                         Vars.CurrentConf.DisableNotifications,
                         update.Message.MessageId).ConfigureAwait(false);
-                    // where difference begins
+                    // \ updating! /
                     _ = await botClient.SendTextMessageAsync(
                         update.Message.From.Id,
                         Vars.CurrentLang.Message_UpdateProcessing,
@@ -43,33 +42,11 @@ namespace pmcenter.Commands
                         Vars.CurrentConf.DisableNotifications,
                         update.Message.MessageId).ConfigureAwait(false);
                     // download compiled package
-                    Log("Starting update download... (pmcenter_update.zip)", "BOT");
-                    Log($"From address: {Latest.UpdateCollection[CurrentLocalizedIndex].UpdateArchiveAddress}", "BOT");
-                    using (var Downloader = new WebClient())
-                    {
-                        await Downloader.DownloadFileTaskAsync(
-                            new Uri(Latest.UpdateCollection[CurrentLocalizedIndex].UpdateArchiveAddress),
-                            Path.Combine(Vars.AppDirectory, "pmcenter_update.zip")).ConfigureAwait(false);
-                        Log("Download complete. Extracting...", "BOT");
-                        using (ZipArchive Zip = ZipFile.OpenRead(Path.Combine(Vars.AppDirectory, "pmcenter_update.zip")))
-                        {
-                            foreach (ZipArchiveEntry Entry in Zip.Entries)
-                            {
-                                Log($"Extracting: {Path.Combine(Vars.AppDirectory, Entry.FullName)}", "BOT");
-                                Entry.ExtractToFile(Path.Combine(Vars.AppDirectory, Entry.FullName), true);
-                            }
-                        }
-                        if (Vars.CurrentConf.AutoLangUpdate)
-                        {
-                            Log("Starting automatic language file update...", "BOT");
-                            await Downloader.DownloadFileTaskAsync(
-                                new Uri(Vars.CurrentConf.LangURL),
-                                Path.Combine(Vars.AppDirectory, "pmcenter_locale.json")
-                            ).ConfigureAwait(false);
-                        }
-                    }
-                    Log("Cleaning up temporary files...", "BOT");
-                    System.IO.File.Delete(Path.Combine(Vars.AppDirectory, "pmcenter_update.zip"));
+                    await DownloadUpdatesAsync(latest, currentLocalizedIndex).ConfigureAwait(false);
+                    // update languages
+                    if (Vars.CurrentConf.AutoLangUpdate) await DownloadLangAsync().ConfigureAwait(false);
+
+                    // \ see you! /
                     _ = await botClient.SendTextMessageAsync(
                         update.Message.From.Id,
                         Vars.CurrentLang.Message_UpdateFinalizing,
@@ -78,7 +55,7 @@ namespace pmcenter.Commands
                         Vars.CurrentConf.DisableNotifications,
                         update.Message.MessageId).ConfigureAwait(false);
                     Log("Exiting program... (Let the daemon do the restart job)", "BOT");
-                    ExitApp(0);
+                    await ExitApp(0);
                     return true;
                     // end of difference
                 }
@@ -87,9 +64,9 @@ namespace pmcenter.Commands
                     _ = await botClient.SendTextMessageAsync(
                         update.Message.From.Id,
                         Vars.CurrentLang.Message_AlreadyUpToDate
-                            .Replace("$1", Latest.Latest)
+                            .Replace("$1", latest.Latest)
                             .Replace("$2", Vars.AppVer.ToString())
-                            .Replace("$3", Latest.UpdateCollection[CurrentLocalizedIndex].Details),
+                            .Replace("$3", latest.UpdateCollection[currentLocalizedIndex].Details),
                         ParseMode.Markdown,
                         false,
                         Vars.CurrentConf.DisableNotifications,
@@ -99,10 +76,10 @@ namespace pmcenter.Commands
             }
             catch (Exception ex)
             {
-                string ErrorString = Vars.CurrentLang.Message_UpdateCheckFailed.Replace("$1", ex.ToString());
+                string errorString = Vars.CurrentLang.Message_UpdateCheckFailed.Replace("$1", ex.ToString());
                 _ = await botClient.SendTextMessageAsync(
                     update.Message.From.Id,
-                    ErrorString,
+                    errorString,
                     ParseMode.Markdown,
                     false,
                     Vars.CurrentConf.DisableNotifications,

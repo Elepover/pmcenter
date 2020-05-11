@@ -1,18 +1,18 @@
 using System;
 using System.IO;
 using System.Threading.Tasks;
-using static pmcenter.Methods;
+using static pmcenter.Methods.Logging;
 
 namespace pmcenter
 {
-    public partial class Lang
+    public static partial class Lang
     {
         public static async Task InitLang()
         {
             Log("Checking language file's integrity...", "LANG");
             if (!File.Exists(Vars.LangFile))
             { // STEP 1, DETECT EXISTENCE.
-                Log("Language file not found. Creating...", "LANG", LogLevel.WARN);
+                Log("Language file not found. Creating...", "LANG", LogLevel.Warning);
                 Vars.CurrentLang = new Language();
                 _ = await SaveLang(true).ConfigureAwait(false); // Then the app will exit, do nothing.
             }
@@ -24,8 +24,8 @@ namespace pmcenter
                 }
                 catch (Exception ex)
                 {
-                    Log($"Error! {ex.ToString()}", "LANG", LogLevel.ERROR);
-                    Log("Moving old language file to \"pmcenter_locale.json.bak\"...", "LANG", LogLevel.WARN);
+                    Log($"Error! {ex}", "LANG", LogLevel.Error);
+                    Log("Moving old language file to \"pmcenter_locale.json.bak\"...", "LANG", LogLevel.Warning);
                     File.Move(Vars.LangFile, Vars.LangFile + ".bak");
                     Vars.CurrentLang = new Language();
                     _ = await SaveLang(true).ConfigureAwait(false); // Then the app will exit, do nothing.

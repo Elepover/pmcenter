@@ -1,17 +1,15 @@
-using static pmcenter.Conf;
-
 namespace pmcenter
 {
-    public partial class Methods
+    public static partial class Methods
     {
-        public static bool IsOwnerRetractionAvailable(int OwnerSessionMsgID)
+        public static bool IsOwnerRetractionAvailable(int ownerSessionMsgId)
         {
-            if (!Vars.CurrentConf.EnableMsgLink) { return false; }
+            if (!Vars.CurrentConf.EnableMsgLink) return false;
             lock (Vars.CurrentConf.MessageLinks)
             {
-                foreach (MessageIDLink Link in Vars.CurrentConf.MessageLinks)
+                foreach (var link in Vars.CurrentConf.MessageLinks)
                 {
-                    if (Link.OwnerSessionMessageID == OwnerSessionMsgID) { return true; }
+                    if (link.OwnerSessionMessageID == ownerSessionMsgId) return true;
                 }
             }
             return false;

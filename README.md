@@ -1,6 +1,6 @@
 # pmcenter
 
-[![build status](https://ci.appveyor.com/api/projects/status/gmbdiackw0563980?svg=true)](https://ci.appveyor.com/project/Elepover/pmcenter) [![CodeFactor](https://www.codefactor.io/repository/github/elepover/pmcenter/badge)](https://www.codefactor.io/repository/github/elepover/pmcenter) [![telegram channel](https://img.shields.io/badge/telegram-channel-blue.svg)](https://t.me/pmcenter_devlog) ![license](https://img.shields.io/github/license/elepover/pmcenter.svg) ![language rank](https://img.shields.io/github/languages/top/elepover/pmcenter.svg?color=brightgreen) ![repo size in bytes](https://img.shields.io/github/repo-size/elepover/pmcenter.svg) ![environment](https://img.shields.io/badge/dotnet-v2.1-blue.svg) ![last commit](https://img.shields.io/github/last-commit/elepover/pmcenter.svg) ![status](https://img.shields.io/badge/status-maintaining-success.svg)
+[![build status](https://ci.appveyor.com/api/projects/status/gmbdiackw0563980?svg=true)](https://ci.appveyor.com/project/Elepover/pmcenter) [![CodeFactor](https://www.codefactor.io/repository/github/elepover/pmcenter/badge)](https://www.codefactor.io/repository/github/elepover/pmcenter) [![telegram channel](https://img.shields.io/badge/telegram-channel-blue.svg)](https://t.me/pmcenter_devlog) ![license](https://img.shields.io/github/license/elepover/pmcenter.svg) ![language rank](https://img.shields.io/github/languages/top/elepover/pmcenter.svg?color=brightgreen) ![repo size in bytes](https://img.shields.io/github/repo-size/elepover/pmcenter.svg) ![environment](https://img.shields.io/badge/dotnet-v3.1-blueviolet.svg) ![last commit](https://img.shields.io/github/last-commit/elepover/pmcenter.svg) ![status](https://img.shields.io/badge/status-maintaining-success.svg)
 
 A telegram bot helping you process private messages.
 
@@ -142,6 +142,7 @@ Or, use setup wizard:
 
 | Key | Type | User Editable | Description |
 | :---- | :---- | :---- | ----:|
+| `Minify` | `Boolean`| ✓ | To minify pmcenter configurations or not. |
 | `APIKey` | `String`| ✓ | Your Telegram bot's API key. |
 | `OwnerID` | `Long` | ✓ | The owner's Telegram user ID. |
 | `EnableCc` | `Boolean` | ✓ | Decides whether cc feature is enabled or not. |
@@ -176,7 +177,13 @@ Or, use setup wizard:
 | `UpdateChannel` | `String` | ✓ | Choose which update channel you prefer to. |
 | `IgnoreKeyboardInterrupt` | `Boolean` | ✓ | Choose whether pmcenter should ignore Ctrl-C interrupts or not. |
 | `DisableNetCore3Check` | `Boolean` | ✓ | Turn this on to hide .NET Core Runtime version warnings. |
+| `DisableMessageLinkTip` | `Boolean` | ✓ | Turn this on to hide message link tip prompts. |
+| `AnalyzeStartupTime` | `Boolean` | ✓ | Turn this on to show detailed analysis of startup time. |
+| `SkipAPIKeyVerification` | `Boolean` | ✓ | Turn this on to skip API Key verification on startup. |
+| `EnableActions` | `Boolean` | ✓ | Turn this on to enable message actions. |
+| `CheckLangVersionMismatch` | `Boolean` | ✓ | Check language version and send alert on startup. |
 | `Statistics` | `Stats` | ✕ | Statistics data. |
+| `IgnoredLogModules` | `Array` | ✓ | List of ignored log modules. Selected modules will not generate output to console. |
 | `Socks5Proxies` | `Array` | ✓ | List of SOCKS5 proxies. |
 | `BannedKeywords` | `Array` | ✓ | Storage of banned keywords. |
 | `Banned` | `Array` | ✓ | Storage of banned users. |
@@ -199,7 +206,8 @@ Tip: After upgrades, you can send `/saveconf` command to the bot to fix missing 
 - **Emojis** are supported, and were used by default.
 - Currently the response of the `/info` command is unchangeable.
 - Familiar with another language? Pull requests are welcome!
-- Please think twice before turning on `EnableMsgLink`, it makes it possible for you to reply to messages that are forwarded anonymously or from channels, however, it will cost more and more of your storage space and memory as the storage grows and makes it slower for pmcenter to process configuration files.
+- ~~Please think twice before turning on `EnableMsgLink`, it makes it possible for you to reply to messages that are forwarded anonymously or from channels, however, it will cost more and more of your storage space and memory as the storage grows and makes it slower for pmcenter to process configuration files.~~
+- Now Message Links play an important role in pmcenter's basic functions. Turning it off is NOT recommended.
 
 #### Changing File Location
 
@@ -246,6 +254,7 @@ You can write a `systemd service` to keep it running, even after the host machin
 | `/backup` | Owner | Backup configurations. |
 | `/editconf <CONF>` | Owner | Manually edit configurations and translations w/ JSON-formatted text. |
 | `/saveconf` | Owner | Manually save configurations and translations. Useful after upgrades. |
+| `/autosave [off/interval]` | Owner | Enable/Disable autosave. Intervals are in milliseconds (1/1000 of a second). |
 | `/readconf` | Owner | Reload configurations without restarting bot. |
 | `/resetconf` | Owner | Reset configurations. |
 | `/uptime` | Owner | Get system uptime info. |
@@ -300,6 +309,8 @@ pmcenter is planning to move to .NET Core 3.1, see [issue #25](https://github.co
 ### Why cannot I reply to anonymously forwarded messages?
 
 Please enable the `EnableMsgLink` option in pmcenter's configurations file. Only messages forwarded when `EnableMsgLink` option is turned on can be replied.
+
+You can NOT reply to the messages that were forwarded when `EnableMsgLink` option was disabled since their corresponding message links were missing.
 
 For more information, refer to the [configurations](#pmcenter-settings) part.
 

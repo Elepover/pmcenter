@@ -2,23 +2,23 @@ using static pmcenter.Conf;
 
 namespace pmcenter
 {
-    public partial class Methods
+    public static partial class Methods
     {
-        public static void AddRateLimit(long UID)
+        public static void AddRateLimit(long uid)
         {
-            if (IsRateDataTracking(UID))
+            if (IsRateDataTracking(uid))
             {
-                var DataID = GetRateDataIndexByID(UID);
-                Vars.RateLimits[DataID].MessageCount += 1;
+                var dataId = GetRateDataIndexByID(uid);
+                Vars.RateLimits[dataId].MessageCount += 1;
             }
             else
             {
-                var Data = new RateData
+                var data = new RateData
                 {
-                    UID = UID,
+                    UID = uid,
                     MessageCount = 1
                 };
-                Vars.RateLimits.Add(Data);
+                Vars.RateLimits.Add(data);
             }
         }
     }

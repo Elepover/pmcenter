@@ -1,15 +1,15 @@
 using Newtonsoft.Json;
 using System;
 using System.IO;
-using System.Net;
 using System.Threading.Tasks;
 using Telegram.Bot;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
+using static pmcenter.Methods.H2Helper;
 
 namespace pmcenter.Commands
 {
-    internal class SwitchLangCodeCommand : ICommand
+    internal class SwitchLangCodeCommand : IBotCommand
     {
         public bool OwnerOnly => true;
 
@@ -17,45 +17,43 @@ namespace pmcenter.Commands
 
         public async Task<bool> ExecuteAsync(TelegramBotClient botClient, Update update)
         {
-            string Reply;
-            string ListJSONString;
+            string reply;
+            string listJsonString;
+            Conf.LocaleList localeList;
             // try to get locale list
-            using (var ListDownloader = new WebClient())
-            {
-                ListJSONString = await ListDownloader.DownloadStringTaskAsync(Vars.LocaleMapURL.Replace("$channel", Vars.CurrentConf.UpdateChannel)).ConfigureAwait(false);
-            }
-            Conf.LocaleList LocaleList = JsonConvert.DeserializeObject<Conf.LocaleList>(ListJSONString);
+            listJsonString = await GetStringAsync(new Uri(Vars.LocaleMapURL.Replace("$channel", Vars.CurrentConf.UpdateChannel))).ConfigureAwait(false);
+            localeList = JsonConvert.DeserializeObject<Conf.LocaleList>(listJsonString);
             if (!update.Message.Text.Contains(" "))
             {
-                var ListString = "";
-                foreach (Conf.LocaleMirror Mirror in LocaleList.Locales)
+                var listString = "";
+                foreach (var mirror in localeList.Locales)
                 {
-                    ListString += $"{Mirror.LocaleCode} - {Mirror.LocaleNameNative} ({Mirror.LocaleNameEng})\n";
+                    listString += $"{mirror.LocaleCode} - {mirror.LocaleNameNative} ({mirror.LocaleNameEng})\n";
                 }
-                Reply = Vars.CurrentLang.Message_AvailableLang.Replace("$1", ListString);
+                reply = Vars.CurrentLang.Message_AvailableLang.Replace("$1", listString);
             }
             else
             {
-                var TargetCode = update.Message.Text.Split(" ")[1];
-                foreach (Conf.LocaleMirror Mirror in LocaleList.Locales)
+                var targetCode = update.Message.Text.Split(" ")[1];
+                foreach (var mirror in localeList.Locales)
                 {
-                    if (Mirror.LocaleCode == TargetCode)
+                    if (mirror.LocaleCode == targetCode)
                     {
                         // update configurations
-                        Vars.CurrentConf.LangURL = Mirror.LocaleFileURL.Replace("$channel", Vars.CompileChannel);
+                        Vars.CurrentConf.LangURL = mirror.LocaleFileURL.Replace("$channel", Vars.CompileChannel);
                         // start downloading
-                        using (var Downloader = new WebClient())
-                        {
-                            _ = await Conf.SaveConf(IsAutoSave: true).ConfigureAwait(false);
-                            await Downloader.DownloadFileTaskAsync(
-                                            new Uri(Vars.CurrentConf.LangURL),
-                                            Path.Combine(Vars.AppDirectory, "pmcenter_locale.json")
-                                            ).ConfigureAwait(false);
-                        }
+                        _ = await Conf.SaveConf(isAutoSave: true).ConfigureAwait(false);
+                        await DownloadFileAsync(
+                            new Uri(Vars.CurrentConf.LangURL),
+                            Path.Combine(
+                                Vars.AppDirectory,
+                                "pmcenter_locale.json"
+                            )
+                        ).ConfigureAwait(false);
                         // reload configurations
                         _ = await Conf.ReadConf().ConfigureAwait(false);
                         _ = await Lang.ReadLang().ConfigureAwait(false);
-                        Reply = Vars.CurrentLang.Message_LangSwitched;
+                        reply = Vars.CurrentLang.Message_LangSwitched;
                         goto SendMsg;
                     }
                 }
@@ -64,7 +62,7 @@ namespace pmcenter.Commands
 SendMsg:
             _ = await botClient.SendTextMessageAsync(
                 update.Message.From.Id,
-                Reply,
+                reply,
                 ParseMode.Markdown,
                 false,
                 Vars.CurrentConf.DisableNotifications,

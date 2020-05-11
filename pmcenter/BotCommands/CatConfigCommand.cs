@@ -6,7 +6,7 @@ using static pmcenter.Methods;
 
 namespace pmcenter.Commands
 {
-    internal class CatConfigCommand : ICommand
+    internal class CatConfigCommand : IBotCommand
     {
         public bool OwnerOnly => true;
 

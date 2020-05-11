@@ -1,11 +1,12 @@
 using System;
 using System.Threading;
 using Telegram.Bot.Types.Enums;
-using static pmcenter.Conf;
+using static pmcenter.Methods.Logging;
+using static pmcenter.Methods.UpdateHelper;
 
 namespace pmcenter
 {
-    public partial class Methods
+    public static partial class Methods
     {
         public static async void ThrUpdateChecker()
         {
@@ -15,24 +16,24 @@ namespace pmcenter
                 Vars.UpdateCheckerStatus = ThreadStatus.Working;
                 try
                 {
-                    var Latest = Conf.CheckForUpdates();
-                    var CurrentLocalizedIndex = GetUpdateInfoIndexByLocale(Latest, Vars.CurrentLang.LangCode);
-                    var DisNotif = Vars.CurrentConf.DisableNotifications;
+                    var latest = await CheckForUpdatesAsync().ConfigureAwait(false);
+                    var currentLocalizedIndex = GetUpdateInfoIndexByLocale(latest, Vars.CurrentLang.LangCode);
+                    var isNotificationDisabled = Vars.CurrentConf.DisableNotifications;
                     // Identical with BotProcess.cs, L206.
-                    if (Conf.IsNewerVersionAvailable(Latest))
+                    if (IsNewerVersionAvailable(latest))
                     {
                         Vars.UpdatePending = true;
-                        Vars.UpdateVersion = new Version(Latest.Latest);
-                        Vars.UpdateLevel = Latest.UpdateLevel;
-                        var UpdateString = Vars.CurrentLang.Message_UpdateAvailable
-                            .Replace("$1", Latest.Latest)
-                            .Replace("$2", Latest.UpdateCollection[CurrentLocalizedIndex].Details)
-                            .Replace("$3", GetUpdateLevel(Latest.UpdateLevel));
+                        Vars.UpdateVersion = new Version(latest.Latest);
+                        Vars.UpdateLevel = latest.UpdateLevel;
+                        var updateString = Vars.CurrentLang.Message_UpdateAvailable
+                            .Replace("$1", latest.Latest)
+                            .Replace("$2", latest.UpdateCollection[currentLocalizedIndex].Details)
+                            .Replace("$3", GetUpdateLevel(latest.UpdateLevel));
                         _ = await Vars.Bot.SendTextMessageAsync(Vars.CurrentConf.OwnerUID,
-                                                            UpdateString,
+                                                            updateString,
                                                             ParseMode.Markdown,
                                                             false,
-                                                            DisNotif).ConfigureAwait(false);
+                                                            isNotificationDisabled).ConfigureAwait(false);
                         return; // Since this thread wouldn't be useful any longer, exit.
                     }
                     else
@@ -43,7 +44,7 @@ namespace pmcenter
                 }
                 catch (Exception ex)
                 {
-                    Log($"Error during update check: {ex.ToString()}", "UPDATER", LogLevel.ERROR);
+                    Log($"Error during update check: {ex}", "UPDATER", LogLevel.Error);
                 }
                 Vars.UpdateCheckerStatus = ThreadStatus.Standby;
                 try { Thread.Sleep(60000); } catch { }

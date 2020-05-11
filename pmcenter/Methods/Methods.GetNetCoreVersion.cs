@@ -1,10 +1,10 @@
 using System;
 using System.Diagnostics;
-using System.Text;
+using static pmcenter.Methods.Logging;
 
 namespace pmcenter
 {
-    public partial class Methods
+    public static partial class Methods
     {
         public static Version GetNetCoreVersion()
         {
@@ -37,7 +37,7 @@ namespace pmcenter
             }
             catch (Exception ex)
             {
-                Log($"pmcenter is unable to detect your .NET Core installation: {ex.Message}, you need to have .NET Core 3.1 (runtime) installed in order to run pmcenter v2 or up.", Type: LogLevel.WARN);
+                Log($"pmcenter is unable to detect your .NET Core installation: {ex.Message}, you need to have .NET Core 3.1 (runtime) installed in order to run pmcenter v2 or up.", LogLevel.Warning);
                 return new Version("0.0.0.0");
             }
         }

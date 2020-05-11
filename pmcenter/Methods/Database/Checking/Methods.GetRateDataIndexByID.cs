@@ -1,14 +1,12 @@
-using static pmcenter.Conf;
-
 namespace pmcenter
 {
-    public partial class Methods
+    public static partial class Methods
     {
-        public static int GetRateDataIndexByID(long UID)
+        public static int GetRateDataIndexByID(long uid)
         {
-            foreach (RateData Data in Vars.RateLimits)
+            foreach (var data in Vars.RateLimits)
             {
-                if (Data.UID == UID) { return Vars.RateLimits.IndexOf(Data); }
+                if (data.UID == uid) { return Vars.RateLimits.IndexOf(data); }
             }
             return -1;
         }

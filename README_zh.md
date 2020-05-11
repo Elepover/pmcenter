@@ -1,6 +1,6 @@
 # pmcenter
 
-[![build status](https://ci.appveyor.com/api/projects/status/gmbdiackw0563980?svg=true)](https://ci.appveyor.com/project/Elepover/pmcenter) [![CodeFactor](https://www.codefactor.io/repository/github/elepover/pmcenter/badge)](https://www.codefactor.io/repository/github/elepover/pmcenter) [![telegram channel](https://img.shields.io/badge/telegram-channel-blue.svg)](https://t.me/pmcenter_devlog) ![license](https://img.shields.io/github/license/elepover/pmcenter.svg) ![language rank](https://img.shields.io/github/languages/top/elepover/pmcenter.svg?color=brightgreen) ![repo size in bytes](https://img.shields.io/github/repo-size/elepover/pmcenter.svg) ![environment](https://img.shields.io/badge/dotnet-v2.1-blue.svg) ![last commit](https://img.shields.io/github/last-commit/elepover/pmcenter.svg) ![status](https://img.shields.io/badge/status-maintaining-success.svg)
+[![build status](https://ci.appveyor.com/api/projects/status/gmbdiackw0563980?svg=true)](https://ci.appveyor.com/project/Elepover/pmcenter) [![CodeFactor](https://www.codefactor.io/repository/github/elepover/pmcenter/badge)](https://www.codefactor.io/repository/github/elepover/pmcenter) [![telegram channel](https://img.shields.io/badge/telegram-channel-blue.svg)](https://t.me/pmcenter_devlog) ![license](https://img.shields.io/github/license/elepover/pmcenter.svg) ![language rank](https://img.shields.io/github/languages/top/elepover/pmcenter.svg?color=brightgreen) ![repo size in bytes](https://img.shields.io/github/repo-size/elepover/pmcenter.svg) ![environment](https://img.shields.io/badge/dotnet-v3.1-blueviolet.svg) ![last commit](https://img.shields.io/github/last-commit/elepover/pmcenter.svg) ![status](https://img.shields.io/badge/status-maintaining-success.svg)
 
 一个帮你处理私人聊天消息的 Telegram 机器人。
 
@@ -144,6 +144,7 @@ docker run -d -v $(pwd)/pmcenter.json:/opt/pmcenter/pmcenter.json --restart alwa
 
 | 项目 | 类型 | 用户可编辑 | 描述 |
 | :---- | :---- | :---- | ----:|
+| `Minify` | `Boolean`| ✓ | 是否精简化 pmcenter 配置 |
 | `APIKey` | `String` | ✓ | 你的 Telegram 机器人 API 密钥 |
 | `OwnerID` | `Long` | ✓ | 使用者的 Telegram ID |
 | `EnableCc` | `Boolean` | ✓ | 是否启用 Cc 功能 |
@@ -178,7 +179,13 @@ docker run -d -v $(pwd)/pmcenter.json:/opt/pmcenter/pmcenter.json --restart alwa
 | `UpdateChannel` | `String` | ✓ | 选择更新频道 |
 | `IgnoreKeyboardInterrupt` | `Boolean` | ✓ | 是否忽略 Ctrl-C 中断 |
 | `DisableNetCore3Check` | `Boolean` | ✓ | 启用以忽略 .NET Core 运行时版本检查 |
+| `DisableMessageLinkTip` | `Boolean` | ✓ | 启用以忽略消息链接提示 |
+| `AnalyzeStartupTime` | `Boolean` | ✓ | 启用以显示细化的启动时间分析 |
+| `SkipAPIKeyVerification` | `Boolean` | ✓ | 启用以跳过启动时的 API 密钥校验 |
+| `EnableActions` | `Boolean` | ✓ | 启动以启用消息操作面版 |
+| `CheckLangVersionMismatch` | `Boolean` | ✓ | 在启动时检测语言文件版本 |
 | `Statistics` | `Stats` | ✕ | 统计数据 |
+| `IgnoredLogModules` | `Array` | ✓ | 忽略的日志模块列表，这些模块将不会输出信息到控制台 |
 | `Socks5Proxies` | `Array` | ✓ | SOCKS5 代理列表 |
 | `BannedKeywords` | `Array` | ✓ | 屏蔽的关键字存储 |
 | `Banned` | `Array` | ✓ | 封禁用户存储 |
@@ -202,7 +209,8 @@ docker run -d -v $(pwd)/pmcenter.json:/opt/pmcenter/pmcenter.json --restart alwa
 - 目前 `/info` 命令的回复尚且无法更改。
 - 欢迎 Pull Requests.
 - 切换中文语言包，只需发送 `/switchlang https://raw.githubusercontent.com/Elepover/pmcenter/master/locales/pmcenter_locale_zh.json`
-- 在启用 `EnableMsgLink` 前请三思：虽然此功能允许您回复匿名转发消息及频道消息，但 pmcenter 的存储和内存占用将随消息量增长而增加，并将拖慢 pmcenter 操作配置文件时的速度。
+- ~~在启用 `EnableMsgLink` 前请三思：虽然此功能允许您回复匿名转发消息及频道消息，但 pmcenter 的存储和内存占用将随消息量增长而增加，并将拖慢 pmcenter 操作配置文件时的速度。~~
+- 现在消息链接在 pmcenter 正常功能中起着重要作用，我们不推荐将其禁用。
 
 #### 改变文件位置
 
@@ -249,6 +257,7 @@ pmcenter_lang: pmcenter 语言文件路径。
 | `/backup` | 所有者 | 备份配置文件 |
 | `/editconf <CONF>` | 所有者 | 手动保存 JSON 格式的配置及翻译 |
 | `/saveconf` | 所有者 | 手动保存配置及翻译，可用于更新后补齐缺少的配置项 |
+| `/autosave [off/时间间隔]` | 所有者 | 启用或停用自动保存，时间间隔单位为毫秒（1/1000 秒） |
 | `/readconf` | 所有者 | 在不重启机器人的情况下，重新载入配置 |
 | `/resetconf` | 所有者 | 重置配置文件 |
 | `/uptime` | 所有者 | 获取系统在线时间信息 |
@@ -303,6 +312,8 @@ pmcenter 正在准备转向 .NET Core 3.1，请参考 [issue #25](https://github
 ### 为什么我无法回复匿名转发的消息?
 
 请在 pmcenter 设置文件中启用 `EnableMsgLink` 选项。只有在 `EnableMsgLink` 选项启用后的转发的消息可以被回复。
+
+您无法回复在此选项处于禁用状态时被转发的消息，因为对应的消息链接不存在。
 
 如需更多信息，请参见[配置](#pmcenter-设置)部分。
 
