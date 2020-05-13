@@ -132,6 +132,7 @@ Steps:
 ### Use Docker
 
 The following snippet will help you download sample configurations for the pmcenter in docker to use.
+
 For `pmcenter-lazer`, use the `elep0ver/pmcenter:lazer` image
 
 ```bash
