@@ -10,6 +10,11 @@ namespace pmcenter
     {
         public static void GlobalErrorHandler(object sender, UnhandledExceptionEventArgs e)
         {
+            void L(string log)
+            {
+                if (string.IsNullOrEmpty(log)) return;
+                Console.Error.WriteLine(log);
+            }
             L("[!] Critical error occurred, falling back to basic logging.");
             L("pmcenter's global error handler has captured a critical error.");
             L("If you believe that this is a bug, feel free to open an issue with the details below on pmcenter's GitHub repository at:");
@@ -33,12 +38,6 @@ namespace pmcenter
                 L($"Unable to save error logs: {ex}");
             }
             Environment.Exit(Marshal.GetHRForException(exception));
-        }
-
-        private static void L(string log)
-        {
-            if (string.IsNullOrEmpty(log)) return;
-            Console.Error.WriteLine(log);
         }
     }
 }

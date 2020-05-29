@@ -134,6 +134,8 @@ Steps:
 The following snippet will help you download sample configurations for the pmcenter in docker to use.
 For `pmcenter-lazer`, use the `elep0ver/pmcenter:lazer` image
 
+For `pmcenter-lazer`, use the `elep0ver/pmcenter:lazer` image
+
 ```bash
 wget https://raw.githubusercontent.com/Elepover/pmcenter/master/pmcenter.json
 vim pmcenter.json # Edit the configurations (APIKey and OwnerID are required)
