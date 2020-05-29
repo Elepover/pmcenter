@@ -133,9 +133,9 @@ Steps:
 
 The following snippet will help you download sample configurations for the pmcenter in docker to use.
 
-For `pmcenter-lazer`, use the `elep0ver/pmcenter:lazer` image
+Use `elep0ver/pmcenter` image for the master branch.
 
-For `pmcenter-lazer`, use the `elep0ver/pmcenter:lazer` image
+For `pmcenter-lazer` branch, use the `elep0ver/pmcenter:lazer` image.
 
 ```bash
 wget https://raw.githubusercontent.com/Elepover/pmcenter/master/pmcenter.json
