@@ -137,6 +137,8 @@ dotnet pmcenter.dll
 
 对于 `pmcenter-lazer`，请使用 `elep0ver/pmcenter:lazer` 镜像。
 
+对于 `pmcenter-lazer`，请使用 `elep0ver/pmcenter:lazer` 镜像
+
 ```bash
 wget https://raw.githubusercontent.com/Elepover/pmcenter/master/pmcenter.json
 vim pmcenter.json # 编辑配置（APIKey 与 OwnerID 为必要的）
