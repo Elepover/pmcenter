@@ -30,7 +30,11 @@ namespace pmcenter
                     Log($"Recording message link: {forwarded.MessageId} -> {update.Message.MessageId} in {update.Message.From.Id}", "BOT");
                     Vars.CurrentConf.MessageLinks.Add(
                         new Conf.MessageIDLink(update.Message.From)
-                        { OwnerSessionMessageID = forwarded.MessageId, UserSessionMessageID = update.Message.MessageId, IsFromOwner = true }
+                        {
+                            OwnerSessionMessageID = forwarded.MessageId,
+                            UserSessionMessageID = update.Message.MessageId,
+                            IsFromOwner = true
+                        }
                     );
                     // Conf.SaveConf(false, true);
                 }
