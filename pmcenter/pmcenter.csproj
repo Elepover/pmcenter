@@ -4,6 +4,7 @@
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <StartupObject>pmcenter.Program</StartupObject>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
   
 

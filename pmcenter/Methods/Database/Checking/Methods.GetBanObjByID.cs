@@ -4,7 +4,7 @@ namespace pmcenter
 {
     public static partial class Methods
     {
-        public static BanObj GetBanObjByID(long uid)
+        public static BanObj? GetBanObjByID(long uid)
         {
             foreach (var banned in Vars.CurrentConf.Banned)
             {

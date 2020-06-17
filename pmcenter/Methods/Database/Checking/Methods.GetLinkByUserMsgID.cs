@@ -4,7 +4,7 @@ namespace pmcenter
 {
     public static partial class Methods
     {
-        public static MessageIDLink GetLinkByUserMsgID(long userSessionMsgId)
+        public static MessageIDLink? GetLinkByUserMsgID(long userSessionMsgId)
         {
             lock (Vars.CurrentConf.MessageLinks)
             {

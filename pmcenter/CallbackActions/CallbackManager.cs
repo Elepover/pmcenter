@@ -11,8 +11,7 @@ namespace pmcenter.CallbackActions
     {
         private readonly List<ICallbackAction> callbacks = new List<ICallbackAction>();
 
-        public CallbackManager()
-        { }
+        public CallbackManager() { }
 
         public ICallbackAction this[string prefix] => callbacks.FirstOrDefault(x => x.Name.StartsWith(prefix));
 
@@ -23,7 +22,7 @@ namespace pmcenter.CallbackActions
             callbacks.Add(action);
         }
 
-        public async Task<string> Execute(string actionName, User user, Message msg)
+        public async Task<string?> Execute(string actionName, User user, Message msg)
         {
             foreach (var action in callbacks)
             {

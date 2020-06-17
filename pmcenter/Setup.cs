@@ -17,11 +17,11 @@ namespace pmcenter
     public static class Setup
     {
         private static readonly Conf.ConfObj newConf = new Conf.ConfObj();
-        private static TelegramBotClient testBot;
+        private static TelegramBotClient? testBot;
         private static bool isUidReceived = false;
         private static long receivedUid = -1;
         private static string nickname = "";
-        private static void OnUpdate(object sender, UpdateEventArgs e)
+        private static void OnUpdate(object? sender, UpdateEventArgs e)
         {
             Say("Update received.");
             Say(".. Processing...");
@@ -30,7 +30,7 @@ namespace pmcenter
                 isUidReceived = true;
                 receivedUid = e.Update.Message.From.Id;
                 nickname = string.IsNullOrEmpty(e.Update.Message.From.LastName) ? e.Update.Message.From.FirstName : $"{e.Update.Message.From.FirstName} {e.Update.Message.From.LastName}";
-                testBot.StopReceiving();
+                testBot!.StopReceiving();
             }
         }
 
@@ -162,7 +162,7 @@ namespace pmcenter
             if (uid.ToLower() == "auto")
             {
                 Say(".. Preparing for automatic UID detection...");
-                testBot.OnUpdate += OnUpdate;
+                testBot!.OnUpdate += OnUpdate;
                 testBot.StartReceiving(new UpdateType[] { UpdateType.Message });
                 Say("Say something to your bot on Telegram. We'll detect your UID automatically.");
                 while (!isUidReceived)
@@ -199,7 +199,7 @@ namespace pmcenter
             SIn("=> Mute notifications? [y/N]: ");
             string muteNotif = Console.ReadLine();
             SIn(".. Saving...");
-            newConf.DisableNotifications = muteNotif.ToLower() != "y" ? true : false;
+            newConf.DisableNotifications = muteNotif.ToLower() != "y";
             Say(" Done!");
         }
         private static void SetAutoBanPrefs()
@@ -210,7 +210,7 @@ namespace pmcenter
             SIn("=> Automatically ban flooding users? [Y/n]: ");
             string autoBan = Console.ReadLine();
             SIn(".. Saving...");
-            newConf.AutoBan = autoBan.ToLower() != "n" ? true : false;
+            newConf.AutoBan = autoBan.ToLower() != "n";
             Say(" Done!");
         }
         private static void SetMessageLinks()
@@ -223,7 +223,7 @@ namespace pmcenter
             SIn("=> Enable message links? [Y/n]: ");
             string enableMsgLinks = Console.ReadLine();
             SIn(".. Saving...");
-            newConf.EnableMsgLink = enableMsgLinks.ToLower() != "n" ? true : false;
+            newConf.EnableMsgLink = enableMsgLinks.ToLower() != "n";
             Say(" Done!");
         }
     }
