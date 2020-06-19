@@ -18,21 +18,21 @@ namespace pmcenter
                                    LogLevel type = LogLevel.Info,
                                    [CallerFilePath] string filePath = "file?",
                                    [CallerMemberName] string callerName = "method?",
-                                   [CallerLineNumber] int lineNumber = 0)
+                                   [CallerLineNumber] int lineNumber = 0, bool fallback = false)
             {
-                if (Vars.CurrentConf?.IgnoredLogModules.Contains(module) == true) return;
-                if (Vars.CurrentConf?.LowPerformanceMode == true) return;
+                if (Vars.CurrentConf.IgnoredLogModules.Contains(module) == true) return;
+                if (Vars.CurrentConf.LowPerformanceMode == true) return;
 
                 var file = $"/{(Path.GetFileName((Environment.OSVersion.Platform == PlatformID.Unix) ? filePath.Replace(@"\", "/") : filePath))}/{callerName}()@L{lineNumber}";
-                var output = Vars.CurrentConf?.DisableTimeDisplay != true
+                var output = Vars.CurrentConf.DisableTimeDisplay != true
                            ? $"[{DateTime.Now.ToString("o", CultureInfo.InvariantCulture)}]"
                            : "";
-                output += $"[{module}{(Vars.CurrentConf?.AdvancedLogging == true ? file : "")}]";
+                output += $"[{module}{(Vars.CurrentConf.AdvancedLogging == true ? file : "")}]";
                 output += LogTable[type].Prefix;
                 output += text;
                 Console.BackgroundColor = ConsoleColor.Black;
                 Console.ForegroundColor = LogTable[type].Color;
-                LogTable[type].Func(output);
+                LogTable[type].Func?.Invoke(output);
                 Console.ForegroundColor = ConsoleColor.White;
             }
         }

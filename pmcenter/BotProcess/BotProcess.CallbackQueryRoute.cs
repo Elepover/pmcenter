@@ -10,7 +10,7 @@ namespace pmcenter
 {
     public static partial class BotProcess
     {
-        private static async Task CallbackQueryRoute(object sender, UpdateEventArgs e)
+        private static async Task CallbackQueryRoute(object? sender, UpdateEventArgs e)
         {
             var update = e.Update;
             if (update.CallbackQuery == null) return;

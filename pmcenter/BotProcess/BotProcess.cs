@@ -56,7 +56,7 @@ namespace pmcenter
             commandManager.RegisterCommand(new UptimeCommand());
         }
 
-        public static async void OnUpdate(object sender, UpdateEventArgs e)
+        public static async void OnUpdate(object? sender, UpdateEventArgs e)
         {
             try
             {

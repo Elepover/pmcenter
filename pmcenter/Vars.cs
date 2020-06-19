@@ -14,15 +14,16 @@ using System.IO;
 using System.Reflection;
 using System.Threading;
 using Telegram.Bot;
+using static pmcenter.Methods.Logging;
 
 namespace pmcenter
 {
     public static class Vars
     {
         public readonly static string AsciiArt = "                                     __           \n    ____  ____ ___  ________  ____  / /____  _____\n   / __ \\/ __ `__ \\/ ___/ _ \\/ __ \\/ __/ _ \\/ ___/\n  / /_/ / / / / / / /__/  __/ / / / /_/  __/ /    \n / .___/_/ /_/ /_/\\___/\\___/_/ /_/\\__/\\___/_/     \n/_/                                               ";
-        public readonly static Version AppVer = new Version("2.0.2.0");
+        public readonly static Version AppVer = new Version("2.0.3.15");
         public readonly static string AppExecutable = Assembly.GetExecutingAssembly().Location;
-        public readonly static string AppDirectory = Path.GetDirectoryName(AppExecutable);
+        public readonly static string AppDirectory = Path.GetDirectoryName(AppExecutable) ?? throw new DirectoryNotFoundException($"Unable to locate pmcenter's root directory, retrieved binary filename: {AppExecutable}");
         public static string ConfFile = Path.Combine(AppDirectory, "pmcenter.json");
         public static string LangFile = Path.Combine(AppDirectory, "pmcenter_locale.json");
         public readonly static string UpdateArchiveURL = "https://see.wtf/pmcenter-update";
@@ -57,25 +58,56 @@ namespace pmcenter
         public static bool IsShuttingDown = false;
         public static bool ServiceMode = true;
         public static Methods.UpdateHelper.UpdateLevel UpdateLevel;
-        public static Version UpdateVersion;
+        public static Version? UpdateVersion;
         public static Stopwatch StartSW = new Stopwatch();
         public static List<Conf.RateData> RateLimits = new List<Conf.RateData>();
         public static double TotalForwarded = 0;
-        public static Conf.ConfObj CurrentConf;
-        public static Lang.Language CurrentLang;
-        public static TelegramBotClient Bot;
+        public static Conf.ConfObj CurrentConf
+        {
+            get => currentConf ?? new Conf.ConfObj();
+            set => currentConf = value;
+        }
+        private static Conf.ConfObj? currentConf;
+        public static Lang.Language CurrentLang
+        {
+            get
+            {
+                if (currentLang is null)
+                {
+                    Log("Current language is null when accessed! This may be a potential bug, please report to the devs.", LogLevel.Warning);
+                    return new Lang.Language();
+                }
+                return currentLang;
+            }
+            set => currentLang = value;
+        }
+        private static Lang.Language? currentLang;
+        public static TelegramBotClient Bot
+        {
+            get
+            {
+                if (bot is null)
+                {
+                    Log("Bot is not initialized when accessed! Should be a bug, please report to the devs.", LogLevel.Error);
+                    throw new InvalidProgramException("Bot is not initialized");
+                }
+                return bot;
+            }
+            set => bot = value;
+        }
+        private static TelegramBotClient? bot;
 
         public static bool IsPerformanceTestExecuting = false;
         public static bool IsPerformanceTestEndRequested = false;
         public static double PerformanceScore = 0;
 
-        public static Thread BannedSweeper;
-        public static Thread ConfValidator;
+        public static Thread? BannedSweeper;
+        public static Thread? ConfValidator;
         public static Methods.ThreadStatus ConfResetTimerStatus = Methods.ThreadStatus.Stopped;
-        public static Thread RateLimiter;
+        public static Thread? RateLimiter;
         public static Methods.ThreadStatus RateLimiterStatus = Methods.ThreadStatus.Stopped;
-        public static Thread UpdateChecker;
+        public static Thread? UpdateChecker;
         public static Methods.ThreadStatus UpdateCheckerStatus = Methods.ThreadStatus.Stopped;
-        public static Thread SyncConf;
+        public static Thread? SyncConf;
     }
 }

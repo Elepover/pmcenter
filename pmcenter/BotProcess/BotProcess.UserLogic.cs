@@ -55,15 +55,14 @@ namespace pmcenter
                                                                           Vars.CurrentConf.DisableNotifications).ConfigureAwait(false);
             Vars.CurrentConf.Statistics.TotalForwardedToOwner += 1;
             // preprocess message link
-            var link = new Conf.MessageIDLink()
+            var link = new Conf.MessageIDLink(update.Message.From)
             {
                 OwnerSessionMessageID = forwardedMessage.MessageId,
                 UserSessionMessageID = update.Message.MessageId,
-                TGUser = update.Message.From,
                 IsFromOwner = false
             };
             // process actions
-            if (Vars.CurrentConf.EnableActions && Vars.CurrentConf.EnableMsgLink)
+            if (Vars.CurrentConf.EnableActions && Vars.CurrentConf.EnableMsgLink && (Vars.CurrentConf.ContChatTarget != update.Message.From.Id))
             {
                 var markup = new InlineKeyboardMarkup(CallbackProcess.GetAvailableButtons(update));
                 link.OwnerSessionActionMessageID = (await Vars.Bot.SendTextMessageAsync(
@@ -99,7 +98,7 @@ namespace pmcenter
                 // is anonymously forwarded
                 forwarderNotReal = true;
 
-            if (forwarderNotReal)
+            if (forwarderNotReal && (Vars.CurrentConf.ContChatTarget != update.Message.From.Id))
                 _ = await Vars.Bot.SendTextMessageAsync(Vars.CurrentConf.OwnerUID,
                                                     Vars.CurrentLang.Message_ForwarderNotReal
                                                         .Replace("$2", update.Message.From.Id.ToString())

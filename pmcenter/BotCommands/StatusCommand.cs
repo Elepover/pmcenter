@@ -21,7 +21,7 @@ namespace pmcenter.Commands
             var noActionRequired = true;
             if (Vars.UpdatePending)
             {
-                messageStr += Vars.CurrentLang.Message_SysStatus_PendingUpdate.Replace("$1", Vars.UpdateVersion.ToString()) + "\n";
+                messageStr += Vars.CurrentLang.Message_SysStatus_PendingUpdate.Replace("$1", Vars.UpdateVersion?.ToString() ?? "? (unknown)") + "\n";
                 messageStr += GetUpdateLevel(Vars.UpdateLevel) + "\n";
                 noActionRequired = false;
             }

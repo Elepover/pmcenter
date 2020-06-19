@@ -135,9 +135,7 @@ dotnet pmcenter.dll
 
 下方的命令将帮助您下载示例配置以供 docker 内的 pmcenter 使用。
 
-主分支使用 `elep0ver/pmcenter` 镜像
-
-而 `pmcenter-lazer` 分支使用 `elep0ver/pmcenter:lazer` 作为代替。
+对于 `pmcenter-lazer`，请使用 `elep0ver/pmcenter:lazer` 镜像
 
 ```bash
 wget https://raw.githubusercontent.com/Elepover/pmcenter/master/pmcenter.json

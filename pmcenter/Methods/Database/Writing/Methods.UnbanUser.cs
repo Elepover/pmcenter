@@ -6,7 +6,8 @@ namespace pmcenter
         {
             if (IsBanned(uid))
             {
-                _ = Vars.CurrentConf.Banned.Remove(GetBanObjByID(uid));
+                var banObj = GetBanObjByID(uid);
+                if (banObj != null) _ = Vars.CurrentConf.Banned.Remove(banObj);
             }
         }
     }

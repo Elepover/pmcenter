@@ -9,8 +9,8 @@ namespace pmcenter
             public class LogMode
             {
                 public ConsoleColor Color;
-                public string Prefix;
-                public Action<string> Func;
+                public string? Prefix;
+                public Action<string>? Func;
             }
         }
     }

@@ -1,3 +1,6 @@
+using Newtonsoft.Json;
+using System;
+using System.Text.Json.Serialization;
 using Telegram.Bot.Types;
 
 namespace pmcenter
@@ -6,15 +9,20 @@ namespace pmcenter
     {
         public class MessageIDLink
         {
-            public MessageIDLink()
+            public MessageIDLink(User user)
             {
-                TGUser = null;
+                tgUser = user;
                 OwnerSessionMessageID = -1;
                 OwnerSessionActionMessageID = -1;
                 UserSessionMessageID = -1;
                 IsFromOwner = false;
             }
-            public User TGUser { get; set; }
+            public User TGUser
+            {
+                get => tgUser ?? throw new ArgumentNullException("This message link is broken: TGUser is null");
+                set => tgUser = value;
+            }
+            private User? tgUser;
             /// <summary>
             /// Message ID of the message in owner's session
             /// </summary>

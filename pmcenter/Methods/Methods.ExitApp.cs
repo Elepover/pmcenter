@@ -29,11 +29,11 @@ namespace pmcenter
 
             Thread[] threads =
             {
-                Vars.ConfValidator,
-                Vars.UpdateChecker,
-                Vars.RateLimiter,
-                Vars.BannedSweeper,
-                Vars.SyncConf
+                Vars.ConfValidator!,
+                Vars.UpdateChecker!,
+                Vars.RateLimiter!,
+                Vars.BannedSweeper!,
+                Vars.SyncConf!
             };
 
             string[] threadNames =

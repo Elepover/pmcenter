@@ -6,7 +6,7 @@ namespace pmcenter
 {
     public static partial class BotProcess
     {
-        private static async Task MessageRoute(object sender, UpdateEventArgs e)
+        private static async Task MessageRoute(object? sender, UpdateEventArgs e)
         {
             var update = e.Update;
             if (update.Message == null) return;

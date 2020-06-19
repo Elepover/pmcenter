@@ -26,7 +26,8 @@ namespace pmcenter.Commands
                 if (IsOwnerRetractionAvailable(selectedMsgId))
                 {
                     var link = GetLinkByOwnerMsgID(selectedMsgId);
-                    await botClient.DeleteMessageAsync(link.TGUser.Id, link.UserSessionMessageID).ConfigureAwait(false);
+                    await botClient.DeleteMessageAsync(link!.TGUser.Id, link.UserSessionMessageID).ConfigureAwait(false);
+                    //                                     ^ no possible nullref: already checked above
                     Log($"Successfully retracted message from {GetComposedUsername(link.TGUser, true, true)}.", "BOT");
                 }
                 else
@@ -45,8 +46,8 @@ namespace pmcenter.Commands
                 if (IsUserRetractionAvailable(selectedMsgId))
                 {
                     var link = GetLinkByUserMsgID(selectedMsgId);
-                    await botClient.DeleteMessageAsync(Vars.CurrentConf.OwnerUID, link.OwnerSessionMessageID).ConfigureAwait(false);
-                    Log($"Successfully retracted message from owner.", "BOT");
+                    await botClient.DeleteMessageAsync(Vars.CurrentConf.OwnerUID, link!.OwnerSessionMessageID).ConfigureAwait(false);
+                    Log($"Successfully retracted message from owner.", "BOT"); //     ^ no possible nullref: already checked above
                     if (Vars.CurrentConf.EnableActions && link.OwnerSessionActionMessageID != -1)
                         await botClient.DeleteMessageAsync(Vars.CurrentConf.OwnerUID, link.OwnerSessionActionMessageID).ConfigureAwait(false);
                 }

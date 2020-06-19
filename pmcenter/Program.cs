@@ -34,6 +34,8 @@ namespace pmcenter
         public static void Main(string[] args)
         {
             Vars.StartSW.Start();
+            // hook global errors (final failsafe)
+            AppDomain.CurrentDomain.UnhandledException += GlobalErrorHandler;
             Console.WriteLine(Vars.AsciiArt);
             Log("Main delegator activated!", "DELEGATOR");
             Log($"Starting pmcenter, version {Vars.AppVer}. Channel: \"{Vars.CompileChannel}\"", "DELEGATOR");
@@ -50,9 +52,6 @@ namespace pmcenter
             {
                 Check("Initial checkpoint"); // mark initial checkpoint
                 Log("==> Running pre-start operations...");
-                // hook global errors (final failsafe)
-                AppDomain.CurrentDomain.UnhandledException += GlobalErrorHandler;
-                Log("Global error handler is armed and ready!");
                 // hook ctrl-c events
                 Console.CancelKeyPress += CtrlCHandler;
                 Check("Event handlers armed");
@@ -237,28 +236,6 @@ namespace pmcenter
                     Log($"Failed to send startup message to owner.\nDid you set the \"OwnerID\" key correctly? Otherwise pmcenter could not work properly.\nYou can try to use setup wizard to update/get your OwnerID automatically, just run \"dotnet pmcenter.dll --setup\".\n\nError details: {ex}", "BOT", LogLevel.Warning);
                 }
                 Check("Startup message sent");
-
-                try
-                {
-                    // check .net core runtime version
-                    var netCoreVersion = GetNetCoreVersion();
-                    if (!CheckNetCoreVersion(netCoreVersion) && !Vars.CurrentConf.DisableNetCore3Check)
-                    {
-                        _ = await Vars.Bot.SendTextMessageAsync(Vars.CurrentConf.OwnerUID,
-                                                                Vars.CurrentLang.Message_NetCore31Required
-                                                                    .Replace("$1", netCoreVersion.ToString()),
-                                                                ParseMode.Markdown,
-                                                                false,
-                                                                false).ConfigureAwait(false);
-                        Vars.CurrentConf.DisableNetCore3Check = true;
-                        _ = await SaveConf(false, true);
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Log($".NET Core runtime version warning wasn't delivered to the owner: {ex.Message}, did you set the \"OwnerID\" key correctly?", "BOT", LogLevel.Warning);
-                }
-                Check(".NET Core runtime version check complete");
 
                 // check language mismatch
                 if (Vars.CurrentLang.TargetVersion != Vars.AppVer.ToString())

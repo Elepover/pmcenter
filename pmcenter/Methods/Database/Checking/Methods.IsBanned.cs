@@ -17,7 +17,7 @@ namespace pmcenter
         public static bool IsBanned(Update update)
         {
             bool isBanned = true;
-            if (update.Type == UpdateType.CallbackQuery) isBanned = IsBanned(GetLinkByOwnerMsgID(update.CallbackQuery.Message.ReplyToMessage.MessageId).TGUser.Id);
+            if (update.Type == UpdateType.CallbackQuery) isBanned = IsBanned(GetLinkByOwnerMsgID(update.CallbackQuery.Message.ReplyToMessage.MessageId)?.TGUser.Id ?? -1);
             if (update.Type == UpdateType.Message) isBanned = IsBanned(update.Message.From.Id);
             return isBanned;
         }

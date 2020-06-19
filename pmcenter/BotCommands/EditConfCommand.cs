@@ -42,7 +42,7 @@ namespace pmcenter.Commands
                 else if (Vars.CurrentConf.ConfSyncInterval == 0)
                 {
                     Log("The ConfSync feature has been enabled via configurations. Restarting thread...", "BOT");
-                    while (Vars.SyncConf.IsAlive) Thread.Sleep(100);
+                    while (Vars.SyncConf?.IsAlive ?? false) Thread.Sleep(100);
                     Vars.SyncConf = new Thread(() => ThrSyncConf());
                     Vars.SyncConf.Start();
                 }
