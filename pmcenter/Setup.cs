@@ -181,7 +181,7 @@ namespace pmcenter
                 Say(".. Preparing for automatic UID detection...");
                 var receiverOptions = new ReceiverOptions
                 {
-                    AllowedUpdates = { }
+                    AllowedUpdates = new[] { UpdateType.Message }
                 };
                 testBot.StartReceiving(
                     HandleUpdateAsync,
