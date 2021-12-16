@@ -29,10 +29,9 @@ namespace pmcenter.Commands
                     _ = await botClient.SendTextMessageAsync(
                         update.Message.From.Id,
                         Vars.CurrentLang.Message_APIKeyChanged,
-                        ParseMode.Markdown,
-                        false,
-                        Vars.CurrentConf.DisableNotifications,
-                        update.Message.MessageId).ConfigureAwait(false);
+                        parseMode: ParseMode.Markdown,
+                        disableNotification: Vars.CurrentConf.DisableNotifications,
+                        replyToMessageId: update.Message.MessageId).ConfigureAwait(false);
                     Vars.RestartRequired = true;
                 }
                 if (temp.ConfSyncInterval == 0)
@@ -52,20 +51,18 @@ namespace pmcenter.Commands
                 _ = await botClient.SendTextMessageAsync(
                     update.Message.From.Id,
                     Vars.CurrentLang.Message_ConfigUpdated,
-                    ParseMode.Markdown,
-                    false,
-                    Vars.CurrentConf.DisableNotifications,
-                    update.Message.MessageId).ConfigureAwait(false);
+                    parseMode: ParseMode.Markdown,
+                    disableNotification: Vars.CurrentConf.DisableNotifications,
+                    replyToMessageId: update.Message.MessageId).ConfigureAwait(false);
             }
             catch (Exception ex)
             {
                 _ = await botClient.SendTextMessageAsync(
                     update.Message.From.Id,
                     Vars.CurrentLang.Message_GeneralFailure.Replace("$1", ex.Message),
-                    ParseMode.Markdown,
-                    false,
-                    Vars.CurrentConf.DisableNotifications,
-                    update.Message.MessageId).ConfigureAwait(false);
+                    parseMode: ParseMode.Markdown,
+                    disableNotification: Vars.CurrentConf.DisableNotifications,
+                    replyToMessageId: update.Message.MessageId).ConfigureAwait(false);
             }
             return true;
         }

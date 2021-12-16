@@ -43,10 +43,9 @@ namespace pmcenter.CallbackActions
                 {
                     var oneLineKeyboard = new List<InlineKeyboardButton>
                     {
-                        new InlineKeyboardButton()
+                        new InlineKeyboardButton(action.ButtonName)
                         {
                             CallbackData = action.Name,
-                            Text = action.ButtonName
                         }
                     };
                     result.Add(oneLineKeyboard);

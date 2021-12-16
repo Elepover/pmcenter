@@ -6,9 +6,8 @@ namespace pmcenter
 {
     public static partial class BotProcess
     {
-        private static async Task MessageRoute(object sender, UpdateEventArgs e)
+        private static async Task MessageRoute(Telegram.Bot.Types.Update update)
         {
-            var update = e.Update;
             if (update.Message == null) return;
             if (update.Message.From.IsBot) return;
             if (update.Message.Chat.Type != ChatType.Private) return;

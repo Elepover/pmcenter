@@ -19,10 +19,9 @@ namespace pmcenter.Commands
                                               .Replace("$2", Vars.CurrentConf.Statistics.TotalForwardedToOwner.ToString())
                                               .Replace("$3", Vars.CurrentConf.Statistics.TotalForwardedFromOwner.ToString())
                                               .Replace("$4", Vars.CurrentConf.Statistics.TotalCommandsReceived.ToString()),
-                ParseMode.Markdown,
-                false,
-                Vars.CurrentConf.DisableNotifications,
-                update.Message.MessageId).ConfigureAwait(false);
+                parseMode: ParseMode.Markdown,
+                disableNotification: Vars.CurrentConf.DisableNotifications,
+                replyToMessageId: update.Message.MessageId).ConfigureAwait(false);
             return true;
         }
     }

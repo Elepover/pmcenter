@@ -18,10 +18,9 @@ namespace pmcenter.Commands
             Vars.CurrentConf.ContChatTarget = -1;
             _ = await botClient.SendTextMessageAsync(update.Message.From.Id,
                 Vars.CurrentLang.Message_ContinuedChatDisabled,
-                ParseMode.Markdown,
-                false,
-                Vars.CurrentConf.DisableNotifications,
-                update.Message.MessageId).ConfigureAwait(false);
+                parseMode: ParseMode.Markdown,
+                disableNotification: Vars.CurrentConf.DisableNotifications,
+                replyToMessageId: update.Message.MessageId).ConfigureAwait(false);
             return true;
         }
     }

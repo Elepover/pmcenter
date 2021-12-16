@@ -21,10 +21,9 @@ namespace pmcenter.Commands
                 _ = await botClient.SendTextMessageAsync(
                     update.Message.From.Id,
                     Vars.CurrentLang.Message_CurrentConf.Replace("$1", text),
-                    ParseMode.Markdown,
-                    false,
-                    Vars.CurrentConf.DisableNotifications,
-                    update.Message.MessageId).ConfigureAwait(false);
+                    parseMode: ParseMode.Markdown,
+                    disableNotification: Vars.CurrentConf.DisableNotifications,
+                    replyToMessageId: update.Message.MessageId).ConfigureAwait(false);
                     return true;
             }
             else
@@ -32,19 +31,17 @@ namespace pmcenter.Commands
                 _ = await botClient.SendTextMessageAsync(
                     update.Message.From.Id,
                     Vars.CurrentLang.Message_CurrentConf.Replace("$1", texts[0]),
-                    ParseMode.Markdown,
-                    false,
-                    Vars.CurrentConf.DisableNotifications,
-                    update.Message.MessageId).ConfigureAwait(false);
+                    parseMode: ParseMode.Markdown,
+                    disableNotification: Vars.CurrentConf.DisableNotifications,
+                    replyToMessageId: update.Message.MessageId).ConfigureAwait(false);
                 for (int i = 1; i < texts.Count; i++)
                 {
                     _ = await botClient.SendTextMessageAsync(
                         update.Message.From.Id,
                         ($"`{texts[i]}`"),
-                        ParseMode.Markdown,
-                        false,
-                        Vars.CurrentConf.DisableNotifications,
-                        update.Message.MessageId).ConfigureAwait(false);
+                        parseMode: ParseMode.Markdown,
+                        disableNotification: Vars.CurrentConf.DisableNotifications,
+                        replyToMessageId: update.Message.MessageId).ConfigureAwait(false);
                 }
                 return true;
             }

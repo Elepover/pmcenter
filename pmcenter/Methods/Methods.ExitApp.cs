@@ -12,7 +12,7 @@ namespace pmcenter
         {
             Log("Attempting to exit gracefully...");
             Log("Stopping bot message receiving...");
-            Vars.Bot.StopReceiving();
+            Vars.cts.Cancel();
             Log("Waiting for background workers to exit (timeout: 10s)...");
             var sw = new Stopwatch();
             sw.Start();

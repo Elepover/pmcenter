@@ -64,7 +64,7 @@ namespace pmcenter
         public static Conf.ConfObj CurrentConf;
         public static Lang.Language CurrentLang;
         public static TelegramBotClient Bot;
-
+        public static CancellationTokenSource cts = new CancellationTokenSource();
         public static bool IsPerformanceTestExecuting = false;
         public static bool IsPerformanceTestEndRequested = false;
         public static double PerformanceScore = 0;

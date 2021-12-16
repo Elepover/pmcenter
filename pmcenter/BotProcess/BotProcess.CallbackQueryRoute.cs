@@ -1,7 +1,7 @@
 ﻿using pmcenter.CallbackActions;
 using System;
 using System.Threading.Tasks;
-using Telegram.Bot.Args;
+using Telegram.Bot;
 using Telegram.Bot.Types.ReplyMarkups;
 using static pmcenter.Methods;
 using static pmcenter.Methods.Logging;
@@ -10,9 +10,8 @@ namespace pmcenter
 {
     public static partial class BotProcess
     {
-        private static async Task CallbackQueryRoute(object sender, UpdateEventArgs e)
+        private static async Task CallbackQueryRoute(Telegram.Bot.Types.Update update)
         {
-            var update = e.Update;
             if (update.CallbackQuery == null) return;
             if (update.CallbackQuery.From.IsBot) return;
             try

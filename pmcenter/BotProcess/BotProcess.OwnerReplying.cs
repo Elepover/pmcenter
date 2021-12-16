@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using Telegram.Bot;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
 using static pmcenter.Methods.Logging;
@@ -22,10 +23,9 @@ namespace pmcenter
                 _ = await Vars.Bot.SendTextMessageAsync(
                     update.Message.From.Id,
                     Vars.CurrentLang.Message_CommandNotReplyingValidMessage,
-                    ParseMode.Markdown,
-                    false,
-                    Vars.CurrentConf.DisableNotifications,
-                    update.Message.MessageId).ConfigureAwait(false);
+                    parseMode: ParseMode.Markdown,
+                    disableNotification: Vars.CurrentConf.DisableNotifications,
+                    replyToMessageId: update.Message.MessageId).ConfigureAwait(false);
                 // The message is forwarded anonymously
                 if (!string.IsNullOrEmpty(update.Message.ReplyToMessage.ForwardSenderName) && !Vars.CurrentConf.DisableMessageLinkTip)
                 {
@@ -33,9 +33,8 @@ namespace pmcenter
                         update.Message.From.Id,
                         Vars.CurrentLang.Message_MsgLinkTip,
                         ParseMode.Markdown,
-                        false,
-                        Vars.CurrentConf.DisableNotifications,
-                        update.Message.MessageId).ConfigureAwait(false);
+                        disableNotification: Vars.CurrentConf.DisableNotifications,
+                        replyToMessageId: update.Message.MessageId).ConfigureAwait(false);
                     Vars.CurrentConf.DisableMessageLinkTip = true;
                 }
                 return;
@@ -68,7 +67,7 @@ namespace pmcenter
             {
                 var replyToMessage = Vars.CurrentLang.Message_ReplySuccessful;
                 replyToMessage = replyToMessage.Replace("$1", $"[{Methods.GetComposedUsername(update.Message.ReplyToMessage.ForwardFrom)}](tg://user?id={update.Message.ReplyToMessage.ForwardFrom.Id})");
-                _ = await Vars.Bot.SendTextMessageAsync(update.Message.From.Id, replyToMessage, ParseMode.Markdown, false, false, update.Message.MessageId).ConfigureAwait(false);
+                _ = await Vars.Bot.SendTextMessageAsync(update.Message.From.Id, replyToMessage, ParseMode.Markdown, replyToMessageId: update.Message.MessageId).ConfigureAwait(false);
             }
             Log($"Successfully passed owner's reply to {Methods.GetComposedUsername(update.Message.ReplyToMessage.ForwardFrom, true, true)}", "BOT");
         }

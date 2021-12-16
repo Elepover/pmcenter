@@ -6,7 +6,10 @@
 
 using pmcenter.Commands;
 using System;
-using Telegram.Bot.Args;
+using System.Threading;
+using System.Threading.Tasks;
+using Telegram.Bot;
+using Telegram.Bot.Exceptions;
 using Telegram.Bot.Types.Enums;
 using static pmcenter.Methods.Logging;
 
@@ -56,21 +59,20 @@ namespace pmcenter
             commandManager.RegisterCommand(new UptimeCommand());
         }
 
-        public static async void OnUpdate(object sender, UpdateEventArgs e)
+        public static async Task HandleUpdateAsync(ITelegramBotClient botClient, Telegram.Bot.Types.Update update, CancellationToken cancellationToken)
         {
             try
             {
-                if (e == null) return;
-                if (Vars.CurrentConf.DetailedMsgLogging && e.Update.Type == UpdateType.Message)
-                    Log($"OnUpdate() triggered: UpdType: {e.Update.Type}, UpdID: {e.Update.Id}, ChatId: {e.Update.Message.Chat.Id}, Username: {e.Update.Message.Chat.Username}, FromID: {e.Update.Message.From.Id}, FromUsername: {e.Update.Message.From.Username}", "BOT-DETAILED", LogLevel.Info);
-                
-                switch (e.Update.Type)
+                if (Vars.CurrentConf.DetailedMsgLogging && update.Type == UpdateType.Message)
+                    Log($"OnUpdate() triggered: UpdType: {update.Type}, UpdID: {update.Id}, ChatId: {update.Message.Chat.Id}, Username: {update.Message.Chat.Username}, FromID: {update.Message.From.Id}, FromUsername: {update.Message.From.Username}", "BOT-DETAILED", LogLevel.Info);
+
+                switch (update.Type)
                 {
-                    case UpdateType.Message: await MessageRoute(sender, e); break;
-                    case UpdateType.CallbackQuery: await CallbackQueryRoute(sender, e); break;
+                    case UpdateType.Message: await MessageRoute(update); break;
+                    case UpdateType.CallbackQuery: await CallbackQueryRoute(update); break;
                     default:
                         if (Vars.CurrentConf.DetailedMsgLogging)
-                            Log($"Ditching unknown update type ({e.Update.Type})...", "BOT-DETAILED");
+                            Log($"Ditching unknown update type ({update.Type})...", "BOT-DETAILED");
                         return;
                 }
             }
@@ -83,9 +85,7 @@ namespace pmcenter
                     {
                         _ = await Vars.Bot.SendTextMessageAsync(Vars.CurrentConf.OwnerUID,
                                                         Vars.CurrentLang.Message_GeneralFailure.Replace("$1", ex.ToString()),
-                                                        ParseMode.Default,
-                                                        false,
-                                                        Vars.CurrentConf.DisableNotifications).ConfigureAwait(false);
+                                                        disableNotification: Vars.CurrentConf.DisableNotifications).ConfigureAwait(false);
                     }
                     catch (Exception iEx)
                     {
@@ -93,6 +93,19 @@ namespace pmcenter
                     }
                 }
             }
+        }
+
+        public static Task HandleErrorAsync(ITelegramBotClient botClient, Exception exception, CancellationToken cancellationToken)
+        {
+            var ErrorMessage = exception switch
+            {
+                ApiRequestException apiRequestException
+                    => $"Telegram API Error:\n[{apiRequestException.ErrorCode}]\n{apiRequestException.Message}",
+                _ => exception.ToString()
+            };
+
+            Console.WriteLine(ErrorMessage);
+            return Task.CompletedTask;
         }
     }
 }

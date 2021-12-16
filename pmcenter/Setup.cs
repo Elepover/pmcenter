@@ -9,7 +9,8 @@ using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using Telegram.Bot;
-using Telegram.Bot.Args;
+using Telegram.Bot.Exceptions;
+using Telegram.Bot.Extensions.Polling;
 using Telegram.Bot.Types.Enums;
 
 namespace pmcenter
@@ -18,20 +19,36 @@ namespace pmcenter
     {
         private static readonly Conf.ConfObj newConf = new Conf.ConfObj();
         private static TelegramBotClient testBot;
+        private static CancellationTokenSource cts = new CancellationTokenSource();
         private static bool isUidReceived = false;
         private static long receivedUid = -1;
         private static string nickname = "";
-        private static void OnUpdate(object sender, UpdateEventArgs e)
+        private static Task HandleUpdateAsync(ITelegramBotClient botClient, Telegram.Bot.Types.Update update, CancellationToken cancellationToken)
         {
             Say("Update received.");
             Say(".. Processing...");
-            if (!isUidReceived)
+            if (update.Type == UpdateType.Message && update.Message.From.Id == update.Message.Chat.Id && !isUidReceived)
             {
                 isUidReceived = true;
-                receivedUid = e.Update.Message.From.Id;
-                nickname = string.IsNullOrEmpty(e.Update.Message.From.LastName) ? e.Update.Message.From.FirstName : $"{e.Update.Message.From.FirstName} {e.Update.Message.From.LastName}";
-                testBot.StopReceiving();
+                Say("" + update.Message.From.Id);
+                receivedUid = update.Message.From.Id;
+                nickname = string.IsNullOrEmpty(update.Message.From.LastName) ? update.Message.From.FirstName : $"{update.Message.From.FirstName} {update.Message.From.LastName}";
+                cts.Cancel();
             }
+            return Task.CompletedTask;
+        }
+
+        private static Task HandleErrorAsync(ITelegramBotClient botClient, Exception exception, CancellationToken cancellationToken)
+        {
+            var ErrorMessage = exception switch
+            {
+                ApiRequestException apiRequestException
+                    => $"Telegram API Error:\n[{apiRequestException.ErrorCode}]\n{apiRequestException.Message}",
+                _ => exception.ToString()
+            };
+
+            Console.WriteLine(ErrorMessage);
+            return Task.CompletedTask;
         }
 
         private static void Say(string input)
@@ -106,7 +123,7 @@ namespace pmcenter
                 Vars.CurrentLang = new Lang.Language();
                 _ = await Lang.SaveLang().ConfigureAwait(false);
                 Say(" Done!");
-                
+
                 Say(">> Setup complete!");
                 Say("   Thanks for using pmcenter!");
                 Say("   Check out pmcenter's GitHub repository at:");
@@ -162,8 +179,16 @@ namespace pmcenter
             if (uid.ToLower() == "auto")
             {
                 Say(".. Preparing for automatic UID detection...");
-                testBot.OnUpdate += OnUpdate;
-                testBot.StartReceiving(new UpdateType[] { UpdateType.Message });
+                var receiverOptions = new ReceiverOptions
+                {
+                    AllowedUpdates = { }
+                };
+                testBot.StartReceiving(
+                    HandleUpdateAsync,
+                    HandleErrorAsync,
+                    receiverOptions,
+                    cts.Token
+                );
                 Say("Say something to your bot on Telegram. We'll detect your UID automatically.");
                 while (!isUidReceived)
                 {

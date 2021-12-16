@@ -1,5 +1,6 @@
 using System;
 using System.Threading;
+using Telegram.Bot;
 using Telegram.Bot.Types.Enums;
 using static pmcenter.Methods.Logging;
 using static pmcenter.Methods.UpdateHelper;
@@ -31,9 +32,8 @@ namespace pmcenter
                             .Replace("$3", GetUpdateLevel(latest.UpdateLevel));
                         _ = await Vars.Bot.SendTextMessageAsync(Vars.CurrentConf.OwnerUID,
                                                             updateString,
-                                                            ParseMode.Markdown,
-                                                            false,
-                                                            isNotificationDisabled).ConfigureAwait(false);
+                                                            parseMode: ParseMode.Markdown,
+                                                            disableNotification: isNotificationDisabled).ConfigureAwait(false);
                         return; // Since this thread wouldn't be useful any longer, exit.
                     }
                     else

@@ -29,18 +29,17 @@ namespace pmcenter.Commands
                     // \ update available! /
                     _ = await botClient.SendTextMessageAsync(
                         update.Message.From.Id,
-                        updateString, ParseMode.Markdown,
-                        false,
-                        Vars.CurrentConf.DisableNotifications,
-                        update.Message.MessageId).ConfigureAwait(false);
+                        updateString,
+                        parseMode: ParseMode.Markdown,
+                        disableNotification: Vars.CurrentConf.DisableNotifications,
+                        replyToMessageId: update.Message.MessageId).ConfigureAwait(false);
                     // \ updating! /
                     _ = await botClient.SendTextMessageAsync(
                         update.Message.From.Id,
                         Vars.CurrentLang.Message_UpdateProcessing,
-                        ParseMode.Markdown,
-                        false,
-                        Vars.CurrentConf.DisableNotifications,
-                        update.Message.MessageId).ConfigureAwait(false);
+                        parseMode: ParseMode.Markdown,
+                        disableNotification: Vars.CurrentConf.DisableNotifications,
+                        replyToMessageId: update.Message.MessageId).ConfigureAwait(false);
                     // download compiled package
                     await DownloadUpdatesAsync(latest, currentLocalizedIndex).ConfigureAwait(false);
                     // update languages
@@ -50,10 +49,9 @@ namespace pmcenter.Commands
                     _ = await botClient.SendTextMessageAsync(
                         update.Message.From.Id,
                         Vars.CurrentLang.Message_UpdateFinalizing,
-                        ParseMode.Markdown,
-                        false,
-                        Vars.CurrentConf.DisableNotifications,
-                        update.Message.MessageId).ConfigureAwait(false);
+                        parseMode: ParseMode.Markdown,
+                        disableNotification: Vars.CurrentConf.DisableNotifications,
+                        replyToMessageId: update.Message.MessageId).ConfigureAwait(false);
                     Log("Exiting program... (Let the daemon do the restart job)", "BOT");
                     await ExitApp(0);
                     return true;
@@ -67,10 +65,9 @@ namespace pmcenter.Commands
                             .Replace("$1", latest.Latest)
                             .Replace("$2", Vars.AppVer.ToString())
                             .Replace("$3", latest.UpdateCollection[currentLocalizedIndex].Details),
-                        ParseMode.Markdown,
-                        false,
-                        Vars.CurrentConf.DisableNotifications,
-                        update.Message.MessageId).ConfigureAwait(false);
+                        parseMode: ParseMode.Markdown,
+                        disableNotification: Vars.CurrentConf.DisableNotifications,
+                        replyToMessageId: update.Message.MessageId).ConfigureAwait(false);
                     return true;
                 }
             }
@@ -80,10 +77,9 @@ namespace pmcenter.Commands
                 _ = await botClient.SendTextMessageAsync(
                     update.Message.From.Id,
                     errorString,
-                    ParseMode.Markdown,
-                    false,
-                    Vars.CurrentConf.DisableNotifications,
-                    update.Message.MessageId).ConfigureAwait(false);
+                    parseMode: ParseMode.Markdown,
+                    disableNotification: Vars.CurrentConf.DisableNotifications,
+                    replyToMessageId: update.Message.MessageId).ConfigureAwait(false);
                 return true;
             }
         }

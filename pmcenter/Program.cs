@@ -8,9 +8,11 @@ using MihaZupan;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using Telegram.Bot;
+using Telegram.Bot.Extensions.Polling;
 using Telegram.Bot.Types.Enums;
 using static pmcenter.Conf;
 using static pmcenter.EventHandlers;
@@ -99,7 +101,7 @@ namespace pmcenter
 
                 Log($"==> Using configurations file: {Vars.ConfFile}");
                 Log($"==> Using language file: {Vars.LangFile}");
-                
+
                 Log("==> Running start operations...");
                 Log("==> Initializing module - CONF"); // BY DEFAULT CONF & LANG ARE NULL! PROCEED BEFORE DOING ANYTHING. <- well anyway we have default values
                 await InitConf().ConfigureAwait(false);
@@ -191,8 +193,11 @@ namespace pmcenter
                     {
                         ResolveHostnamesLocally = Vars.CurrentConf.ResolveHostnamesLocally
                     };
+                    var httpClient = new HttpClient(
+                        new HttpClientHandler { Proxy = proxy, UseProxy = true }
+                    );
                     Log("SOCKS5 proxy is enabled.");
-                    Vars.Bot = new TelegramBotClient(Vars.CurrentConf.APIKey, proxy);
+                    Vars.Bot = new TelegramBotClient(Vars.CurrentConf.APIKey, httpClient);
                 }
                 else
                 {
@@ -208,13 +213,17 @@ namespace pmcenter
                 Check("API Key test passed");
 
                 Log("Hooking message processors...");
-                Vars.Bot.OnUpdate += BotProcess.OnUpdate;
                 Log("Starting receiving...");
-                Vars.Bot.StartReceiving(new[]
+                var receiverOptions = new ReceiverOptions
                 {
-                    UpdateType.Message,
-                    UpdateType.CallbackQuery
-                });
+                    AllowedUpdates = { }
+                };
+                Vars.Bot.StartReceiving(
+                    BotProcess.HandleUpdateAsync,
+                    BotProcess.HandleErrorAsync,
+                    receiverOptions,
+                    Vars.cts.Token
+                );
                 Check("Update receiving started");
 
                 Log("==> Startup complete!");
@@ -227,9 +236,7 @@ namespace pmcenter
                         _ = await Vars.Bot.SendTextMessageAsync(Vars.CurrentConf.OwnerUID,
                                                             Vars.CurrentLang.Message_BotStarted
                                                                 .Replace("$1", $"{Math.Round(Vars.StartSW.Elapsed.TotalSeconds, 2)}s"),
-                                                            ParseMode.Markdown,
-                                                            false,
-                                                            false).ConfigureAwait(false);
+                                                            ParseMode.Markdown).ConfigureAwait(false);
                     }
                 }
                 catch (Exception ex)
@@ -247,9 +254,7 @@ namespace pmcenter
                         _ = await Vars.Bot.SendTextMessageAsync(Vars.CurrentConf.OwnerUID,
                                                                 Vars.CurrentLang.Message_NetCore31Required
                                                                     .Replace("$1", netCoreVersion.ToString()),
-                                                                ParseMode.Markdown,
-                                                                false,
-                                                                false).ConfigureAwait(false);
+                                                                ParseMode.Markdown).ConfigureAwait(false);
                         Vars.CurrentConf.DisableNetCore3Check = true;
                         _ = await SaveConf(false, true);
                     }
@@ -269,9 +274,7 @@ namespace pmcenter
                                                        Vars.CurrentLang.Message_LangVerMismatch
                                                            .Replace("$1", Vars.CurrentLang.TargetVersion)
                                                            .Replace("$2", Vars.AppVer.ToString()),
-                                                       ParseMode.Markdown,
-                                                       false,
-                                                       false).ConfigureAwait(false);
+                                                       ParseMode.Markdown).ConfigureAwait(false);
                 }
                 Check("Language version mismatch checked");
                 Check("Complete");

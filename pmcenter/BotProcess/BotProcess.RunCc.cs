@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Telegram.Bot;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
 using static pmcenter.Methods.Logging;
@@ -29,9 +30,8 @@ namespace pmcenter
                                                                 .Replace("$2", update.Message.From.Id.ToString())
                                                                 .Replace("$1", "[" + update.Message.From.FirstName + " " + update.Message.From.LastName + "](tg://user?id=" + update.Message.From.Id + ")"),
                                                             ParseMode.Markdown,
-                                                            false,
-                                                            Vars.CurrentConf.DisableNotifications,
-                                                            forwardedMessageCc.MessageId).ConfigureAwait(false);
+                                                            disableNotification: Vars.CurrentConf.DisableNotifications,
+                                                            replyToMessageId: forwardedMessageCc.MessageId).ConfigureAwait(false);
                     }
                     if (update.Message.ForwardFrom != null && update.Message.ForwardFromChat == null)
                     {
@@ -44,9 +44,8 @@ namespace pmcenter
                                                                     .Replace("$2", update.Message.From.Id.ToString())
                                                                     .Replace("$1", "[" + update.Message.From.FirstName + " " + update.Message.From.LastName + "](tg://user?id=" + update.Message.From.Id + ")"),
                                                                 ParseMode.Markdown,
-                                                                false,
-                                                                Vars.CurrentConf.DisableNotifications,
-                                                                forwardedMessageCc.MessageId).ConfigureAwait(false);
+                                                                disableNotification: Vars.CurrentConf.DisableNotifications,
+                                                                replyToMessageId: forwardedMessageCc.MessageId).ConfigureAwait(false);
                         }
                     }
                 }
