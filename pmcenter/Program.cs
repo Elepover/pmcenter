@@ -216,7 +216,8 @@ namespace pmcenter
                 Log("Starting receiving...");
                 var receiverOptions = new ReceiverOptions
                 {
-                    AllowedUpdates = new[] { UpdateType.Message, UpdateType.CallbackQuery }
+                    AllowedUpdates = new[] { UpdateType.Message, UpdateType.CallbackQuery },
+                    ThrowPendingUpdates = true
                 };
                 Vars.Bot.StartReceiving(
                     BotProcess.HandleUpdateAsync,
